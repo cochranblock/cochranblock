@@ -44,6 +44,23 @@ cd cochranblock-stack
 git add -A && git commit -m "Sync from workspace" && git push
 ```
 
+## Optional: Automated setup via API
+
+No browser or `gh` CLI needed. Use tokens:
+
+```bash
+export GITHUB_TOKEN=ghp_xxx   # github.com → Settings → Developer settings → PAT (repo scope)
+export RAILWAY_TOKEN=xxx      # railway.app → Account → Tokens
+./scripts/setup-via-api.sh
+```
+
+This script will:
+1. Create `cochranblock/cochranblock-stack` and `cochranblock/rogue-repo` via GitHub API
+2. Push the monorepo
+3. Create a Railway project linked to the repo via Railway GraphQL API
+
+`jq` optional (nicer output).
+
 ## Optional: GitHub CLI
 
 If you install `gh` (`brew install gh`) and run `gh auth login`, you can create repos from the CLI:
