@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Rust Portfolio Web Server — Comprehensive Architecture Guide
 ## For Michael Cochran | Single-Binary Portfolio + Dynamic DNS
 

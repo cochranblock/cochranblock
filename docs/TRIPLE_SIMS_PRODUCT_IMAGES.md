@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # TRIPLE SIMS: Product Images (cochranblock.org)
 
 **Target:** Product card images — Rogue Repo, Ronin Sites, Kova  

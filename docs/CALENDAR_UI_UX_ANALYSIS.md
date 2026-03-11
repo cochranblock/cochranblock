@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Calendar Integration — UI/UX Analysis
 
 **Date:** 2026-02-25  

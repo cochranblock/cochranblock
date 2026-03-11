@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # UI/UX Simulation — Legendary Team Analysis
 
 **Date:** 2026-02-25  

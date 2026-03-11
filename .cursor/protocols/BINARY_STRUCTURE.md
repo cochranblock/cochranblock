@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Binary Structure — Two Binaries Per Project
 
 **Rule:** Every project has exactly two binaries. AI iterates on the test binary; the release binary is a stripped product-only build.

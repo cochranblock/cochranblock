@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # User Story Analysis Simulation — Booking Page
 
 **Simulation date:** 2026-02-26  

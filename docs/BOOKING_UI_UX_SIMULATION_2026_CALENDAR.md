@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # UI/UX Simulation — Google Calendar Clone (2026)
 
 **Analysis date:** 2026-02-25  

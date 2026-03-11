@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # User Story Analysis — Booking Calendar (Braintrust Context)
 
 ## Context

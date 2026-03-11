@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # UI/UX Audit — Michael Cochran Consultation Business
 
 **Audit date:** 2026-02-25  

@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Getting Online — Caddy-like Auto HTTPS
 
 The portfolio uses **lers** (Rust ACME/Let's Encrypt) with **Cloudflare DNS-01** for automatic HTTPS. No HTTP challenge needed — works behind NAT, firewalls, or before the server is reachable. **ACME is always enabled.** No escape hatch.

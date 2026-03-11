@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # THROW THE BOOK: Three Sequential TRIPLE SIMS — Desktop
 
 **Viewport:** ≥769px  

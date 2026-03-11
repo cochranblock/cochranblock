@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Triple Sims: CochranBlock (cochranblock.org)
 
 **Target:** CochranBlock business site — Rust SaaS + consulting  

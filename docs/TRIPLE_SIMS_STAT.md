@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # TRIPLE SIMS Test Coverage Stat
 
 **Method:** Sequential analysis (User Story → Feature Gap → UI/UX)  

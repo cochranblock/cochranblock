@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Feature Gap Analysis — Legendary Team Simulation
 
 **Context:** Cyber/systems consulting portfolio. Theme: Guardians of the Galaxy × Dragon × Space (cosmic, cyber-teal, starfield).

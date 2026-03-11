@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # TRIPLE SIMS: Product Page External Links (cochranblock.org)
 
 **Target:** Products page — Rogue Repo → roguerepo.io, Ronin Sites → ronin-sites.pro  

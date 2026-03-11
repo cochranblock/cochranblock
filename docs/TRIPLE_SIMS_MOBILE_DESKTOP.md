@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # TRIPLE SIMS: Mobile & Desktop Viewports
 
 **Target:** cochranblock.org — mobile (≤768px) and desktop (≥769px)  

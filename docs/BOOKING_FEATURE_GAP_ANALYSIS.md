@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Feature Gap Analysis — Booking Page
 
 **Analysis date:** 2026-02-26  

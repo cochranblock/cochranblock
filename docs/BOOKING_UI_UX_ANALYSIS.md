@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # UI/UX Analysis Simulation — Booking Page (Calendar Layout)
 
 **Based on:** Screenshot capture of /book page (calendar + time selector)  

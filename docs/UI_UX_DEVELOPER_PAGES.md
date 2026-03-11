@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # UI/UX Analysis — Developer Pages (Source, Executive Summary, Cursor Rules)
 
 **Audit date:** 2026-02-26  

@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
+<!-- Unlicense — cochranblock.org -->
 # Triple Sims: AI Orchestration Page
 
 **Target:** `/ai-orchestration` — Developer-facing page explaining AI-assisted development approach  
