@@ -9,8 +9,8 @@ REPO_ROOT="$(pwd)"
 
 [ -f .env ] && set -a && source .env && set +a
 
-export PORTFOLIO_PORT=443
-export PORTFOLIO_BIND=0.0.0.0
+export COCHRANBLOCK_PORT=443
+export COCHRANBLOCK_BIND=0.0.0.0
 
 pkill -f cochranblock 2>/dev/null && echo "Stopped cochranblock" || true
 sleep 1

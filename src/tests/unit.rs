@@ -97,14 +97,14 @@ pub async fn f49() -> Vec<t24> {
     }).await);
     v0.push(run("config_db_path", async {
         let v1 = t1::default();
-        assert_ok(v1.db_path() == "data/portfolio.db", "db_path must be data/portfolio.db")?;
+        assert_ok(v1.db_path() == "data/cochranblock.db", "db_path must be data/cochranblock.db")?;
         Ok(())
     }).await);
     v0.push(run("config_with_values", async {
         let v1 = t1::with_values(8080, "0.0.0.0", "/var/data", "key", "https://cf", "https://ip", 60);
         assert_ok(v1.s16 == 8080, "port must match")?;
         assert_ok(v1.s17 == "0.0.0.0", "bind must match")?;
-        assert_ok(v1.db_path() == "/var/data/portfolio.db", "db_path must reflect data dir")?;
+        assert_ok(v1.db_path() == "/var/data/cochranblock.db", "db_path must reflect data dir")?;
         Ok(())
     }).await);
     v0.push(run("error_no_internal_leaks", async {

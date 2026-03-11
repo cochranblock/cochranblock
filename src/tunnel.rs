@@ -75,7 +75,7 @@ pub async fn ensure_cloudflared(base: &Path) -> Result<bool, Box<dyn std::error:
     );
     tracing::info!("Downloading cloudflared {} for {}...", CLOUDFLARED_VERSION, std::env::consts::OS);
     let client = reqwest::Client::builder()
-        .user_agent("portfolio/1.0")
+        .user_agent("cochranblock/1.0")
         .build()?;
     let bytes = client.get(&url).send().await?.bytes().await?;
     let got_sha = format!("{:x}", Sha256::digest(&bytes));

@@ -1,7 +1,7 @@
 <!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
 ---
 description: §2 — chg→@t→@b→@restart_*→§1. RF=skip
-globs: portfolio/**/*
+globs: cochranblock/**/*
 alwaysApply: true
 ---
 → §2
