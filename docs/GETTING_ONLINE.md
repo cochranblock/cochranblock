@@ -2,40 +2,40 @@
 <!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # Getting Online — Caddy-like Auto HTTPS
 
-The portfolio uses **lers** (Rust ACME/Let's Encrypt) with **Cloudflare DNS-01** for automatic HTTPS. No HTTP challenge needed — works behind NAT, firewalls, or before the server is reachable. **ACME is always enabled.** No escape hatch.
+The cochranblock uses **lers** (Rust ACME/Let's Encrypt) with **Cloudflare DNS-01** for automatic HTTPS. No HTTP challenge needed — works behind NAT, firewalls, or before the server is reachable. **ACME is always enabled.** No escape hatch.
 
 ## Prerequisites
 
 1. **Domain** — e.g. `cochranblock.org` with DNS managed by Cloudflare
 2. **Cloudflare API token** — Zone.DNS Edit, Zone.Zone Read
-3. **Build** — `cargo build -p portfolio`
+3. **Build** — `cargo build -p cochranblock`
 
 ### Build (WSL)
 
 Primary workflow: build and run from WSL.
 
 ```bash
-cargo build -p portfolio --release
+cargo build -p cochranblock --release
 ```
 
-**Windows cross-compile (later):** `cargo build --release --target x86_64-pc-windows-msvc -p portfolio`
+**Windows cross-compile (later):** `cargo build --release --target x86_64-pc-windows-msvc -p cochranblock`
 
 ## One-shot: Obtain certs then serve
 
 ```bash
 # 1. Set env
-export PORTFOLIO_DOMAIN=cochranblock.org,www.cochranblock.org
+export COCHRANBLOCK_DOMAIN=cochranblock.org,www.cochranblock.org
 export CLOUDFLARE_API_TOKEN=your-token
-export PORTFOLIO_DATA_DIR=data
+export COCHRANBLOCK_DATA_DIR=data
 
 # 2. Obtain certs (staging first to avoid rate limits)
-PORTFOLIO_ACME_STAGING=1 cargo run -p portfolio -- --acme-staging
+COCHRANBLOCK_ACME_STAGING=1 cargo run -p cochranblock -- --acme-staging
 
 # 3. Production certs
-cargo run -p portfolio -- --acme
+cargo run -p cochranblock -- --acme
 
 # 4. Serve (certs in data/)
-cargo run -p portfolio
+cargo run -p cochranblock
 ```
 
 ## Caddy-like: Auto obtain on startup
@@ -43,18 +43,18 @@ cargo run -p portfolio
 When certs are missing, the server will attempt ACME before serving:
 
 ```bash
-export PORTFOLIO_DOMAIN=cochranblock.org,www.cochranblock.org
+export COCHRANBLOCK_DOMAIN=cochranblock.org,www.cochranblock.org
 export CLOUDFLARE_API_TOKEN=your-token
-export PORTFOLIO_PORT=443
-export PORTFOLIO_BIND=0.0.0.0
+export COCHRANBLOCK_PORT=443
+export COCHRANBLOCK_BIND=0.0.0.0
 
 # First run: use staging to test
-export PORTFOLIO_ACME_STAGING=1
+export COCHRANBLOCK_ACME_STAGING=1
 
-cargo run -p portfolio
+cargo run -p cochranblock
 ```
 
-On success, certs are written to `PORTFOLIO_DATA_DIR` and the server serves HTTPS. On failure, it falls back to HTTP.
+On success, certs are written to `COCHRANBLOCK_DATA_DIR` and the server serves HTTPS. On failure, it falls back to HTTP.
 
 ## Exposure options
 
@@ -70,7 +70,7 @@ With Cloudflare Tunnel, set origin to `https://localhost:443` or your bind addre
 
 | Variable | Purpose |
 |----------|---------|
-| `PORTFOLIO_DOMAIN` | Comma-separated domains for ACME (e.g. `example.com,www.example.com`) |
+| `COCHRANBLOCK_DOMAIN` | Comma-separated domains for ACME (e.g. `example.com,www.example.com`) |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token for DNS-01 |
-| `PORTFOLIO_ACME_STAGING` | If set, use Let's Encrypt staging (no rate limits) |
-| `PORTFOLIO_DATA_DIR` | Where certs are stored (`fullchain.pem`, `key.pem`) |
+| `COCHRANBLOCK_ACME_STAGING` | If set, use Let's Encrypt staging (no rate limits) |
+| `COCHRANBLOCK_DATA_DIR` | Where certs are stored (`fullchain.pem`, `key.pem`) |

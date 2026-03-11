@@ -3,7 +3,7 @@
 # UI/UX Audit — Michael Cochran Consultation Business
 
 **Audit date:** 2026-02-25  
-**Scope:** Public portfolio site (Hero, Services, About Me, Contact)  
+**Scope:** CochranBlock site (Hero, Services, About Me, Contact)  
 **Objective:** Ensure the site positions you as a top-tier consultation business for federal cyber, systems engineering, and AI-assisted development.
 
 ---

@@ -1,7 +1,7 @@
 <!-- Unlicense — cochranblock.org -->
 <!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
-# Rust Portfolio Web Server — Comprehensive Architecture Guide
-## For Michael Cochran | Single-Binary Portfolio + Dynamic DNS
+# CochranBlock Web Server — Comprehensive Architecture Guide
+## For Michael Cochran | Single-Binary CochranBlock + Dynamic DNS
 
 ---
 
@@ -108,10 +108,10 @@ Single binary deployment. The binary contains:
 
 ```
 Production server:
-  /opt/portfolio/
-  ├── portfolio-server          # single binary (~10-15MB)
+  /opt/cochranblock/
+  ├── cochranblock          # single binary (~10-15MB)
   └── data/
-      └── portfolio.db          # created at first run
+      └── cochranblock.db          # created at first run
 ```
 
 ---
@@ -132,7 +132,7 @@ Production server:
 
 **Justification:** Axum is the strongest choice for your project because it is built directly on Tokio and Tower, meaning your background DNS task (f12) and web server share the same runtime with zero friction. The Tower middleware ecosystem gives you composable auth (f24), rate limiting (f25), compression, and CORS out of the box. Axum's extractor pattern maps perfectly to your handler signatures (@0-@2). Its momentum in the Rust ecosystem means better long-term crate compatibility.
 
-**Trade-off acknowledged:** Actix-web has marginally higher raw throughput in benchmarks, but for a personal portfolio site, this is irrelevant. Code clarity and maintainability — your stated priority — favor Axum.
+**Trade-off acknowledged:** Actix-web has marginally higher raw throughput in benchmarks, but for a CochranBlock site, this is irrelevant. Code clarity and maintainability — your stated priority — favor Axum.
 
 ## B.2 Complete Crate Recommendations
 
@@ -181,7 +181,7 @@ Production server:
 ## C.1 Directory Layout
 
 ```
-portfolio-server/
+cochranblock/
 ├── Cargo.toml
 ├── .env.example                    # Template for local dev config
 ├── build.rs                        # (optional) pre-build asset steps
@@ -247,7 +247,7 @@ portfolio-server/
 │   └── 002_dns_log.sql
 │
 └── data/                           # Runtime data (gitignored)
-    └── portfolio.db
+    └── cochranblock.db
 ```
 
 ## C.2 Module Dependency Graph
@@ -272,9 +272,9 @@ Clean dependency flow: no circular dependencies. Each module can be tested indep
 Three-tier configuration with precedence:
 
 ```
-1. CLI args (highest)     →  --port 8443 --data-dir /var/lib/portfolio
-2. Environment variables  →  PORTFOLIO_PORT=8443
-3. .env file (lowest)     →  PORTFOLIO_PORT=8443
+1. CLI args (highest)     →  --port 8443 --data-dir /var/lib/cochranblock
+2. Environment variables  →  COCHRANBLOCK_PORT=8443
+3. .env file (lowest)     →  COCHRANBLOCK_PORT=8443
 ```
 
 Config struct (t1):
@@ -288,7 +288,7 @@ t1 {
 }
 ```
 
-The `s_master_key` (PORTFOLIO_MASTER_KEY env var) is the only secret that lives outside the binary/database. Everything else (Cloudflare token, admin password hash) is encrypted at rest in SQLite using a key derived from this master key via HKDF.
+The `s_master_key` (COCHRANBLOCK_MASTER_KEY env var) is the only secret that lives outside the binary/database. Everything else (Cloudflare token, admin password hash) is encrypted at rest in SQLite using a key derived from this master key via HKDF.
 
 ---
 
@@ -638,7 +638,7 @@ pub fn derive_key(master_key: &str) -> Result<[u8; 32], AppError> {
     use hkdf::Hkdf;
     use sha2::Sha256;
 
-    let hk = Hkdf::<Sha256>::new(Some(b"portfolio-token-encryption"), master_key.as_bytes());
+    let hk = Hkdf::<Sha256>::new(Some(b"cochranblock-token-encryption"), master_key.as_bytes());
     let mut key = [0u8; 32];
     hk.expand(b"aes-256-gcm-key", &mut key)
         .map_err(|_| AppError::Encryption("Key derivation failed".into()))?;
@@ -811,7 +811,7 @@ CREATE INDEX IF NOT EXISTS idx_dns_log_timestamp ON dns_log(timestamp);
 
 ```toml
 [package]
-name = "portfolio-server"
+name = "cochranblock"
 version = "0.1.0"
 edition = "2021"
 
@@ -977,7 +977,7 @@ User Input (plaintext token)
     │
     ▼
 AES-256-GCM encrypt (Ω7)
-    │  Key: derived from PORTFOLIO_MASTER_KEY via HKDF
+    │  Key: derived from COCHRANBLOCK_MASTER_KEY via HKDF
     │  Nonce: random 12 bytes, prepended to ciphertext
     ▼
 SQLite BLOB (settings table, key='cf_token')
@@ -990,7 +990,7 @@ Plaintext token (held in memory only during API call, then dropped)
 ```
 
 **Key management:**
-- `PORTFOLIO_MASTER_KEY` is the only secret outside the database
+- `COCHRANBLOCK_MASTER_KEY` is the only secret outside the database
 - Set as environment variable or in a file readable only by the service user
 - HKDF derives purpose-specific keys: one for token encryption, one for session signing
 - If the master key is lost, the encrypted token is unrecoverable (re-enter via admin UI)
@@ -1072,14 +1072,14 @@ impl IntoResponse for AppError {
 # Build optimized release binary
 cargo build --release
 
-# Result: target/release/portfolio-server (~10-15MB)
+# Result: target/release/cochranblock (~10-15MB)
 # With profile.release settings from Cargo.toml:
 #   opt-level="z", lto=true, codegen-units=1, strip=true, panic="abort"
 
 # For even smaller binary (optional):
 # Install: cargo install cargo-bloat
 # Analyze: cargo bloat --release --crates
-# Consider: upx --best target/release/portfolio-server (further 50-70% size reduction)
+# Consider: upx --best target/release/cochranblock (further 50-70% size reduction)
 ```
 
 **Cross-compilation for Linux target (if developing on macOS/Windows):**
@@ -1093,11 +1093,11 @@ cross build --release --target x86_64-unknown-linux-gnu
 
 ```bash
 # .env.example — ship with the binary
-PORTFOLIO_PORT=8080
-PORTFOLIO_DATA_DIR=./data
-PORTFOLIO_LOG_LEVEL=info
-PORTFOLIO_MASTER_KEY=  # REQUIRED: generate with `openssl rand -hex 32`
-PORTFOLIO_BIND_ADDR=0.0.0.0
+COCHRANBLOCK_PORT=8080
+COCHRANBLOCK_DATA_DIR=./data
+COCHRANBLOCK_LOG_LEVEL=info
+COCHRANBLOCK_MASTER_KEY=  # REQUIRED: generate with `openssl rand -hex 32`
+COCHRANBLOCK_BIND_ADDR=0.0.0.0
 
 # Production: use systemd EnvironmentFile or secrets manager
 # NEVER commit .env with real MASTER_KEY to version control
@@ -1107,16 +1107,16 @@ PORTFOLIO_BIND_ADDR=0.0.0.0
 
 ```ini
 [Unit]
-Description=Portfolio Web Server
+Description=CochranBlock Web Server
 After=network.target
 
 [Service]
 Type=simple
-User=portfolio
-Group=portfolio
-WorkingDirectory=/opt/portfolio
-ExecStart=/opt/portfolio/portfolio-server
-EnvironmentFile=/opt/portfolio/.env
+User=cochranblock
+Group=cochranblock
+WorkingDirectory=/opt/cochranblock
+ExecStart=/opt/cochranblock/cochranblock
+EnvironmentFile=/opt/cochranblock/.env
 Restart=always
 RestartSec=5
 
@@ -1124,7 +1124,7 @@ RestartSec=5
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/portfolio/data
+ReadWritePaths=/opt/cochranblock/data
 PrivateTmp=true
 
 [Install]

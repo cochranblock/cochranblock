@@ -9,7 +9,7 @@
 | ID | User Story | Acceptance Criteria |
 |----|------------|---------------------|
 | US1 | As a hiring manager, I want to quickly see if this candidate has the skills we need | Skills visible within 5 seconds of landing |
-| US2 | As a hiring manager, I want to see proof of their work | Portfolio projects, code samples, measurable outcomes |
+| US2 | As a hiring manager, I want to see proof of their work | CochranBlock projects, code samples, measurable outcomes |
 | US3 | As a hiring manager, I want to understand their fit for our mission | Clear value prop, outcomes, culture alignment |
 | US4 | As a hiring manager, I want to contact them easily | One-click email with hiring-relevant subject |
 | US5 | As a hiring manager, I want to download their resume | PDF download available |

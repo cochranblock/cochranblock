@@ -6,11 +6,11 @@
 
 - [x] Domain `cochranblock.org` in Cloudflare
 - [x] Cloudflare API token (Zone.DNS Edit, Zone.Zone Read)
-- [x] `PORTFOLIO_DOMAIN` and `CLOUDFLARE_API_TOKEN` in `.env`
+- [x] `COCHRANBLOCK_DOMAIN` and `CLOUDFLARE_API_TOKEN` in `.env`
 
 ## 2. CLI Options (No Scripts Required)
 
-All runtime setup is via portfolio command-line options:
+All runtime setup is via cochranblock command-line options:
 
 | Option | Description |
 |--------|-------------|
@@ -24,17 +24,17 @@ All runtime setup is via portfolio command-line options:
 ./scripts/go-live-wsl.sh
 ```
 
-Or manually: `cargo build --release -p portfolio && ./target/release/portfolio --go-live`
+Or manually: `cargo build --release -p cochranblock && ./target/release/cochranblock --go-live`
 
-**Windows:** Cross-compile later via `cargo build --release --target x86_64-pc-windows-msvc -p portfolio`.
+**Windows:** Cross-compile later via `cargo build --release --target x86_64-pc-windows-msvc -p cochranblock`.
 
 ## 3. Quick Tunnel (No ACME, No Domain Setup)
 
 Fastest way to get online — get a public URL in seconds:
 
 ```bash
-# Terminal 1: Start portfolio (uses existing certs or falls back to HTTP)
-./target/debug/portfolio
+# Terminal 1: Start cochranblock (uses existing certs or falls back to HTTP)
+./target/debug/cochranblock
 
 # Terminal 2: cloudflared tunnel
 cloudflared tunnel --url https://localhost:443 --no-tls-verify
@@ -46,10 +46,10 @@ Cloudflared prints a URL like `https://random-words.trycloudflare.com` — that'
 
 ```bash
 # Staging first (no rate limits) — verify DNS-01 works
-PORTFOLIO_ACME_STAGING=1 cargo run -p portfolio -- --acme-staging
+COCHRANBLOCK_ACME_STAGING=1 cargo run -p cochranblock -- --acme-staging
 
 # If staging succeeds, production
-cargo run -p portfolio -- --acme
+cargo run -p cochranblock -- --acme
 ```
 
 Certs save to `data/fullchain.pem` and `data/key.pem`.
@@ -58,12 +58,12 @@ Certs save to `data/fullchain.pem` and `data/key.pem`.
 - Cloudflare may need 1–2 min to propagate the TXT record. Wait and retry.
 - Verify token has **Zone.DNS Edit** and **Zone.Zone Read**.
 - Verify `cochranblock.org` is in the same Cloudflare account as the token.
-- Try apex only first: `PORTFOLIO_DOMAIN=cochranblock.org` (no www).
+- Try apex only first: `COCHRANBLOCK_DOMAIN=cochranblock.org` (no www).
 
 ## 5. Start the Server
 
 ```bash
-./target/debug/portfolio
+./target/debug/cochranblock
 ```
 
 Listens on https://0.0.0.0:443.
@@ -74,32 +74,32 @@ No port forward needed. Cloudflare proxies to your local server.
 
 ### Built-in tunnel (default)
 
-The portfolio binary spawns cloudflared by default:
+The cochranblock binary spawns cloudflared by default:
 
 ```bash
 # From repo root (WSL or Windows)
-cargo run -p portfolio
+cargo run -p cochranblock
 ```
 
 Or with the built binary:
 
 ```bash
-./target/debug/portfolio
+./target/debug/cochranblock
 ```
 
 Use `--no-tunnel` to run without the tunnel.
 
 **Requirements:**
 - Run from repo root (so `data/` is found)
-- `bin/cloudflared` — run `portfolio --ensure-cloudflared` to download, or use `cloudflared` in PATH
+- `bin/cloudflared` — run `cochranblock --ensure-cloudflared` to download, or use `cloudflared` in PATH
 - `data/cloudflared.yml`
 
 ### Named tunnel (one-time setup)
 
 ```bash
-cloudflared tunnel create portfolio
-cloudflared tunnel route dns portfolio cochranblock.org
-cloudflared tunnel route dns portfolio www.cochranblock.org
+cloudflared tunnel create cochranblock
+cloudflared tunnel route dns cochranblock cochranblock.org
+cloudflared tunnel route dns cochranblock www.cochranblock.org
 ```
 
 Config: `data/cloudflared.yml` (approuter-generated).
@@ -107,7 +107,7 @@ Config: `data/cloudflared.yml` (approuter-generated).
 ## 7. Run Both
 
 ```bash
-cargo run -p portfolio
+cargo run -p cochranblock
 ```
 
 Tunnel runs by default. Use `--no-tunnel` to disable.

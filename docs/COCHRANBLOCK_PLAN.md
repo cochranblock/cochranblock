@@ -56,7 +56,7 @@
 - **Done:** `dotenv()` then `from_path_override(COCHRANBLOCK_ROOT/.env)` and `from_path_override("cochranblock/.env")`.
 
 ### 3.2 .env.example cleanup ✓
-- **What:** Remove or document unused `PORTFOLIO_*` vars for static-only mode.
+- **What:** Remove or document unused `COCHRANBLOCK_*` vars for static-only mode.
 - **Done:** Split into "Required for static", "Required for admin/dns", "Optional for admin/dns".
 
 ---

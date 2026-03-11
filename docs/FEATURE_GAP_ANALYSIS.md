@@ -2,7 +2,7 @@
 <!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # Feature Gap Analysis — Legendary Team Simulation
 
-**Context:** Cyber/systems consulting portfolio. Theme: Guardians of the Galaxy × Dragon × Space (cosmic, cyber-teal, starfield).
+**Context:** Cyber/systems consulting site. Theme: Guardians of the Galaxy × Dragon × Space (cosmic, cyber-teal, starfield).
 
 ---
 

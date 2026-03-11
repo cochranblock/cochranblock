@@ -41,7 +41,7 @@ flowchart LR
 
 ---
 
-Portfolio site for Michael Cochran — Rust Axum server with embedded assets.
+CochranBlock site (cochranblock.org) — Rust Axum server with embedded assets.
 
 ## Run
 

@@ -3,8 +3,8 @@
 # Feature Gap Analysis — 2026
 
 **Date:** 2026-02-26  
-**Scope:** Full portfolio (Hero, Services, About, Contact, Source, Summary, Rules)  
-**Objective:** Identify and close all remaining gaps for a top-tier consultation portfolio.
+**Scope:** Full cochranblock (Hero, Services, About, Contact, Source, Summary, Rules)  
+**Objective:** Identify and close all remaining gaps for a top-tier consultation site.
 
 ---
 

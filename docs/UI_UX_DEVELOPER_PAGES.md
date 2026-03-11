@@ -23,7 +23,7 @@
 | **Code blocks too tall** | Max-height 24rem is good; add "Expand" control for full view |
 | **No syntax highlighting** | Monospace + color is sufficient; consider line numbers for long files |
 | **Copy button missing** | Add "Copy" button per file for developer convenience |
-| **Page intro could be shorter** | One line: "Key files from the portfolio binary." |
+| **Page intro could be shorter** | One line: "Key files from the cochranblock binary." |
 
 ---
 

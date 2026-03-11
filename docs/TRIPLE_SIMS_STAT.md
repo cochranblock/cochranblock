@@ -100,7 +100,7 @@ No tests of: test framework internals, TempDir behavior, assertion wrappers, moc
 ## Run
 
 ```bash
-PORTFOLIO_MASTER_KEY="test-key-32-bytes!!!!!!!!" cargo run -p cochranblock --bin cochranblock-test --no-default-features --features tests -- --test
+COCHRANBLOCK_MASTER_KEY="test-key-32-bytes!!!!!!!!" cargo run -p cochranblock --bin cochranblock-test --no-default-features --features tests -- --test
 ```
 
 Exit 0 = all pass. Screenshots written to `~/.cache/screenshots/{os}/cochranblock/` and copied to `screenshots/` for TRIPLE SIMS docs.
