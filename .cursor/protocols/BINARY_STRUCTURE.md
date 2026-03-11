@@ -1,4 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
+<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # Binary Structure — Two Binaries Per Project
 
 **Rule:** Every project has exactly two binaries. AI iterates on the test binary; the release binary is a stripped product-only build.

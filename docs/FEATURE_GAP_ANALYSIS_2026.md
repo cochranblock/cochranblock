@@ -1,4 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
+<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # Feature Gap Analysis — 2026
 
 **Date:** 2026-02-26  

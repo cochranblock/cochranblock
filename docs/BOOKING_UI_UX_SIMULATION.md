@@ -1,4 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
+<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # UI/UX Analysis Simulation — Booking Page
 
 **Based on:** screenshots/book.png (captured 2026-02-26)  

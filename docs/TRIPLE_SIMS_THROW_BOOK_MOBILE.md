@@ -1,4 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
+<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # THROW THE BOOK: Three Sequential TRIPLE SIMS — Mobile
 
 **Viewport:** ≤768px, 375px primary  

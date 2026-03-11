@@ -1,4 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
+<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # TRIPLE SIMS: Product Page External Links (cochranblock.org)
 
 **Target:** Products page — Rogue Repo → roguerepo.io, Ronin Sites → ronin-sites.pro  
