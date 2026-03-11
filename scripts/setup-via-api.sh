@@ -6,7 +6,7 @@
 #   export GITHUB_TOKEN=ghp_xxx   # GitHub Personal Access Token (repo scope)
 #   export RAILWAY_TOKEN=xxx      # Railway token (railway.app → Account → Tokens)
 #
-# Run from monorepo root (cochranblock-stack folder):
+# Run from monorepo root (approuter folder):
 #   ./scripts/setup-via-api.sh
 
 set -e

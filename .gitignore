@@ -6,3 +6,4 @@
 !.env.example
 **/bin/cloudflared
 **/bin/cloudflared.exe
+/data

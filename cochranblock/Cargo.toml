@@ -63,7 +63,7 @@ rand = "0.8"
 time = "0.3"
 exopack = { path = "../kova/exopack", optional = true, features = ["screenshot", "interface", "triple_sims", "devtools"] }
 dotenvy = "0.15"
-approuter-client = { path = "../approuter/client", optional = true }
+approuter-client = { git = "https://github.com/cochranblock/approuter", optional = true }
 axum-server = { version = "0.7", features = ["tls-rustls"] }
 rustls = { version = "0.23", features = ["ring"] }
 rcgen = "0.14"

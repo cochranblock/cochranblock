@@ -1,6 +1,6 @@
 #!/bin/bash
-# Build the cochranblock-stack monorepo from the workspace.
-# Run from workspace root. Output: cochranblock-stack/ with full workspace.
+# Build the approuter monorepo from the workspace.
+# Run from workspace root. Output: approuter/ with full workspace.
 set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 STACK_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
