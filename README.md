@@ -1,45 +1,56 @@
+<!-- Copyright (c) 2026 The Cochran Block. All rights reserved. -->
 # cochranblock
 
 ## Proof of Artifacts
 
 *Wire diagrams, screenshots, and demos for quick review.*
 
+### Wire / Architecture
+
 ```mermaid
-flowchart TB
-    subgraph Services
-        Approuter[approuter]
-        Cochranblock[cochranblock]
-        Oakilydokily[oakilydokily]
-        RogueRepo[rogue-repo]
-    end
-    Postgres[(Postgres)]
-    User[User] --> Approuter
-    Approuter --> Cochranblock
-    Approuter --> Oakilydokily
-    Approuter --> RogueRepo
-    RogueRepo --> Postgres
+flowchart LR
+    User[User] --> Home["/"]
+    User --> Services["/services"]
+    User --> About["/about"]
+    User --> Products["/products"]
+    User --> Contact["/contact"]
+    User --> Book["/book"]
+    User --> Federal["/federal-partners"]
 ```
 
-See each project README for more: [cochranblock](cochranblock/README.md), [oakilydokily](oakilydokily/README.md), [rogue-repo](rogue-repo/README.md), [kova](kova/README.md). Convention: [docs/PROOF_OF_ARTIFACTS.md](docs/PROOF_OF_ARTIFACTS.md).
+### Screenshots
+
+| View | Description |
+|------|-------------|
+| ![Hero](docs/artifacts/screenshot-hero.png) | Hero section |
+| ![Products](docs/artifacts/screenshot-products.png) | Products page |
+| ![Rogue Repo](assets/img/rogue-repo.png) | Rogue Repo (Products) |
+| ![Kova](assets/img/kova.png) | Kova (Products) |
+| ![Ronin Sites](assets/img/ronin-sites.png) | Ronin Sites (Products) |
+| ![Services](docs/artifacts/screenshot-services.png) | Services page |
+
+### Demo
+
+*Add `docs/artifacts/demo-hero.gif` for hero scroll or Products carousel.*
 
 ---
 
-Monorepo: approuter, cochranblock, oakilydokily, rogue-repo, kova, and related projects. Railway deployment.
+Portfolio site for Michael Cochran — Rust Axum server with embedded assets.
 
-## Build from workspace
+## Run
 
 ```bash
-./scripts/build-monorepo.sh /path/to/workspace/root
+cargo run -p cochranblock
 ```
 
-## Railway setup
+Then open http://localhost:8081 (default). Routes: `/`, `/services`, `/about`, `/contact`, `/book`, `/products`, `/federal-partners`.
 
-1. Create project at [railway.com](https://railway.com)
-2. Add 4 services + Postgres
-3. Connect this repo (cochranblock/cochranblock)
-4. Set Root Directory per service: approuter, cochranblock, oakilydokily, rogue-repo
-5. Add env vars per [approuter/docs/RAILWAY.md](approuter/docs/RAILWAY.md)
+## Tokenization
 
-## GitHub
+The source code uses **compact identifiers** (f0, t15, s0, etc.) per the Token-Optimized Code Representation whitepaper. See [../kova/docs/TOKENIZATION_IMPLEMENTATION.md](../kova/docs/TOKENIZATION_IMPLEMENTATION.md) and [../kova/docs/compression_map.md](../kova/docs/compression_map.md).
 
-Push to cochranblock/cochranblock (create repo first if needed).
+## Docs
+
+- [docs/architecture_guide.md](docs/architecture_guide.md) — Full architecture
+- [exopack/docs/testing_architecture.md](../exopack/docs/testing_architecture.md) — Two-binary test model
+- [content/whitepaper_text.txt](content/whitepaper_text.txt) — Tokenization whitepaper
