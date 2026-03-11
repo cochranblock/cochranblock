@@ -1,5 +1,10 @@
 <!-- Unlicense — cochranblock.org -->
 <!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/cochranblock/cochranblock/main/assets/cochranblock-logo.svg" alt="CochranBlock" width="280">
+</p>
+
 # cochranblock
 
 ## Proof of Artifacts
