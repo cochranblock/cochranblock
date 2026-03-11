@@ -6,7 +6,7 @@
 #   export GITHUB_TOKEN=ghp_xxx   # GitHub Personal Access Token (repo scope)
 #   export RAILWAY_TOKEN=xxx      # Railway token (railway.app → Account → Tokens)
 #
-# Run from cochranblock-stack root:
+# Run from monorepo root (cochranblock-stack folder):
 #   ./scripts/setup-via-api.sh
 
 set -e
@@ -15,10 +15,10 @@ cd "$(cd "$(dirname "$0")/.." && pwd)"
 GITHUB_API="https://api.github.com"
 RAILWAY_GRAPHQL="https://backboard.railway.app/graphql/v2"
 ORG="cochranblock"
-REPO_STACK="cochranblock-stack"
+REPO_COCHRANBLOCK="cochranblock"
 REPO_ROGUE="rogue-repo"
 
-echo "=== cochranblock-stack setup via API ==="
+echo "=== cochranblock monorepo setup via API ==="
 
 # --- GitHub ---
 if [[ -z "$GITHUB_TOKEN" ]]; then
@@ -28,17 +28,17 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
 else
   echo "Creating GitHub repos..."
 
-  # cochranblock/cochranblock-stack
-  echo "  Create $ORG/$REPO_STACK..."
+  # cochranblock/cochranblock (monorepo: approuter + cochranblock + oakilydokily + rogue-repo + kova)
+  echo "  Create $ORG/$REPO_COCHRANBLOCK..."
   R=$(curl -s -w "\n%{http_code}" -X POST "$GITHUB_API/orgs/$ORG/repos" \
     -H "Authorization: Bearer $GITHUB_TOKEN" \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    -d '{"name":"'"$REPO_STACK"'","private":false}')
+    -d '{"name":"'"$REPO_COCHRANBLOCK"'","private":false}')
   CODE=$(echo "$R" | tail -n1)
   [[ "$CODE" == "201" ]] && echo "    Created." || echo "    (exists or error: $CODE)"
 
-  # cochranblock/rogue-repo
+  # cochranblock/rogue-repo (standalone)
   echo "  Create $ORG/$REPO_ROGUE..."
   R=$(curl -s -w "\n%{http_code}" -X POST "$GITHUB_API/orgs/$ORG/repos" \
     -H "Authorization: Bearer $GITHUB_TOKEN" \
@@ -73,10 +73,10 @@ else
       "query": "mutation projectCreate($input: ProjectCreateInput!) { projectCreate(input: $input) { id name } }",
       "variables": {
         "input": {
-          "name": "cochranblock-stack",
+          "name": "cochranblock",
           "isPublic": false,
           "repo": {
-            "fullRepoName": "'"$ORG/$REPO_STACK"'",
+            "fullRepoName": "'"$ORG/$REPO_COCHRANBLOCK"'",
             "branch": "main"
           }
         }

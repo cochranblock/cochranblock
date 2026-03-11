@@ -1,11 +1,11 @@
 # Railway Deployment
 
-Deploy the cochranblock stack (approuter, cochranblock, oakilydokily, rogue-repo) to Railway.
+Deploy the cochranblock monorepo (approuter, cochranblock, oakilydokily, rogue-repo) to Railway.
 
 ## Prerequisites
 
 - Railway account (connect via GitHub OAuth — no token needed)
-- GitHub repo with the full workspace (monorepo). The Dockerfiles require build context = workspace root (parent of approuter, cochranblock, oakilydokily, rogue-repo, kova, vendor, etc.)
+- GitHub repo cochranblock/cochranblock with the full workspace. The Dockerfiles require build context = workspace root (parent of approuter, cochranblock, oakilydokily, rogue-repo, kova, vendor, etc.)
 
 ## Setup
 
