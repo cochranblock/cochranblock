@@ -76,6 +76,25 @@ async fn migrate(pool: &SqlitePool) -> Result<(), sqlx::Error> {
     )
     .execute(pool)
     .await?;
+    sqlx::query(
+        r#"
+        CREATE TABLE IF NOT EXISTS community_grants (
+            id TEXT PRIMARY KEY,
+            org_name TEXT NOT NULL,
+            ein TEXT,
+            contact_name TEXT NOT NULL,
+            contact_email TEXT NOT NULL,
+            mission TEXT NOT NULL,
+            technical_objective TEXT NOT NULL,
+            submitted_at TEXT NOT NULL,
+            ip_address TEXT,
+            user_agent TEXT,
+            consent_grant INTEGER NOT NULL
+        )
+        "#,
+    )
+    .execute(pool)
+    .await?;
     Ok(())
 }
 

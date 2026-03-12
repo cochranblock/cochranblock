@@ -83,6 +83,14 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("$3,500"), "intake page missing fee acknowledgment")?;
         Ok(())
     }).await);
+    v0.push(run("community_grant_200", async {
+        let v3 = v2.get(format!("{}/community-grant", v1)).send().await.map_err(|e| e.to_string())?;
+        let status = v3.status();
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(status.is_success(), format!("status {}", status))?;
+        assert_ok(v4.contains("Community Grant") || v4.contains("$500"), "community grant page missing content")?;
+        Ok(())
+    }).await);
     v0.push(run("products_200", async {
         let v3 = v2.get(format!("{}/products", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();

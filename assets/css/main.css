@@ -2599,7 +2599,9 @@ body::after {
 
 /* Intake — waiver-style, cosmic theme */
 body[data-page="intake"] .content,
-body[data-page="intake-confirmed"] .content {
+body[data-page="intake-confirmed"] .content,
+body[data-page="community-grant"] .content,
+body[data-page="community-grant-confirmed"] .content {
   max-width: 680px;
 }
 

@@ -11,7 +11,7 @@ use tower_http::{
 };
 
 use crate::t0;
-use super::{assets, intake, pages};
+use super::{assets, community_grant, intake, pages};
 
 /// f1 = app_router. Why: Single router with compression, trace, security headers; state shared via Arc.
 pub fn f1(p0: t0) -> Router {
@@ -36,6 +36,8 @@ pub fn f1(p0: t0) -> Router {
         .route("/book", get(pages::f63))
         .route("/intake", get(intake::get_form).post(intake::post_form))
         .route("/intake/confirmed", get(intake::confirmed))
+        .route("/community-grant", get(community_grant::get_form).post(community_grant::post_form))
+        .route("/community-grant/confirmed", get(community_grant::confirmed))
         .route("/products", get(pages::f67))
         .route("/federal-partners", get(pages::f68))
         .route("/health", get(pages::f10))
