@@ -19,8 +19,8 @@ cargo build --release -p cochranblock
 
 BIN="$REPO_ROOT/target/release/cochranblock"
 if ! getcap "$BIN" 2>/dev/null | grep -q cap_net_bind_service; then
-  echo "One-time: allow port 443 (sudo)"
-  sudo setcap 'cap_net_bind_service=+ep' "$BIN"
+  echo "One-time: allow port 443 (su)"
+  su -c "setcap 'cap_net_bind_service=+ep' $BIN"
 fi
 
 if [ "$1" = "--bg" ]; then
