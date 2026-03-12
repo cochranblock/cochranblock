@@ -1,0 +1,13 @@
+---
+description: Logo locked — 2D diamond only. Do not change.
+alwaysApply: true
+---
+# Logo Lock (P0)
+
+**The CochranBlock logo is LOCKED.** Do not change it.
+
+**Canonical design:** 2D square tilted 45° = diamond, with center dot. Teal (#00d9ff).
+
+**Files:** `assets/cochranblock-hero-logo.svg`, `assets/favicon.svg`, `assets/cochranblock-logo.svg`
+
+**Never:** 3D isometric cube, gradient blocks, or any variant. Diamond only.
