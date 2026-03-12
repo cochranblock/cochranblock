@@ -1,7 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
-  <!-- Mini isometric cube — matches favicon/footer style -->
-  <path d="M60 30 L90 50 L60 70 L30 50 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
-  <path d="M30 50 L60 70 L60 110 L30 90 Z" fill="none" stroke="#00d9ff" stroke-width="2.5" opacity="0.8"/>
-  <path d="M90 50 L60 70 L60 110 L90 90 Z" fill="none" stroke="#00d9ff" stroke-width="2.5" opacity="0.9"/>
-  <circle cx="60" cy="50" r="4" fill="#00d9ff"/>
+  <!-- 2D square tilted 45° = diamond, with center dot -->
+  <path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="4" fill="#00d9ff"/>
 </svg>
