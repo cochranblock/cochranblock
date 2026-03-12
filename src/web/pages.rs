@@ -44,6 +44,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/products", "0.9", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
+        ("/intake", "0.9", "weekly"),
         ("/book", "0.8", "weekly"),
         ("/federal-partners", "0.7", "monthly"),
     ];
@@ -65,7 +66,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Rust-only SaaS challenging enterprise greed. AI-powered software reset: offline-first, creative mode, superior pricing."}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
-fn f62(p0: &str, p1: &str) -> String {
+pub fn f62(p0: &str, p1: &str) -> String {
     let v_path = if p0 == "home" {
         "/".to_string()
     } else {
@@ -81,8 +82,8 @@ fn f62(p0: &str, p1: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=4" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/services">Services</a><a href="/products">Products</a><a href="/federal-partners">FBI & DOD IG</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/services">Services</a><a href="/products">Products</a><a href="/federal-partners">FBI & DOD IG</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=4" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mclarkfyrue@gmail.com?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/michael-c-ab55451b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=4" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/services">Services</a><a href="/products">Products</a><a href="/federal-partners">FBI & DOD IG</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/intake">Request Deployment</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/services">Services</a><a href="/products">Products</a><a href="/federal-partners">FBI & DOD IG</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/intake">Request Deployment</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=4" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mclarkfyrue@gmail.com?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/michael-c-ab55451b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {

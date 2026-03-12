@@ -2596,3 +2596,246 @@ body::after {
     text-decoration: underline;
   }
 }
+
+/* Intake — waiver-style, cosmic theme */
+body[data-page="intake"] .content,
+body[data-page="intake-confirmed"] .content {
+  max-width: 680px;
+}
+
+.intake-section {
+  padding: 1.5rem 0 3rem;
+}
+
+.intake-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.intake-step {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.intake-step.intake-active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.intake-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: rgba(0, 217, 255, 0.15);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.intake-step.intake-active .intake-num {
+  background: var(--accent);
+  color: var(--void);
+}
+
+.intake-doc {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 2rem;
+  border: 1px solid var(--border);
+}
+
+.intake-title {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.intake-intro {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.intake-body {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.intake-body pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.intake-hint {
+  font-size: 0.85rem;
+  color: var(--cyber-teal);
+  margin: -0.25rem 0 1rem;
+}
+
+.intake-sign {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  background: var(--surface-elevated);
+}
+
+.intake-line {
+  height: 1px;
+  border-bottom: 1px dashed var(--border);
+  margin-bottom: 1rem;
+}
+
+.intake-sign-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.intake-form label:not(.intake-check) {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.intake-form input[type="text"],
+.intake-form input[type="email"],
+.intake-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.intake-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.intake-form input:focus,
+.intake-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.2);
+}
+
+.intake-consent {
+  margin: 1rem 0;
+}
+
+.intake-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+}
+
+.intake-check input {
+  margin-top: 0.2rem;
+  accent-color: var(--accent);
+}
+
+.intake-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.intake-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intake-done {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.intake-complete {
+  padding: 2.5rem;
+}
+
+.intake-check-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  background: var(--accent);
+  color: var(--void);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.intake-complete h1 {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.intake-success {
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.intake-detail {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .intake-body {
+    max-height: 280px;
+    padding: 1rem 1.25rem;
+  }
+
+  .intake-sign {
+    padding: 1.25rem;
+  }
+}

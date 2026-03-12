@@ -5,7 +5,7 @@
 //! CochranBlock server. Registers with approuter when `approuter` feature enabled. Serves cochranblock.org.
 
 use cochranblock::t0;
-use cochranblock::web::router;
+use cochranblock::web::{intake, router};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
@@ -27,7 +27,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let bind = std::env::var("BIND").unwrap_or_else(|_| "0.0.0.0".into());
     let addr = format!("{}:{}", bind, port);
 
-    let app = router::f1(t0 {});
+    let intake_pool = intake::init_pool().await;
+    let app = router::f1(t0 { intake_pool });
     #[cfg(feature = "approuter")]
     approuter_client::f116(approuter_client::RegisterConfig {
         app_id: "cochranblock",

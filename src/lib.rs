@@ -26,6 +26,8 @@ pub mod screenshot;
 pub mod web;
 pub mod ux;
 
-/// t0 = AppState. Why: Shared state for router; empty for static site.
+/// t0 = AppState. Why: Shared state for router; intake pool for leads.
 #[derive(Clone)]
-pub struct t0 {}
+pub struct t0 {
+    pub intake_pool: Option<sqlx::SqlitePool>,
+}

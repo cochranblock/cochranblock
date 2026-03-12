@@ -21,7 +21,7 @@ async fn run(p0: &str, p1: impl std::future::Future<Output = Result<(), String>>
 
 async fn server() -> (String, reqwest::Client, TempDir) {
     let v0 = TempDir::new().unwrap();
-    let p0 = t0 {};
+    let p0 = t0 { intake_pool: None };
     let v1 = router::f1(p0);
     let v2 = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
     let v3 = v2.local_addr().unwrap();
@@ -72,6 +72,15 @@ pub async fn f51() -> Vec<t24> {
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
         assert_ok(status.is_success(), format!("status {}", status))?;
         assert_ok(v4.contains("Contact"), "contact page missing 'Contact'")?;
+        Ok(())
+    }).await);
+    v0.push(run("intake_200", async {
+        let v3 = v2.get(format!("{}/intake", v1)).send().await.map_err(|e| e.to_string())?;
+        let status = v3.status();
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(status.is_success(), format!("status {}", status))?;
+        assert_ok(v4.contains("Client Intake") || v4.contains("Web Appliance"), "intake page missing content")?;
+        assert_ok(v4.contains("$3,500"), "intake page missing fee acknowledgment")?;
         Ok(())
     }).await);
     v0.push(run("products_200", async {

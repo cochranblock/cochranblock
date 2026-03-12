@@ -1,0 +1,20 @@
+COCHRANBLOCK LLC — CLIENT INTAKE & DEPLOYMENT REQUEST
+
+Effective Date: March 2026 | Version: 2026-03
+
+IMPORTANT: READ CAREFULLY BEFORE SUBMITTING. THIS DOCUMENT CONSTITUTES YOUR REQUEST FOR A CUSTOM WEB APPLIANCE DEPLOYMENT.
+
+1. BASELINE FEE ACKNOWLEDGMENT
+I acknowledge that Cochranblock LLC Web Appliances start at a baseline fee of $3,500 USD. This fee covers the design, compilation, and deployment of a bespoke Rust binary tailored to my organization's requirements. Additional services, custom features, or extended support may incur additional costs as outlined in a separate statement of work.
+
+2. LOCAL HARDWARE DEPLOYMENT MODEL
+I understand that Cochranblock does not sell standard cloud-hosted websites. I am requesting a "Web Appliance" — a compiled Rust binary that runs entirely on my organization's own local, physical hardware. The appliance is securely routed to the public internet via Cloudflare Zero Trust Tunnels. This model eliminates monthly cloud hosting fees and provides enterprise-grade, localized security with data remaining on-premises.
+
+3. SCOPE OF REQUEST
+By submitting this form, I am expressing genuine interest in engaging Cochranblock LLC for a custom Web Appliance deployment. I represent that I have authority to initiate this request on behalf of my organization (if applicable) and that the contact information provided is accurate.
+
+4. NEXT STEPS
+Upon submission, Cochranblock will review your request and contact you within 2–3 business days to schedule a discovery call. No obligation is incurred by submitting this form.
+
+5. VOLUNTARY SUBMISSION
+I certify that I have read this document in its entirety, understand the fee structure and deployment model, and am submitting this request voluntarily.

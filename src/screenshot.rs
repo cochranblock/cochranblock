@@ -43,7 +43,7 @@ fn copy_to_repo() {
 
 /// f53 = screenshot_capture. Why: TRIPLE SIMS visual verification via exopack.
 pub async fn f53() -> bool {
-    let p0 = t0 {};
+    let p0 = t0 { intake_pool: None };
     let v1 = router::f1(p0);
     let v2 = match tokio::net::TcpListener::bind("127.0.0.1:0").await {
         Ok(v) => v,
