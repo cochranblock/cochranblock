@@ -18,6 +18,8 @@ const COCHRANBLOCK_PAGES: &[(&str, &str)] = &[
     ("federal-partners", "/federal-partners"),
     ("about", "/about"),
     ("contact", "/contact"),
+    ("intake", "/intake"),
+    ("community-grant", "/community-grant"),
     ("book", "/book"),
 ];
 

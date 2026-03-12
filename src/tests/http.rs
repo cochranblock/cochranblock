@@ -91,6 +91,42 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("Community Grant") || v4.contains("$500"), "community grant page missing content")?;
         Ok(())
     }).await);
+    v0.push(run("intake_confirmed_200", async {
+        let v3 = v2.get(format!("{}/intake/confirmed", v1)).send().await.map_err(|e| e.to_string())?;
+        let status = v3.status();
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(status.is_success(), format!("status {}", status))?;
+        assert_ok(v4.contains("Request Received") || v4.contains("submitted"), "intake confirmed missing success message")?;
+        Ok(())
+    }).await);
+    v0.push(run("community_grant_confirmed_200", async {
+        let v3 = v2.get(format!("{}/community-grant/confirmed", v1)).send().await.map_err(|e| e.to_string())?;
+        let status = v3.status();
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(status.is_success(), format!("status {}", status))?;
+        assert_ok(v4.contains("Application Received") || v4.contains("submitted"), "community grant confirmed missing success message")?;
+        Ok(())
+    }).await);
+    v0.push(run("intake_form_fields", async {
+        let v3 = v2.get(format!("{}/intake", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("name=\"full_name\""), "intake missing full_name field")?;
+        assert_ok(v4.contains("name=\"email\""), "intake missing email field")?;
+        assert_ok(v4.contains("consent_fee") && v4.contains("$3,500"), "intake missing fee consent")?;
+        assert_ok(v4.contains("consent_hardware") && v4.contains("Cloudflare"), "intake missing hardware consent")?;
+        assert_ok(v4.contains("action=\"/intake\""), "intake form missing action")?;
+        Ok(())
+    }).await);
+    v0.push(run("community_grant_form_fields", async {
+        let v3 = v2.get(format!("{}/community-grant", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("name=\"org_name\""), "community grant missing org_name")?;
+        assert_ok(v4.contains("name=\"mission\""), "community grant missing mission")?;
+        assert_ok(v4.contains("name=\"technical_objective\""), "community grant missing technical_objective")?;
+        assert_ok(v4.contains("consent_grant") && v4.contains("$500"), "community grant missing $500 consent")?;
+        assert_ok(v4.contains("action=\"/community-grant\""), "community grant form missing action")?;
+        Ok(())
+    }).await);
     v0.push(run("products_200", async {
         let v3 = v2.get(format!("{}/products", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();
@@ -309,6 +345,7 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("href=\"/products\""), "nav/footer missing /products")?;
         assert_ok(v4.contains("href=\"/about\""), "nav/footer missing /about")?;
         assert_ok(v4.contains("href=\"/contact\""), "nav/footer missing /contact")?;
+        assert_ok(v4.contains("href=\"/intake\""), "nav/footer missing /intake (Request Deployment)")?;
         assert_ok(v4.contains("href=\"/book\""), "nav/footer missing /book")?;
         assert_ok(v4.contains("href=\"/federal-partners\""), "nav/footer missing /federal-partners")?;
         assert_ok(v4.contains("href=\"/\"") || v4.contains("href=\"https://cochranblock.org\""), "nav/footer missing home link")?;
@@ -457,7 +494,7 @@ pub async fn f51() -> Vec<t24> {
         Ok(())
     }).await);
     v0.push(run("buttons_nav_all_200", async {
-        for (path, needle) in [("/", "CochranBlock"), ("/services", "What We Do"), ("/products", "Products"), ("/federal-partners", "FBI"), ("/about", "About"), ("/contact", "Contact"), ("/book", "Schedule")] {
+        for (path, needle) in [("/", "CochranBlock"), ("/services", "What We Do"), ("/products", "Products"), ("/federal-partners", "FBI"), ("/about", "About"), ("/contact", "Contact"), ("/intake", "Client Intake"), ("/book", "Schedule")] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().is_success(), format!("{} must 200", path))?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
@@ -483,7 +520,7 @@ pub async fn f51() -> Vec<t24> {
         Ok(())
     }).await);
     v0.push(run("buttons_footer_links_200", async {
-        for path in ["/", "/services", "/products", "/federal-partners", "/about", "/contact", "/book"] {
+        for path in ["/", "/services", "/products", "/federal-partners", "/about", "/contact", "/intake", "/book"] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().is_success(), format!("footer {} must 200", path))?;
         }
