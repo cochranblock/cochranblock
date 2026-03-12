@@ -1,5 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
-<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+<!-- Contributors: mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # User Story Analysis — Google Calendar Clone (2026)
 
 **Analysis date:** 2026-02-25  

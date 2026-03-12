@@ -1,5 +1,5 @@
 // Unlicense — cochranblock.org
-// Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
+// Contributors: mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 #![allow(non_camel_case_types, non_snake_case, dead_code)]
 
 //! CochranBlock server. Registers with approuter when `approuter` feature enabled. Serves cochranblock.org.

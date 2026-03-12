@@ -1,5 +1,5 @@
 <!-- Unlicense — cochranblock.org -->
-<!-- Contributors: GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+<!-- Contributors: mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
 # TRIPLE SIMS: Mobile & Desktop Viewports
 
 **Target:** cochranblock.org — mobile (≤768px) and desktop (≥769px)  
