@@ -2660,12 +2660,12 @@ body[data-page="community-grant-confirmed"] .content {
   box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
 }
 
+/* Replicated from oakilydokily waiver (.ds-doc) */
 .intake-doc {
-  background: linear-gradient(180deg, var(--surface-elevated) 0%, var(--surface) 100%);
+  background: var(--surface);
   border-radius: 12px;
   padding: 2.5rem;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 217, 255, 0.05);
 }
 
 .intake-title {
@@ -2694,14 +2694,15 @@ body[data-page="community-grant"] .intake-intro {
   color: var(--text);
 }
 
+/* Replicated from oakilydokily waiver (.ds-body) */
 .intake-body {
   max-height: 280px;
   overflow-y: auto;
-  padding: 1.5rem 1.75rem;
-  background: rgba(0, 0, 0, 0.35);
+  padding: 1.25rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 1.25rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
   font-size: 0.9rem;
   line-height: 1.7;
   color: var(--text);
@@ -2732,38 +2733,36 @@ body[data-page="community-grant"] .intake-intro {
   color: var(--text);
 }
 
+/* Replicated from oakilydokily waiver (.ds-hint) — warm, visible */
 .intake-hint {
-  font-size: 0.9rem;
-  color: var(--cyber-teal);
-  margin: 0 0 1.25rem;
-  padding: 0.6rem 1rem;
-  background: rgba(0, 255, 204, 0.08);
-  border: 1px solid rgba(0, 255, 204, 0.2);
-  border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--orange);
+  margin: -0.25rem 0 1rem;
+  font-weight: 500;
 }
 
+/* Replicated from oakilydokily waiver (.ds-sign) */
 .intake-sign {
-  border: 2px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 1.25rem;
-  background: rgba(0, 217, 255, 0.04);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  background: var(--surface-elevated);
 }
 
 .intake-line {
-  display: none;
+  height: 1px;
+  border-bottom: 1px dashed var(--border);
+  margin-bottom: 1rem;
 }
 
+/* Replicated from oakilydokily waiver (.ds-sign-label) */
 .intake-sign-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin: 0 0 1.25rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.05em;
 }
 
 .intake-form label:not(.intake-check) {
@@ -2855,11 +2854,12 @@ body[data-page="community-grant"] .intake-form textarea {
   cursor: not-allowed;
 }
 
+/* Replicated from oakilydokily waiver (.ds-note) */
 .intake-note {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--muted);
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--border);
   line-height: 1.5;
 }
