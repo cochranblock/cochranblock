@@ -1,3 +1,6 @@
+<!-- Unlicense — cochranblock.org -->
+<!-- Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+
 # Addendum: The Cochranblock Community Grant (Philanthropic Tier)
 
 *Place this at the very bottom of your Bespoke Web Appliance Pricing Matrix, clearly separated from the commercial tiers.*

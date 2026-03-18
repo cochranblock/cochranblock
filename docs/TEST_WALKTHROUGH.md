@@ -1,3 +1,6 @@
+<!-- Unlicense — cochranblock.org -->
+<!-- Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+
 # Cochranblock Test Walkthrough
 
 This document describes the `cochranblock-test` binary, how to run it, and what each test group covers.

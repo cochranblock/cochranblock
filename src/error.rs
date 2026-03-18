@@ -1,8 +1,8 @@
-// Unlicense — cochranblock.org
-// Contributors: mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 #![allow(non_camel_case_types, non_snake_case, dead_code, unused_imports)]
 
 //! t18 = AppError. Kova: thiserror for all custom errors. No unwrap/expect in lib.
+// Unlicense — cochranblock.org
+// Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 use thiserror::Error;
 
@@ -63,4 +63,3 @@ impl t18 {
         }
     }
 }
-

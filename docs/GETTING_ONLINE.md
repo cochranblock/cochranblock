@@ -1,5 +1,6 @@
 <!-- Unlicense — cochranblock.org -->
-<!-- Contributors: mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+<!-- Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3 -->
+
 # Getting Online — Caddy-like Auto HTTPS
 
 The cochranblock uses **lers** (Rust ACME/Let's Encrypt) with **Cloudflare DNS-01** for automatic HTTPS. No HTTP challenge needed — works behind NAT, firewalls, or before the server is reachable. **ACME is always enabled.** No escape hatch.
