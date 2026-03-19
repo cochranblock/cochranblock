@@ -349,7 +349,7 @@ pub async fn f51() -> Vec<t24> {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
         assert_ok(v4.contains("Product in development") || v4.contains("hero-status"), "hero must show product status")?;
-        assert_ok(v4.contains("Consulting") && (v4.contains("limited") || v4.contains("capacity")), "hero must show consulting availability")?;
+        assert_ok(v4.contains("Consulting") && (v4.contains("open") || v4.contains("capacity")), "hero must show consulting availability")?;
         Ok(())
     }).await);
     v0.push(run("products_all_coming_soon", async {
@@ -456,7 +456,7 @@ pub async fn f51() -> Vec<t24> {
     v0.push(run("buttons_hero_ctas_200", async {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("href=\"/products\""), "hero missing Products link")?;
+        assert_ok(v4.contains("href=\"/products\""), "hero missing products link")?;
         assert_ok(v4.contains("href=\"/book\""), "hero missing Book a Call link")?;
         assert_ok(v4.contains("href=\"/contact\""), "hero missing Get in Touch link")?;
         assert_ok(v4.contains("href=\"/about\""), "hero missing About link")?;
