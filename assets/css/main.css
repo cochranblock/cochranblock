@@ -2949,3 +2949,134 @@ body[data-page="community-grant"] .intake-form textarea {
     padding: 2rem 1.5rem;
   }
 }
+
+/* ===== HACKER TERMINAL — /deploy ===== */
+.term-wrap {
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 217, 255, 0.15), 0 4px 24px rgba(0,0,0,0.6);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.term-header {
+  background: #1a1a2e;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.term-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.term-red { background: #ff5f56; }
+.term-yellow { background: #ffbd2e; }
+.term-green { background: #27c93f; }
+
+.term-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: auto;
+}
+
+.term-body {
+  background: #0a0a0f;
+  padding: 1.5rem;
+  min-height: 400px;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #00d9ff;
+}
+
+.term-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.term-echo {
+  color: #27c93f;
+}
+
+.term-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.term-prompt {
+  color: #27c93f;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.term-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e8e8e8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  flex: 1;
+  caret-color: #00d9ff;
+}
+
+.term-input::placeholder {
+  color: #333;
+}
+
+.deploy-terms-drawer summary {
+  color: var(--accent);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.deploy-terms-drawer .intake-body {
+  max-height: 300px;
+  overflow-y: auto;
+  background: #0a0a0f;
+  border: 1px solid rgba(0, 217, 255, 0.15);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.deploy-terms-drawer pre {
+  color: #888;
+  font-size: 0.75rem;
+}
+
+/* Products page category headers */
+.products-category {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-top: 2.5rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.products-category-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .term-body {
+    min-height: 300px;
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+}

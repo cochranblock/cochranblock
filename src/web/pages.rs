@@ -41,13 +41,11 @@ pub async fn f69(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
     let urls = [
         ("/", "1.0", "weekly"),
-        ("/services", "0.9", "weekly"),
         ("/products", "0.9", "weekly"),
+        ("/deploy", "0.9", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
-        ("/intake", "0.9", "weekly"),
         ("/book", "0.8", "weekly"),
-        ("/federal-partners", "0.7", "monthly"),
     ];
     let mut xml = String::from(r#"<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">"#);
     for (path, priority, changefreq) in urls {
@@ -83,12 +81,12 @@ pub fn f62(p0: &str, p1: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/services">Services</a><a href="/products">Products</a><a href="/federal-partners">FBI & DOD IG</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/intake">Request Deployment</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/services">Services</a><a href="/products">Products</a><a href="/federal-partners">FBI & DOD IG</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/intake">Request Deployment</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mclarkfyrue@gmail.com?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/michael-c-ab55451b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mclarkfyrue@gmail.com?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/michael-c-ab55451b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Product in development · Consulting: limited capacity</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>CochranBlock</h1><p class="tagline">Rust-only SaaS that goes after the big guys — and their greed.</p><p class="hero-stats">Offline-first · Creative mode · Superior pricing · AI-powered software reset</p><p class="hero-note">Leveraging AI to reset the software market globally. Old-school offline options. No lock-in. No bloat.</p><p class="hero-skills">Rust · Zero bloat · Offline-first · Creative mode · AI orchestration · Enterprise-grade security</p><p class="hero-cta"><a href="/services" class="btn">What We Build</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/contact" class="btn btn-secondary">Get in Touch</a><a href="/about" class="btn btn-secondary">About CochranBlock</a></p></section>"#;
+    let v0 = r#"<section class="hero"><p class="hero-status">Product in development · Consulting: limited capacity</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>CochranBlock</h1><p class="tagline">Rust-only SaaS that goes after the big guys — and their greed.</p><p class="hero-stats">Offline-first · Creative mode · Superior pricing · AI-powered software reset</p><p class="hero-note">Leveraging AI to reset the software market globally. Old-school offline options. No lock-in. No bloat.</p><p class="hero-skills">Rust · Zero bloat · Offline-first · Creative mode · AI orchestration · Enterprise-grade security</p><p class="hero-cta"><a href="/products" class="btn">What We Build</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
     Html(format!("{}{}{}{}", f62("home", "CochranBlock | Rust SaaS Challenging Enterprise Greed"), C7, v0, C8))
 }
 
@@ -210,17 +208,37 @@ pub async fn f63(State(_p0): State<Arc<t0>>) -> Html<String> {
     ))
 }
 
-/// f67 = serve_products. Why: Rogue Repo, Ronin Sites, Kova product cards.
+/// f67 = serve_products. Why: Three-tier product catalog — Platforms, Partnerships, Open Source.
 pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="products"><h1>Products</h1><p class="products-intro">CochranBlock builds these products. Each is separate from cochranblock.org — the company site. All in active development — coming soon.</p><div class="product-cards"><article class="product-card"><span class="product-badge">Coming Soon</span><a href="https://roguerepo.io" rel="noopener noreferrer"><img src="/assets/img/rogue-repo.png" alt="Rogue Repo" class="product-img" width="400" height="300"></a><h2><a href="https://roguerepo.io" rel="noopener noreferrer">Rogue Repo</a></h2><p>Rust-only app store challenging enterprise greed. Offline-first, creative mode, superior pricing. No JavaScript tax. No cloud lock-in.</p></article><article class="product-card"><span class="product-badge">Coming Soon</span><a href="https://ronin-sites.pro" rel="noopener noreferrer"><img src="/assets/img/ronin-sites.png" alt="Ronin Sites" class="product-img" width="400" height="300"></a><h2><a href="https://ronin-sites.pro" rel="noopener noreferrer">Ronin Sites</a></h2><p>Shop and artist platform with subdomain routing, MinIO blob storage, and mobile-first site tuner. For creators and small businesses.</p></article><article class="product-card"><span class="product-badge">Coming Soon</span><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"><h2>Kova</h2><p>AI Bending with Iron Man Method — human directs, AI executes. Sustained identity, no endless clarification loops. Build fast, ship fast.</p></article></div><p class="products-cta"><a href="/contact" class="btn">Get Notified</a><a href="/services" class="btn btn-secondary">What We Do</a></p></section>"#;
+    let v0 = r#"<section class="products"><h1>Products</h1><p class="products-intro">Everything we build. Platforms we sell, partners we power, and open source we give away.</p>
+
+<h2 class="products-category">Platforms</h2>
+<p class="products-category-desc">Commercial products. Rust-only. Offline-first. Priced to kill the big guys.</p>
+<div class="product-cards">
+<article class="product-card"><span class="product-badge">Coming Soon</span><a href="https://roguerepo.io" rel="noopener noreferrer"><img src="/assets/img/rogue-repo.png" alt="Rogue Repo" class="product-img" width="400" height="300"></a><h2><a href="https://roguerepo.io" rel="noopener noreferrer">Rogue Repo</a></h2><p>Rust-only app store. No JavaScript tax. No cloud lock-in. Offline-first, creative mode, superior pricing. The anti-enterprise app store.</p></article>
+<article class="product-card"><span class="product-badge">Coming Soon</span><a href="https://ronin-sites.pro" rel="noopener noreferrer"><img src="/assets/img/ronin-sites.png" alt="Ronin Sites" class="product-img" width="400" height="300"></a><h2><a href="https://ronin-sites.pro" rel="noopener noreferrer">Ronin Sites</a></h2><p>Shop and artist platform. Subdomain routing, MinIO storage, mobile-first site tuner. For creators who refuse to pay Shopify prices.</p></article>
+</div>
+
+<h2 class="products-category">Business Partnerships</h2>
+<p class="products-category-desc">We build for partners who share the mission. Their brand, our engine.</p>
+<div class="product-cards">
+<article class="product-card"><span class="product-badge">Live</span><a href="https://oakilydokily.com" rel="noopener noreferrer"><h2><a href="https://oakilydokily.com" rel="noopener noreferrer">oakilydokily.com</a></h2></a><p>Waiver management, digital intake, and resume platform. Rust backend, zero bloat, deployed on local hardware via Cloudflare Zero Trust. First paying partnership.</p></article>
+</div>
+
+<h2 class="products-category">Open Source</h2>
+<p class="products-category-desc">Free. Copy-left. Use it, fork it, ship it. We build in the open.</p>
+<div class="product-cards">
+<article class="product-card"><span class="product-badge">Active</span><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"><h2>Kova</h2><p>Augment engine. AI Bending — human directs, AI executes. Local LLM, egui GUI, agent loop with tool use. The brain behind everything we ship.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><h2>illbethejudgeofthat</h2><p>Pro se custody case builder. Google Takeout to court-ready exhibit book + filled forms in one evening. Built by a father who needed it.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><h2>approuter</h2><p>Reverse proxy. All products behind one entry point. Cloudflare tunnel integration. Zero-config service registration.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><h2>cochranblock</h2><p>This site. Rust + Axum. No templates, no JavaScript frameworks. Embedded HTML, zstd-packed assets, single binary. The website is the product demo.</p></article>
+</div>
+
+<p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
     Html(format!("{}{}{}{}", f62("products", "Products | CochranBlock"), C7, v0, C8))
 }
 
-/// f68 = serve_federal_partners. Why: FBI & DOD IG landing; COTS positioning.
-pub async fn f68(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="federal-partners"><h1>FBI & DOD Inspector General Partners</h1><p class="federal-badge">Free · Commercial Off The Shelf · Coming Soon</p><p class="federal-intro">The most capable free COTS product ever built — <strong>specially designed for FBI and Department of Defense Inspector General partners</strong>. Nothing else comes close.</p><div class="federal-claims"><h2>Built for the Bureau. Built for the Pentagon.</h2><p>This isn't generic enterprise software. Every line of code was crafted with <strong>FBI investigators</strong> and <strong>DOD IG auditors</strong> in mind. The perfect tool for the most demanding missions. Free. No strings. No lock-in.</p><ul class="federal-list"><li><strong>FBI-grade</strong> — Designed from the ground up for federal law enforcement workflows</li><li><strong>DOD IG–approved architecture</strong> — Meets the strictest defense audit requirements</li><li><strong>100% free COTS</strong> — The best commercial off-the-shelf product you'll ever deploy. At zero cost.</li><li><strong>Surprise launch</strong> — Stay tuned. This will change how federal partners work.</li></ul></div><p class="federal-cta">Interested? <a href="/contact">Get in Touch</a> — we'll notify FBI and DOD IG partners first.</p><p class="services-cta"><a href="/contact" class="btn">Notify Me</a><a href="/products" class="btn btn-secondary">All Products</a></p></section>"#;
-    Html(format!("{}{}{}{}", f62("federal-partners", "FBI & DOD IG Partners | CochranBlock"), C7, v0, C8))
-}
+// f68 removed — federal-partners page retired.
 
 /// f10 = health. Why: Load balancer / approuter liveness probe.
 pub async fn f10(State(_p0): State<Arc<t0>>) -> &'static str {

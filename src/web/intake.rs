@@ -116,31 +116,152 @@ fn client_ip(addr: SocketAddr, headers: &HeaderMap) -> String {
         .unwrap_or_else(|| addr.ip().to_string())
 }
 
-/// GET /intake — waiver-style intake form.
+/// GET /deploy — hacker terminal intake. Interactive CLI-style form.
 pub async fn get_form(State(s): State<Arc<t0>>) -> Html<String> {
     let terms_escaped = html_escape(TERMS);
     let content = format!(
-        r#"<section class="intake-section"><div class="intake-steps"><span class="intake-step intake-active"><span class="intake-num">1</span> Review</span><span class="intake-step"><span class="intake-num">2</span> Submit</span><span class="intake-step"><span class="intake-num">3</span> Complete</span></div>
-<div class="intake-doc"><h1 class="intake-title">Client Intake — Web Appliance Deployment Request</h1><p class="intake-intro">Request a custom deployment. No login required. Please review the agreement below before submitting.</p>
-<div class="intake-body" id="intake-terms"><pre>{}</pre></div>
-<p class="intake-hint">Scroll through the entire document before submitting.</p>
-<div class="intake-sign"><div class="intake-line"></div><p class="intake-sign-label">Submit your request</p>
-<form class="intake-form" method="post" action="/intake" id="intake-form">
-<label for="full_name">Full name</label><input type="text" id="full_name" name="full_name" required autocomplete="name" placeholder="Your full name" maxlength="200">
-<label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.com" maxlength="254">
-<label for="company">Company or organization (optional)</label><input type="text" id="company" name="company" autocomplete="organization" placeholder="Acme Inc." maxlength="200">
-<label for="message">Brief description of your needs (optional)</label><textarea id="message" name="message" placeholder="Tell us about your project..." maxlength="2000"></textarea>
-<div class="intake-hp" aria-hidden="true"><label for="website_url">Leave blank</label><input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off"></div>
-<div class="intake-consent"><label class="intake-check"><input type="checkbox" name="consent_fee" value="1" required id="consent_fee"> I acknowledge the $3,500 baseline fee for Web Appliances.</label><label class="intake-check"><input type="checkbox" name="consent_hardware" value="1" required id="consent_hardware"> I understand that deployments run on my own local hardware via Cloudflare Zero Trust (no cloud hosting).</label><label class="intake-check"><input type="checkbox" name="consent_terms" value="1" required id="consent_terms"> I have read and agree to the terms above.</label></div>
-<button type="submit" class="btn" id="intake-submit-btn" disabled>Submit Request</button></form></div>
-<p class="intake-note">By submitting you acknowledge receipt. Cochranblock will contact you within 2–3 business days.</p></div></section>
-<script>(function(){{var f=document.getElementById('intake-form');var b=document.getElementById('intake-submit-btn');var c1=document.getElementById('consent_fee');var c2=document.getElementById('consent_hardware');var c3=document.getElementById('consent_terms');var n=document.getElementById('full_name');var e=document.getElementById('email');function chk(){{var ok=c1&&c2&&c3&&n&&e&&c1.checked&&c2.checked&&c3.checked&&n.value.trim()&&e.value.trim();b.disabled=!ok;}}if(f){{c1.onchange=c2.onchange=c3.onchange=chk;n.oninput=n.onchange=e.oninput=e.onchange=chk;chk();}}}})();</script>"#,
+        r#"<section class="intake-section">
+
+<div class="term-wrap">
+<div class="term-header"><span class="term-dot term-red"></span><span class="term-dot term-yellow"></span><span class="term-dot term-green"></span><span class="term-title">cochranblock@deploy:~$</span></div>
+<div class="term-body" id="terminal">
+<div class="term-output" id="term-out"></div>
+<div class="term-input-row" id="term-input-row">
+<span class="term-prompt">$</span>
+<input type="text" class="term-input" id="term-in" autocomplete="off" spellcheck="false" autofocus>
+</div>
+</div>
+</div>
+
+<form method="post" action="/deploy" id="intake-form" style="display:none">
+<input type="hidden" name="deploy_class" id="deploy_class" value="">
+<input type="hidden" name="full_name" id="full_name" value="">
+<input type="hidden" name="email" id="email" value="">
+<input type="hidden" name="company" id="company" value="">
+<input type="hidden" name="message" id="message" value="">
+<input type="hidden" name="website_url" id="website_url" value="">
+<input type="hidden" name="consent_fee" id="consent_fee" value="">
+<input type="hidden" name="consent_hardware" id="consent_hardware" value="">
+<input type="hidden" name="consent_terms" id="consent_terms" value="">
+</form>
+
+<details id="terms-drawer" class="deploy-terms-drawer" style="margin-top:1rem">
+<summary style="color:#00d9ff;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.85rem">cat terms.txt</summary>
+<div class="intake-body"><pre>{}</pre></div>
+</details>
+
+<script>
+(function(){{
+var out=document.getElementById('term-out');
+var inp=document.getElementById('term-in');
+var step=0;
+var answers={{}};
+var steps=[
+  {{q:'COCHRANBLOCK DEPLOY SYSTEM v1.0\n================================\nInitializing secure connection...\nConnection established.\n\nWelcome. Three deployment classes available:\n\n  [1] PRODUCT    — Web appliance on your hardware. $3,500 base. $0/mo.\n  [2] CONSULTING — Build, harden, or fix systems. Project-based.\n  [3] PARTNERSHIP — Long-term. Your brand, our engine.\n\nSelect class (1/2/3):',field:'deploy_class',validate:function(v){{return ['1','2','3'].indexOf(v)!==-1}},transform:function(v){{return ['','product','consulting','partnership'][parseInt(v)]}}}},
+  {{q:'Enter your name:',field:'full_name',validate:function(v){{return v.trim().length>0}}}},
+  {{q:'Enter your email:',field:'email',validate:function(v){{return v.trim().length>0&&v.indexOf('@')>0}}}},
+  {{q:'Company or project name (enter to skip):',field:'company',validate:function(){{return true}}}},
+  {{q:'Describe your mission (what are you building?):',field:'message',validate:function(){{return true}}}},
+  {{q:'Pricing acknowledged? You understand the model for your class. (y/n):',field:'consent_fee',validate:function(v){{return v.toLowerCase()==='y'||v.toLowerCase()==='n'}},transform:function(v){{return v.toLowerCase()==='y'?'1':''}}}},
+  {{q:'Hardware model: deployments run on YOUR local hardware via Cloudflare Zero Trust.\nNo cloud hosting. No monthly fees. Acknowledged? (y/n):',field:'consent_hardware',validate:function(v){{return v.toLowerCase()==='y'||v.toLowerCase()==='n'}},transform:function(v){{return v.toLowerCase()==='y'?'1':''}}}},
+  {{q:'Terms accepted? (type "cat terms" to read, or y/n):',field:'consent_terms',validate:function(v){{var l=v.toLowerCase();return l==='y'||l==='n'||l==='cat terms'}},transform:function(v){{return v.toLowerCase()==='y'?'1':''}}}}
+];
+
+function typeOut(text,cb){{
+  var lines=text.split('\n');
+  var i=0;
+  function nextLine(){{
+    if(i>=lines.length){{if(cb)cb();return;}}
+    var div=document.createElement('div');
+    div.className='term-line';
+    div.textContent=lines[i];
+    out.appendChild(div);
+    out.scrollTop=out.scrollHeight;
+    i++;
+    setTimeout(nextLine,40);
+  }}
+  nextLine();
+}}
+
+function showPrompt(){{
+  if(step>=steps.length){{
+    // All consent checks passed?
+    var f=document.getElementById('intake-form');
+    var fee=document.getElementById('consent_fee').value;
+    var hw=document.getElementById('consent_hardware').value;
+    var terms=document.getElementById('consent_terms').value;
+    if(fee==='1'&&hw==='1'&&terms==='1'){{
+      typeOut('\n[DEPLOY] All systems green. Transmitting request...\n[DEPLOY] Quest submitted. Stand by for contact within 48 hours.\n',function(){{
+        f.submit();
+      }});
+    }}else{{
+      typeOut('\n[ABORT] All three acknowledgments required to deploy.\n[ABORT] Type "restart" to try again.\n',null);
+      step=-1;
+    }}
+    return;
+  }}
+  typeOut('\n'+steps[step].q+'\n',function(){{
+    inp.focus();
+  }});
+}}
+
+inp.addEventListener('keydown',function(ev){{
+  if(ev.key!=='Enter')return;
+  var val=inp.value;
+  inp.value='';
+
+  var echo=document.createElement('div');
+  echo.className='term-line term-echo';
+  echo.textContent='$ '+val;
+  out.appendChild(echo);
+
+  if(val.toLowerCase()==='restart'){{
+    step=0;
+    out.innerHTML='';
+    showPrompt();
+    return;
+  }}
+
+  if(val.toLowerCase()==='cat terms'){{
+    document.getElementById('terms-drawer').open=true;
+    typeOut('[TERMS] Scroll down to read terms.txt\n',function(){{
+      showPrompt();
+    }});
+    return;
+  }}
+
+  if(step<0)return;
+  if(step>=steps.length)return;
+
+  var s=steps[step];
+  if(!s.validate(val)){{
+    typeOut('[ERROR] Invalid input. Try again.\n',function(){{inp.focus();}});
+    return;
+  }}
+
+  var transformed=s.transform?s.transform(val):val;
+  document.getElementById(s.field).value=transformed;
+  answers[s.field]=transformed;
+
+  if(s.field==='deploy_class'){{
+    var names={{product:'PRODUCT DEPLOYMENT',consulting:'CONSULTING',partnership:'PARTNERSHIP'}};
+    typeOut('[OK] Class selected: '+names[transformed]+'\n',null);
+  }}
+
+  step++;
+  showPrompt();
+}});
+
+showPrompt();
+}})();
+</script>
+</section>"#,
         terms_escaped
     );
     let _ = s;
     Html(format!(
         "{}{}{}{}",
-        f62("intake", "Request Deployment | CochranBlock"),
+        f62("deploy", "Deploy | CochranBlock"),
         C7,
         content,
         C8
@@ -287,7 +408,7 @@ pub async fn post_form(
         }
     }
 
-    let loc = format!("/intake/confirmed?ref={}", urlencoding::encode(&id));
+    let loc = format!("/deploy/confirmed?ref={}", urlencoding::encode(&id));
     Redirect::temporary(loc.as_str()).into_response()
 }
 
@@ -307,7 +428,7 @@ fn confirmed_html(ref_id: Option<&str>) -> String {
 
     format!(
         "{}{}{}{}",
-        f62("intake-confirmed", "Request Received | CochranBlock"),
+        f62("deploy-confirmed", "Quest Accepted | CochranBlock"),
         C7,
         content,
         C8

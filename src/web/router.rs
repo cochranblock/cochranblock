@@ -5,6 +5,7 @@
 
 use axum::{routing::get, Router};
 use axum::http::header::{HeaderName, HeaderValue};
+use axum::response::Redirect;
 use tower_http::{
     compression::CompressionLayer,
     set_header::SetResponseHeaderLayer,
@@ -31,16 +32,18 @@ pub fn f1(p0: t0) -> Router {
     );
     let r0 = Router::new()
         .route("/", get(pages::f2))
-        .route("/services", get(pages::f11))
+        .route("/products", get(pages::f67))
+        .route("/deploy", get(intake::get_form).post(intake::post_form))
+        .route("/deploy/confirmed", get(intake::confirmed))
         .route("/about", get(pages::f12))
         .route("/contact", get(pages::f13))
         .route("/book", get(pages::f63))
-        .route("/intake", get(intake::get_form).post(intake::post_form))
-        .route("/intake/confirmed", get(intake::confirmed))
         .route("/community-grant", get(community_grant::get_form).post(community_grant::post_form))
         .route("/community-grant/confirmed", get(community_grant::confirmed))
-        .route("/products", get(pages::f67))
-        .route("/federal-partners", get(pages::f68))
+        // Redirects for old routes
+        .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
+        .route("/services", get(|| async { Redirect::permanent("/products") }))
+        .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/robots.txt", get(pages::f69))
         .route("/sitemap.xml", get(pages::f70))
