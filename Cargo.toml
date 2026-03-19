@@ -3,7 +3,7 @@
 
 [package]
 name = "cochranblock"
-version = "0.3.0"
+version = "0.5.0"
 edition = "2024"
 
 # tests = rough draft. exopack for quantifiable quality. Release strips both.
