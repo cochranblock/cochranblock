@@ -4,7 +4,7 @@
 [package]
 name = "cochranblock"
 version = "0.3.0"
-edition = "2021"
+edition = "2024"
 
 # tests = rough draft. exopack for quantifiable quality. Release strips both.
 # admin = db, auth, sessions, crypto, dns, config. Default = static only.
