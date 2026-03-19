@@ -184,7 +184,7 @@ var bootLines=[
 '',
 '  [BIOS] Memory check............ 64GB OK',
 '  [BIOS] Rust toolchain.......... 1.94.0 OK',
-'  [BIOS] Security clearance...... VERIFIED',
+'  [BIOS] Identity................ VERIFIED',
 '  [BIOS] Cloudflare tunnel....... CONNECTED',
 '  [BIOS] Encryption.............. AES-256-GCM',
 '  [BIOS] Honeypot................ ARMED',
