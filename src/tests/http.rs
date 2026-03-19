@@ -257,8 +257,7 @@ pub async fn f51() -> Vec<t24> {
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
         assert_ok(v4.contains("Mission") || v4.contains("Profile"), "about missing Mission tab")?;
         assert_ok(v4.contains("Credentials"), "about missing Credentials tab")?;
-        assert_ok(v4.contains("Print Resume"), "about missing print button")?;
-        assert_ok(v4.contains("resume-section"), "about missing resume section")?;
+        assert_ok(v4.contains("copy-resume") || v4.contains("resume-raw"), "about missing resume block")?;
         Ok(())
     }).await);
     v0.push(run("home_ctas", async {

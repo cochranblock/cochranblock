@@ -100,10 +100,88 @@ pub async fn f11(State(_p0): State<Arc<t0>>) -> Html<String> {
 pub async fn f12(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = include_str!("../../content/resume.html");
 
-    let v5 = format!(
-        r#"<div class="legacy-tab-content"><div class="print-resume-bar"><button type="button" class="btn" onclick="window.print()">Print Resume</button></div><section class="resume-section">{}</section></div>"#,
-        v0
-    );
+    let v5 = r#"<div class="legacy-tab-content">
+<div class="resume-actions">
+  <button type="button" class="btn" id="copy-resume" onclick="navigator.clipboard.writeText(document.getElementById('resume-text').innerText).then(function(){document.getElementById('copy-resume').textContent='Copied.'})">Copy to Clipboard</button>
+  <a href="/assets/resume.pdf" class="btn btn-secondary" download>Download PDF</a>
+</div>
+<p class="resume-hint">Step 1: Click "Copy to Clipboard"<br>Step 2: Paste it wherever you want<br>Step 3: There is no step 3</p>
+<pre id="resume-text" class="resume-raw">
+MICHAEL COCHRAN
+Senior Systems Engineer & Product Security
+mclarkfyrue@gmail.com | cochranblock.org | linkedin.com/in/michael-c-ab55451b3
+
+────────────────────────────────────────────────────
+
+SUMMARY
+
+11+ years defense, fintech, and enterprise infrastructure.
+Built and shipped production systems for organizations that
+can't afford downtime. Founded CochranBlock — Rust-only SaaS
+challenging enterprise greed. AI-powered. Offline-first. No bloat.
+
+────────────────────────────────────────────────────
+
+EXPERIENCE
+
+FOUNDER & LEAD ENGINEER — CochranBlock                    2024–Present
+  Rust-only SaaS company. 8 products in development.
+  Kova augment engine, approuter reverse proxy, cochranblock.org.
+  On-device AI models (Pixel Forge: Cinder/Quench/Anvil).
+  Full CI/CD via exopack triple sims gate. Zero external deps.
+  Deploy model: client hardware + Cloudflare Zero Trust. $0/mo.
+
+SENIOR SYSTEMS ENGINEER — Enterprise Client               2024–Present
+  Mission-critical systems. Custom Python for systems survey.
+  SSH/Kerberos automation. Server service repair pipelines.
+
+SENIOR SOFTWARE ENGINEER — Two Six Technologies           2022–2024
+  Enterprise security integrations. YAML→SQL pipelines.
+  Regex parsing, data sanitization, cross-system interop.
+
+SYSTEMS DEVELOPER — Enterprise Security                   2020–2022
+  APIs, CI/CD, documentation, data modeling, network protocols.
+  GitLab, Docker, cross-team integration.
+
+VULNERABILITY RESEARCH & RED TEAMING — USCYBERCOM J38     2017–2020
+  Product security. 100+ enterprise-scale deployments.
+  Python automation. Red team initiative founder.
+  "Thanks for building the groundwork for development here." — SFC Rios
+
+SECURITY ANALYST — Product Security                       2014–2017
+  Network mapping, analysis, security reporting.
+  Laid foundation for JMOC-E development operations.
+
+────────────────────────────────────────────────────
+
+SKILLS
+
+Languages:  Rust, Python, C, C++, Assembly, Go, JavaScript
+Security:   Penetration Testing, Vulnerability Research, Red Teaming
+Infra:      Linux, Docker, Cloudflare, SSH/Kerberos, sled, SQLite
+AI/ML:      On-device training (candle), LoRA, diffusion models
+Tools:      Git, Cargo, Axum, Tokio, bincode, zstd
+
+────────────────────────────────────────────────────
+
+CLEARANCE
+
+Active — details available upon request.
+
+────────────────────────────────────────────────────
+
+REFERENCES
+
+"You are one of the brightest people I ever had the pleasure
+of working with. You're forged to thrive." — Carpenter, USCYBERCOM
+
+"You taught others and left 'gifts' of code. We are better
+for having you here." — Jay, USCYBERCOM
+
+"Continue your legacy. The red team initiative is still alive."
+— LTC Beal, USCYBERCOM
+</pre>
+</div>"#.to_string();
 
     let v6 = format!(
         r#"<section class="about"><h1>About CochranBlock</h1>
