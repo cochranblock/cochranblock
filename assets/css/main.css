@@ -2950,53 +2950,193 @@ body[data-page="community-grant"] .intake-form textarea {
   }
 }
 
-/* ===== HACKER TERMINAL — /deploy ===== */
-.term-wrap {
-  max-width: 800px;
+/* ===== CRT MONITOR TERMINAL — /deploy ===== */
+
+/* The physical monitor */
+.crt-monitor {
+  max-width: 850px;
   margin: 2rem auto;
+  perspective: 800px;
+}
+
+.crt-bezel {
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 30%, #111 70%, #1a1a1a 100%);
+  border-radius: 20px;
+  padding: 28px 28px 40px;
+  box-shadow:
+    0 8px 40px rgba(0,0,0,0.8),
+    0 0 80px rgba(0, 217, 255, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+}
+
+.crt-brand {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  color: #444;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.crt-power {
+  position: absolute;
+  bottom: 14px;
+  right: 32px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27c93f;
+  box-shadow: 0 0 6px #27c93f, 0 0 12px rgba(39, 201, 63, 0.4);
+  animation: crt-power-pulse 2s ease-in-out infinite;
+}
+
+@keyframes crt-power-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #27c93f, 0 0 12px rgba(39, 201, 63, 0.4); }
+  50% { opacity: 0.6; box-shadow: 0 0 3px #27c93f; }
+}
+
+/* The screen area */
+.crt-screen {
+  background: #0a0a0f;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 40px rgba(0, 217, 255, 0.15), 0 4px 24px rgba(0,0,0,0.6);
-  border: 1px solid rgba(0, 217, 255, 0.2);
+  position: relative;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.8),
+    inset 0 0 8px rgba(0, 217, 255, 0.1);
+}
+
+/* Scan lines overlay */
+.crt-screen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Static/noise flicker overlay */
+.crt-screen::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 4;
+  animation: crt-static 0.1s steps(3) infinite;
+  opacity: 0.03;
+}
+
+@keyframes crt-static {
+  0% { background-position: 0 0; }
+  33% { background-position: -100px -50px; }
+  66% { background-position: 50px -100px; }
+  100% { background-position: -50px 50px; }
+}
+
+/* Screen curvature via subtle border effect */
+.crt-glass {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 8px;
+}
+
+/* Screen glow */
+.crt-glow {
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.1);
+  pointer-events: none;
+  animation: crt-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes crt-glow-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 217, 255, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(0, 217, 255, 0.2), 0 0 50px rgba(0, 217, 255, 0.05); }
+}
+
+/* Flicker effect — subtle, occasional */
+@keyframes crt-flicker {
+  0% { opacity: 1; }
+  3% { opacity: 0.95; }
+  6% { opacity: 1; }
+  92% { opacity: 1; }
+  94% { opacity: 0.97; }
+  96% { opacity: 1; }
+}
+
+/* Terminal content inside the screen */
+.term-wrap {
+  position: relative;
+  z-index: 1;
+  animation: crt-flicker 8s linear infinite;
 }
 
 .term-header {
-  background: #1a1a2e;
-  padding: 0.6rem 1rem;
+  background: rgba(0, 217, 255, 0.05);
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.1);
 }
 
 .term-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: inline-block;
 }
 
-.term-red { background: #ff5f56; }
-.term-yellow { background: #ffbd2e; }
-.term-green { background: #27c93f; }
+.term-red { background: #ff5f56; box-shadow: 0 0 4px rgba(255,95,86,0.5); }
+.term-yellow { background: #ffbd2e; box-shadow: 0 0 4px rgba(255,189,46,0.5); }
+.term-green { background: #27c93f; box-shadow: 0 0 4px rgba(39,201,63,0.5); }
 
 .term-title {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #666;
+  font-size: 0.7rem;
+  color: #555;
   margin-left: auto;
+  letter-spacing: 1px;
 }
 
 .term-body {
-  background: #0a0a0f;
+  background: transparent;
   padding: 1.5rem;
   min-height: 400px;
-  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: auto;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #00d9ff;
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
 }
+
+/* Scrollbar styling for the terminal */
+.term-body::-webkit-scrollbar { width: 6px; }
+.term-body::-webkit-scrollbar-track { background: transparent; }
+.term-body::-webkit-scrollbar-thumb { background: rgba(0, 217, 255, 0.2); border-radius: 3px; }
+.term-body::-webkit-scrollbar-thumb:hover { background: rgba(0, 217, 255, 0.4); }
 
 .term-line {
   white-space: pre-wrap;
@@ -3005,6 +3145,7 @@ body[data-page="community-grant"] .intake-form textarea {
 
 .term-echo {
   color: #27c93f;
+  text-shadow: 0 0 6px rgba(39, 201, 63, 0.4);
 }
 
 .term-input-row {
@@ -3018,6 +3159,7 @@ body[data-page="community-grant"] .intake-form textarea {
   color: #27c93f;
   font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 6px rgba(39, 201, 63, 0.4);
 }
 
 .term-input {
@@ -3029,10 +3171,23 @@ body[data-page="community-grant"] .intake-form textarea {
   font-size: 0.85rem;
   flex: 1;
   caret-color: #00d9ff;
+  text-shadow: 0 0 4px rgba(0, 217, 255, 0.2);
 }
 
 .term-input::placeholder {
-  color: #333;
+  color: #222;
+}
+
+/* Boot sequence animation */
+@keyframes crt-boot {
+  0% { opacity: 0; transform: scaleY(0.01); }
+  10% { opacity: 1; transform: scaleY(0.01); }
+  15% { transform: scaleY(1); }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+.crt-screen.booting .term-wrap {
+  animation: crt-boot 1.2s ease-out forwards;
 }
 
 .deploy-terms-drawer summary {

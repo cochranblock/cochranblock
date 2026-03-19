@@ -122,6 +122,11 @@ pub async fn get_form(State(s): State<Arc<t0>>) -> Html<String> {
     let content = format!(
         r#"<section class="intake-section">
 
+<div class="crt-monitor">
+<div class="crt-bezel">
+<div class="crt-screen booting">
+<div class="crt-glow"></div>
+<div class="crt-glass"></div>
 <div class="term-wrap">
 <div class="term-header"><span class="term-dot term-red"></span><span class="term-dot term-yellow"></span><span class="term-dot term-green"></span><span class="term-title">cochranblock@deploy:~$</span></div>
 <div class="term-body" id="terminal">
@@ -130,6 +135,11 @@ pub async fn get_form(State(s): State<Arc<t0>>) -> Html<String> {
 <span class="term-prompt">$</span>
 <input type="text" class="term-input" id="term-in" autocomplete="off" spellcheck="false" autofocus>
 </div>
+</div>
+</div>
+</div>
+<span class="crt-brand">CochranBlock</span>
+<span class="crt-power"></span>
 </div>
 </div>
 
@@ -156,8 +166,34 @@ var out=document.getElementById('term-out');
 var inp=document.getElementById('term-in');
 var step=0;
 var answers={{}};
+var bootLines=[
+'',
+'  ######   #######   ######  ##   ## ########     ###    ##   ##',
+'  ##   ## ##     ## ##    ## ##   ## ##     ##   ## ##  ####  ##',
+'  ##      ##     ## ##       ####### ########  ##   ## ## ## ##',
+'  ##   ## ##     ## ##    ## ##   ## ##   ##  ######## ##  ####',
+'  ######   #######   ######  ##   ## ##    ## ##   ## ##   ###',
+'           ########  ##       #######   ######  ##   ##',
+'           ##     ## ##      ##     ## ##    ## ##  ##',
+'           ########  ##      ##     ## ##       #####',
+'           ##     ## ##      ##     ## ##    ## ##  ##',
+'           ########  ######## #######   ######  ##   ##',
+'',
+'  DEPLOY SYSTEM v0.3.0',
+'  ==========================================',
+'',
+'  [BIOS] Memory check............ 64GB OK',
+'  [BIOS] Rust toolchain.......... 1.94.0 OK',
+'  [BIOS] Security clearance...... VERIFIED',
+'  [BIOS] Cloudflare tunnel....... CONNECTED',
+'  [BIOS] Encryption.............. AES-256-GCM',
+'  [BIOS] Honeypot................ ARMED',
+'',
+'  Booting deploy interface...',
+'',
+];
 var steps=[
-  {{q:'COCHRANBLOCK DEPLOY SYSTEM v1.0\n================================\nInitializing secure connection...\nConnection established.\n\nWelcome. Three deployment classes available:\n\n  [1] PRODUCT    — Web appliance on your hardware. $3,500 base. $0/mo.\n  [2] CONSULTING — Build, harden, or fix systems. Project-based.\n  [3] PARTNERSHIP — Long-term. Your brand, our engine.\n\nSelect class (1/2/3):',field:'deploy_class',validate:function(v){{return ['1','2','3'].indexOf(v)!==-1}},transform:function(v){{return ['','product','consulting','partnership'][parseInt(v)]}}}},
+  {{q:'Connection established. System ready.\n\nThree deployment classes available:\n\n  [1] PRODUCT     $3,500 base. Your hardware. $0/mo forever.\n  [2] CONSULTING  Build it, harden it, fix it. Project-based.\n  [3] PARTNERSHIP Your brand + our engine. Long-term.\n\nSelect class (1/2/3):',field:'deploy_class',validate:function(v){{return ['1','2','3'].indexOf(v)!==-1}},transform:function(v){{return ['','product','consulting','partnership'][parseInt(v)]}}}},
   {{q:'Enter your name:',field:'full_name',validate:function(v){{return v.trim().length>0}}}},
   {{q:'Enter your email:',field:'email',validate:function(v){{return v.trim().length>0&&v.indexOf('@')>0}}}},
   {{q:'Company or project name (enter to skip):',field:'company',validate:function(){{return true}}}},
@@ -252,7 +288,23 @@ inp.addEventListener('keydown',function(ev){{
   showPrompt();
 }});
 
-showPrompt();
+// Boot sequence then first prompt
+var bootIdx=0;
+function bootLine(){{
+  if(bootIdx>=bootLines.length){{
+    setTimeout(function(){{showPrompt();}},400);
+    return;
+  }}
+  var div=document.createElement('div');
+  div.className='term-line';
+  div.textContent=bootLines[bootIdx];
+  out.appendChild(div);
+  out.scrollTop=out.scrollHeight;
+  bootIdx++;
+  var delay=bootLines[bootIdx-1].indexOf('[BIOS]')>=0?120:30;
+  setTimeout(bootLine,delay);
+}}
+bootLine();
 }})();
 </script>
 </section>"#,
