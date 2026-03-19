@@ -247,7 +247,7 @@ pub async fn f51() -> Vec<t24> {
     v0.push(run("contact_links", async {
         let v3 = v2.get(format!("{}/contact", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("mailto:mclarkfyrue@gmail.com"), "contact missing email link")?;
+        assert_ok(v4.contains("mailto:mcochran@cochranblock.org"), "contact missing email link")?;
         assert_ok(v4.contains("Book a Call"), "contact missing Book a Call")?;
         assert_ok(v4.contains("CochranBlock%20Inquiry") || v4.contains("mailto:"), "contact mailto missing")?;
         Ok(())
