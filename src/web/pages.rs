@@ -197,7 +197,7 @@ for having you here." — Jay, USCYBERCOM
   <h3 class="profile-subhead">Consulting</h3>
   <p>Consulting open now — open for engagements. We take on select engagements: systems engineering, vulnerability research, product security, and integration work. 11+ years enterprise experience. Truthfinder. No bullshit.</p>
   <h3 class="profile-subhead">Founded By</h3>
-  <p>Michael Cochran — Senior Systems Engineer & Product Security. 11+ years in defense, fintech, and enterprise infrastructure. Built and shipped production systems for organizations that can't afford downtime. Now building the tools those organizations should have had from the start.</p>
+  <p>Michael Cochran — Senior Systems Engineer & Product Security. 11+ years in defense and enterprise infrastructure. Built and shipped production systems for organizations that can't afford downtime. Now building the tools those organizations should have had from the start.</p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
