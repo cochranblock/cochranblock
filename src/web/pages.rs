@@ -228,10 +228,10 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <h2 class="products-category">Open Source</h2>
 <p class="products-category-desc">Free. Copy-left. Use it, fork it, ship it. We build in the open.</p>
 <div class="product-cards">
-<article class="product-card"><span class="product-badge">Active</span><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"><h2>Kova</h2><p>Augment engine. AI Bending — human directs, AI executes. Local LLM, egui GUI, agent loop with tool use. The brain behind everything we ship.</p></article>
-<article class="product-card"><span class="product-badge">Active</span><h2>illbethejudgeofthat</h2><p>Pro se custody case builder. Google Takeout to court-ready exhibit book + filled forms in one evening. Built by a father who needed it.</p></article>
-<article class="product-card"><span class="product-badge">Active</span><h2>approuter</h2><p>Reverse proxy. All products behind one entry point. Cloudflare tunnel integration. Zero-config service registration.</p></article>
-<article class="product-card"><span class="product-badge">Active</span><h2>cochranblock</h2><p>This site. Rust + Axum. No templates, no JavaScript frameworks. Embedded HTML, zstd-packed assets, single binary. The website is the product demo.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer"><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer">Kova</a></h2><p>Augment engine. AI Bending — human directs, AI executes. Local LLM, egui GUI, agent loop with tool use. The brain behind everything we ship.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/illbethejudgeofthat" rel="noopener noreferrer">illbethejudgeofthat</a></h2><p>Pro se custody case builder. Google Takeout to court-ready exhibit book + filled forms in one evening. Built by a father who needed it.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/approuter" rel="noopener noreferrer">approuter</a></h2><p>Reverse proxy. All products behind one entry point. Cloudflare tunnel integration. Zero-config service registration.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/cochranblock" rel="noopener noreferrer">cochranblock</a></h2><p>This site. Rust + Axum. No templates, no JavaScript frameworks. Embedded HTML, zstd-packed assets, single binary. The website is the product demo.</p></article>
 </div>
 
 <p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
