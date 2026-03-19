@@ -13,14 +13,13 @@ use crate::web::router;
 
 const COCHRANBLOCK_PAGES: &[(&str, &str)] = &[
     ("index", "/"),
-    ("services", "/services"),
     ("products", "/products"),
-    ("federal-partners", "/federal-partners"),
     ("about", "/about"),
     ("contact", "/contact"),
-    ("intake", "/intake"),
     ("community-grant", "/community-grant"),
     ("book", "/book"),
+    ("deploy", "/deploy"),
+    ("deploy-confirmed", "/deploy/confirmed"),
 ];
 
 /// Copy screenshots from cache to repo screenshots/ for TRIPLE SIMS docs.

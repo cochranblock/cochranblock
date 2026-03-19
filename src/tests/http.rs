@@ -49,12 +49,10 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("CochranBlock"), "home page missing 'CochranBlock'")?;
         Ok(())
     }).await);
-    v0.push(run("services_200", async {
+    v0.push(run("services_redirect", async {
         let v3 = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(status.is_success(), format!("status {}", status))?;
-        assert_ok(v4.contains("What We Do") || v4.contains("Rust-only SaaS"), "services page missing content")?;
+        assert_ok(status.as_u16() == 308, format!("/services must 308 redirect to /products, got {}", status))?;
         Ok(())
     }).await);
     v0.push(run("about_200", async {
@@ -75,13 +73,10 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("Contact"), "contact page missing 'Contact'")?;
         Ok(())
     }).await);
-    v0.push(run("intake_200", async {
+    v0.push(run("intake_redirect", async {
         let v3 = v2.get(format!("{}/intake", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(status.is_success(), format!("status {}", status))?;
-        assert_ok(v4.contains("Client Intake") || v4.contains("Web Appliance"), "intake page missing content")?;
-        assert_ok(v4.contains("$3,500"), "intake page missing fee acknowledgment")?;
+        assert_ok(status.as_u16() == 308 || status.is_success(), format!("/intake must redirect or 200, got {}", status))?;
         Ok(())
     }).await);
     v0.push(run("community_grant_200", async {
@@ -92,12 +87,10 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("Community Grant") || v4.contains("$500"), "community grant page missing content")?;
         Ok(())
     }).await);
-    v0.push(run("intake_confirmed_200", async {
-        let v3 = v2.get(format!("{}/intake/confirmed", v1)).send().await.map_err(|e| e.to_string())?;
+    v0.push(run("deploy_confirmed_legacy", async {
+        let v3 = v2.get(format!("{}/deploy/confirmed", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(status.is_success(), format!("status {}", status))?;
-        assert_ok(v4.contains("Request Received") || v4.contains("submitted"), "intake confirmed missing success message")?;
+        assert_ok(status.is_success(), format!("deploy/confirmed must 200, got {}", status))?;
         Ok(())
     }).await);
     v0.push(run("community_grant_confirmed_200", async {
@@ -108,14 +101,9 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("Application Received") || v4.contains("submitted"), "community grant confirmed missing success message")?;
         Ok(())
     }).await);
-    v0.push(run("intake_form_fields", async {
+    v0.push(run("intake_redirects_to_deploy", async {
         let v3 = v2.get(format!("{}/intake", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("name=\"full_name\""), "intake missing full_name field")?;
-        assert_ok(v4.contains("name=\"email\""), "intake missing email field")?;
-        assert_ok(v4.contains("consent_fee") && v4.contains("$3,500"), "intake missing fee consent")?;
-        assert_ok(v4.contains("consent_hardware") && v4.contains("Cloudflare"), "intake missing hardware consent")?;
-        assert_ok(v4.contains("action=\"/intake\""), "intake form missing action")?;
+        assert_ok(v3.status().as_u16() == 308, format!("/intake must 308 → /deploy, got {}", v3.status()))?;
         Ok(())
     }).await);
     v0.push(run("community_grant_form_fields", async {
@@ -251,12 +239,9 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(status.as_u16() == 404, format!("expected 404 got {}", status))?;
         Ok(())
     }).await);
-    v0.push(run("services_content", async {
-        let v3 = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("Rust-only SaaS") || v4.contains("Rust"), "services missing product")?;
-        assert_ok(v4.contains("Systems Engineering") || v4.contains("Consulting"), "services missing consulting")?;
-        assert_ok(v4.contains("Get in Touch"), "services missing CTA")?;
+    v0.push(run("federal_partners_redirect", async {
+        let v3 = v2.get(format!("{}/federal-partners", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().as_u16() == 308, format!("/federal-partners must 308 → /products, got {}", v3.status()))?;
         Ok(())
     }).await);
     v0.push(run("contact_links", async {
@@ -282,7 +267,7 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("href=\"/contact\""), "home missing contact link")?;
         assert_ok(v4.contains("href=\"/book\""), "home missing book link")?;
         assert_ok(v4.contains("href=\"/about\""), "home missing about link")?;
-        assert_ok(v4.contains("href=\"/services\""), "home missing services link")?;
+        assert_ok(v4.contains("href=\"/products\""), "home missing products link")?;
         Ok(())
     }).await);
     v0.push(run("book_slots_json", async {
@@ -342,25 +327,15 @@ pub async fn f51() -> Vec<t24> {
     v0.push(run("nav_footer_links", async {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("href=\"/services\""), "nav/footer missing /services")?;
         assert_ok(v4.contains("href=\"/products\""), "nav/footer missing /products")?;
         assert_ok(v4.contains("href=\"/about\""), "nav/footer missing /about")?;
         assert_ok(v4.contains("href=\"/contact\""), "nav/footer missing /contact")?;
-        assert_ok(v4.contains("href=\"/intake\""), "nav/footer missing /intake (Request Deployment)")?;
+        assert_ok(v4.contains("href=\"/deploy\"") || v4.contains("href=\"/intake\""), "nav/footer missing /deploy")?;
         assert_ok(v4.contains("href=\"/book\""), "nav/footer missing /book")?;
-        assert_ok(v4.contains("href=\"/federal-partners\""), "nav/footer missing /federal-partners")?;
         assert_ok(v4.contains("href=\"/\"") || v4.contains("href=\"https://cochranblock.org\""), "nav/footer missing home link")?;
         Ok(())
     }).await);
-    v0.push(run("federal_partners_200", async {
-        let v3 = v2.get(format!("{}/federal-partners", v1)).send().await.map_err(|e| e.to_string())?;
-        assert_ok(v3.status().is_success(), format!("federal-partners must 200"))?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("FBI") && v4.contains("DOD"), "federal-partners must mention FBI and DOD")?;
-        assert_ok(v4.contains("Inspector General") || v4.contains("IG"), "federal-partners must mention IG")?;
-        assert_ok(v4.contains("COTS") || v4.contains("commercial off-the-shelf"), "federal-partners must mention COTS")?;
-        Ok(())
-    }).await);
+    // federal-partners collapsed into /products — redirect tested above
     v0.push(run("gzip_encoding", async {
         let v3 = v2.get(format!("{}/", v1))
             .header("Accept-Encoding", "gzip")
@@ -400,12 +375,7 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("Michael Cochran") || v4.contains("Founded"), "about must have founder")?;
         Ok(())
     }).await);
-    v0.push(run("services_consulting_open", async {
-        let v3 = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("Consulting") && (v4.contains("open") || v4.contains("limited")), "services must show consulting availability")?;
-        Ok(())
-    }).await);
+    // services collapsed into /products — redirect tested above
     v0.push(run("semantic_main_nav", async {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
@@ -435,12 +405,7 @@ pub async fn f51() -> Vec<t24> {
         }
         Ok(())
     }).await);
-    v0.push(run("products_services_link", async {
-        let v3 = v2.get(format!("{}/products", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("href=\"/services\""), "products must link to services")?;
-        Ok(())
-    }).await);
+    // products_services_link: /services collapsed into /products
     v0.push(run("products_roguerepo_link", async {
         let v3 = v2.get(format!("{}/products", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
@@ -466,22 +431,7 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(!v9.is_empty() && (v9.starts_with("Mon") || v9.starts_with("Tue") || v9.starts_with("Wed") || v9.starts_with("Thu") || v9.starts_with("Fri")), "slots must be weekdays only")?;
         Ok(())
     }).await);
-    v0.push(run("services_product_details", async {
-        let v3 = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("Offline-first") || v4.contains("Offline"), "services must show offline-first")?;
-        assert_ok(v4.contains("Creative mode") || v4.contains("creative"), "services must show creative mode")?;
-        assert_ok(v4.contains("Superior pricing") || v4.contains("pricing"), "services must show pricing")?;
-        Ok(())
-    }).await);
-    v0.push(run("services_consulting_details", async {
-        let v3 = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("Systems Engineering") || v4.contains("Systems"), "services must show systems eng")?;
-        assert_ok(v4.contains("Vulnerability") || v4.contains("vuln") || v4.contains("security"), "services must show vuln research")?;
-        assert_ok(v4.contains("API") || v4.contains("Integration"), "services must show API/integration")?;
-        Ok(())
-    }).await);
+    // services_product_details + services_consulting_details: collapsed into /products
     v0.push(run("index_tagline", async {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
@@ -495,7 +445,7 @@ pub async fn f51() -> Vec<t24> {
         Ok(())
     }).await);
     v0.push(run("buttons_nav_all_200", async {
-        for (path, needle) in [("/", "CochranBlock"), ("/services", "What We Do"), ("/products", "Products"), ("/federal-partners", "FBI"), ("/about", "About"), ("/contact", "Contact"), ("/intake", "Client Intake"), ("/book", "Schedule")] {
+        for (path, needle) in [("/", "CochranBlock"), ("/products", "Products"), ("/about", "About"), ("/contact", "Contact"), ("/deploy", "DEPLOY SYSTEM"), ("/book", "Schedule")] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().is_success(), format!("{} must 200", path))?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
@@ -506,22 +456,22 @@ pub async fn f51() -> Vec<t24> {
     v0.push(run("buttons_hero_ctas_200", async {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("href=\"/services\""), "hero missing What We Build link")?;
+        assert_ok(v4.contains("href=\"/products\""), "hero missing Products link")?;
         assert_ok(v4.contains("href=\"/book\""), "hero missing Book a Call link")?;
         assert_ok(v4.contains("href=\"/contact\""), "hero missing Get in Touch link")?;
         assert_ok(v4.contains("href=\"/about\""), "hero missing About link")?;
-        let r_svc = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
+        let r_products = v2.get(format!("{}/products", v1)).send().await.map_err(|e| e.to_string())?;
         let r_book = v2.get(format!("{}/book", v1)).send().await.map_err(|e| e.to_string())?;
         let r_contact = v2.get(format!("{}/contact", v1)).send().await.map_err(|e| e.to_string())?;
         let r_about = v2.get(format!("{}/about", v1)).send().await.map_err(|e| e.to_string())?;
-        assert_ok(r_svc.status().is_success(), "hero /services link must 200")?;
+        assert_ok(r_products.status().is_success(), "hero /products link must 200")?;
         assert_ok(r_book.status().is_success(), "hero /book link must 200")?;
         assert_ok(r_contact.status().is_success(), "hero /contact link must 200")?;
         assert_ok(r_about.status().is_success(), "hero /about link must 200")?;
         Ok(())
     }).await);
     v0.push(run("buttons_footer_links_200", async {
-        for path in ["/", "/services", "/products", "/federal-partners", "/about", "/contact", "/intake", "/book"] {
+        for path in ["/", "/products", "/about", "/contact", "/deploy", "/book"] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().is_success(), format!("footer {} must 200", path))?;
         }
@@ -531,11 +481,8 @@ pub async fn f51() -> Vec<t24> {
         let v3 = v2.get(format!("{}/products", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
         assert_ok(v4.contains("href=\"/contact\""), "products missing Get Notified link")?;
-        assert_ok(v4.contains("href=\"/services\""), "products missing What We Do link")?;
         let r_contact = v2.get(format!("{}/contact", v1)).send().await.map_err(|e| e.to_string())?;
-        let r_svc = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
         assert_ok(r_contact.status().is_success(), "products Get Notified must 200")?;
-        assert_ok(r_svc.status().is_success(), "products What We Do must 200")?;
         Ok(())
     }).await);
     v0.push(run("buttons_contact_ctas_200", async {
@@ -556,6 +503,62 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("booking-prev"), "book must have prev button")?;
         assert_ok(v4.contains("booking-next"), "book must have next button")?;
         assert_ok(v4.contains("mailto:"), "book must have mailto slots")?;
+        Ok(())
+    }).await);
+    v0.push(run("deploy_200", async {
+        let v3 = v2.get(format!("{}/deploy", v1)).send().await.map_err(|e| e.to_string())?;
+        let status = v3.status();
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(status.is_success(), format!("deploy status {}", status))?;
+        assert_ok(v4.contains("crt-monitor"), "deploy missing crt-monitor container")?;
+        assert_ok(v4.contains("crt-bezel"), "deploy missing crt-bezel")?;
+        assert_ok(v4.contains("crt-screen"), "deploy missing crt-screen")?;
+        assert_ok(v4.contains("term-body"), "deploy missing terminal body")?;
+        Ok(())
+    }).await);
+    v0.push(run("deploy_form_fields", async {
+        let v3 = v2.get(format!("{}/deploy", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("name=\"deploy_class\""), "deploy missing deploy_class field")?;
+        assert_ok(v4.contains("name=\"full_name\""), "deploy missing full_name field")?;
+        assert_ok(v4.contains("name=\"email\""), "deploy missing email field")?;
+        assert_ok(v4.contains("name=\"consent_fee\""), "deploy missing consent_fee")?;
+        assert_ok(v4.contains("name=\"consent_hardware\""), "deploy missing consent_hardware")?;
+        assert_ok(v4.contains("name=\"consent_terms\""), "deploy missing consent_terms")?;
+        assert_ok(v4.contains("action=\"/deploy\""), "deploy form missing action")?;
+        Ok(())
+    }).await);
+    v0.push(run("deploy_terminal_content", async {
+        let v3 = v2.get(format!("{}/deploy", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("DEPLOY SYSTEM v0.5.0"), "deploy missing version string")?;
+        assert_ok(v4.contains("PRODUCT"), "deploy missing PRODUCT class")?;
+        assert_ok(v4.contains("CONSULTING"), "deploy missing CONSULTING class")?;
+        assert_ok(v4.contains("PARTNERSHIP"), "deploy missing PARTNERSHIP class")?;
+        assert_ok(v4.contains("$3,500"), "deploy missing base price")?;
+        assert_ok(v4.contains("Cloudflare"), "deploy missing Cloudflare reference")?;
+        assert_ok(v4.contains("AES-256-GCM"), "deploy missing encryption spec")?;
+        Ok(())
+    }).await);
+    v0.push(run("deploy_holographic_css", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("holo-border-shift"), "CSS missing holo-border-shift animation")?;
+        assert_ok(v4.contains("holo-ambient"), "CSS missing holo-ambient animation")?;
+        assert_ok(v4.contains("holo-boot"), "CSS missing holo-boot animation")?;
+        assert_ok(v4.contains("backdrop-filter"), "CSS missing backdrop-filter for glass effect")?;
+        assert_ok(!v4.contains("crt-power-pulse"), "CSS still has old CRT power pulse — should be holo")?;
+        Ok(())
+    }).await);
+    v0.push(run("deploy_confirmed_200", async {
+        let v3 = v2.get(format!("{}/deploy/confirmed", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("deploy/confirmed must 200, got {}", v3.status()))?;
+        Ok(())
+    }).await);
+    v0.push(run("deploy_honeypot", async {
+        let v3 = v2.get(format!("{}/deploy", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("website_url"), "deploy missing honeypot field")?;
         Ok(())
     }).await);
     v0
