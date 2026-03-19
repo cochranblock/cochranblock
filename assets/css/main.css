@@ -819,6 +819,23 @@ body::after {
   color: var(--accent);
 }
 
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.testimonials-grid .testimonial {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .resume-section,
 .whitepaper,
 .innovation {

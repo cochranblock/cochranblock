@@ -441,7 +441,7 @@ pub async fn f51() -> Vec<t24> {
     v0.push(run("contact_testimonial", async {
         let v3 = v2.get(format!("{}/contact", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("Delivered") || v4.contains("client") || v4.contains("testimonial"), "contact must have trust signal")?;
+        assert_ok(v4.contains("brightest") || v4.contains("USCYBERCOM") || v4.contains("testimonial"), "contact must have trust signal")?;
         Ok(())
     }).await);
     v0.push(run("buttons_nav_all_200", async {

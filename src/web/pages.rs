@@ -120,6 +120,17 @@ pub async fn f12(State(_p0): State<Arc<t0>>) -> Html<String> {
   <p>Consulting open now — open for engagements. We take on select engagements: systems engineering, vulnerability research, product security, and integration work. 11+ years enterprise experience. Truthfinder. No bullshit.</p>
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Senior Systems Engineer & Product Security. 11+ years in defense, fintech, and enterprise infrastructure. Built and shipped production systems for organizations that can't afford downtime. Now building the tools those organizations should have had from the start.</p>
+  <h3 class="profile-subhead">What the Team Said</h3>
+  <div class="testimonials-grid">
+    <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"You taught others and left 'gifts' of code. We are better for having you here."<cite>— Jay, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"Awesome team player, dedicated fact finder, and loyal and honest teammate."<cite>— CPT Nate Durbala, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"I certainly hope you find the place that allows you to display your incredible talent. Thank you for your service."<cite>— Jeremy Ritz, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"Working with you made the JMOC-E a better place. I know you will continue to do great things."<cite>— TSgt Holland, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"Thanks for building the groundwork for development here."<cite>— SFC Rios, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"Thank you for pushing me to pursue becoming an expert in a programming language."<cite>— SSgt Muirhead, USCYBERCOM J38 JMOC-E</cite></blockquote>
+    <blockquote class="testimonial">"Continue your legacy. The red team initiative is still alive."<cite>— LTC Beal, USCYBERCOM J38 JMOC-E</cite></blockquote>
+  </div>
 </div>
 <div id="legacy" class="tab-pane legacy-pane" role="tabpanel" aria-hidden="true">
   {}
@@ -135,7 +146,7 @@ document.addEventListener('DOMContentLoaded',function(){{var btns=document.query
 
 /// f13 = serve_contact. Why: Email CTA; no form friction.
 pub async fn f13(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="contact"><h1>Contact</h1><p class="trust-badge">Product in development · Consulting: open</p><blockquote class="testimonial">"Delivered ahead of schedule. Deep technical depth and clear communication."<cite>— Former client, enterprise security</cite></blockquote><p>Interested in our product roadmap, consulting, or a discovery call? Reach out by email.</p><p class="contact-micro">Product interest? Email with subject "Product Launch" to get notified when we ship.</p><p class="contact-micro">No form, no friction — just email.</p><p class="contact-cta"><a href="mailto:mclarkfyrue@gmail.com?subject=CochranBlock%20Inquiry" class="btn">Email Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/assets/resume.pdf" class="btn btn-secondary" download>Michael's Resume</a></p><p class="contact-secondary">Or connect on <a href="https://www.linkedin.com/in/michael-c-ab55451b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></p><p class="contact-note">We typically respond within 24–48 hours.</p></section>"#;
+    let v0 = r#"<section class="contact"><h1>Contact</h1><p class="trust-badge">Product in development · Consulting: open</p><blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote><p>Interested in our product roadmap, consulting, or a discovery call? Reach out by email.</p><p class="contact-micro">Product interest? Email with subject "Product Launch" to get notified when we ship.</p><p class="contact-micro">No form, no friction — just email.</p><p class="contact-cta"><a href="mailto:mclarkfyrue@gmail.com?subject=CochranBlock%20Inquiry" class="btn">Email Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/assets/resume.pdf" class="btn btn-secondary" download>Michael's Resume</a></p><p class="contact-secondary">Or connect on <a href="https://www.linkedin.com/in/michael-c-ab55451b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></p><p class="contact-note">We typically respond within 24–48 hours.</p></section>"#;
     Html(format!("{}{}{}{}", f62("contact", "Contact | CochranBlock"), C7, v0, C8))
 }
 
