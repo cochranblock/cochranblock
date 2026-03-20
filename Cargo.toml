@@ -3,8 +3,15 @@
 
 [package]
 name = "cochranblock"
-version = "0.5.0"
+version = "0.6.0"
 edition = "2024"
+description = "The Cochran Block — installable offline portfolio and SaaS site. cargo install, runs in your browser."
+license = "Unlicense"
+repository = "https://github.com/cochranblock/cochranblock"
+homepage = "https://cochranblock.org"
+keywords = ["portfolio", "offline", "webapp", "axum"]
+categories = ["web-programming::http-server"]
+readme = "README.md"
 
 # tests = rough draft. exopack for quantifiable quality. Release strips both.
 # admin = db, auth, sessions, crypto, dns, config. Default = static only.
@@ -21,11 +28,11 @@ approuter = ["dep:approuter-client"]
 name = "cochranblock"
 path = "src/lib.rs"
 
-# Server binary: serves cochranblock.org. Registers with approuter. Requires --features approuter.
+# Server binary: serves cochranblock.org. With --features approuter registers with approuter.
+# Without approuter feature: runs as installable offline app, opens browser.
 [[bin]]
 name = "cochranblock"
 path = "src/bin/cochranblock.rs"
-required-features = ["approuter"]
 
 # Test binary: full. Tests + self-eval (screenshot). Never gets approuter-client.
 [[bin]]
@@ -67,6 +74,7 @@ rand = "0.8"
 time = "0.3"
 exopack = { git = "https://github.com/cochranblock/exopack", optional = true, features = ["screenshot", "interface", "triple_sims", "devtools"] }
 dotenvy = "0.15"
+open = "5"
 approuter-client = { git = "https://github.com/cochranblock/approuter", optional = true }
 axum-server = { version = "0.7", features = ["tls-rustls"] }
 rustls = { version = "0.23", features = ["ring"] }
