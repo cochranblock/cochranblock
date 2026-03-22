@@ -62,6 +62,7 @@ async fn migrate(pool: &SqlitePool) -> Result<(), sqlx::Error> {
         r#"
         CREATE TABLE IF NOT EXISTS leads (
             id TEXT PRIMARY KEY,
+            deploy_class TEXT,
             full_name TEXT NOT NULL,
             email TEXT NOT NULL,
             company TEXT,
@@ -116,204 +117,41 @@ fn client_ip(addr: SocketAddr, headers: &HeaderMap) -> String {
         .unwrap_or_else(|| addr.ip().to_string())
 }
 
-/// GET /deploy — hacker terminal intake. Interactive CLI-style form.
+/// GET /deploy — deployment request intake form.
 pub async fn get_form(State(s): State<Arc<t0>>) -> Html<String> {
     let terms_escaped = html_escape(TERMS);
     let content = format!(
-        r#"<section class="intake-section">
-
-<div class="crt-monitor">
-<div class="crt-bezel">
-<div class="crt-screen booting">
-<div class="crt-glow"></div>
-<div class="crt-glass"></div>
-<div class="term-wrap">
-<div class="term-header"><span class="term-dot term-red"></span><span class="term-dot term-yellow"></span><span class="term-dot term-green"></span><span class="term-title">cochranblock@deploy:~$</span></div>
-<div class="term-body" id="terminal">
-<div class="term-output" id="term-out"></div>
-<div class="term-input-row" id="term-input-row">
-<span class="term-prompt">$</span>
-<input type="text" class="term-input" id="term-in" autocomplete="off" spellcheck="false" autofocus>
-</div>
-</div>
-</div>
-</div>
-<span class="crt-brand">CochranBlock</span>
-<span class="crt-power"></span>
-</div>
-</div>
-
-<form method="post" action="/deploy" id="intake-form" style="display:none">
-<input type="hidden" name="deploy_class" id="deploy_class" value="">
-<input type="hidden" name="full_name" id="full_name" value="">
-<input type="hidden" name="email" id="email" value="">
-<input type="hidden" name="company" id="company" value="">
-<input type="hidden" name="message" id="message" value="">
-<input type="hidden" name="website_url" id="website_url" value="">
-<input type="hidden" name="consent_fee" id="consent_fee" value="">
-<input type="hidden" name="consent_hardware" id="consent_hardware" value="">
-<input type="hidden" name="consent_terms" id="consent_terms" value="">
-</form>
-
-<details id="terms-drawer" class="deploy-terms-drawer" style="margin-top:1rem">
-<summary style="color:#00d9ff;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.85rem">cat terms.txt</summary>
+        r#"<section class="intake-section"><div class="intake-steps"><span class="intake-step intake-active"><span class="intake-num">1</span> Review</span><span class="intake-step"><span class="intake-num">2</span> Submit</span><span class="intake-step"><span class="intake-num">3</span> Complete</span></div>
+<div class="intake-doc"><h1 class="intake-title">Deploy With CochranBlock</h1><p class="intake-intro">Request a custom Web Appliance — a compiled Rust binary that runs on your hardware, routed via Cloudflare Zero Trust. No cloud hosting. No monthly fees. $3,500 base.</p>
 <div class="intake-body"><pre>{}</pre></div>
-</details>
-
-<script>
-(function(){{
-var out=document.getElementById('term-out');
-var inp=document.getElementById('term-in');
-var step=0;
-var answers={{}};
-var bootLines=[
-'',
-'  ######   #######   ######  ##   ## ########     ###    ##   ##',
-'  ##   ## ##     ## ##    ## ##   ## ##     ##   ## ##  ####  ##',
-'  ##      ##     ## ##       ####### ########  ##   ## ## ## ##',
-'  ##   ## ##     ## ##    ## ##   ## ##   ##  ######## ##  ####',
-'  ######   #######   ######  ##   ## ##    ## ##   ## ##   ###',
-'           ########  ##       #######   ######  ##   ##',
-'           ##     ## ##      ##     ## ##    ## ##  ##',
-'           ########  ##      ##     ## ##       #####',
-'           ##     ## ##      ##     ## ##    ## ##  ##',
-'           ########  ######## #######   ######  ##   ##',
-'',
-'  DEPLOY SYSTEM v0.5.0',
-'  ==========================================',
-'',
-'  [BIOS] Memory check............ 64GB OK',
-'  [BIOS] Rust toolchain.......... 1.94.0 OK',
-'  [BIOS] Identity................ VERIFIED',
-'  [BIOS] Cloudflare tunnel....... CONNECTED',
-'  [BIOS] Encryption.............. AES-256-GCM',
-'  [BIOS] Honeypot................ ARMED',
-'',
-'  Booting deploy interface...',
-'',
-];
-var steps=[
-  {{q:'Connection established. System ready.\n\nThree deployment classes available:\n\n  [1] PRODUCT     $3,500 base. Your hardware. $0/mo forever.\n  [2] CONSULTING  Build it, harden it, fix it. Project-based.\n  [3] PARTNERSHIP Your brand + our engine. Long-term.\n\nSelect class (1/2/3):',field:'deploy_class',validate:function(v){{return ['1','2','3'].indexOf(v)!==-1}},transform:function(v){{return ['','product','consulting','partnership'][parseInt(v)]}}}},
-  {{q:'Enter your name:',field:'full_name',validate:function(v){{return v.trim().length>0}}}},
-  {{q:'Enter your email:',field:'email',validate:function(v){{return v.trim().length>0&&v.indexOf('@')>0}}}},
-  {{q:'Company or project name (enter to skip):',field:'company',validate:function(){{return true}}}},
-  {{q:'Describe your mission (what are you building?):',field:'message',validate:function(){{return true}}}},
-  {{q:'Pricing acknowledged? You understand the model for your class. (y/n):',field:'consent_fee',validate:function(v){{return v.toLowerCase()==='y'||v.toLowerCase()==='n'}},transform:function(v){{return v.toLowerCase()==='y'?'1':''}}}},
-  {{q:'Hardware model: deployments run on YOUR local hardware via Cloudflare Zero Trust.\nNo cloud hosting. No monthly fees. Acknowledged? (y/n):',field:'consent_hardware',validate:function(v){{return v.toLowerCase()==='y'||v.toLowerCase()==='n'}},transform:function(v){{return v.toLowerCase()==='y'?'1':''}}}},
-  {{q:'Terms accepted? (type "cat terms" to read, or y/n):',field:'consent_terms',validate:function(v){{var l=v.toLowerCase();return l==='y'||l==='n'||l==='cat terms'}},transform:function(v){{return v.toLowerCase()==='y'?'1':''}}}}
-];
-
-function typeOut(text,cb){{
-  var lines=text.split('\n');
-  var i=0;
-  function nextLine(){{
-    if(i>=lines.length){{if(cb)cb();return;}}
-    var div=document.createElement('div');
-    div.className='term-line';
-    div.textContent=lines[i];
-    out.appendChild(div);
-    out.scrollTop=out.scrollHeight;
-    i++;
-    setTimeout(nextLine,40);
-  }}
-  nextLine();
-}}
-
-function showPrompt(){{
-  if(step>=steps.length){{
-    // All consent checks passed?
-    var f=document.getElementById('intake-form');
-    var fee=document.getElementById('consent_fee').value;
-    var hw=document.getElementById('consent_hardware').value;
-    var terms=document.getElementById('consent_terms').value;
-    if(fee==='1'&&hw==='1'&&terms==='1'){{
-      typeOut('\n[DEPLOY] All systems green. Transmitting request...\n[DEPLOY] Quest submitted. Stand by for contact within 48 hours.\n',function(){{
-        f.submit();
-      }});
-    }}else{{
-      typeOut('\n[ABORT] All three acknowledgments required to deploy.\n[ABORT] Type "restart" to try again.\n',null);
-      step=-1;
-    }}
-    return;
-  }}
-  typeOut('\n'+steps[step].q+'\n',function(){{
-    inp.focus();
-  }});
-}}
-
-inp.addEventListener('keydown',function(ev){{
-  if(ev.key!=='Enter')return;
-  var val=inp.value;
-  inp.value='';
-
-  var echo=document.createElement('div');
-  echo.className='term-line term-echo';
-  echo.textContent='$ '+val;
-  out.appendChild(echo);
-
-  if(val.toLowerCase()==='restart'){{
-    step=0;
-    out.innerHTML='';
-    showPrompt();
-    return;
-  }}
-
-  if(val.toLowerCase()==='cat terms'){{
-    document.getElementById('terms-drawer').open=true;
-    typeOut('[TERMS] Scroll down to read terms.txt\n',function(){{
-      showPrompt();
-    }});
-    return;
-  }}
-
-  if(step<0)return;
-  if(step>=steps.length)return;
-
-  var s=steps[step];
-  if(!s.validate(val)){{
-    typeOut('[ERROR] Invalid input. Try again.\n',function(){{inp.focus();}});
-    return;
-  }}
-
-  var transformed=s.transform?s.transform(val):val;
-  document.getElementById(s.field).value=transformed;
-  answers[s.field]=transformed;
-
-  if(s.field==='deploy_class'){{
-    var names={{product:'PRODUCT DEPLOYMENT',consulting:'CONSULTING',partnership:'PARTNERSHIP'}};
-    typeOut('[OK] Class selected: '+names[transformed]+'\n',null);
-  }}
-
-  step++;
-  showPrompt();
-}});
-
-// Boot sequence then first prompt
-var bootIdx=0;
-function bootLine(){{
-  if(bootIdx>=bootLines.length){{
-    setTimeout(function(){{showPrompt();}},400);
-    return;
-  }}
-  var div=document.createElement('div');
-  div.className='term-line';
-  div.textContent=bootLines[bootIdx];
-  out.appendChild(div);
-  out.scrollTop=out.scrollHeight;
-  bootIdx++;
-  var delay=bootLines[bootIdx-1].indexOf('[BIOS]')>=0?120:30;
-  setTimeout(bootLine,delay);
-}}
-bootLine();
-}})();
-</script>
-</section>"#,
+<div class="intake-sign"><div class="intake-line"></div><p class="intake-sign-label">Submit your deployment request</p>
+<form class="intake-form" method="post" action="/deploy" id="intake-form">
+<label for="deploy_class">Deployment Class</label>
+<select id="deploy_class" name="deploy_class" required>
+<option value="" disabled selected>Select a class</option>
+<option value="product">Product — $3,500 base. Your hardware. $0/mo forever.</option>
+<option value="consulting">Consulting — Build it, harden it, fix it. Project-based.</option>
+<option value="partnership">Partnership — Your brand + our engine. Long-term.</option>
+</select>
+<label for="full_name">Full Name</label><input type="text" id="full_name" name="full_name" required autocomplete="name" placeholder="Your name" maxlength="200">
+<label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.com" maxlength="254">
+<label for="company">Company or Project Name</label><input type="text" id="company" name="company" autocomplete="organization" placeholder="Optional" maxlength="200">
+<label for="message">What are you building?</label><textarea id="message" name="message" placeholder="Describe your project or mission" maxlength="2000"></textarea>
+<div class="intake-hp" aria-hidden="true"><label for="website_url">Leave blank</label><input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off"></div>
+<div class="intake-consent">
+<label class="intake-check"><input type="checkbox" name="consent_fee" value="1" required id="consent_fee"> I acknowledge the baseline fee of $3,500 USD for a custom Web Appliance deployment.</label>
+<label class="intake-check"><input type="checkbox" name="consent_hardware" value="1" required id="consent_hardware"> I understand deployments run on my own local hardware via Cloudflare Zero Trust — no cloud hosting, no monthly fees.</label>
+<label class="intake-check"><input type="checkbox" name="consent_terms" value="1" required id="consent_terms"> I have read the terms above and am submitting this request voluntarily.</label>
+</div>
+<button type="submit" class="btn" id="deploy-submit-btn" disabled>Submit Request</button></form></div>
+<p class="intake-note">Upon submission, CochranBlock will review your request and contact you within 2–3 business days to schedule a discovery call. No obligation is incurred by submitting this form.</p></div></section>
+<script>(function(){{var f=document.getElementById('intake-form');var b=document.getElementById('deploy-submit-btn');var dc=document.getElementById('deploy_class');var fn=document.getElementById('full_name');var em=document.getElementById('email');var cf=document.getElementById('consent_fee');var ch=document.getElementById('consent_hardware');var ct=document.getElementById('consent_terms');function chk(){{var ok=dc.value&&fn.value.trim()&&em.value.trim()&&cf.checked&&ch.checked&&ct.checked;b.disabled=!ok;}}dc.onchange=chk;fn.oninput=fn.onchange=em.oninput=em.onchange=chk;cf.onchange=ch.onchange=ct.onchange=chk;chk();}})();</script>"#,
         terms_escaped
     );
     let _ = s;
     Html(format!(
         "{}{}{}{}",
-        f62("deploy", "Deploy | CochranBlock"),
+        f62("deploy", "Deploy With Us | CochranBlock"),
         C7,
         content,
         C8
@@ -322,6 +160,8 @@ bootLine();
 
 #[derive(Deserialize)]
 pub struct IntakeForm {
+    #[serde(default)]
+    deploy_class: String,
     full_name: String,
     email: String,
     #[serde(default)]
@@ -365,6 +205,7 @@ pub async fn post_form(
         return (StatusCode::OK, Html(confirmed_html(None))).into_response();
     }
 
+    let deploy_class = f.deploy_class.trim();
     let full_name = f.full_name.trim();
     let email = f.email.trim();
     let company = f.company.trim();
@@ -408,11 +249,12 @@ pub async fn post_form(
 
     if let Err(e) = sqlx::query(
         r#"
-        INSERT INTO leads (id, full_name, email, company, message, submitted_at, ip_address, user_agent, terms_version, consent_fee, consent_hardware, consent_terms)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, 1)
+        INSERT INTO leads (id, deploy_class, full_name, email, company, message, submitted_at, ip_address, user_agent, terms_version, consent_fee, consent_hardware, consent_terms)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, 1)
         "#,
     )
     .bind(&id)
+    .bind(if deploy_class.is_empty() { None::<&str> } else { Some(deploy_class) })
     .bind(full_name)
     .bind(email)
     .bind(if company.is_empty() { None::<&str> } else { Some(company) })
@@ -437,6 +279,7 @@ pub async fn post_form(
             let client = reqwest::Client::new();
             let payload = serde_json::json!({
                 "id": id.clone(),
+                "deploy_class": if deploy_class.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(deploy_class.to_string()) },
                 "full_name": full_name,
                 "email": email,
                 "company": if company.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(company.to_string()) },

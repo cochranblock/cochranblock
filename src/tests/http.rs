@@ -444,7 +444,7 @@ pub async fn f51() -> Vec<t24> {
         Ok(())
     }).await);
     v0.push(run("buttons_nav_all_200", async {
-        for (path, needle) in [("/", "CochranBlock"), ("/products", "Products"), ("/about", "About"), ("/contact", "Contact"), ("/deploy", "DEPLOY SYSTEM"), ("/book", "Schedule")] {
+        for (path, needle) in [("/", "CochranBlock"), ("/products", "Products"), ("/about", "About"), ("/contact", "Contact"), ("/deploy", "Deploy With"), ("/book", "Schedule")] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().is_success(), format!("{} must 200", path))?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
@@ -509,10 +509,9 @@ pub async fn f51() -> Vec<t24> {
         let status = v3.status();
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
         assert_ok(status.is_success(), format!("deploy status {}", status))?;
-        assert_ok(v4.contains("crt-monitor"), "deploy missing crt-monitor container")?;
-        assert_ok(v4.contains("crt-bezel"), "deploy missing crt-bezel")?;
-        assert_ok(v4.contains("crt-screen"), "deploy missing crt-screen")?;
-        assert_ok(v4.contains("term-body"), "deploy missing terminal body")?;
+        assert_ok(v4.contains("intake-form"), "deploy missing intake-form")?;
+        assert_ok(v4.contains("intake-section"), "deploy missing intake-section")?;
+        assert_ok(v4.contains("intake-doc"), "deploy missing intake-doc")?;
         Ok(())
     }).await);
     v0.push(run("deploy_form_fields", async {
@@ -527,26 +526,14 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("action=\"/deploy\""), "deploy form missing action")?;
         Ok(())
     }).await);
-    v0.push(run("deploy_terminal_content", async {
+    v0.push(run("deploy_intake_content", async {
         let v3 = v2.get(format!("{}/deploy", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("DEPLOY SYSTEM v0.5.0"), "deploy missing version string")?;
-        assert_ok(v4.contains("PRODUCT"), "deploy missing PRODUCT class")?;
-        assert_ok(v4.contains("CONSULTING"), "deploy missing CONSULTING class")?;
-        assert_ok(v4.contains("PARTNERSHIP"), "deploy missing PARTNERSHIP class")?;
+        assert_ok(v4.contains("Product"), "deploy missing Product class option")?;
+        assert_ok(v4.contains("Consulting"), "deploy missing Consulting class option")?;
+        assert_ok(v4.contains("Partnership"), "deploy missing Partnership class option")?;
         assert_ok(v4.contains("$3,500"), "deploy missing base price")?;
         assert_ok(v4.contains("Cloudflare"), "deploy missing Cloudflare reference")?;
-        assert_ok(v4.contains("AES-256-GCM"), "deploy missing encryption spec")?;
-        Ok(())
-    }).await);
-    v0.push(run("deploy_holographic_css", async {
-        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
-        let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("holo-border-shift"), "CSS missing holo-border-shift animation")?;
-        assert_ok(v4.contains("holo-ambient"), "CSS missing holo-ambient animation")?;
-        assert_ok(v4.contains("holo-boot"), "CSS missing holo-boot animation")?;
-        assert_ok(v4.contains("backdrop-filter"), "CSS missing backdrop-filter for glass effect")?;
-        assert_ok(!v4.contains("crt-power-pulse"), "CSS still has old CRT power pulse — should be holo")?;
         Ok(())
     }).await);
     v0.push(run("deploy_confirmed_200", async {
