@@ -98,8 +98,6 @@ pub async fn f11(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 /// f12 = serve_about. Why: Tabbed Mission + Credentials (resume).
 pub async fn f12(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = include_str!("../../content/resume.html");
-
     let v5 = r#"<div class="legacy-tab-content">
 <div class="resume-actions">
   <button type="button" class="btn" id="copy-resume" onclick="navigator.clipboard.writeText(document.getElementById('resume-text').innerText).then(function(){document.getElementById('copy-resume').textContent='Copied.'})">Copy to Clipboard</button>
