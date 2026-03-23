@@ -62,7 +62,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Rust-only SaaS challenging enterprise greed. AI-powered software reset: offline-first, creative mode, superior pricing."}</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Sovereign Intelligence for the Public Domain. Rust-only SaaS — offline-first, creative mode, superior pricing. All logic released under the Unlicense."}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -72,7 +72,7 @@ pub fn f62(p0: &str, p1: &str) -> String {
         format!("/{}", p0)
     };
     format!(
-        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CochranBlock — Rust-only SaaS challenging enterprise greed. AI-powered software reset: offline-first, creative mode, superior pricing."><title>{}</title><meta property="og:title" content="{}"><meta property="og:description" content="Rust-only SaaS challenging enterprise greed. AI-powered software reset: offline-first, creative mode, superior pricing."><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="stylesheet" href="/assets/css/main.css">{}</head><body data-page="{}">"#,
+        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CochranBlock — Sovereign Intelligence for the Public Domain. Rust-only SaaS — offline-first, creative mode, superior pricing. Unlicensed."><title>{}</title><meta property="og:title" content="{}"><meta property="og:description" content="Sovereign Intelligence for the Public Domain. Rust-only SaaS — offline-first, creative mode, superior pricing. Unlicensed."><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="stylesheet" href="/assets/css/main.css">{}</head><body data-page="{}">"#,
         p1,
         p1,
         BASE_URL,
@@ -86,8 +86,8 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Product in development · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>CochranBlock</h1><p class="tagline">Rust-only SaaS that goes after the big guys — and their greed.</p><p class="hero-stats">Offline-first · Creative mode · Superior pricing · AI-powered software reset</p><p class="hero-note">Using AI to reset the software market globally. Old-school offline options. No lock-in. No bloat.</p><p class="hero-skills">Rust · Zero bloat · Offline-first · Creative mode · AI orchestration · Enterprise-grade security</p><p class="hero-cta"><a href="/products" class="btn">Products</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
-    Html(format!("{}{}{}{}", f62("home", "CochranBlock | Rust SaaS Challenging Enterprise Greed"), C7, v0, C8))
+    let v0 = r#"<section class="hero"><p class="hero-status">Product in development · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>CochranBlock</h1><p class="tagline">Sovereign Intelligence for the Public Domain</p><p class="hero-stats">Offline-first · Creative mode · Superior pricing · All logic under the Unlicense</p><p class="hero-note">Empowering the David in a world of Goliaths. Rust-only SaaS — no lock-in, no bloat, no cloud dependency.</p><p class="hero-skills">Rust · Zero bloat · Offline-first · Creative mode · AI orchestration · Enterprise-grade security</p><p class="hero-cta"><a href="/products" class="btn">Products</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
+    Html(format!("{}{}{}{}", f62("home", "CochranBlock | Sovereign Intelligence for the Public Domain"), C7, v0, C8))
 }
 
 /// f11 = serve_services. Why: What We Build + consulting capacity.
@@ -106,7 +106,7 @@ pub async fn f12(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p class="resume-hint">Step 1: Click "Copy to Clipboard"<br>Step 2: Paste it wherever you want<br>Step 3: There is no step 3</p>
 <pre id="resume-text" class="resume-raw">
 MICHAEL COCHRAN
-Senior Systems Engineer & Product Security
+Systems Architect | Federal Whistleblower
 mcochran@cochranblock.org | cochranblock.org | linkedin.com/in/cochranblock
 
 ────────────────────────────────────────────────────
@@ -188,14 +188,14 @@ for having you here." — Jay, USCYBERCOM
   <button class="tab-btn" data-tab="legacy" role="tab" aria-selected="false">Credentials</button>
 </div>
 <div id="profile" class="tab-pane active" role="tabpanel" aria-hidden="false">
-  <h3 class="profile-subhead">The Goal</h3>
-  <p>CochranBlock exists to use AI to reset the software market globally. The big players have gotten greedy — lock-in, bloat, per-seat gouging, and cloud dependency. We're building the alternative: Rust-only SaaS with offline options, creative mode, and pricing that doesn't punish success.</p>
+  <h3 class="profile-subhead">The Mission</h3>
+  <p>Sovereign Intelligence for the Public Domain. CochranBlock builds software that belongs to the people who use it — not the companies that sell it. All logic released under the Unlicense. No lock-in, no bloat, no cloud dependency. Empowering the David in a world of Goliaths.</p>
   <h3 class="profile-subhead">What We Build</h3>
-  <p>Rust-only software. Offline-first. Creative mode for power users. Superior pricing. No JavaScript tax. No vendor deciding what you can do with your own data. We go after the big guys because someone has to.</p>
+  <p>Rust-only software. Offline-first. Creative mode for power users. Superior pricing. No JavaScript tax. No vendor deciding what you can do with your own data. Active nodes: pixel-forge and kova.</p>
   <h3 class="profile-subhead">Consulting</h3>
   <p>Consulting open now — open for engagements. We take on select engagements: systems engineering, vulnerability research, product security, and integration work. 11+ years enterprise experience. Truthfinder. No bullshit.</p>
   <h3 class="profile-subhead">Founded By</h3>
-  <p>Michael Cochran — Senior Systems Engineer & Product Security. 11+ years in defense and enterprise infrastructure. Built and shipped production systems for organizations that can't afford downtime. Now building the tools those organizations should have had from the start.</p>
+  <p>Michael Cochran — Systems Architect | Federal Whistleblower. 11+ years in defense and enterprise infrastructure. Built and shipped production systems for organizations that can't afford downtime. Now building sovereign intelligence tools and releasing all logic under the Unlicense.</p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>

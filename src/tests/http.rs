@@ -434,7 +434,7 @@ pub async fn f51() -> Vec<t24> {
     v0.push(run("index_tagline", async {
         let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("big guys") || v4.contains("greed"), "home must have value prop tagline")?;
+        assert_ok(v4.contains("Sovereign Intelligence") || v4.contains("Public Domain"), "home must have mission tagline")?;
         Ok(())
     }).await);
     v0.push(run("contact_testimonial", async {
