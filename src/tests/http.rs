@@ -396,7 +396,7 @@ pub async fn f51() -> Vec<t24> {
         Ok(())
     }).await);
     v0.push(run("product_images_200", async {
-        for path in ["/assets/img/rogue-repo.png", "/assets/img/ronin-sites.png", "/assets/img/kova.png"] {
+        for path in ["/assets/img/rogue-repo.png", "/assets/img/ronin-sites.png", "/assets/img/kova.png", "/assets/img/pixel-forge.png"] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().is_success(), format!("{} must 200", path))?;
             let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("");
