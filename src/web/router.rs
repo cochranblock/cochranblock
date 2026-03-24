@@ -38,6 +38,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/about", get(pages::f12))
         .route("/contact", get(pages::f13))
         .route("/book", get(pages::f63))
+        .route("/downloads", get(pages::f68))
         .route("/community-grant", get(community_grant::get_form).post(community_grant::post_form))
         .route("/community-grant/confirmed", get(community_grant::confirmed))
         // Redirects for old routes

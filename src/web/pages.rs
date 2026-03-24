@@ -43,6 +43,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/", "1.0", "weekly"),
         ("/products", "0.9", "weekly"),
         ("/deploy", "0.9", "weekly"),
+        ("/downloads", "0.8", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -81,8 +82,8 @@ pub fn f62(p0: &str, p1: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/downloads">Downloads</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/downloads">Downloads</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
@@ -350,7 +351,55 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(format!("{}{}{}{}", f62("products", "Products | CochranBlock"), C7, v0, C8))
 }
 
-// f68 removed — federal-partners page retired.
+/// f68 = serve_downloads. Why: Binary downloads page — the site IS the app.
+pub async fn f68(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services"><h1>Download cochranblock</h1>
+<p class="services-intro">The same binary running this site right now. Download it, run it, and the entire production site opens in your browser. No Docker. No npm. No configuration. One binary, one command.</p>
+
+<div class="service-cards">
+<details class="service-card" open>
+<summary>macOS (Apple Silicon)</summary>
+<p>M1, M2, M3, M4. 9.8 MB binary.<span class="service-outcome"><a href="https://github.com/cochranblock/cochranblock/releases/latest/download/cochranblock-macos-arm64" class="btn">Download</a></span></p>
+<pre>chmod +x cochranblock-macos-arm64
+./cochranblock-macos-arm64</pre>
+</details>
+
+<details class="service-card" open>
+<summary>Linux x86_64 (Debian / Ubuntu)</summary>
+<p>Any modern 64-bit Linux. 17 MB binary.<span class="service-outcome"><a href="https://github.com/cochranblock/cochranblock/releases/latest/download/cochranblock-linux-amd64" class="btn">Download</a></span></p>
+<pre>chmod +x cochranblock-linux-amd64
+./cochranblock-linux-amd64</pre>
+</details>
+
+<details class="service-card">
+<summary>Cargo Install (Any Platform)</summary>
+<p>If you have Rust installed, this is the easiest way.<span class="service-outcome">Works on macOS, Linux, Windows, ARM, x86.</span></p>
+<pre>cargo install --git https://github.com/cochranblock/cochranblock</pre>
+</details>
+
+<details class="service-card">
+<summary>Coming Soon</summary>
+<p>Windows (.exe), Debian (.deb), macOS Intel, Linux ARM, iOS (PWA), Android (PWA).<span class="service-outcome">All from the same codebase. Zero framework tax.</span></p>
+</details>
+</div>
+
+<h2 class="services-section-head">What You're Getting</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>The full cochranblock.org site — locally</summary>
+<p>Every page, every asset, every route. Embedded CSS, JS, images (zstd-packed). SQLite for persistence (auto-creates on first run). Opens your browser to localhost:8081.<span class="service-outcome">Outcome: You're running an entire company's infrastructure on your machine.</span></p>
+</details>
+<details class="service-card">
+<summary>Zero dependencies</summary>
+<p>No runtime. No interpreter. No package manager. No database server. The binary IS the server, the database, and the asset pipeline. That's the point.<span class="service-outcome">Outcome: The same architecture I build for clients. This is the live demo.</span></p>
+</details>
+</div>
+
+<p class="services-cta"><a href="https://github.com/cochranblock/cochranblock" class="btn">View Source</a><a href="/deploy" class="btn btn-secondary">Zero-Cloud Tech Intake</a></p></section>"#;
+    Html(format!("{}{}{}{}", f62("downloads", "Download | CochranBlock"), C7, v0, C8))
+}
+
+// f68_old removed — federal-partners page retired.
 
 /// f10 = health. Why: Load balancer / approuter liveness probe.
 pub async fn f10(State(_p0): State<Arc<t0>>) -> &'static str {
