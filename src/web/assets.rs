@@ -24,6 +24,10 @@ fn t15_get(p0: &str) -> Option<Vec<u8>> {
         "img/pixel-forge.png" => include_packed!("assets/img/pixel-forge.png"),
         "resume.pdf" => include_packed!("assets/resume.pdf"),
         "og-image.png" => include_packed!("assets/og-image.png"),
+        "icon-192.png" => include_packed!("assets/icon-192.png"),
+        "icon-512.png" => include_packed!("assets/icon-512.png"),
+        "apple-touch-icon.png" => include_packed!("assets/apple-touch-icon.png"),
+        "manifest.json" => include_packed!("assets/manifest.json"),
         _ => return None,
     };
     Some(v0)
