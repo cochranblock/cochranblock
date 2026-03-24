@@ -1276,6 +1276,80 @@ body::after {
   margin-top: 2rem;
 }
 
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.pricing-card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1.5rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  text-align: center;
+}
+
+.pricing-card:hover {
+  border-color: rgba(0, 217, 255, 0.25);
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.06);
+}
+
+.pricing-card h2 {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.pricing-amount {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0.75rem 0 0.25rem;
+}
+
+.pricing-unit {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pricing-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.pricing-card .product-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.pricing-divider {
+  text-align: center;
+  color: var(--muted);
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .pricing-amount {
+    font-size: 1.75rem;
+  }
+}
+
 .services .service-list {
   list-style: none;
   padding: 0;

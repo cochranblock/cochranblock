@@ -43,7 +43,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/community-grant/confirmed", get(community_grant::confirmed))
         // Redirects for old routes
         .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
-        .route("/services", get(|| async { Redirect::permanent("/products") }))
+        .route("/services", get(pages::f11))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/robots.txt", get(pages::f69))

@@ -49,10 +49,12 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("CochranBlock"), "home page missing 'CochranBlock'")?;
         Ok(())
     }).await);
-    v0.push(run("services_redirect", async {
+    v0.push(run("services_200", async {
         let v3 = v2.get(format!("{}/services", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();
-        assert_ok(status.as_u16() == 308, format!("/services must 308 redirect to /products, got {}", status))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(status.is_success(), format!("/services status {}", status))?;
+        assert_ok(v4.contains("Pricing") && v4.contains("3,500"), "/services must have pricing content")?;
         Ok(())
     }).await);
     v0.push(run("about_200", async {

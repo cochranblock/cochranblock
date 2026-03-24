@@ -42,6 +42,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     let urls = [
         ("/", "1.0", "weekly"),
         ("/products", "0.9", "weekly"),
+        ("/services", "0.9", "weekly"),
         ("/deploy", "0.9", "weekly"),
         ("/downloads", "0.8", "weekly"),
         ("/about", "0.8", "monthly"),
@@ -82,8 +83,8 @@ pub fn f62(p0: &str, p1: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/downloads">Downloads</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/deploy">Deploy</a><a href="/downloads">Downloads</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/downloads">Downloads</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></div></nav><main id="main" class="content">"##;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/downloads">Downloads</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
@@ -91,10 +92,64 @@ pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(format!("{}{}{}{}", f62("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect"), C7, v0, C8))
 }
 
-/// f11 = serve_services. Why: What We Build + consulting capacity.
+/// f11 = serve_services. Why: Pricing + Fractional CTO services. Funnels to /deploy.
 pub async fn f11(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="services"><h1>What We Do</h1><p class="services-intro">CochranBlock is building Rust-only SaaS that challenges enterprise greed. We use AI to reset the software market globally — with offline options, creative mode, and pricing that doesn't punish you for succeeding.</p><h2 class="services-section-head">Product</h2><p class="services-intro">Our flagship product is <a href="/products">Rogue Repo</a> — Rust-only app store. We also build Ronin Sites and Kova. See <a href="/products">Products</a> for details.</p><div class="service-cards"><details class="service-card" open><summary>Rust-Only App Store (Rogue Repo)</summary><p>We're building software that goes after the big guys. No JavaScript tax. No cloud lock-in. Offline-first by default. Creative mode for power users who want to own their workflow.<span class="service-outcome">Outcome: Software that respects you, your data, and your wallet.</span></p></details><details class="service-card"><summary>Offline-First & Creative Mode</summary><p>Work without the internet. Tinker, extend, and customize. No vendor deciding what you can and can't do. Your data stays yours.<span class="service-outcome">Outcome: Freedom from SaaS fatigue and subscription creep.</span></p></details><details class="service-card"><summary>Superior Pricing</summary><p>Enterprise software shouldn't cost enterprise prices for everyone. We're resetting expectations — fair pricing, no surprise audits, no per-seat gouging.<span class="service-outcome">Outcome: Tools you can actually afford to scale with.</span></p></details></div><h2 class="services-section-head">Consulting</h2><p class="services-intro">Consulting open now — open for engagements. Systems engineering, security, and integration work for teams that want to ship faster.</p><div class="service-cards"><details class="service-card" open><summary>Systems Engineering</summary><p>Design, build, and harden mission-critical infrastructure. Rust, Python, C/C++. Enterprise and high-compliance sectors.<span class="service-outcome">Outcome: Ship hardened systems faster, with less risk.</span></p></details><details class="service-card"><summary>Vulnerability Research & Product Security</summary><p>Product security, scoping, red teaming. 11+ years in the field.<span class="service-outcome">Outcome: Security-validated teams and capabilities.</span></p></details><details class="service-card"><summary>API & Integration Development</summary><p>Secure integrations, data pipelines, interoperability. No vendor lock-in.<span class="service-outcome">Outcome: Data flow across secure boundaries.</span></p></details></div><p class="services-cta"><a href="/contact" class="btn">Get in Touch</a><a href="/book" class="btn btn-secondary">Book a Call</a></p></section>"#;
-    Html(format!("{}{}{}{}", f62("services", "Services | CochranBlock"), C7, v0, C8))
+    let v0 = r#"<section class="services">
+<h1>Services &amp; Pricing</h1>
+<p class="services-intro">Fractional CTO and zero-cloud architecture. I replace your $5K/month AWS bill with a $10/month laptop. Transparent pricing because technical founders hate hidden costs.</p>
+
+<h2 class="services-section-head">What I Replace</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Your current stack → my stack</summary>
+<p>$5,000/month AWS bill → <strong>$10/month</strong> laptop + Cloudflare tunnel<br>
+Kubernetes + 5 managed services → <strong>single Rust binary</strong><br>
+DevOps team → <strong>cargo build</strong> + one deploy command<br>
+Microservices sprawl → <strong>all routes embedded</strong>, one process<br>
+Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
+<span class="service-outcome">cochranblock.org is the live proof. You're looking at it right now.</span></p>
+</details>
+</div>
+
+<h2 class="services-section-head">Pricing</h2>
+<div class="pricing-cards">
+<article class="pricing-card"><span class="product-badge">Ship It</span><h2>One-Time Deployment</h2><div class="pricing-amount">$3,500</div><div class="pricing-unit">flat fee</div><p>Compile a production Rust binary and deploy it to your local or edge hardware. Includes 14-day warranty. You own the binary, the server, and the code.</p></article>
+<article class="pricing-card"><span class="product-badge">Build It</span><h2>Long-Term Project</h2><div class="pricing-amount">$3,500</div><div class="pricing-unit">per milestone</div><p>Pre-agreed architectural phases or microservices. Scope defined before work starts. Each milestone is a deployable deliverable — no half-built features.</p></article>
+<article class="pricing-card"><span class="product-badge">Own It</span><h2>Monthly Retainer</h2><div class="pricing-amount">$3,500</div><div class="pricing-unit">per month · 15 hours</div><p>Fractional CTO strategy, architecture design, code review, and infrastructure consulting. Your on-call senior engineer without the full-time salary.</p></article>
+</div>
+
+<p class="pricing-divider">need something outside the scope?</p>
+
+<div class="service-cards">
+<details class="service-card">
+<summary>A La Carte — $225/hr</summary>
+<p>Hands-on-keyboard coding, additional hours beyond retainer cap, feature additions, or anything outside the defined scope. Minimum 30-minute increments. Written estimate + your approval before work begins.<span class="service-outcome">No surprises. You approve every hour before I bill it.</span></p>
+</details>
+<details class="service-card">
+<summary>Emergency — $337.50/hr (1.5x)</summary>
+<p>After-hours or drop-everything priority. Weekends, nights, production-down situations. Same approval workflow — you say go, I go.<span class="service-outcome">For when the server is on fire and you need someone who's done this before.</span></p>
+</details>
+</div>
+
+<h2 class="services-section-head">What You Get</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Zero lock-in</summary>
+<p>All custom code delivered under the Unlicense — public domain. You own everything. No recurring license fees, no dependency on me, no vendor trap. I earn repeat business by being good, not by holding your code hostage.<span class="service-outcome">Every other consultant locks you in. I give you the keys.</span></p>
+</details>
+<details class="service-card" open>
+<summary>11 years defense &amp; enterprise</summary>
+<p>USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study. Two Six Technologies. Enterprise security. Active clearance. I've shipped production systems for organizations that can't afford downtime.<span class="service-outcome">Not my first build. Not my first deployment. Not my first fire.</span></p>
+</details>
+<details class="service-card">
+<summary>9 open source repos as proof</summary>
+<p>Every repo at <a href="https://github.com/cochranblock">github.com/cochranblock</a> ships with Proof of Artifacts and a Timeline of Invention. Wire diagrams, screenshots, build output, commit-level history. You can verify my work before we ever talk.<span class="service-outcome">Talk is cheap. Code ships.</span></p>
+</details>
+</div>
+
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call First</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62("services", "Services & Pricing | CochranBlock"), C7, v0, C8))
 }
 
 /// f12 = serve_about. Why: Tabbed Mission + Credentials (resume).
