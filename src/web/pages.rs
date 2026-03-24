@@ -106,28 +106,40 @@ pub async fn f12(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p class="resume-hint">Step 1: Click "Copy to Clipboard"<br>Step 2: Paste it wherever you want<br>Step 3: There is no step 3</p>
 <pre id="resume-text" class="resume-raw">
 MICHAEL COCHRAN
-Systems Architect | Federal Whistleblower
+Fractional CTO | Zero-Cloud Architect | Federal Whistleblower
 mcochran@cochranblock.org | cochranblock.org | linkedin.com/in/cochranblock
 
 ────────────────────────────────────────────────────
 
 SUMMARY
 
-11+ years defense, fintech, and enterprise infrastructure.
-Built and shipped production systems for organizations that
-can't afford downtime. Founded CochranBlock — Rust-only SaaS
-challenging enterprise greed. AI-powered. Offline-first. No bloat.
+Fractional CTO who replaces bloated cloud infrastructure with
+lean Rust binaries. cochranblock.org — my entire company — runs
+as a single 18MB binary on a laptop for $10/month. 11+ years
+defense, fintech, and enterprise. 8 Unlicense repos proving
+every claim. Edge compute beats cloud.
+
+────────────────────────────────────────────────────
+
+THE PROOF
+
+cochranblock.org — live production site. Single Rust binary.
+  $10/month total infrastructure. Zero AWS. Zero Kubernetes.
+  8 open source repos: github.com/cochranblock
+  Proof of Artifacts + Timeline of Invention in every repo.
 
 ────────────────────────────────────────────────────
 
 EXPERIENCE
 
-FOUNDER & LEAD ENGINEER — CochranBlock                    2024–Present
-  Rust-only SaaS company. 8 products in development.
-  Kova augment engine, approuter reverse proxy, cochranblock.org.
-  On-device AI models (Pixel Forge: Cinder/Quench/Anvil).
-  Full CI/CD via exopack triple sims gate. Zero external deps.
-  Deploy model: client hardware + Cloudflare Zero Trust. $0/mo.
+FOUNDER & FRACTIONAL CTO — CochranBlock                   2024–Present
+  Zero-cloud architectures for startups and SMBs.
+  Built 8 Rust products: augment engine (Kova), reverse proxy
+  (approuter), on-device AI (Pixel Forge: 3 diffusion models
+  under 30MB), ISO 8583 payment engine (Rogue Repo), testing
+  framework (exopack), and cochranblock.org itself.
+  Full CI via triple sims gate. No external test frameworks.
+  Deploy: single binary + Cloudflare tunnel. $10/month.
 
 SENIOR SYSTEMS ENGINEER — Enterprise Client               2024–Present
   Mission-critical systems. Custom Python for systems survey.
@@ -152,13 +164,23 @@ SECURITY ANALYST — Product Security                       2014–2017
 
 ────────────────────────────────────────────────────
 
+WHAT I REPLACE
+
+  $5K/month AWS bill        →  $10/month laptop + tunnel
+  Kubernetes + 5 services   →  Single Rust binary
+  DevOps team               →  Cargo build + Cloudflare
+  Microservices sprawl      →  One binary, all routes embedded
+  Cloud vendor lock-in      →  Unlicensed, runs anywhere
+
+────────────────────────────────────────────────────
+
 SKILLS
 
 Languages:  Rust, Python, C, C++, Assembly, Go, JavaScript
 Security:   Penetration Testing, Vulnerability Research, Red Teaming
 Infra:      Linux, Docker, Cloudflare, SSH/Kerberos, sled, SQLite
-AI/ML:      On-device training (candle), LoRA, diffusion models
-Tools:      Git, Cargo, Axum, Tokio, bincode, zstd
+AI/ML:      On-device training (candle), LoRA, MoE diffusion models
+Zero-Cloud: Single-binary architecture, edge compute, Axum, Tokio
 
 ────────────────────────────────────────────────────
 
@@ -189,13 +211,13 @@ for having you here." — Jay, USCYBERCOM
 </div>
 <div id="profile" class="tab-pane active" role="tabpanel" aria-hidden="false">
   <h3 class="profile-subhead">The Mission</h3>
-  <p>Sovereign Intelligence for the Public Domain. CochranBlock builds software that belongs to the people who use it — not the companies that sell it. All logic released under the Unlicense. No lock-in, no bloat, no cloud dependency. Empowering the David in a world of Goliaths.</p>
-  <h3 class="profile-subhead">What We Build</h3>
-  <p>Rust-only software. Offline-first. Creative mode for power users. Superior pricing. No JavaScript tax. No vendor deciding what you can do with your own data. Active nodes: pixel-forge and kova.</p>
-  <h3 class="profile-subhead">Consulting</h3>
-  <p>Consulting open now — open for engagements. We take on select engagements: systems engineering, vulnerability research, product security, and integration work. 11+ years enterprise experience. Truthfinder. No bullshit.</p>
+  <p>Your server bill is too high. CochranBlock exists to prove it — and fix it. This entire company runs as a single Rust binary on a laptop for $10/month. We build zero-cloud architectures that replace bloated infrastructure with lean, fast binaries. All source code released under the Unlicense.</p>
+  <h3 class="profile-subhead">What We Do</h3>
+  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 8 open source Rust repos back every claim we make.</p>
+  <h3 class="profile-subhead">The Architecture</h3>
+  <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
   <h3 class="profile-subhead">Founded By</h3>
-  <p>Michael Cochran — Systems Architect | Federal Whistleblower. 11+ years in defense and enterprise infrastructure. Built and shipped production systems for organizations that can't afford downtime. Now building sovereign intelligence tools and releasing all logic under the Unlicense.</p>
+  <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Federal Whistleblower. 11+ years defense and enterprise. It's not the Mech — it's the pilot.</p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
