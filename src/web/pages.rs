@@ -62,7 +62,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Sovereign Intelligence for the Public Domain. Rust-only SaaS — offline-first, creative mode, superior pricing. All logic released under the Unlicense."}</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Fractional CTO and Zero-Cloud Architect. This entire company runs as a single Rust binary on a laptop for $10/month. 8 Unlicense repos prove every claim."}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -72,7 +72,7 @@ pub fn f62(p0: &str, p1: &str) -> String {
         format!("/{}", p0)
     };
     format!(
-        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CochranBlock — Sovereign Intelligence for the Public Domain. Rust-only SaaS — offline-first, creative mode, superior pricing. Unlicensed."><title>{}</title><meta property="og:title" content="{}"><meta property="og:description" content="Sovereign Intelligence for the Public Domain. Rust-only SaaS — offline-first, creative mode, superior pricing. Unlicensed."><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="stylesheet" href="/assets/css/main.css">{}</head><body data-page="{}">"#,
+        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 8 Unlicense repos prove every claim."><title>{}</title><meta property="og:title" content="{}"><meta property="og:description" content="Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 8 Unlicense repos. It's not the Mech — it's the pilot."><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="stylesheet" href="/assets/css/main.css">{}</head><body data-page="{}">"#,
         p1,
         p1,
         BASE_URL,
@@ -86,8 +86,8 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Product in development · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>CochranBlock</h1><p class="tagline">Sovereign Intelligence for the Public Domain</p><p class="hero-stats">Offline-first · Creative mode · Superior pricing · All logic under the Unlicense</p><p class="hero-note">Empowering the David in a world of Goliaths. Rust-only SaaS — no lock-in, no bloat, no cloud dependency.</p><p class="hero-skills">Rust · Zero bloat · Offline-first · Creative mode · AI orchestration · Enterprise-grade security</p><p class="hero-cta"><a href="/products" class="btn">Products</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
-    Html(format!("{}{}{}{}", f62("home", "CochranBlock | Sovereign Intelligence for the Public Domain"), C7, v0, C8))
+    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>CochranBlock</h1><p class="tagline">You're looking at it.</p><p class="hero-stats">This page — the entire company site — is a single <strong>&lt;10MB Rust binary</strong> running on a laptop behind a Cloudflare tunnel. Total infrastructure cost: <strong>$10/month</strong>.</p><p class="hero-note">Everyone told you to need Kubernetes, five AWS services, and a six-figure DevOps team. I replaced all of it with one binary and a $10 laptop. It's not the Mech — it's the pilot.</p><p class="hero-skills">Fractional CTO · Zero-Cloud Architecture · Rust · 11+ years Defense &amp; Enterprise · AI-Piloted Development · 8 Unlicense repos proving every claim</p><p class="hero-cta"><a href="/deploy" class="btn">Zero-Cloud Tech Intake</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a></p></section>"#;
+    Html(format!("{}{}{}{}", f62("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect"), C7, v0, C8))
 }
 
 /// f11 = serve_services. Why: What We Build + consulting capacity.
