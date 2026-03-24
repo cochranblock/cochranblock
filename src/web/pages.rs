@@ -154,6 +154,8 @@ SYSTEMS DEVELOPER — Enterprise Security                   2020–2022
   GitLab, Docker, cross-team integration.
 
 VULNERABILITY RESEARCH & RED TEAMING — USCYBERCOM J38     2017–2020
+  J38 dev lead for Congressional NDAA-directed offensive cyber
+  operations study (co-lead with J9 dev lead Jacob Crome).
   Product security. 100+ enterprise-scale deployments.
   Python automation. Red team initiative founder.
   "Thanks for building the groundwork for development here." — SFC Rios
