@@ -44,6 +44,7 @@ pub fn f1(p0: t0) -> Router {
         // Redirects for old routes
         .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
         .route("/services", get(pages::f11))
+        .route("/mathskillz", get(pages::f72))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/robots.txt", get(pages::f69))

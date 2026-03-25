@@ -45,6 +45,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/services", "0.9", "weekly"),
         ("/deploy", "0.9", "weekly"),
         ("/downloads", "0.8", "weekly"),
+        ("/mathskillz", "0.8", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -150,6 +151,102 @@ Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
 <p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call First</a></p>
 </section>"#;
     Html(format!("{}{}{}{}", f62("services", "Services & Pricing | CochranBlock"), C7, v0, C8))
+}
+
+/// f72 = serve_mathskillz. Why: Public cost-savings math — cloud vs zero-cloud, justifies pricing.
+pub async fn f72(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Math Skillz</h1>
+<p class="services-intro">The math behind zero-cloud architecture. Every number is real. The site you're reading right now is the proof.</p>
+
+<h2 class="services-section-head">Your Cloud Bill vs. My Binary</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>The industry standard (what you're paying now)</summary>
+<p>
+AWS/Azure/GCP hosting: <strong>$500–$2,000/mo</strong><br>
+Managed database (RDS/DynamoDB): <strong>$200–$1,000/mo</strong><br>
+Load balancer + CDN: <strong>$150–$500/mo</strong><br>
+CI/CD pipeline: <strong>$50–$300/mo</strong><br>
+DevOps engineer or managed services: <strong>$1,000–$5,000/mo</strong><br>
+Monitoring + logging: <strong>$100–$500/mo</strong><br>
+<span class="service-outcome">Total: $2,000–$9,300/month → $24,000–$111,600/year</span>
+</p>
+</details>
+<details class="service-card" open>
+<summary>My stack (what cochranblock.org actually runs on)</summary>
+<p>
+Bare metal Debian node: <strong>$0</strong> (hardware already owned)<br>
+Electricity + internet: <strong>~$10/mo</strong><br>
+Embedded database (sled): <strong>$0</strong><br>
+Reverse proxy (approuter): <strong>$0</strong> (built in Rust, same hardware)<br>
+CI/CD: <strong>$0</strong> (test binary is the CI pipeline)<br>
+SSL + tunnel (Cloudflare free tier): <strong>$0</strong><br>
+Monitoring: <strong>$0</strong> (built into the binary)<br>
+<span class="service-outcome">Total: ~$10/month → ~$120/year</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">The Math</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Year 1 savings for a typical client</summary>
+<p>
+Cloud cost (conservative): <strong>$36,000/year</strong><br>
+My one-time deployment fee: <strong>$3,500</strong><br>
+Your ongoing cost after deployment: <strong>~$120/year</strong><br>
+<span class="service-outcome">Year 1 savings: $32,380. Year 2+: $35,880/year, every year, forever.</span>
+</p>
+</details>
+<details class="service-card" open>
+<summary>My operating margins</summary>
+<p>
+Revenue per deployment: <strong>$3,500</strong><br>
+Infrastructure cost per client: <strong>~$0</strong> (single binary, marginal cost is zero)<br>
+Gross margin: <strong>~95%</strong><br>
+<span class="service-outcome">No cloud bills eating into revenue. No servers to scale. No vendor invoices.</span>
+</p>
+</details>
+<details class="service-card" open>
+<summary>Why $225/hr is a bargain</summary>
+<p>
+One hour of my work ($225) that eliminates a $500/mo cloud service:<br>
+Payback period: <strong>14 days</strong><br>
+Year 1 ROI: <strong>2,567%</strong><br>
+An 8-hour engagement ($1,800) replacing a $2,000/mo stack:<br>
+Payback period: <strong>27 days</strong><br>
+Year 1 ROI: <strong>1,233%</strong><br>
+<span class="service-outcome">Every dollar you spend with me saves you $10–$50 in recurring cloud costs.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">How It Works</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Single binary architecture</summary>
+<p>
+Your entire application — web server, database, API, static assets, TLS — compiles into <strong>one executable</strong>. 18MB on x86, 9.8MB on ARM.<br><br>
+No Docker. No Kubernetes. No microservices. No dependency chain. No package manager in production.<br><br>
+Deploy: copy binary to server, run it. That's the whole deployment.<br>
+<span class="service-outcome">cochranblock.org is that binary. 6 products, intake forms, SQLite, booking calendar, community grants — one process, one file.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>Why Rust makes this possible</summary>
+<p>
+Rust compiles to native machine code with no runtime. No garbage collector, no VM, no interpreter.<br><br>
+Memory safety without a runtime = server-grade reliability at embedded-system efficiency.<br><br>
+A Rust web server uses <strong>2–10MB of RAM</strong>. The equivalent Node.js/Python/Java app uses <strong>100–500MB</strong>.<br>
+<span class="service-outcome">Smaller binary. Less RAM. Less CPU. Less power. Less cost. Faster response.</span>
+</p>
+</details>
+</div>
+
+<p class="services-cta"><a href="/deploy" class="btn">See What You'd Save</a><a href="/services" class="btn btn-secondary">Full Pricing</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62("mathskillz", "Math Skillz — Zero-Cloud Cost Savings | CochranBlock"), C7, v0, C8))
 }
 
 /// f12 = serve_about. Why: Tabbed Mission + Credentials (resume).
