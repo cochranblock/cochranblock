@@ -23,11 +23,14 @@ flowchart LR
 
 | Metric | Value |
 |--------|-------|
-| Binary size | <10MB (release, stripped, LTO) |
+| Binary size (x86) | 18MB (release, stripped, LTO) |
+| Binary size (ARM) | 9.9MB |
 | Infrastructure cost | $10/month |
 | External services | Cloudflare tunnel (free tier) |
-| Database | Embedded sled — no external DB |
+| Database | Embedded sled + SQLite — no external DB |
 | Cloud dependencies | Zero |
+| Public repos | 11 (all Unlicense) |
+| Certification | SDVOSB pending, SAM.gov registered, eMMA registered |
 
 ## Screenshots
 

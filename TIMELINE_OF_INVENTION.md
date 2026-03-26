@@ -34,6 +34,42 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-03-26 — Ghost Fabric Edge Intelligence + Cost Analysis Rewrite
+
+**What:** Added Ghost Fabric edge intelligence section to /mathskillz with Python vs Rust deployment math. Rewrote cost analysis page with specific AWS scenario, 37signals validation, always-visible summary table, and trust/compliance section.
+**Why:** Need public cost justification for VR&E self-employment track approval, government procurement officers, and LinkedIn sharing.
+**Commit:** See `git log --oneline -5`
+**AI Role:** AI researched marketing best practices and drafted copy. Human directed all positioning and approved numbers.
+**Proof:** cochranblock.org/mathskillz
+
+### 2026-03-25 — eMMA + SAM.gov + VR&E Pipeline
+
+**What:** Registered as Maryland eMMA vendor (SUP1095449), submitted CSB certification, filed W-9, submitted VA VR&E Chapter 31 self-employment track, submitted LiftFund business loan application.
+**Why:** Building procurement pipeline. SDVOSB + eMMA + SAM = federal and state contract eligibility.
+**Commit:** Non-code business milestone.
+**AI Role:** AI assisted with form completion, UNSPSC code research, W-9 PDF generation. Human made all business decisions and submissions.
+
+### 2026-03-25 — Veteran-Owned Branding + SDVOSB Badges
+
+**What:** Added "Veteran-Owned" to hero status line, "SDVOSB Pending" to footer, updated about page founder bio with Army 17C and SDVOSB status. Added /mathskillz to nav.
+**Why:** SDVOSB certification pending. Defense contractors and govt buyers search for these signals.
+**Commit:** `bcf5b01`
+**AI Role:** AI placed badges in correct locations. Human directed which credentials to display.
+
+### 2026-03-25 — /mathskillz Cost Analysis Page
+
+**What:** New page at /mathskillz with cloud-vs-bare-metal cost breakdown, ROI calculations, and pricing justification.
+**Why:** Public math for sales conversations, VR&E counselor review, and LinkedIn sharing.
+**Commit:** `88099c8`
+**AI Role:** AI drafted initial version. Human directed all pricing and positioning.
+
+### 2026-03-24 — PWA + Services + Downloads + Social Cards
+
+**What:** Added PWA manifest for mobile install, /services pricing page ($3,500 base, $225/hr), /downloads page with binary downloads, og:image social card, diamond logo.
+**Why:** Complete the sales funnel — pricing, downloads, social sharing, mobile install.
+**Commit:** `b57bc18`, `34beb3e`, `86af3be`, `b6638b8`, `c4d021c`
+**AI Role:** AI built pages and generated PWA assets. Human directed pricing, copy, and branding.
+
 ### 2026-03-23 — Zero-Cloud Rebrand & Binary Compression
 
 **What:** Resized embedded product images (15.6MB → 2.6MB), dropping the release binary from 21MB to <10MB. Rewrote homepage hero to break the fourth wall — tells visitors they're looking at the <10MB binary right now.
