@@ -569,6 +569,19 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <article class="product-card"><span class="product-badge">Coming Soon</span><a href="https://ronin-sites.pro" rel="noopener noreferrer"><img src="/assets/img/ronin-sites.png" alt="Ronin Sites" class="product-img" width="400" height="300"></a><h2><a href="https://ronin-sites.pro" rel="noopener noreferrer">Ronin Sites</a></h2><p>Shop and artist platform. Subdomain routing, MinIO storage, mobile-first site tuner. For creators who refuse to pay Shopify prices.</p></article>
 </div>
 
+<h2 class="products-category">Hardware</h2>
+<p class="products-category-desc">Your website lives on your phone. No hosting bill. Ever.</p>
+<div class="product-cards">
+<article class="product-card"><span class="product-badge">Coming Soon</span><h2>Pocket Server</h2><p>A compiled Rust web server running on a phone you own. Bold kiosk dashboard shows live stats — visitors, uptime, power draw. Plug it in, it's live. No cloud. No monthly fee. $2.60/year in electricity.</p>
+<div class="pricing-cards" style="margin-top:1rem">
+<article class="pricing-card" style="margin:0"><span class="product-badge">BYOD</span><div class="pricing-amount">$500</div><div class="pricing-unit">bring your own phone</div></article>
+<article class="pricing-card" style="margin:0"><span class="product-badge">Starter</span><div class="pricing-amount">$750</div><div class="pricing-unit">refurb phone + configured</div></article>
+<article class="pricing-card" style="margin:0"><span class="product-badge">Turnkey</span><div class="pricing-amount">$1,000</div><div class="pricing-unit">new phone + domain + ready to plug in</div></article>
+</div>
+</article>
+<article class="product-card"><span class="product-badge">Coming Soon</span><h2><a href="https://github.com/cochranblock/ghost-fabric">Ghost Fabric</a></h2><p>Sovereign edge intelligence over LoRa mesh networks. 19MB Rust binary with embedded AI, running on bare metal nodes at 915MHz. Sensors that think. Networks that survive. No cloud dependency.</p></article>
+</div>
+
 <h2 class="products-category">Business Partnerships</h2>
 <p class="products-category-desc">We build for partners who share the mission. Their brand, our engine.</p>
 <div class="product-cards">
