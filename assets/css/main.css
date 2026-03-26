@@ -244,8 +244,9 @@ body::after {
   }
 
   .nav-links.nav-open {
-    max-height: 20rem;
+    max-height: 100vh;
     opacity: 1;
+    overflow-y: auto;
   }
 
   .nav-links a {
