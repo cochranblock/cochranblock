@@ -77,7 +77,46 @@ a {
 
 a:visited {
   color: inherit;
-  opacity: 0.85;
+}
+
+/* Visited state — purple glow system. Rewards exploration. */
+.badge-card:visited {
+  border-color: var(--purple);
+  box-shadow: 0 0 12px rgba(157, 78, 221, 0.25), inset 0 0 20px rgba(157, 78, 221, 0.05);
+}
+
+.badge-card:visited .badge-name {
+  color: var(--purple);
+}
+
+.badge-card:visited .badge-ago {
+  color: var(--purple);
+}
+
+.nav-links a:visited {
+  color: var(--purple);
+}
+
+.footer-nav a:visited {
+  color: var(--purple);
+}
+
+.product-card a:visited h2 {
+  color: var(--purple);
+}
+
+.service-outcome a:visited {
+  color: var(--purple);
+}
+
+.btn:visited {
+  color: inherit;
+}
+
+.hero-cta .btn:visited,
+.services-cta .btn:visited,
+.products-cta .btn:visited {
+  color: inherit;
 }
 
 a:focus-visible,
