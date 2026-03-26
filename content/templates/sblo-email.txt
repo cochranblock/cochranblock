@@ -1,0 +1,29 @@
+Subject: SDVOSB Rust Developer — Zero-Cloud Architecture | The Cochran Block, LLC
+
+[NAME],
+
+I'm Michael Cochran, founder of The Cochran Block, LLC — an SDVOSB-pending veteran-owned small business specializing in zero-cloud Rust architecture.
+
+Background:
+- Army 17C (Cyber Operations), 11 years defense and enterprise
+- USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber study
+- SAM.gov registered, Maryland eMMA vendor (SUP1095449)
+- 11 open source Rust repos, all Unlicense
+
+What I build:
+Compiled Rust web applications that run on bare metal with zero cloud dependencies. One binary, one process, $10/month infrastructure. I replace $36K/year cloud stacks with an 18MB executable.
+
+Public proof:
+- Cost analysis: https://cochranblock.org/mathskillz
+- Architecture: https://github.com/cochranblock
+- Edge intelligence whitepaper: https://github.com/cochranblock/ghost-fabric
+
+I'm available for subcontracting on any contract requiring Rust, zero-trust architecture, edge computing, or cybersecurity development.
+
+Happy to schedule a call at your convenience:
+https://cochranblock.org/book
+
+Michael Cochran
+The Cochran Block, LLC
+mcochran@cochranblock.org
+https://cochranblock.org

@@ -1,0 +1,21 @@
+Title: I run my entire consulting business on a 9.9MB Rust binary ($10/month, no cloud)
+
+---
+
+I'm a solo fractional CTO. My entire company — cochranblock.org — runs as a single compiled Rust binary on bare metal. Axum + sled + SQLite + rust-embed, behind a Cloudflare tunnel.
+
+The numbers:
+- 9.9MB on ARM, 18MB on x86
+- $10/month infrastructure (electricity + internet)
+- 0 cloud services
+- 11 repos, all Unlicense
+
+The binary includes: web server, database, intake forms, booking calendar, community grant applications, static assets (zstd-packed), and monitoring. One process. One file.
+
+I also wrote a whitepaper on edge AI over LoRa mesh networks using Candle — compiling inference + model weights + LoRa protocol into a 19MB binary that cold-boots in milliseconds: https://github.com/cochranblock/ghost-fabric
+
+Architecture proof: https://github.com/cochranblock/cochranblock/blob/main/PROOF_OF_ARTIFACTS.md
+
+Cost breakdown: https://cochranblock.org/mathskillz
+
+All source is public domain (Unlicense). AMA.

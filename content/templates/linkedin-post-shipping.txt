@@ -1,0 +1,25 @@
+Template: "Today I Shipped" LinkedIn Post
+---
+Use after any coding session. Fill in [BRACKETS].
+
+---
+
+Shipped [FEATURE] on [PROJECT].
+
+[1-2 sentences: what it does, why it matters to the reader.]
+
+This runs on a 9.9MB Rust binary. $10/month. No AWS. No Kubernetes.
+
+Full cost math: cochranblock.org/mathskillz
+
+---
+
+Example:
+
+Shipped a live cost analysis page on cochranblock.org.
+
+Side-by-side comparison: a 3-person startup's AWS bill ($36K/year) vs the same app on bare metal ($120/year). The site serving the page IS the proof.
+
+This runs on a 9.9MB Rust binary. $10/month. No AWS. No Kubernetes.
+
+Full cost math: cochranblock.org/mathskillz
