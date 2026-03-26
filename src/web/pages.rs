@@ -89,7 +89,7 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 18MB on x86, 9.8MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 11 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">8 Rust SaaS repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 11+ years Defense &amp; Enterprise · AI-Piloted Development · 8 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a></p></section>"#;
+    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 30MB on x86, 9.9MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 11 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">8 Rust SaaS repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 11+ years Defense &amp; Enterprise · AI-Piloted Development · 8 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a></p></section>"#;
     Html(format!("{}{}{}{}", f62("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect"), C7, v0, C8))
 }
 
@@ -257,7 +257,7 @@ That means I don't need to upsell you, I don't need to raise prices, and I don't
 <details class="service-card">
 <summary>Single binary architecture</summary>
 <p>
-Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 18MB on x86, 9.8MB on ARM. Deploy: copy it to a server and run it.<br>
+Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 30MB on x86, 9.9MB on ARM. Deploy: copy it to a server and run it.<br>
 <span class="service-outcome">cochranblock.org is that binary. Intake forms, SQLite, booking calendar, community grants — one process, one file.</span>
 </p>
 </details>
@@ -266,6 +266,51 @@ Your entire application — web server, database, API, static assets, TLS — co
 <p>
 Rust compiles to native machine code with no runtime. No garbage collector, no VM, no interpreter. A Rust web server uses 2–10MB of RAM. The equivalent Node.js/Python/Java app uses 100–500MB.<br>
 <span class="service-outcome">Smaller binary. Less RAM. Less power. Less cost. Faster response. <a href="/downloads">Download the binary</a> and verify.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Edge Intelligence — Ghost Fabric</h2>
+<p class="services-intro" style="margin-bottom:1rem;">Cloud savings is half the story. The other half is what happens when there is no cloud.</p>
+<div class="service-cards">
+<details class="service-card">
+<summary>The problem: AI doesn't work at the edge</summary>
+<p>
+Standard AI deployment: Python + PyTorch + transformers = <strong>2–4GB</strong> of dependencies before the first tensor is allocated. Cold-start: <strong>3–15 seconds</strong>. Over 400 transitive packages — each one an unaudited attack vector on a node with no firewall.<br><br>
+Now try pushing that over a LoRa radio link at <strong>5.5 kbps</strong>. You can't. The cloud model breaks when bandwidth is measured in bits, not gigabits.<br>
+<span class="service-outcome">Python is the right tool for research. It is the wrong tool for deployment on hardware that must survive without human intervention.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>The solution: 19MB Rust binary with embedded intelligence</summary>
+<p>
+Ghost Fabric compiles the inference engine, quantized model weights, LoRa mesh protocol, sensor I/O, and decision agent into a single <strong>19MB</strong> statically linked binary.<br><br>
+The binary's working set fits entirely in L3 cache (modern CPUs carry 16–64MB), keeping hot execution paths off the memory bus. Result: <strong>millisecond cold-boots</strong> and a deterministic memory footprint.<br><br>
+No interpreter. No garbage collector. No dynamic linking. No package manager on the node. One file. One process. One owner.<br>
+<span class="service-outcome">The same architecture that saves you $32K/year on cloud also runs AI on a $5 microcontroller in a field with no internet.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>The math: Python vs Rust at the edge</summary>
+<p>
+<strong>Python inference node:</strong><br>
+Dependencies: 2–4GB · Cold-start: 3–15s · RAM: 500MB–2GB · Power: requires full Linux + GPU<br>
+Security surface: 400+ packages · Deployment: Docker + pip + CUDA · Update: redeploy entire container<br><br>
+<strong>Ghost Fabric node:</strong><br>
+Dependencies: 0 (statically linked) · Cold-start: &lt;50ms · RAM: 8–32MB · Power: runs on ARM SBC<br>
+Security surface: 1 binary · Deployment: scp + run · Update: replace 1 file<br>
+<span class="service-outcome">100x smaller. 100x faster to start. 100x less attack surface. Same intelligence.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>Applications</summary>
+<p>
+<strong>Agriculture:</strong> Soil and irrigation decisions made at the sensor, transmitted as actions over LoRa. No cellular. No Wi-Fi. No cloud.<br>
+<strong>Disaster response:</strong> Drop mesh nodes into an area with no infrastructure. Self-organizing situational awareness without backhaul.<br>
+<strong>Perimeter security:</strong> Persistent, low-power surveillance with on-node classification. Only alerts traverse the network.<br>
+<strong>Industrial IoT:</strong> Factory floor sensors making real-time quality decisions locally, reporting anomalies over the mesh.<br>
+<strong>Sovereign infrastructure:</strong> Government and defense deployments where data must never leave the physical perimeter.<br>
+<span class="service-outcome"><a href="https://github.com/cochranblock/ghost-fabric">Read the whitepaper →</a></span>
 </p>
 </details>
 </div>
@@ -279,7 +324,7 @@ Service-Disabled Veteran-Owned Small Business (SDVOSB) — pending certification
 SAM.gov — registered (pending activation)<br>
 Maryland eMMA — Certified Small Business application in progress<br>
 11 years defense and enterprise — USCYBERCOM J38 dev lead<br>
-8 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
+9 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
 <span class="service-outcome">All source code delivered under the Unlicense. You own everything. Zero vendor lock-in.</span>
 </p>
 </details>
