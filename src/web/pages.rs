@@ -905,22 +905,50 @@ pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse
 }
 
 /// f75 = api_velocity. Why: Live last-push timestamps from GitHub for all repos — proves velocity.
+/// Caches in memory for 30 minutes to avoid GitHub rate limits.
 pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    use std::sync::OnceLock;
+    use std::sync::Mutex;
+
+    static CACHE: OnceLock<Mutex<(String, std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| Mutex::new((String::new(), std::time::Instant::now() - std::time::Duration::from_secs(9999))));
+
+    // Return cached if fresh (30 min)
+    {
+        let guard = cache.lock().unwrap();
+        if guard.1.elapsed().as_secs() < 1800 && !guard.0.is_empty() {
+            return (
+                axum::http::StatusCode::OK,
+                [(axum::http::header::CONTENT_TYPE, "application/json"),
+                 (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
+                guard.0.clone(),
+            );
+        }
+    }
+
     let repos = [
         "cochranblock", "ghost-fabric", "kova", "pixel-forge", "approuter",
         "oakilydokily", "illbethejudgeofthat", "exopack", "rogue-repo",
         "wowasticker", "whyyoulying", "pocket-server", "provenance-docs", "call-shield",
     ];
+
+    let token = std::env::var("GITHUB_TOKEN").unwrap_or_default();
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert(reqwest::header::USER_AGENT, "cochranblock/1.0".parse().unwrap());
+    if !token.is_empty() {
+        headers.insert(reqwest::header::AUTHORIZATION, format!("Bearer {}", token).parse().unwrap());
+    }
+
     let client = reqwest::Client::builder()
-        .user_agent("cochranblock/1.0")
+        .default_headers(headers)
         .build()
         .unwrap();
+
     let mut entries = Vec::new();
     for repo in repos {
         let url = format!("https://api.github.com/repos/cochranblock/{}", repo);
         if let Ok(resp) = client.get(&url).send().await {
             if let Ok(body) = resp.text().await {
-                // Extract pushed_at from JSON without full deserialization
                 if let Some(start) = body.find("\"pushed_at\":\"") {
                     let rest = &body[start + 13..];
                     if let Some(end) = rest.find('"') {
@@ -932,10 +960,17 @@ pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         }
     }
     let json = format!(r#"{{"repos":[{}],"count":{}}}"#, entries.join(","), entries.len());
+
+    // Update cache
+    {
+        let mut guard = cache.lock().unwrap();
+        *guard = (json.clone(), std::time::Instant::now());
+    }
+
     (
         axum::http::StatusCode::OK,
         [(axum::http::header::CONTENT_TYPE, "application/json"),
-         (axum::http::header::CACHE_CONTROL, "public, max-age=3600")],
+         (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
         json,
     )
 }
