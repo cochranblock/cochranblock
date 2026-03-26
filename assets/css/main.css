@@ -222,7 +222,15 @@ body::after {
   }
 }
 
+.nav-more {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .nav-more {
+    display: flex;
+  }
+
   .nav-toggle {
     display: flex;
   }
