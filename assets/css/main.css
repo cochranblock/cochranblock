@@ -1561,6 +1561,84 @@ body::after {
   text-decoration: underline;
 }
 
+/* Badge grid — codeskillz gym badges */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.badge-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.badge-cat {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0a0a0a;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+.badge-name {
+  color: #e0e0e0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.badge-desc {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.badge-ago {
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .badge-card {
+    padding: 0.75rem;
+  }
+  .badge-name {
+    font-size: 0.75rem;
+  }
+  .badge-desc {
+    font-size: 0.65rem;
+  }
+}
+
 /* Velocity grid — live repo activity */
 .velocity-grid {
   display: grid;

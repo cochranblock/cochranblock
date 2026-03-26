@@ -47,6 +47,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/downloads", "0.8", "weekly"),
         ("/mathskillz", "0.8", "weekly"),
         ("/provenance", "0.8", "weekly"),
+        ("/codeskillz", "0.8", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -334,6 +335,100 @@ Maryland eMMA — Certified Small Business application in progress<br>
 <p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/services" class="btn btn-secondary">Full Pricing</a></p>
 </section>"#;
     Html(format!("{}{}{}{}", f62("mathskillz", "Cost Analysis — Zero-Cloud Savings | CochranBlock"), C7, v0, C8))
+}
+
+/// f76 = serve_codeskillz. Why: Gym badge wall — every repo, what it proves, live velocity.
+pub async fn f76(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Code Skillz</h1>
+<p class="services-intro">14 repos. All Rust. All Unlicense. All live. Every badge is a shipped product with a timestamp proving I'm still building it.</p>
+
+<div id="badges-grid" class="badges-grid"><p class="velocity-loading">Loading badges...</p></div>
+
+<script>
+(function(){
+  var meta={
+    'cochranblock':{cat:'Web',desc:'This site. 18MB binary. $10/month. The live demo.'},
+    'kova':{cat:'AI',desc:'Augment engine. Agent loop, 7 tools, 4-node cluster.'},
+    'ghost-fabric':{cat:'Edge',desc:'Sovereign intelligence over LoRa mesh. 19MB binary.'},
+    'pixel-forge':{cat:'AI',desc:'On-device diffusion models. 3 tiers. Pure Rust.'},
+    'pocket-server':{cat:'Hardware',desc:'Phone-as-web-server. $2.60/year electricity.'},
+    'call-shield':{cat:'Privacy',desc:'On-device call screening. Zero audio leaves the device.'},
+    'provenance-docs':{cat:'Docs',desc:'AI development documentation framework for federal acquisition.'},
+    'approuter':{cat:'Infra',desc:'Reverse proxy + Cloudflare tunnel. One entry point.'},
+    'oakilydokily':{cat:'Client',desc:'First paying partnership. WASM mural, ESIGN waivers.'},
+    'illbethejudgeofthat':{cat:'Legal',desc:'Google Takeout to court-ready exhibit book.'},
+    'whyyoulying':{cat:'Defense',desc:'DoD IG fraud detection. Labor cat + ghost billing.'},
+    'rogue-repo':{cat:'Platform',desc:'Sovereign app store + ISO 8583 payment engine.'},
+    'exopack':{cat:'Test',desc:'TRIPLE SIMS. Screenshots. Headless Chrome. Zero-framework CI.'},
+    'wowasticker':{cat:'Mobile',desc:'Voice dictation + on-device Whisper + behavioral scoring.'}
+  };
+  var cats={'Web':'#00d4aa','AI':'#d4a017','Edge':'#dc143c','Hardware':'#6b2fa0','Privacy':'#00a8cc','Docs':'#888','Infra':'#4a9eff','Client':'#00d4aa','Legal':'#ff6b6b','Defense':'#dc143c','Platform':'#d4a017','Test':'#888','Mobile':'#6b2fa0'};
+  fetch('/api/velocity').then(function(r){return r.json()}).then(function(d){
+    var g=document.getElementById('badges-grid');
+    if(!d.repos||!d.repos.length){g.innerHTML='<p>Unavailable</p>';return;}
+    var h='';
+    d.repos.sort(function(a,b){return new Date(b.pushed_at)-new Date(a.pushed_at)});
+    d.repos.forEach(function(r){
+      var m=meta[r.repo]||{cat:'Rust',desc:''};
+      var ago=timeAgo(new Date(r.pushed_at));
+      var color=cats[m.cat]||'#888';
+      h+='<a href="https://github.com/cochranblock/'+r.repo+'" class="badge-card" style="border-color:'+color+'">';
+      h+='<span class="badge-cat" style="background:'+color+'">'+m.cat+'</span>';
+      h+='<span class="badge-name">'+r.repo+'</span>';
+      h+='<span class="badge-desc">'+m.desc+'</span>';
+      h+='<span class="badge-ago">'+ago+'</span>';
+      h+='</a>';
+    });
+    g.innerHTML=h;
+  }).catch(function(){document.getElementById('badges-grid').innerHTML='<p>Unavailable</p>'});
+  function timeAgo(d){
+    var s=Math.floor((Date.now()-d.getTime())/1000);
+    if(s<60)return s+'s ago';
+    if(s<3600)return Math.floor(s/60)+'m ago';
+    if(s<86400)return Math.floor(s/3600)+'h ago';
+    return Math.floor(s/86400)+'d ago';
+  }
+})();
+</script>
+
+<h2 class="services-section-head">The Stack</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Language: Rust — 100% of production code</summary>
+<p>
+No Python in production. No JavaScript frameworks. No Go. No Java. One language, compiled to native machine code, across every product.<br>
+<span class="service-outcome">13 years of defense and enterprise. One language. Zero runtime dependencies.</span>
+</p>
+</details>
+<details class="service-card" open>
+<summary>Infrastructure: 4 bare metal Debian nodes + Mac Mini</summary>
+<p>
+lf (20 cores, 750GB) · gd (20 cores, 760GB) · bt (12 cores, 95GB) · st (14 cores, 767GB)<br>
+Mac Mini ARM for development. All connected via SSH. All running zsh.<br>
+<span class="service-outcome">$10/month total. Zero cloud. Zero containers. Zero Kubernetes.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>AI: Candle + Kalosm — on-device inference</summary>
+<p>
+No OpenAI API calls in production. Models compiled into the binary via Candle. Whisper for speech-to-text. Custom diffusion models for image generation. LoRA fine-tuning. All on-device.<br>
+<span class="service-outcome">AI without the cloud bill. AI without the data leak.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>Certifications &amp; Registrations</summary>
+<p>
+SDVOSB (pending) · SAM.gov (registered) · Maryland eMMA (vendor) · CSB (pending)<br>
+Army 17C Cyber Operations · JCAC 2013 · USCYBERCOM J38<br>
+<span class="service-outcome">Every badge earned. Every registration filed. Every repo proves the claim.</span>
+</p>
+</details>
+</div>
+
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62("codeskillz", "Code Skillz — 14 Repos, All Rust, All Live | CochranBlock"), C7, v0, C8))
 }
 
 /// f74 = serve_provenance. Why: AI-piloted development documentation framework — SBIR pitch page.
@@ -716,33 +811,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/cochranblock" rel="noopener noreferrer">cochranblock</a></h2><p>This site. Rust + Axum. No templates, no JavaScript frameworks. Embedded HTML, zstd-packed assets, single binary. The website is the product demo.</p></article>
 </div>
 
-<h2 class="products-category">Velocity</h2>
-<p class="products-category-desc">Live from GitHub. Every repo. How recently each one was touched.</p>
-<div id="velocity-grid" class="velocity-grid"><p class="velocity-loading">Loading...</p></div>
-<script>
-(function(){
-  fetch('/api/velocity').then(function(r){return r.json()}).then(function(d){
-    var g=document.getElementById('velocity-grid');
-    if(!d.repos||!d.repos.length){g.innerHTML='<p>Unavailable</p>';return;}
-    var h='';
-    d.repos.sort(function(a,b){return new Date(b.pushed_at)-new Date(a.pushed_at)});
-    d.repos.forEach(function(r){
-      var ago=timeAgo(new Date(r.pushed_at));
-      h+='<div class="velocity-card"><a href="https://github.com/cochranblock/'+r.repo+'" class="velocity-repo">'+r.repo+'</a><span class="velocity-ago">'+ago+'</span></div>';
-    });
-    g.innerHTML=h;
-  }).catch(function(){document.getElementById('velocity-grid').innerHTML='<p>Unavailable</p>'});
-  function timeAgo(d){
-    var s=Math.floor((Date.now()-d.getTime())/1000);
-    if(s<60)return s+'s ago';
-    if(s<3600)return Math.floor(s/60)+'m ago';
-    if(s<86400)return Math.floor(s/3600)+'h ago';
-    return Math.floor(s/86400)+'d ago';
-  }
-})();
-</script>
-
-<p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
+<p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/codeskillz" class="btn btn-secondary">See All 14 Repos Live</a></p></section>"#;
     Html(format!("{}{}{}{}", f62("products", "Products | CochranBlock"), C7, v0, C8))
 }
 
