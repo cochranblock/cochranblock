@@ -716,6 +716,32 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/cochranblock" rel="noopener noreferrer">cochranblock</a></h2><p>This site. Rust + Axum. No templates, no JavaScript frameworks. Embedded HTML, zstd-packed assets, single binary. The website is the product demo.</p></article>
 </div>
 
+<h2 class="products-category">Velocity</h2>
+<p class="products-category-desc">Live from GitHub. Every repo. How recently each one was touched.</p>
+<div id="velocity-grid" class="velocity-grid"><p class="velocity-loading">Loading...</p></div>
+<script>
+(function(){
+  fetch('/api/velocity').then(function(r){return r.json()}).then(function(d){
+    var g=document.getElementById('velocity-grid');
+    if(!d.repos||!d.repos.length){g.innerHTML='<p>Unavailable</p>';return;}
+    var h='';
+    d.repos.sort(function(a,b){return new Date(b.pushed_at)-new Date(a.pushed_at)});
+    d.repos.forEach(function(r){
+      var ago=timeAgo(new Date(r.pushed_at));
+      h+='<div class="velocity-card"><a href="https://github.com/cochranblock/'+r.repo+'" class="velocity-repo">'+r.repo+'</a><span class="velocity-ago">'+ago+'</span></div>';
+    });
+    g.innerHTML=h;
+  }).catch(function(){document.getElementById('velocity-grid').innerHTML='<p>Unavailable</p>'});
+  function timeAgo(d){
+    var s=Math.floor((Date.now()-d.getTime())/1000);
+    if(s<60)return s+'s ago';
+    if(s<3600)return Math.floor(s/60)+'m ago';
+    if(s<86400)return Math.floor(s/3600)+'h ago';
+    return Math.floor(s/86400)+'d ago';
+  }
+})();
+</script>
+
 <p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
     Html(format!("{}{}{}{}", f62("products", "Products | CochranBlock"), C7, v0, C8))
 }
@@ -804,6 +830,42 @@ pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse
     (
         axum::http::StatusCode::OK,
         [(axum::http::header::CONTENT_TYPE, "application/json")],
+        json,
+    )
+}
+
+/// f75 = api_velocity. Why: Live last-push timestamps from GitHub for all repos — proves velocity.
+pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    let repos = [
+        "cochranblock", "ghost-fabric", "kova", "pixel-forge", "approuter",
+        "oakilydokily", "illbethejudgeofthat", "exopack", "rogue-repo",
+        "wowasticker", "whyyoulying", "pocket-server", "provenance-docs", "call-shield",
+    ];
+    let client = reqwest::Client::builder()
+        .user_agent("cochranblock/1.0")
+        .build()
+        .unwrap();
+    let mut entries = Vec::new();
+    for repo in repos {
+        let url = format!("https://api.github.com/repos/cochranblock/{}", repo);
+        if let Ok(resp) = client.get(&url).send().await {
+            if let Ok(body) = resp.text().await {
+                // Extract pushed_at from JSON without full deserialization
+                if let Some(start) = body.find("\"pushed_at\":\"") {
+                    let rest = &body[start + 13..];
+                    if let Some(end) = rest.find('"') {
+                        let pushed = &rest[..end];
+                        entries.push(format!(r#"{{"repo":"{}","pushed_at":"{}"}}"#, repo, pushed));
+                    }
+                }
+            }
+        }
+    }
+    let json = format!(r#"{{"repos":[{}],"count":{}}}"#, entries.join(","), entries.len());
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "application/json"),
+         (axum::http::header::CACHE_CONTROL, "public, max-age=3600")],
         json,
     )
 }

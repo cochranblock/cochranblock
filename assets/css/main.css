@@ -1561,6 +1561,53 @@ body::after {
   text-decoration: underline;
 }
 
+/* Velocity grid — live repo activity */
+.velocity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.velocity-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.velocity-repo {
+  color: var(--accent);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.velocity-repo:hover {
+  text-decoration: underline;
+}
+
+.velocity-ago {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.velocity-loading {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .velocity-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Cost analysis summary table */
 .cost-summary {
   margin: 2rem 0;
