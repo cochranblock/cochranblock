@@ -70,6 +70,16 @@
 }
 
 /* Focus states — keyboard users */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+  opacity: 0.85;
+}
+
 a:focus-visible,
 button:focus-visible,
 .tab-btn:focus-visible {
@@ -1580,7 +1590,10 @@ body::after {
   margin: 1.5rem 0;
 }
 
-.badge-card {
+.badge-card,
+.badge-card:link,
+.badge-card:visited,
+.badge-card:active {
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -1591,11 +1604,13 @@ body::after {
   transition: border-color 0.2s, transform 0.2s;
   position: relative;
   overflow: hidden;
+  color: inherit;
 }
 
 .badge-card:hover {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.04);
+  text-decoration: none;
 }
 
 .badge-cat {
@@ -1677,6 +1692,12 @@ body::after {
 
 .velocity-repo:hover {
   text-decoration: underline;
+}
+
+.velocity-card a:visited,
+.velocity-card a:link {
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .velocity-ago {
