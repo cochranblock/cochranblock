@@ -1536,6 +1536,13 @@ body::after {
   text-decoration: underline;
 }
 
+.footer-certs {
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 0.02em;
+  margin-top: 0.5rem;
+}
+
 /* Booking page — Braintrust discovery call calendar */
 .booking-page {
   padding-bottom: 2rem;
