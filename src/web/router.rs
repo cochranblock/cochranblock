@@ -47,6 +47,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/mathskillz", get(pages::f72))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
+        .route("/api/stats", get(pages::f73))
         .route("/robots.txt", get(pages::f69))
         .route("/sitemap.xml", get(pages::f70))
         .route("/assets/*path", get(assets::f23));

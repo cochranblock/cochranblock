@@ -644,6 +644,39 @@ pub async fn f10(State(_p0): State<Arc<t0>>) -> &'static str {
     "OK"
 }
 
+/// f73 = api_stats. Why: Live metrics for social proof, outreach, and monitoring.
+pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    let lead_count: i64 = if let Some(ref pool) = p0.intake_pool {
+        sqlx::query_scalar("SELECT COUNT(*) FROM leads")
+            .fetch_one(pool)
+            .await
+            .unwrap_or(0)
+    } else {
+        0
+    };
+    let grant_count: i64 = if let Some(ref pool) = p0.intake_pool {
+        sqlx::query_scalar("SELECT COUNT(*) FROM community_grants")
+            .fetch_one(pool)
+            .await
+            .unwrap_or(0)
+    } else {
+        0
+    };
+    let uptime = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
+    let json = format!(
+        r#"{{"binary_size_arm":"9.9MB","binary_size_x86":"18MB","monthly_cost":"$10","repos":11,"leads":{},"grants":{},"timestamp":{}}}"#,
+        lead_count, grant_count, uptime
+    );
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "application/json")],
+        json,
+    )
+}
+
 /// f71 = handler_404. Why: Site-styled 404 instead of axum default.
 pub async fn f71(State(_p0): State<Arc<t0>>) -> (axum::http::StatusCode, Html<String>) {
     let body = r#"<section class="contact"><h1>Page Not Found</h1><p>The page you're looking for doesn't exist or has moved.</p><p class="contact-cta"><a href="/" class="btn">Back to Home</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
