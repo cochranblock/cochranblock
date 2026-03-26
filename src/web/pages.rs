@@ -65,7 +65,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Fractional CTO and Zero-Cloud Architect. This entire company runs as a single Rust binary on a laptop for $10/month. 8 Unlicense repos prove every claim."}</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"CochranBlock","url":"https://cochranblock.org","description":"Fractional CTO and Zero-Cloud Architect. This entire company runs as a single Rust binary on a laptop for $10/month. 11 Unlicense repos prove every claim."}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -75,7 +75,7 @@ pub fn f62(p0: &str, p1: &str) -> String {
         format!("/{}", p0)
     };
     format!(
-        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 8 Unlicense repos prove every claim."><title>{}</title><meta property="og:title" content="{}"><meta property="og:description" content="Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 8 Unlicense repos. It's not the Mech — it's the pilot."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/assets/manifest.json"><link rel="stylesheet" href="/assets/css/main.css">{}</head><body data-page="{}">"#,
+        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 11 Unlicense repos prove every claim."><title>{}</title><meta property="og:title" content="{}"><meta property="og:description" content="Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 11 Unlicense repos. It's not the Mech — it's the pilot."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/assets/manifest.json"><link rel="stylesheet" href="/assets/css/main.css">{}</head><body data-page="{}">"#,
         p1,
         p1,
         BASE_URL,
@@ -89,7 +89,7 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 30MB on x86, 9.9MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 11 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">8 Rust SaaS repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 11+ years Defense &amp; Enterprise · AI-Piloted Development · 8 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a></p></section>"#;
+    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 30MB on x86, 9.9MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 11 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">11 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 11+ years Defense &amp; Enterprise · AI-Piloted Development · 8 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a></p></section>"#;
     Html(format!("{}{}{}{}", f62("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect"), C7, v0, C8))
 }
 
@@ -143,7 +143,7 @@ Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
 <p>USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study. Two Six Technologies. Enterprise security. Active clearance. I've shipped production systems for organizations that can't afford downtime.<span class="service-outcome">Not my first build. Not my first deployment. Not my first fire.</span></p>
 </details>
 <details class="service-card">
-<summary>9 open source repos as proof</summary>
+<summary>11 open source repos as proof</summary>
 <p>Every repo at <a href="https://github.com/cochranblock">github.com/cochranblock</a> ships with Proof of Artifacts and a Timeline of Invention. Wire diagrams, screenshots, build output, commit-level history. You can verify my work before we ever talk.<span class="service-outcome">Talk is cheap. Code ships.</span></p>
 </details>
 </div>
@@ -324,7 +324,7 @@ Service-Disabled Veteran-Owned Small Business (SDVOSB) — pending certification
 SAM.gov — registered (pending activation)<br>
 Maryland eMMA — Certified Small Business application in progress<br>
 11 years defense and enterprise — USCYBERCOM J38 dev lead<br>
-9 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
+11 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
 <span class="service-outcome">All source code delivered under the Unlicense. You own everything. Zero vendor lock-in.</span>
 </p>
 </details>
@@ -355,7 +355,7 @@ SUMMARY
 Fractional CTO who replaces bloated cloud infrastructure with
 lean Rust binaries. cochranblock.org — my entire company — runs
 as a single 18MB binary on a laptop for $10/month. 11+ years
-defense, fintech, and enterprise. 8 Unlicense repos proving
+defense, fintech, and enterprise. 11 Unlicense repos proving
 every claim. Edge compute beats cloud.
 
 ────────────────────────────────────────────────────
@@ -364,7 +364,7 @@ THE PROOF
 
 cochranblock.org — live production site. Single Rust binary.
   $10/month total infrastructure. Zero AWS. Zero Kubernetes.
-  8 open source repos: github.com/cochranblock
+  11 open source repos: github.com/cochranblock
   Proof of Artifacts + Timeline of Invention in every repo.
 
 ────────────────────────────────────────────────────
@@ -454,7 +454,7 @@ for having you here." — Jay, USCYBERCOM
   <h3 class="profile-subhead">The Mission</h3>
   <p>Your server bill is too high. CochranBlock exists to prove it — and fix it. This entire company runs as a single Rust binary on a laptop for $10/month. We build zero-cloud architectures that replace bloated infrastructure with lean, fast binaries. All source code released under the Unlicense.</p>
   <h3 class="profile-subhead">What We Do</h3>
-  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 8 open source Rust repos back every claim we make.</p>
+  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 11 open source Rust repos back every claim we make.</p>
   <h3 class="profile-subhead">The Architecture</h3>
   <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
   <h3 class="profile-subhead">Founded By</h3>

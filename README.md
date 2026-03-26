@@ -3,7 +3,7 @@
 
 > **It's not the Mech — it's the pilot.**
 >
-> This repo is part of [CochranBlock](https://cochranblock.org) — 8 Unlicense Rust repositories that power an entire company on a **single <10MB binary**, a laptop, and a **$10/month** Cloudflare tunnel. No AWS. No Kubernetes. No six-figure DevOps team. Zero cloud.
+> This repo is part of [CochranBlock](https://cochranblock.org) — 11 Unlicense Rust repositories that power an entire company on a **single 9.9MB binary** (ARM), a laptop, and a **$10/month** Cloudflare tunnel. No AWS. No Kubernetes. No six-figure DevOps team. Zero cloud.
 >
 > **[cochranblock.org](https://cochranblock.org)** is a live demo of this architecture. You're welcome to read every line of source code — it's all public domain.
 >
@@ -61,7 +61,7 @@ CochranBlock site (cochranblock.org) — Rust Axum server with embedded assets.
 cargo run -p cochranblock
 ```
 
-Then open http://localhost:8081 (default). Routes: `/`, `/services`, `/about`, `/contact`, `/book`, `/products`, `/federal-partners`.
+Then open http://localhost:8081 (default). Routes: `/`, `/services`, `/mathskillz`, `/about`, `/contact`, `/book`, `/products`, `/deploy`, `/downloads`, `/community-grant`.
 
 ## Tokenization
 
