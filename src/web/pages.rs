@@ -46,6 +46,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/deploy", "0.9", "weekly"),
         ("/downloads", "0.8", "weekly"),
         ("/mathskillz", "0.8", "weekly"),
+        ("/provenance", "0.8", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -333,6 +334,123 @@ Maryland eMMA — Certified Small Business application in progress<br>
 <p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/services" class="btn btn-secondary">Full Pricing</a></p>
 </section>"#;
     Html(format!("{}{}{}{}", f62("mathskillz", "Cost Analysis — Zero-Cloud Savings | CochranBlock"), C7, v0, C8))
+}
+
+/// f74 = serve_provenance. Why: AI-piloted development documentation framework — SBIR pitch page.
+pub async fn f74(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Provenance Docs</h1>
+<p class="services-intro">A commit-integrated documentation framework for AI-piloted software development. The federal government has no standard for documenting who did what when AI assists the build. We built one.</p>
+
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td>Repositories using this framework</td><td class="cost-amount cost-new">13</td></tr>
+<tr><td>Commits documented with human/AI attribution</td><td class="cost-amount cost-new">500+</td></tr>
+<tr><td>External tooling required</td><td class="cost-amount cost-new">git (already everywhere)</td></tr>
+<tr><td>Framework overhead per repo</td><td class="cost-amount cost-new">2 markdown files</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">The Problem</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>AI broke the attribution chain</summary>
+<p>
+The USPTO requires human inventors on patents. DFARS 252.227-7014 requires identification of privately-developed vs government-funded software. NIST SP 800-218 requires provenance tracking for software components. EO 14028 mandates supply chain transparency.<br><br>
+None of these frameworks address AI-generated code. When a developer accepts AI output into a codebase, the IP boundary, the security audit trail, and the inventorship record all break.<br>
+<span class="service-outcome">Every federal contractor using AI is creating undocumented supply chain inputs right now.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">The Solution: Two Documents</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Timeline of Invention (TOI)</summary>
+<p>
+A dated, commit-linked record with a mandatory <strong>"AI Role"</strong> field on every entry. Documents what the human directed versus what the AI generated — at commit time, not months later.<br><br>
+<strong>Date</strong> — when the work shipped<br>
+<strong>What</strong> — concrete deliverable<br>
+<strong>Why</strong> — business or technical driver<br>
+<strong>Commit</strong> — git hash for traceability<br>
+<strong>AI Role</strong> — what AI generated vs what human directed and verified<br>
+<strong>Proof</strong> — link to artifact or test output<br>
+<span class="service-outcome">The "AI Role" field is the critical innovation. It forces the developer to articulate the human/AI boundary on every entry.</span>
+</p>
+</details>
+<details class="service-card" open>
+<summary>Proof of Artifacts (POA)</summary>
+<p>
+Architecture diagrams, build metrics, screenshots, and exact verification commands proving the software is real, runs, and does what the TOI claims.<br><br>
+Any reviewer can clone the repo, run the commands, and confirm. This is not documentation — it is a <strong>reproducibility contract</strong>.<br>
+<span class="service-outcome">No Word documents. No slide decks. Verifiable evidence in the repository alongside the code.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Live Proof</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>13 repositories, all public, all using this framework</summary>
+<p>
+<a href="https://github.com/cochranblock/cochranblock">cochranblock</a> — production site, 18MB binary<br>
+<a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a> — this framework's whitepaper and spec<br>
+<a href="https://github.com/cochranblock/ghost-fabric">ghost-fabric</a> — edge intelligence over LoRa mesh<br>
+<a href="https://github.com/cochranblock/kova">kova</a> — AI augment engine<br>
+<a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a> — on-device diffusion models<br>
+<a href="https://github.com/cochranblock/pocket-server">pocket-server</a> — phone-as-web-server<br>
+<a href="https://github.com/cochranblock/approuter">approuter</a> — reverse proxy<br>
+<a href="https://github.com/cochranblock/oakilydokily">oakilydokily</a> — client site<br>
+<a href="https://github.com/cochranblock/illbethejudgeofthat">illbethejudgeofthat</a> — pro se case builder<br>
+<a href="https://github.com/cochranblock/whyyoulying">whyyoulying</a> — DoD fraud detection<br>
+<a href="https://github.com/cochranblock/exopack">exopack</a> — test framework<br>
+<a href="https://github.com/cochranblock/rogue-repo">rogue-repo</a> — app store + payment engine<br>
+<a href="https://github.com/cochranblock/wowasticker">wowasticker</a> — behavioral scoring app<br>
+<span class="service-outcome">Every repo contains TIMELINE_OF_INVENTION.md and PROOF_OF_ARTIFACTS.md. Click any link and verify.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Federal Acquisition Mapping</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>CDRL integration</summary>
+<p>
+<strong>DI-IPSC-81435</strong> (Software Design Description) → POA Architecture section<br>
+<strong>DI-IPSC-81438</strong> (Software Product Specification) → POA Build Output section<br>
+<strong>DI-MGMT-81466</strong> (Engineering Change Proposal) → TOI entries<br>
+<strong>DI-IPSC-81441</strong> (Software Test Report) → POA How to Verify section<br>
+<span class="service-outcome">TOI and POA replace or augment existing CDRLs — no new paperwork categories needed.</span>
+</p>
+</details>
+<details class="service-card">
+<summary>Compliance coverage</summary>
+<p>
+<strong>DFARS 252.227-7014</strong> — "AI Role" field documents the private/government development boundary<br>
+<strong>EO 14028</strong> — treats AI output as a supply chain input requiring provenance<br>
+<strong>NIST SP 800-218 (SSDF)</strong> — extends provenance tracking to AI-generated components<br>
+<strong>SBOM (NTIA)</strong> — POA serves as an AI-aware extension to the Software Bill of Materials<br>
+<span class="service-outcome">One framework, four compliance requirements addressed.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Who Built This</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>The Cochran Block, LLC</summary>
+<p>
+Michael Cochran — Army veteran (17C Cyber Operations, 35Q start at JCAC 2013). 13 years defense and enterprise. USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study.<br><br>
+SDVOSB pending. SAM.gov registered. Maryland eMMA vendor.<br><br>
+This framework was not designed in a lab. It was built by a developer who needed to prove that his AI-assisted code was human-directed — and discovered that no standard existed to do so.<br>
+<span class="service-outcome"><a href="https://github.com/cochranblock/provenance-docs/blob/main/WHITEPAPER.md">Read the full whitepaper →</a></span>
+</p>
+</details>
+</div>
+
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock/provenance-docs" class="btn btn-secondary">GitHub</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62("provenance", "Provenance Docs — AI Development Documentation Framework | CochranBlock"), C7, v0, C8))
 }
 
 /// f12 = serve_about. Why: Tabbed Mission + Credentials (resume).
