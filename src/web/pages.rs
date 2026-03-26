@@ -49,6 +49,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/provenance", "0.8", "weekly"),
         ("/sbir", "0.8", "weekly"),
         ("/codeskillz", "0.8", "weekly"),
+        ("/govdocs", "0.8", "monthly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -87,7 +88,7 @@ pub fn f62(p0: &str, p1: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/community-grant" class="nav-more">Grant</a></div></nav><main id="main" class="content">"##;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a></div></nav><main id="main" class="content">"##;
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">Service-Disabled Veteran-Owned Small Business (SDVOSB) · Pending</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
@@ -336,6 +337,97 @@ Maryland eMMA — Certified Small Business application in progress<br>
 <p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/services" class="btn btn-secondary">Full Pricing</a></p>
 </section>"#;
     Html(format!("{}{}{}{}", f62("mathskillz", "Cost Analysis — Zero-Cloud Savings | CochranBlock"), C7, v0, C8))
+}
+
+/// f77 = serve_govdocs. Why: Printable government procurement docs — capability statement, W-9, registrations.
+pub async fn f77(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Government Documents</h1>
+<p class="services-intro">Everything a procurement officer, contracting specialist, or prime contractor needs. Print or download.</p>
+
+<h2 class="services-section-head">Capability Statement</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>The Cochran Block, LLC — Capability Statement</summary>
+<div class="govdoc-print">
+<p><strong>The Cochran Block, LLC</strong><br>
+7452 School Avenue, Dundalk, MD 21222<br>
+mcochran@cochranblock.org · cochranblock.org<br>
+EIN: 41-3835237</p>
+
+<p><strong>Certifications &amp; Registrations</strong><br>
+SDVOSB — Pending · SAM.gov — Registered · Maryland eMMA — Vendor SUP1095449 · CSB — Certified</p>
+
+<p><strong>NAICS Codes</strong><br>
+541511 — Custom Computer Programming Services<br>
+541512 — Computer Systems Design Services<br>
+541519 — Other Computer Related Services<br>
+541330 — Engineering Services<br>
+541690 — Other Scientific and Technical Consulting</p>
+
+<p><strong>UNSPSC Codes</strong><br>
+81111500 — Software or Hardware Engineering<br>
+81111600 — Computer Programmers<br>
+81111700 — Management Information Systems (MIS)<br>
+43233500 — Healthcare Industry Software<br>
+43231500 — Business Function Specific Software<br>
+43232400 — Development Software<br>
+81112400 — Machine Learning and AI Services<br>
+43232500 — Artificial Intelligence Software</p>
+
+<p><strong>Core Competencies</strong><br>
+Zero-cloud architecture · Compiled Rust web applications · Edge computing and IoT (LoRa/915MHz) · On-device AI inference · Cybersecurity development · Fractional CTO services · Infrastructure cost reduction (97% savings demonstrated)</p>
+
+<p><strong>Differentiators</strong><br>
+• 18MB single-binary web server replaces $36K/year cloud stacks for $120/year<br>
+• 14 open source Rust repos with Proof of Artifacts and Timeline of Invention<br>
+• 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
+• Army 17C (Cyber Operations), JCAC 2013<br>
+• All code delivered under the Unlicense — zero vendor lock-in</p>
+
+<p><strong>Past Performance</strong><br>
+• oakilydokily.com — First paying partnership. Waiver management, digital intake, ESIGN. Deployed on bare metal via Cloudflare Zero Trust.<br>
+• cochranblock.org — Live production site. 14 products, intake forms, SQLite, booking calendar. 18MB binary, $10/month total infrastructure.<br>
+• USCYBERCOM J38 JMOC-E — Dev lead for Congressional NDAA-directed offensive cyber operations study.</p>
+
+<p><strong>Contact</strong><br>
+Michael Cochran, Owner<br>
+mcochran@cochranblock.org<br>
+cochranblock.org/book — Schedule a call<br>
+cochranblock.org/deploy — Start a project</p>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head">Downloadable Documents</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Available documents</summary>
+<p>
+<a href="/assets/resume.pdf" class="btn" download>Resume (PDF)</a>
+<a href="/assets/og-image.png" class="btn btn-secondary" download>Company Logo Card</a>
+</p>
+<p class="govdoc-note">W-9: Available on request — <a href="mailto:mcochran@cochranblock.org?subject=W-9%20Request">email for a signed copy</a>.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Registration Status</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td>Maryland eMMA</td><td class="cost-amount cost-new">Vendor SUP1095449 — Active</td></tr>
+<tr><td>Certified Small Business (CSB)</td><td class="cost-amount cost-new">Approved</td></tr>
+<tr><td>SAM.gov</td><td class="cost-amount">Registered — Pending Activation</td></tr>
+<tr><td>SDVOSB (VetCert)</td><td class="cost-amount">Pending — Awaiting SAM.gov</td></tr>
+<tr><td>GSA Schedule</td><td class="cost-amount">Not Yet Applied</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">Cost Analysis</h2>
+<p>For a detailed cost comparison of cloud vs zero-cloud architecture: <a href="/mathskillz">cochranblock.org/mathskillz</a></p>
+
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62("govdocs", "Government Documents | CochranBlock"), C7, v0, C8))
 }
 
 /// f76 = serve_codeskillz. Why: Gym badge wall — every repo, what it proves, live velocity.

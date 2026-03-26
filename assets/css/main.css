@@ -1630,6 +1630,40 @@ body::after {
   text-decoration: underline;
 }
 
+/* Gov docs — printable capability statement */
+.govdoc-print {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.govdoc-print p {
+  margin-bottom: 1rem;
+}
+
+.govdoc-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+@media print {
+  .nav, .footer, .skip-link, .services-cta, .btn {
+    display: none !important;
+  }
+  .govdoc-print {
+    font-size: 11pt;
+    color: #000;
+    background: #fff;
+  }
+  .service-card {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+  .cost-table td {
+    color: #000;
+  }
+}
+
 /* Badge grid — codeskillz gym badges */
 .badges-grid {
   display: grid;
