@@ -156,97 +156,138 @@ Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
 /// f72 = serve_mathskillz. Why: Public cost-savings math — cloud vs zero-cloud, justifies pricing.
 pub async fn f72(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
-<h1>Math Skillz</h1>
-<p class="services-intro">The math behind zero-cloud architecture. Every number is real. The site you're reading right now is the proof.</p>
+<h1>Your $3,000/month cloud bill should be $10.</h1>
+<p class="services-intro">Every number on this page is real. The site you're reading right now is the proof.</p>
 
-<h2 class="services-section-head">Your Cloud Bill vs. My Binary</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td>Typical cloud cost</td><td class="cost-amount cost-old">$36,000/year</td></tr>
+<tr><td>After CochranBlock deployment</td><td class="cost-amount cost-new">$120/year</td></tr>
+<tr><td>One-time deployment fee</td><td class="cost-amount">$3,500</td></tr>
+<tr class="cost-row-highlight"><td><strong>Year 1 net savings</strong></td><td class="cost-amount cost-new"><strong>$32,380</strong></td></tr>
+<tr class="cost-row-highlight"><td><strong>Year 2+ savings</strong></td><td class="cost-amount cost-new"><strong>$35,880/year</strong></td></tr>
+</table>
+</div>
+
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a></p>
+
+<h2 class="services-section-head">The Scenario</h2>
 <div class="service-cards">
 <details class="service-card" open>
-<summary>The industry standard (what you're paying now)</summary>
+<summary>A 3-person startup on AWS running a standard web app</summary>
 <p>
-AWS/Azure/GCP hosting: <strong>$500–$2,000/mo</strong><br>
-Managed database (RDS/DynamoDB): <strong>$200–$1,000/mo</strong><br>
-Load balancer + CDN: <strong>$150–$500/mo</strong><br>
-CI/CD pipeline: <strong>$50–$300/mo</strong><br>
-DevOps engineer or managed services: <strong>$1,000–$5,000/mo</strong><br>
-Monitoring + logging: <strong>$100–$500/mo</strong><br>
-<span class="service-outcome">Total: $2,000–$9,300/month → $24,000–$111,600/year</span>
+EC2 instances (2x t3.medium): <strong>$120/mo</strong><br>
+RDS PostgreSQL (db.t3.medium): <strong>$140/mo</strong><br>
+Application Load Balancer: <strong>$50/mo</strong><br>
+CloudFront CDN: <strong>$30/mo</strong><br>
+S3 storage + transfer: <strong>$25/mo</strong><br>
+CloudWatch monitoring: <strong>$30/mo</strong><br>
+CI/CD (CodePipeline + CodeBuild): <strong>$45/mo</strong><br>
+Part-time DevOps contractor: <strong>$2,500/mo</strong><br>
+<span class="service-outcome">Total: $2,940/month → $35,280/year. This is conservative. Most spend more.</span>
 </p>
 </details>
 <details class="service-card" open>
-<summary>My stack (what cochranblock.org actually runs on)</summary>
+<summary>The same app on CochranBlock infrastructure</summary>
 <p>
-Bare metal Debian node: <strong>$0</strong> (hardware already owned)<br>
+Compiled Rust binary (web server + database + API + assets): <strong>$0</strong><br>
+Bare metal hardware (one-time, you already own a computer): <strong>$0/mo</strong><br>
 Electricity + internet: <strong>~$10/mo</strong><br>
-Embedded database (sled): <strong>$0</strong><br>
-Reverse proxy (approuter): <strong>$0</strong> (built in Rust, same hardware)<br>
-CI/CD: <strong>$0</strong> (test binary is the CI pipeline)<br>
-SSL + tunnel (Cloudflare free tier): <strong>$0</strong><br>
+Cloudflare tunnel (free tier): <strong>$0</strong><br>
+CI/CD: <strong>$0</strong> (test binary is the pipeline)<br>
 Monitoring: <strong>$0</strong> (built into the binary)<br>
-<span class="service-outcome">Total: ~$10/month → ~$120/year</span>
+DevOps: <strong>$0</strong> (there's nothing to operate — one process, one file)<br>
+<span class="service-outcome">Total: $10/month → $120/year. No vendor invoices. No surprise bills. No scaling fees.</span>
 </p>
 </details>
 </div>
 
-<h2 class="services-section-head">The Math</h2>
+<h2 class="services-section-head">ROI on Every Dollar</h2>
 <div class="service-cards">
 <details class="service-card" open>
-<summary>Year 1 savings for a typical client</summary>
+<summary>$3,500 deployment — pays for itself in 37 days</summary>
 <p>
-Cloud cost (conservative): <strong>$36,000/year</strong><br>
-My one-time deployment fee: <strong>$3,500</strong><br>
-Your ongoing cost after deployment: <strong>~$120/year</strong><br>
-<span class="service-outcome">Year 1 savings: $32,380. Year 2+: $35,880/year, every year, forever.</span>
+You're spending $2,940/month on cloud. I deploy a binary that replaces it for $3,500.<br>
+Day 1: you stop paying AWS.<br>
+Day 37: deployment fee is recovered from savings.<br>
+Day 365: you've saved <strong>$32,380</strong>.<br>
+<span class="service-outcome">Every year after that: $35,880 stays in your pocket instead of going to Amazon.</span>
 </p>
 </details>
 <details class="service-card" open>
-<summary>My operating margins</summary>
+<summary>$225/hr consulting — 14-day payback</summary>
 <p>
-Revenue per deployment: <strong>$3,500</strong><br>
-Infrastructure cost per client: <strong>~$0</strong> (single binary, marginal cost is zero)<br>
-Gross margin: <strong>~95%</strong><br>
-<span class="service-outcome">No cloud bills eating into revenue. No servers to scale. No vendor invoices.</span>
-</p>
-</details>
-<details class="service-card" open>
-<summary>Why $225/hr is a bargain</summary>
-<p>
-One hour of my work ($225) that eliminates a $500/mo cloud service:<br>
+One hour of work ($225) that eliminates a $500/mo cloud service:<br>
 Payback period: <strong>14 days</strong><br>
-Year 1 ROI: <strong>2,567%</strong><br>
+Year 1 return: <strong>$5,775</strong> (2,567% ROI)<br><br>
 An 8-hour engagement ($1,800) replacing a $2,000/mo stack:<br>
 Payback period: <strong>27 days</strong><br>
-Year 1 ROI: <strong>1,233%</strong><br>
-<span class="service-outcome">Every dollar you spend with me saves you $10–$50 in recurring cloud costs.</span>
+Year 1 return: <strong>$22,200</strong> (1,233% ROI)<br>
+<span class="service-outcome">Every dollar you spend here saves $10–$50 in recurring costs.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">This Isn't New</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>37signals saved $10M leaving AWS</summary>
+<p>
+In 2022, 37signals (makers of Basecamp and HEY) spent $3.2 million per year on AWS. They moved to owned hardware and saved over $10 million in five years. DHH wrote: <em>"Renting computers is mostly a bad deal for medium-sized companies like ours."</em><br><br>
+You don't need to be their size to benefit. The math scales down. A startup spending $3K/month on cloud saves $32K+ in year one with the same approach.<br>
+<span class="service-outcome">I build the same architecture they moved to — but for small businesses, at a fraction of the cost.</span>
+</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Why This Model Lasts</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Low overhead = I don't disappear mid-contract</summary>
+<p>
+My infrastructure costs are near zero. No office lease. No cloud bills eating into revenue. No VC runway clock ticking down.<br><br>
+That means I don't need to upsell you, I don't need to raise prices, and I don't need your next contract to keep the lights on. Pricing stays flat because the model is durable.<br>
+<span class="service-outcome">You're hiring a business that can't be squeezed by a vendor — because there are no vendors.</span>
 </p>
 </details>
 </div>
 
 <h2 class="services-section-head">How It Works</h2>
 <div class="service-cards">
-<details class="service-card" open>
+<details class="service-card">
 <summary>Single binary architecture</summary>
 <p>
-Your entire application — web server, database, API, static assets, TLS — compiles into <strong>one executable</strong>. 18MB on x86, 9.8MB on ARM.<br><br>
-No Docker. No Kubernetes. No microservices. No dependency chain. No package manager in production.<br><br>
-Deploy: copy binary to server, run it. That's the whole deployment.<br>
-<span class="service-outcome">cochranblock.org is that binary. 6 products, intake forms, SQLite, booking calendar, community grants — one process, one file.</span>
+Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 18MB on x86, 9.8MB on ARM. Deploy: copy it to a server and run it.<br>
+<span class="service-outcome">cochranblock.org is that binary. Intake forms, SQLite, booking calendar, community grants — one process, one file.</span>
 </p>
 </details>
 <details class="service-card">
-<summary>Why Rust makes this possible</summary>
+<summary>Technical deep dive</summary>
 <p>
-Rust compiles to native machine code with no runtime. No garbage collector, no VM, no interpreter.<br><br>
-Memory safety without a runtime = server-grade reliability at embedded-system efficiency.<br><br>
-A Rust web server uses <strong>2–10MB of RAM</strong>. The equivalent Node.js/Python/Java app uses <strong>100–500MB</strong>.<br>
-<span class="service-outcome">Smaller binary. Less RAM. Less CPU. Less power. Less cost. Faster response.</span>
+Rust compiles to native machine code with no runtime. No garbage collector, no VM, no interpreter. A Rust web server uses 2–10MB of RAM. The equivalent Node.js/Python/Java app uses 100–500MB.<br>
+<span class="service-outcome">Smaller binary. Less RAM. Less power. Less cost. Faster response. <a href="/downloads">Download the binary</a> and verify.</span>
 </p>
 </details>
 </div>
 
-<p class="services-cta"><a href="/deploy" class="btn">See What You'd Save</a><a href="/services" class="btn btn-secondary">Full Pricing</a></p>
+<h2 class="services-section-head">Trust &amp; Compliance</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Credentials</summary>
+<p>
+Service-Disabled Veteran-Owned Small Business (SDVOSB) — pending certification<br>
+SAM.gov — registered (pending activation)<br>
+Maryland eMMA — Certified Small Business application in progress<br>
+11 years defense and enterprise — USCYBERCOM J38 dev lead<br>
+8 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
+<span class="service-outcome">All source code delivered under the Unlicense. You own everything. Zero vendor lock-in.</span>
+</p>
+</details>
+</div>
+
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/services" class="btn btn-secondary">Full Pricing</a></p>
 </section>"#;
-    Html(format!("{}{}{}{}", f62("mathskillz", "Math Skillz — Zero-Cloud Cost Savings | CochranBlock"), C7, v0, C8))
+    Html(format!("{}{}{}{}", f62("mathskillz", "Cost Analysis — Zero-Cloud Savings | CochranBlock"), C7, v0, C8))
 }
 
 /// f12 = serve_about. Why: Tabbed Mission + Credentials (resume).

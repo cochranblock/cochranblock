@@ -1536,6 +1536,68 @@ body::after {
   text-decoration: underline;
 }
 
+/* Cost analysis summary table */
+.cost-summary {
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.05rem;
+}
+
+.cost-table td {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cost-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cost-amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cost-old {
+  color: #ff6b6b;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.cost-new {
+  color: var(--accent);
+}
+
+.cost-row-highlight {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cost-row-highlight td {
+  padding: 1rem 1.25rem;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 480px) {
+  .cost-table {
+    font-size: 0.9rem;
+  }
+  .cost-table td {
+    padding: 0.6rem 0.75rem;
+  }
+  .cost-row-highlight td {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+}
+
 .footer-certs {
   font-size: 0.75rem;
   color: #888;
