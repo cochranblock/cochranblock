@@ -345,6 +345,7 @@ pub async fn f76(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p class="services-intro">14 repos. All Rust. All Unlicense. All live. Every badge is a shipped product with a timestamp proving I'm still building it.</p>
 
 <div id="badges-grid" class="badges-grid"><p class="velocity-loading">Loading badges...</p></div>
+<p class="velocity-note">Timestamps refresh every 30 minutes via GitHub API. Yes, I cache. No, I don't fake the numbers.</p>
 
 <script>
 (function(){

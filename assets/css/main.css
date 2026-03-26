@@ -1760,6 +1760,14 @@ body::after {
   font-size: 0.85rem;
 }
 
+.velocity-note {
+  color: var(--muted);
+  font-size: 0.65rem;
+  text-align: center;
+  opacity: 0.6;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 480px) {
   .velocity-grid {
     grid-template-columns: repeat(2, 1fr);
