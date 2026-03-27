@@ -20,9 +20,12 @@
   --radius: 8px;
   --radius-sm: 6px;
   --transition: 0.2s ease;
+  --glass: rgba(13, 13, 20, 0.6);
+  --glass-border: rgba(0, 217, 255, 0.12);
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 /* Skip link — visible on focus for keyboard users */
 .skip-link {
@@ -337,12 +340,13 @@ body::after {
   white-space: nowrap;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
   color: var(--muted);
   text-decoration: none;
   text-transform: uppercase;
   transition: all var(--transition);
+  position: relative;
 }
 
 [data-page="home"] .nav-links a[href="/"],
@@ -373,6 +377,7 @@ body::after {
 
 .nav-links a:hover::after {
   width: 100%;
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
 }
 
 /* Developer dropdown — groups Source, Summary, Rules */
@@ -593,6 +598,27 @@ body::after {
 .hero {
   text-align: center;
   padding: 5rem 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 50px rgba(0, 217, 255, 0.2); }
+  50% { box-shadow: 0 0 70px rgba(0, 217, 255, 0.35), 0 0 120px rgba(0, 217, 255, 0.1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .hero-logo {
@@ -605,12 +631,14 @@ body::after {
   border-radius: var(--radius);
   border: 1px solid rgba(0, 217, 255, 0.3);
   box-shadow: 0 0 50px rgba(0, 217, 255, 0.2);
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  animation: pulseGlow 4s ease-in-out infinite;
 }
 
 .hero-logo-img:hover {
-  border-color: rgba(0, 217, 255, 0.5);
-  box-shadow: 0 0 60px rgba(0, 217, 255, 0.25);
+  border-color: rgba(0, 217, 255, 0.6);
+  box-shadow: 0 0 80px rgba(0, 217, 255, 0.4), 0 0 140px rgba(0, 217, 255, 0.15);
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
@@ -630,6 +658,7 @@ body::after {
   letter-spacing: 0.08em;
   color: var(--text);
   text-shadow: 0 0 30px rgba(0, 217, 255, 0.25);
+  animation: fadeInUp 0.6s ease-out 0.1s both;
 }
 
 @media (max-width: 768px) {
@@ -645,6 +674,12 @@ body::after {
   margin-bottom: 1rem;
   letter-spacing: 0.05em;
   line-height: 1.5;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.tagline strong {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
 }
 
 .hero-stats {
@@ -655,6 +690,8 @@ body::after {
   text-transform: uppercase;
   margin-bottom: 2rem;
   opacity: 0.9;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+  text-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
 }
 
 .hero p a {
@@ -874,10 +911,18 @@ body::after {
   margin: 1rem 0;
   padding: 1rem 1.25rem;
   border-left: 4px solid var(--accent);
-  background: rgba(0, 217, 255, 0.05);
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-style: italic;
   color: var(--muted);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial:hover {
+  border-left-color: var(--cyber-teal);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.08);
 }
 
 .testimonial cite {
@@ -1283,16 +1328,19 @@ body::after {
 
 .product-card {
   position: relative;
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 1.5rem;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .product-card:hover {
-  border-color: rgba(0, 217, 255, 0.25);
-  box-shadow: 0 0 24px rgba(0, 217, 255, 0.06);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.12), 0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
 }
 
 .product-badge {
@@ -1316,6 +1364,12 @@ body::after {
   object-fit: cover;
   border-radius: var(--radius-sm);
   margin-bottom: 0.75rem;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.03);
+  filter: brightness(1.1) drop-shadow(0 0 8px rgba(0, 217, 255, 0.2));
 }
 
 .product-card h2 {
@@ -1354,17 +1408,27 @@ body::after {
 
 .pricing-card {
   position: relative;
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 1.5rem;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   text-align: center;
 }
 
 .pricing-card:hover {
-  border-color: rgba(0, 217, 255, 0.25);
-  box-shadow: 0 0 24px rgba(0, 217, 255, 0.06);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.12), 0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
+}
+
+.pricing-amount {
+  background: linear-gradient(135deg, var(--accent), var(--cyber-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .pricing-card h2 {
@@ -1433,7 +1497,9 @@ body::after {
   max-width: 500px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: var(--surface);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius);
   border: 1px solid rgba(0, 217, 255, 0.2);
   box-shadow: 0 0 40px rgba(0, 217, 255, 0.05);
@@ -1465,6 +1531,7 @@ body::after {
 .form-group input:focus-visible {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.2), inset 0 0 6px rgba(0, 217, 255, 0.05);
 }
 
 .btn {
@@ -1488,6 +1555,8 @@ body::after {
 
 .btn:hover {
   background: var(--accent-hover);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -1498,6 +1567,8 @@ body::after {
 
 .btn-secondary:hover {
   background: rgba(0, 217, 255, 0.08);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.15);
+  transform: translateY(-1px);
 }
 
 .error {
@@ -1926,7 +1997,9 @@ body::after {
 
 /* Calendar layout */
 .booking-calendar-wrapper {
-  background: var(--surface);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 217, 255, 0.2);
   border-radius: 12px;
   padding: 1.5rem;
@@ -2061,7 +2134,8 @@ body::after {
   background: rgba(0, 217, 255, 0.2);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 16px rgba(0, 217, 255, 0.25);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.35), 0 0 40px rgba(0, 217, 255, 0.1);
+  transform: scale(1.08);
 }
 
 .booking-calendar-day-available:focus-visible {
@@ -3795,4 +3869,14 @@ body[data-page="community-grant"] .intake-form textarea {
     font-size: 0.8rem;
     padding: 1rem;
   }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
 }
