@@ -89,7 +89,7 @@ pub fn f62(p0: &str, p1: &str) -> String {
     )
 }
 pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">Service-Disabled Veteran-Owned Small Business (SDVOSB) · Pending</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">Service-Disabled Veteran-Owned Small Business (SDVOSB) · Pending · SAM.gov · Pending Registration</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
@@ -325,7 +325,7 @@ Security surface: 1 binary · Deployment: scp + run · Update: replace 1 file<br
 <summary>Credentials</summary>
 <p>
 Service-Disabled Veteran-Owned Small Business (SDVOSB) — pending certification<br>
-SAM.gov — registered (pending activation)<br>
+SAM.gov — Pending Registration<br>
 Maryland eMMA — Certified Small Business application in progress<br>
 13 years defense and enterprise — USCYBERCOM J38 dev lead<br>
 14 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
@@ -356,7 +356,7 @@ mcochran@cochranblock.org · cochranblock.org<br>
 EIN: 41-3835237</p>
 
 <p><strong>Certifications &amp; Registrations</strong><br>
-SDVOSB — Pending · SAM.gov — Registered · Maryland eMMA — Vendor SUP1095449 · CSB — Certified</p>
+SDVOSB — Pending · SAM.gov — Pending Registration · Maryland eMMA — Vendor SUP1095449 · CSB — Certified</p>
 
 <p><strong>NAICS Codes</strong><br>
 541511 — Custom Computer Programming Services<br>
@@ -416,7 +416,7 @@ cochranblock.org/deploy — Start a project</p>
 <table class="cost-table">
 <tr><td>Maryland eMMA</td><td class="cost-amount cost-new">Vendor SUP1095449 — Active</td></tr>
 <tr><td>Certified Small Business (CSB)</td><td class="cost-amount cost-new">Approved</td></tr>
-<tr><td>SAM.gov</td><td class="cost-amount">Registered — Pending Activation</td></tr>
+<tr><td>SAM.gov</td><td class="cost-amount">Pending Registration</td></tr>
 <tr><td>SDVOSB (VetCert)</td><td class="cost-amount">Pending — Awaiting SAM.gov</td></tr>
 <tr><td>GSA Schedule</td><td class="cost-amount">Not Yet Applied</td></tr>
 </table>
@@ -513,7 +513,7 @@ No OpenAI API calls in production. Models compiled into the binary via Candle. W
 <details class="service-card">
 <summary>Certifications &amp; Registrations</summary>
 <p>
-SDVOSB (pending) · SAM.gov (registered) · Maryland eMMA (vendor) · CSB (pending)<br>
+SDVOSB (pending) · SAM.gov (pending registration) · Maryland eMMA (vendor) · CSB (pending)<br>
 Army 17C Cyber Operations · JCAC 2013 · USCYBERCOM J38<br>
 <span class="service-outcome">Every badge earned. Every registration filed. Every repo proves the claim.</span>
 </p>
@@ -631,7 +631,7 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <summary>The Cochran Block, LLC</summary>
 <p>
 Michael Cochran — Army veteran (17C Cyber Operations, 35Q start at JCAC 2013). 13 years defense and enterprise. USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study.<br><br>
-SDVOSB pending. SAM.gov registered. Maryland eMMA vendor.<br><br>
+SDVOSB pending. SAM.gov pending registration. Maryland eMMA vendor.<br><br>
 This framework was not designed in a lab. It was built by a developer who needed to prove that his AI-assisted code was human-directed — and discovered that no standard existed to do so.<br>
 <span class="service-outcome"><a href="https://github.com/cochranblock/provenance-docs/blob/main/WHITEPAPER.md">Read the full whitepaper →</a></span>
 </p>
