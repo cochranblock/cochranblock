@@ -54,8 +54,8 @@ CochranBlock replaces expensive cloud infrastructure with single compiled Rust b
 - Rate: $225/hour, $3,500 base deployment
 - Stack: Rust, single-binary, embedded sled database, Cloudflare Zero Trust tunnel
 - Infrastructure cost: $10/month total (97% reduction vs cloud)
-- Open source: 14 Unlicense repos at github.com/cochranblock
-- Certifications: SDVOSB pending, SAM.gov pending, Maryland eMMA vendor
+- Open source: 14 public repos (12 Unlicense) at github.com/cochranblock
+- Certifications: SDVOSB pending, SAM.gov pending registration, Maryland eMMA vendor SUP1095449, Maryland CSB approved
 
 ## Products
 - Kova: Augment engine with local AI inference, agentic tool loop, distributed C2
@@ -131,7 +131,7 @@ Source: github.com/cochranblock/cochranblock
 
 /* SPEED */
 LLC formed to production: under 30 days
-14 repos open-sourced: March 2026
+14 public repos (12 Unlicense): March 2026
 First partnership signed: March 2026
 SAM.gov filed: March 2026
 This site you're reading: 18MB, $10/month, zero cloud
@@ -171,9 +171,9 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 18MB Rust binary replaces your cloud infrastructure. 14 Unlicense repos. SDVOSB pending.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with an 18MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 18MB Rust binary replaces your cloud infrastructure. 14 open source repos. SDVOSB pending.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with an 18MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
 
-const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 18MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2013. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 14 repositories are public on GitHub under the Unlicense. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 18MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
+const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 18MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2013. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 14 repositories are public on GitHub, 12 under the Unlicense. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 18MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -188,12 +188,12 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         format!("/{}", p0)
     };
     let desc = if p2.is_empty() {
-        "CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 14 Unlicense repos prove every claim."
+        "CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 14 open source repos prove every claim."
     } else {
         p2
     };
     let og_desc = if p2.is_empty() {
-        "Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 14 Unlicense repos. It's not the Mech — it's the pilot."
+        "Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 14 open source repos. It's not the Mech — it's the pilot."
     } else {
         p2
     };
@@ -212,7 +212,7 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
     )
 }
 pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">Service-Disabled Veteran-Owned Small Business (SDVOSB) · Pending · SAM.gov · Pending Registration</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Pending Registration · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
@@ -449,7 +449,7 @@ Security surface: 1 binary · Deployment: scp + run · Update: replace 1 file<br
 <p>
 Service-Disabled Veteran-Owned Small Business (SDVOSB) — pending certification<br>
 SAM.gov — Pending Registration<br>
-Maryland eMMA — Certified Small Business application in progress<br>
+Maryland CSB (Certified Small Business) — Approved<br>
 13 years defense and enterprise — USCYBERCOM J38 dev lead<br>
 14 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
 <span class="service-outcome">All source code delivered under the Unlicense. You own everything. Zero vendor lock-in.</span>
@@ -578,7 +578,7 @@ CochranBlock has developed a compiled single-binary architecture in Rust that el
 • <strong>oakilydokily.com</strong> — Waiver management and digital intake with ESIGN compliance. Bare metal deployment.<br>
 • <strong>Kova augment engine</strong> — Local LLM inference, agentic tool loop, distributed node C2, cargo/git tokenization. Single binary.<br>
 • <strong>Approuter</strong> — Reverse proxy with automatic Cloudflare tunnel management, app registry, multi-domain routing. Single binary.<br>
-• <strong>14 Unlicense repositories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
+• <strong>14 open source repositories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
 
 <p><strong>Phase I Objectives (6 months, $250K)</strong><br>
 1. Formalize the single-binary deployment framework as a reusable platform for federal applications<br>
@@ -917,7 +917,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 pub async fn f76(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Code Skillz</h1>
-<p class="services-intro">14 repos. All Rust. All Unlicense. All live. Every badge is a shipped product with a timestamp proving I'm still building it.</p>
+<p class="services-intro">14 repos. All Rust. All public. All live. Every badge is a shipped product with a timestamp proving I'm still building it.</p>
 
 <div id="badges-grid" class="badges-grid"><p class="velocity-loading">Loading badges...</p></div>
 <p class="velocity-note">Timestamps refresh every 30 minutes via GitHub API. Yes, I cache. No, I don't fake the numbers.</p>
@@ -981,8 +981,9 @@ No Python in production. No JavaScript frameworks. No Go. No Java. One language,
 <details class="service-card" open>
 <summary>Infrastructure: 4 bare metal Debian nodes + Mac Mini</summary>
 <p>
-lf (20 cores, 750GB) · gd (20 cores, 760GB) · bt (12 cores, 95GB) · st (14 cores, 767GB)<br>
-Mac Mini ARM for development. All connected via SSH. All running zsh.<br>
+lf (20 cores, 750GB, <strong>RTX 3070 8GB VRAM</strong>) · gd (20 cores, 760GB, <strong>RTX 3050 Ti 4GB VRAM</strong>) · bt (12 cores, 95GB) · st (14 cores, 767GB)<br>
+Mac Mini ARM for development. All connected via SSH mesh. Static IPs on 192.168.1.50-79 sled.<br>
+GPU nodes power MoE model training, Pixel Forge diffusion models, and on-device inference. Laptop GPUs — not datacenter cards — proving you don't need $10K hardware to run AI locally.<br>
 <span class="service-outcome">$10/month total. Zero cloud. Zero containers. Zero Kubernetes.</span>
 </p>
 </details>
@@ -996,7 +997,7 @@ No OpenAI API calls in production. Models compiled into the binary via Candle. W
 <details class="service-card">
 <summary>Certifications &amp; Registrations</summary>
 <p>
-SDVOSB (pending) · SAM.gov (pending registration) · Maryland eMMA (vendor) · CSB (pending)<br>
+SDVOSB (pending) · SAM.gov (pending registration) · Maryland eMMA (vendor) · CSB (approved)<br>
 Army 17C Cyber Operations · JCAC 2013 · USCYBERCOM J38<br>
 <span class="service-outcome">Every badge earned. Every registration filed. Every repo proves the claim.</span>
 </p>
@@ -1146,7 +1147,7 @@ SUMMARY
 Fractional CTO who replaces bloated cloud infrastructure with
 lean Rust binaries. cochranblock.org — my entire company — runs
 as a single 18MB binary on a laptop for $10/month. 11+ years
-defense and enterprise. 14 Unlicense repos proving
+defense and enterprise. 14 open source repos proving
 every claim. Edge compute beats cloud.
 
 ────────────────────────────────────────────────────
@@ -1391,7 +1392,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 </div>
 
 <p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/codeskillz" class="btn btn-secondary">See All 14 Repos Live</a></p></section>"#;
-    Html(format!("{}{}{}{}", f62d("products", "Products | CochranBlock", "14 Rust products. Kova augment engine, Approuter reverse proxy, Rogue Repo payment engine, Pocket Server, Ronin Sites. All Unlicense. All live."), C7, v0, C8))
+    Html(format!("{}{}{}{}", f62d("products", "Products | CochranBlock", "14 Rust products. Kova augment engine, Approuter reverse proxy, Rogue Repo payment engine, Pocket Server, Ronin Sites. All Rust. All live."), C7, v0, C8))
 }
 
 /// f68 = serve_downloads. Why: Binary downloads page — the site IS the app.
