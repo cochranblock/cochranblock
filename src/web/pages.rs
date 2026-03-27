@@ -478,6 +478,109 @@ Michael Cochran — Army 17C (Cyber Operations), JCAC 2013. 13 years defense and
 </details>
 </div>
 
+<h2 class="services-section-head">Agency-Specific Technical Approaches</h2>
+<div class="service-cards">
+
+<details class="service-card">
+<summary>DoD SBIR 26.1 — Cyber-Resilient Edge Computing for Contested Environments</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> DoD SBIR 26.1 Phase I (Army/CYBERCOM) — AI/Autonomy, Cybersecurity, Edge Computing<br>
+<strong>Estimated Open:</strong> April 2026 · <strong>Phase I:</strong> $250,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+DoD requires mission-critical applications that operate in disconnected, intermittent, and limited-bandwidth (DIL) environments without dependence on commercial cloud providers. Current containerized deployments require network connectivity, container orchestration, and cloud-hosted databases — none of which are available at the tactical edge.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock's compiled single-binary architecture eliminates every external dependency. A complete application — web server, database, AI inference engine, encryption, and asset pipeline — ships as one 18MB executable. No Docker. No Kubernetes. No package manager. No internet required at runtime. Copy the file, run it, the mission continues.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary web application in a simulated JWICS/SIPRNet disconnected environment with zero external dependencies<br>
+2. Demonstrate on-device AI inference (classification, NLP, anomaly detection) using custom Mixture-of-Experts model running on commodity GPU hardware<br>
+3. Validate multi-node mesh recovery — nodes operate independently during network partition and resync state when connectivity restores<br>
+4. Deliver threat model and security architecture document suitable for ATO initiation at IL4</p>
+
+<p><strong>Technical Objectives — Phase II ($2M / 24 months)</strong><br>
+1. FIPS 140-3 cryptographic module integration for IL5 deployment<br>
+2. CAC/PIV authentication integration via PKCS#11<br>
+3. Cross-domain solution compatibility assessment (CDS guard integration points)<br>
+4. Field trial with operational unit in DIL exercise environment<br>
+5. Transition plan for PEO/PM adoption</p>
+
+<p><strong>Past Performance</strong><br>
+• PI served as dev lead at USCYBERCOM J38 JMOC-E for a Congressional NDAA-directed offensive cyber operations study<br>
+• Army 17C (Cyber Operations), JCAC 2013, 30% service-connected disabled veteran<br>
+• 14 open source Rust repositories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
+• cochranblock.org running in production as a single 18MB binary on $10/month infrastructure</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>NSF Seed Fund — On-Device AI Inference Without Cloud Dependency</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> NSF SBIR Phase I (America's Seed Fund) — Artificial Intelligence, Software<br>
+<strong>Estimated Open:</strong> April–May 2026 (rolling after restart) · <strong>Phase I:</strong> $275,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+NSF Seed Fund seeks deep technology innovations with commercial potential. Current AI deployment requires cloud API calls — sending sensitive data to third-party servers, paying per-token fees, and depending on network connectivity. There is no production-grade framework for running full AI inference on local hardware inside a compiled application.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock has built a working on-device AI inference system (Kova) that runs local LLM models through a custom Mixture-of-Experts router inside a single compiled Rust binary. No API calls. No data leaves the device. The system includes an agentic tool loop (read, write, edit, search, execute), tokenized command compression for minimal context overhead, and distributed node orchestration for scaling across commodity hardware.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Package on-device inference engine as a reusable Rust library crate (WASM-safe, no-std compatible)<br>
+2. Benchmark inference latency and quality against cloud API baselines (GPT-4, Claude) on standardized tasks<br>
+3. Demonstrate privacy-preserving AI for healthcare (HIPAA), legal (attorney-client privilege), and defense (classified) use cases<br>
+4. Publish reproducible benchmarks and open-source the inference runtime under the Unlicense</p>
+
+<p><strong>Technical Objectives — Phase II ($1M / 24 months)</strong><br>
+1. Train domain-specific expert models (cybersecurity, code generation, document analysis) from production data<br>
+2. Build model marketplace for community-contributed experts with quality gates<br>
+3. Mobile deployment (Android/iOS) — on-device inference on consumer phones<br>
+4. Enterprise SDK with API compatibility layer for drop-in cloud replacement</p>
+
+<p><strong>Commercialization Path</strong><br>
+• Direct sales: $3,500 base deployment for SMBs replacing $36K/year cloud AI bills<br>
+• Enterprise licensing: Per-seat for on-device inference runtime<br>
+• Federal: SBIR Phase III transition to DoD/IC for classified AI workloads<br>
+• Open source core with commercial support model (Red Hat pattern)</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>DHS/CISA — Zero-Trust Edge Architecture for Critical Infrastructure</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> DHS SBIR FY2026 — Cybersecurity and Infrastructure Security Agency (CISA)<br>
+<strong>Estimated Open:</strong> Summer 2026 · <strong>Phase I:</strong> $250,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+CISA's mission includes securing federal civilian networks and critical infrastructure. Current architectures depend on cloud-hosted security tools, SaaS SIEM platforms, and containerized microservices — each adding third-party attack surface. When an adversary compromises the cloud provider, every tenant is exposed. Critical infrastructure operators need security tools that run locally, operate offline, and present zero external attack surface.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock's zero-trust architecture is secure by compilation, not configuration. The entire application compiles to a single binary with AES-256-GCM encryption, HKDF key derivation, and Argon2id password hashing built in. No plaintext secrets in source. No external secret managers. No runtime dependency injection. The binary IS the security boundary — if it's not compiled in, it doesn't exist.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy zero-trust edge node at a simulated critical infrastructure site (water/power/transportation) with zero cloud dependency<br>
+2. Demonstrate real-time log aggregation and anomaly detection using on-device AI inference — no data exfiltration to cloud SIEM<br>
+3. Validate IoT device monitoring via LoRa/915MHz mesh network for air-gapped OT environments<br>
+4. Produce NIST 800-53 control mapping for the single-binary architecture<br>
+5. Deliver pen test results and security assessment from independent third party</p>
+
+<p><strong>Technical Objectives — Phase II ($2M / 24 months)</strong><br>
+1. Integration with CISA's Continuous Diagnostics and Mitigation (CDM) program<br>
+2. Automated SBOM generation from compiled binary (full dependency tree at build time)<br>
+3. Incident response playbook execution engine running on-device<br>
+4. Multi-site mesh deployment with encrypted state synchronization<br>
+5. FedRAMP-equivalent security documentation package</p>
+
+<p><strong>Past Performance</strong><br>
+• PI: 13 years defense and enterprise cybersecurity. USCYBERCOM J38 JMOC-E dev lead.<br>
+• Army 17C (Cyber Operations) — trained at JCAC (Joint Cyber Analysis Course), 2013<br>
+• Live production system (cochranblock.org) running zero-cloud architecture with Cloudflare Zero Trust integration<br>
+• 14 open source repos — full supply chain transparency, every dependency auditable</p>
+</div>
+</details>
+</div>
+
 <h2 class="services-section-head">Cost Analysis</h2>
 <p>For a detailed cost comparison of cloud vs zero-cloud architecture: <a href="/mathskillz">cochranblock.org/mathskillz</a></p>
 
