@@ -150,7 +150,7 @@ body::before {
   z-index: 0;
 }
 
-/* Original cosmic theme — subtle accent glow only */
+/* Cosmic ambient — base layer all pages get */
 body::after {
   content: '';
   position: fixed;
@@ -160,6 +160,67 @@ body::after {
     radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Per-page ambient color — subtle bottom/mid glow */
+[data-page="home"] body::after,
+body[data-page="home"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 500px 300px at 50% 85%, rgba(0, 255, 204, 0.06), transparent 60%);
+}
+
+body[data-page="products"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 450px 350px at 80% 60%, rgba(157, 78, 221, 0.08), transparent 55%),
+    radial-gradient(ellipse 400px 250px at 15% 70%, rgba(0, 255, 204, 0.06), transparent 50%);
+}
+
+body[data-page="services"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 500px 300px at 70% 50%, rgba(255, 107, 53, 0.05), transparent 55%);
+}
+
+body[data-page="about"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 450px 300px at 20% 55%, rgba(157, 78, 221, 0.07), transparent 55%),
+    radial-gradient(ellipse 400px 250px at 85% 75%, rgba(0, 217, 255, 0.05), transparent 50%);
+}
+
+body[data-page="book"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 500px 350px at 50% 45%, rgba(0, 217, 255, 0.07), transparent 55%);
+}
+
+body[data-page="contact"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 400px 300px at 60% 65%, rgba(0, 255, 204, 0.06), transparent 55%);
+}
+
+body[data-page="deploy"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
+    radial-gradient(ellipse 500px 300px at 40% 70%, rgba(255, 107, 53, 0.06), transparent 55%);
+}
+
+body[data-page="community-grant"]::after {
+  background-image:
+    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.12), transparent 50%),
+    radial-gradient(ellipse 500px 350px at 50% 30%, rgba(157, 78, 221, 0.08), transparent 55%),
+    radial-gradient(ellipse 400px 250px at 30% 80%, rgba(0, 255, 204, 0.05), transparent 50%);
 }
 
 .nav {
