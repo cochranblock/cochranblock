@@ -414,11 +414,11 @@ cochranblock.org/deploy — Start a project</p>
 <h2 class="services-section-head">Registration Status</h2>
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td>Maryland eMMA</td><td class="cost-amount cost-new">Vendor SUP1095449 — Active</td></tr>
-<tr><td>Certified Small Business (CSB)</td><td class="cost-amount cost-new">Approved</td></tr>
-<tr><td>SAM.gov</td><td class="cost-amount">Pending Registration</td></tr>
-<tr><td>SDVOSB (VetCert)</td><td class="cost-amount">Pending — Awaiting SAM.gov</td></tr>
-<tr><td>GSA Schedule</td><td class="cost-amount">Not Yet Applied</td></tr>
+<tr><td>Maryland eMMA</td><td class="bid-ready">⬤ Vendor SUP1095449 — Active</td></tr>
+<tr><td>Certified Small Business (CSB)</td><td class="bid-ready">⬤ Approved</td></tr>
+<tr><td>SAM.gov</td><td class="bid-blocked">⬤ Pending Registration</td></tr>
+<tr><td>SDVOSB (VetCert)</td><td class="bid-blocked">⬤ Pending — Awaiting SAM.gov</td></tr>
+<tr><td>GSA Schedule</td><td class="bid-date">○ Not Yet Applied</td></tr>
 </table>
 </div>
 
@@ -767,17 +767,17 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <div class="cost-summary">
 <table class="cost-table">
 <tr><td><strong>Agency</strong></td><td><strong>Solicitation</strong></td><td><strong>Opens</strong></td><td><strong>Closes</strong></td><td><strong>Status</strong></td></tr>
-<tr><td>DoD</td><td>SBIR 26.1 Phase I</td><td>April 2026</td><td>May 2026 (est)</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>DOE</td><td>Phase II Release 2</td><td>March 2, 2026</td><td>April 21, 2026</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>NIH</td><td>New NOFO</td><td>April 2026 (est)</td><td>Rolling</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>NSF</td><td>Seed Fund Restart</td><td>April–May 2026</td><td>Rolling</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>NASA</td><td>BAA Appendix A</td><td>April–May 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>DHS/CISA</td><td>FY2026</td><td>Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>USDA</td><td>FY2026</td><td>June–Aug 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>EPA</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>DOT</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>NIST</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
-<tr><td>NOAA</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>DoD</td><td>SBIR 26.1 Phase I</td><td class="bid-date">April 2026</td><td class="bid-date">May 2026 (est)</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>DOE</td><td>Phase II Release 2</td><td class="bid-date">March 2, 2026</td><td class="bid-date">April 21, 2026</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>NIH</td><td>New NOFO</td><td class="bid-date">April 2026 (est)</td><td class="bid-date">Rolling</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>NSF</td><td>Seed Fund Restart</td><td class="bid-date">April–May 2026</td><td class="bid-date">Rolling</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>NASA</td><td>BAA Appendix A</td><td class="bid-date">April–May 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>DHS/CISA</td><td>FY2026</td><td class="bid-date">Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>USDA</td><td>FY2026</td><td class="bid-date">June–Aug 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>EPA</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>DOT</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>NIST</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>NOAA</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
 </table>
 </div>
 <p class="govdoc-note">Blocker: SAM.gov registration must be active before any SBIR/STTR proposal submission. Call Federal Service Desk (866-606-8220) to check status.</p>

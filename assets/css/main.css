@@ -2060,6 +2060,37 @@ body[data-page="community-grant"]::after {
   color: var(--accent);
 }
 
+.bid-blocked {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.bid-ready {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.bid-open {
+  color: var(--cyber-teal);
+  font-weight: 600;
+}
+
+.bid-submitted {
+  color: var(--purple);
+  font-weight: 600;
+}
+
+.bid-won {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.bid-date {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
 .cost-row-highlight {
   background: rgba(255, 255, 255, 0.03);
 }
