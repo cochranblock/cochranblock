@@ -274,8 +274,7 @@ pub async fn post_form(
             .into_response();
     }
 
-    if let Ok(url) = std::env::var("INTAKE_WEBHOOK_URL") {
-        if !url.trim().is_empty() {
+    if let Some(url) = std::env::var("INTAKE_WEBHOOK_URL").ok().map(|u| u.trim().to_string()).filter(|u| !u.is_empty()) {
             let client = reqwest::Client::new();
             let payload = serde_json::json!({
                 "id": id.clone(),
@@ -300,7 +299,6 @@ pub async fn post_form(
                     tracing::info!("intake webhook sent for lead {}", lead_id);
                 }
             });
-        }
     }
 
     let loc = format!("/deploy/confirmed?ref={}", urlencoding::encode(&id));

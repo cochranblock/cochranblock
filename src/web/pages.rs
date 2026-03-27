@@ -1526,6 +1526,7 @@ pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     let mut entries = Vec::new();
     for repo in repos {
         let url = format!("https://api.github.com/repos/cochranblock/{}", repo);
+        #[allow(clippy::collapsible_if)]
         if let Ok(resp) = client.get(&url).send().await {
             if let Ok(body) = resp.text().await {
                 if let Some(start) = body.find("\"pushed_at\":\"") {
@@ -1569,6 +1570,7 @@ fn f60(s: &str) -> String {
 }
 
 /// f61 = strip_frontmatter. Why: Markdown-style frontmatter removal for embedded content.
+#[allow(clippy::collapsible_if)]
 fn f61(s: &str) -> &str {
     if let Some(v0) = s.strip_prefix("---\n") {
         if let Some(v1) = v0.find("\n---\n") {
