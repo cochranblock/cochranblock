@@ -317,7 +317,22 @@ fn confirmed_html(ref_id: Option<&str>) -> String {
         .unwrap_or_default();
 
     let content = format!(
-        r#"<section class="intake-section intake-done"><div class="intake-doc intake-complete"><div class="intake-check-icon">✓</div><h1>Request Received</h1><p class="intake-success">Your deployment request has been submitted.</p>{}<p class="intake-detail">Cochranblock will contact you within 2–3 business days to schedule a discovery call.</p><a href="/intake" class="btn">Done</a></div></section>"#,
+        r#"<section class="intake-section intake-done"><div class="intake-doc intake-complete"><div class="intake-check-icon">✓</div><h1>Request Received</h1><p class="intake-success">Your deployment request has been submitted.</p>{}<p class="intake-detail">Cochranblock will contact you within 2–3 business days to schedule a discovery call.</p><div class="rocket-pad"><button class="btn rocket-launch-btn" onclick="launchRocket(this)">Launch 🚀</button><div class="rocket-ship" id="rocket-ship">🚀</div></div><a href="/intake" class="btn btn-secondary" style="margin-top:1rem">Done</a></div></section>
+<style>
+.rocket-pad{{position:relative;margin:2rem 0 0;text-align:center;min-height:60px}}
+.rocket-ship{{position:fixed;bottom:-60px;left:50%;font-size:2.5rem;opacity:0;pointer-events:none;z-index:50;transform:translateX(-50%);filter:drop-shadow(0 0 12px rgba(255,107,53,0.6))}}
+.rocket-ship.countdown{{opacity:1;bottom:20%;animation:rocketShake 0.15s ease-in-out infinite alternate}}
+.rocket-ship.launched{{opacity:1;animation:rocketLaunch 2s ease-in forwards}}
+.rocket-exhaust{{position:fixed;bottom:0;left:50%;width:4px;height:0;background:linear-gradient(to top,rgba(255,107,53,0.8),rgba(255,200,50,0.4),transparent);transform:translateX(-50%);z-index:49;pointer-events:none;border-radius:2px}}
+.rocket-exhaust.active{{animation:exhaustTrail 2s ease-in forwards}}
+.rocket-launch-btn.counting{{pointer-events:none;background:var(--orange);border-color:var(--orange)}}
+@keyframes rocketShake{{0%{{transform:translateX(-50%) rotate(-2deg)}}100%{{transform:translateX(-50%) rotate(2deg)}}}}
+@keyframes rocketLaunch{{0%{{bottom:20%;opacity:1;transform:translateX(-50%) rotate(0)}}30%{{bottom:40%}}100%{{bottom:120vh;opacity:0.3;transform:translateX(-50%) rotate(0)}}}}
+@keyframes exhaustTrail{{0%{{height:0;opacity:0.8}}30%{{height:40vh;opacity:0.6}}100%{{height:0;opacity:0}}}}
+</style>
+<script>
+function launchRocket(btn){{var r=document.getElementById('rocket-ship');if(r.classList.contains('launched'))return;btn.classList.add('counting');var c=3;btn.textContent=c;r.style.opacity='1';r.style.bottom='20%';r.classList.add('countdown');var ex=document.createElement('div');ex.className='rocket-exhaust';document.body.appendChild(ex);var t=setInterval(function(){{c--;if(c>0){{btn.textContent=c}}else{{clearInterval(t);btn.textContent='Launched!';r.classList.remove('countdown');r.classList.add('launched');ex.classList.add('active');setTimeout(function(){{btn.classList.remove('counting');btn.textContent='Launch \u{1F680}';r.classList.remove('launched');r.style.opacity='0';r.style.bottom='-60px';ex.remove()}},3000)}}}},800)}}
+</script>"#,
         ref_line
     );
 
