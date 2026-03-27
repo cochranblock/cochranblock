@@ -54,6 +54,9 @@ pub fn f1(p0: t0) -> Router {
         .route("/api/stats", get(pages::f73))
         .route("/api/velocity", get(pages::f75))
         .route("/robots.txt", get(pages::f69))
+        .route("/llms.txt", get(pages::f78))
+        .route("/humans.txt", get(pages::f80))
+        .route("/.well-known/security.txt", get(pages::f79))
         .route("/cochranblock-indexnow-key.txt", get(|| async { "cochranblock-indexnow-key" }))
         .route("/sitemap.xml", get(pages::f70))
         .route("/assets/*path", get(assets::f23));
