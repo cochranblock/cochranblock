@@ -331,7 +331,7 @@ fn confirmed_html(ref_id: Option<&str>) -> String {
 @keyframes exhaustTrail{{0%{{height:0;opacity:0.8}}30%{{height:40vh;opacity:0.6}}100%{{height:0;opacity:0}}}}
 </style>
 <script>
-function launchRocket(btn){{var r=document.getElementById('rocket-ship');if(r.classList.contains('launched'))return;btn.classList.add('counting');var c=3;btn.textContent=c;r.style.opacity='1';r.style.bottom='20%';r.classList.add('countdown');var ex=document.createElement('div');ex.className='rocket-exhaust';document.body.appendChild(ex);var t=setInterval(function(){{c--;if(c>0){{btn.textContent=c}}else{{clearInterval(t);btn.textContent='Launched!';r.classList.remove('countdown');r.classList.add('launched');ex.classList.add('active');setTimeout(function(){{btn.classList.remove('counting');btn.textContent='Launch \u{1F680}';r.classList.remove('launched');r.style.opacity='0';r.style.bottom='-60px';ex.remove()}},3000)}}}},800)}}
+function launchRocket(btn){{var r=document.getElementById('rocket-ship');if(r.classList.contains('launched'))return;btn.classList.add('counting');var c=3;btn.textContent=c;r.style.opacity='1';r.style.bottom='20%';r.classList.add('countdown');var ex=document.createElement('div');ex.className='rocket-exhaust';document.body.appendChild(ex);var t=setInterval(function(){{c--;if(c>0){{btn.textContent=c}}else{{clearInterval(t);btn.textContent='Launched!';r.classList.remove('countdown');r.classList.add('launched');ex.classList.add('active');setTimeout(function(){{btn.classList.remove('counting');btn.textContent='Launch \u{{1F680}}';r.classList.remove('launched');r.style.opacity='0';r.style.bottom='-60px';ex.remove()}},3000)}}}},800)}}
 </script>"#,
         ref_line
     );
