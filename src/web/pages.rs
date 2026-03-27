@@ -767,6 +767,7 @@ for having you here." — Jay, USCYBERCOM
   <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Army veteran (17C Cyber Operations). 13 years defense and enterprise. SDVOSB pending. It's not the Mech — it's the pilot.</p>
+  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 14 repos open-sourced, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
