@@ -3,7 +3,7 @@
 
 > **It's not the Mech — it's the pilot.**
 >
-> This repo is part of [CochranBlock](https://cochranblock.org) — 11 Unlicense Rust repositories that power an entire company on a **single 9.9MB binary** (ARM), a laptop, and a **$10/month** Cloudflare tunnel. No AWS. No Kubernetes. No six-figure DevOps team. Zero cloud.
+> This repo is part of [CochranBlock](https://cochranblock.org) — 14 Unlicense Rust repositories that power an entire company on a **single 18MB binary** (x86) / **9.9MB** (ARM), a laptop, and **$10/month** infrastructure. No AWS. No Kubernetes. No six-figure DevOps team. Zero cloud.
 >
 > **[cochranblock.org](https://cochranblock.org)** is a live demo of this architecture. You're welcome to read every line of source code — it's all public domain.
 >
@@ -19,56 +19,79 @@
 
 # cochranblock
 
-## Proof of Artifacts
+The cochranblock.org website — Rust Axum server with embedded assets, SQLite intake forms, booking calendar, and community grant application. Compiles to a single binary with zero external dependencies at runtime.
 
-*Wire diagrams, screenshots, and demos for quick review.*
-
-### Wire / Architecture
+## Architecture
 
 ```mermaid
 flowchart LR
-    User[User] --> Home["/"]
-    User --> Services["/services"]
-    User --> About["/about"]
-    User --> Products["/products"]
-    User --> Contact["/contact"]
-    User --> Book["/book"]
-    User --> Federal["/federal-partners"]
+    User[User] --> CF[Cloudflare Tunnel]
+    CF --> AR[approuter :8080]
+    AR --> CB[cochranblock :8081]
+    AR --> OD[oakilydokily :3000]
+    AR --> RR[rogue-repo :3001]
+    CB --> Sled[(sled DB)]
+    CB --> SQLite[(SQLite)]
+    CB --> Assets[Embedded Assets]
 ```
 
-### Screenshots
-
-| View | Description |
-|------|-------------|
-| ![Hero](docs/artifacts/screenshot-hero.png) | Hero section |
-| ![Products](docs/artifacts/screenshot-products.png) | Products page |
-| ![Rogue Repo](assets/img/rogue-repo.png) | Rogue Repo (Products) |
-| ![Kova](assets/img/kova.png) | Kova (Products) |
-| ![Ronin Sites](assets/img/ronin-sites.png) | Ronin Sites (Products) |
-| ![Services](docs/artifacts/screenshot-services.png) | Services page |
-
-### Demo
-
-*Add `docs/artifacts/demo-hero.gif` for hero scroll or Products carousel.*
-
----
-
-CochranBlock site (cochranblock.org) — Rust Axum server with embedded assets.
-
-## Run
+## Build & Run
 
 ```bash
-cargo run -p cochranblock
+cargo build --release -p cochranblock --features approuter
+./target/release/cochranblock   # localhost:8081
 ```
 
-Then open http://localhost:8081 (default). Routes: `/`, `/services`, `/mathskillz`, `/about`, `/contact`, `/book`, `/products`, `/deploy`, `/downloads`, `/community-grant`.
+## Routes
 
-## Tokenization
+| Route | What |
+|-------|------|
+| `/` | Home — hero, pitch, CTAs |
+| `/services` | Pricing and service offerings |
+| `/products` | All 14 products |
+| `/deploy` | Tech intake form (SQLite-backed) |
+| `/deploy/confirmed` | Submission confirmation + rocket launch |
+| `/book` | Discovery call booking calendar |
+| `/about` | Mission, credentials, testimonials |
+| `/contact` | Email CTA |
+| `/codeskillz` | Live velocity tracking for 14 repos |
+| `/mathskillz` | Cost analysis: cloud vs zero-cloud |
+| `/govdocs` | Capability statement, SBIR proposals, bid tracker |
+| `/sbir` | SBIR/provenance documentation |
+| `/provenance` | AI development documentation framework |
+| `/downloads` | Resume PDF, logo card |
+| `/community-grant` | Community grant application form |
+| `/robots.txt` | Crawler directives |
+| `/sitemap.xml` | Search engine sitemap |
+| `/llms.txt` | AI crawler context |
+| `/.well-known/security.txt` | RFC 9116 security contact |
+| `/humans.txt` | Team, tools, tech stack |
+| `/health` | Health check endpoint |
+| `/api/stats` | Repo count stats |
+| `/api/velocity` | GitHub velocity data |
 
-The source code uses **compact identifiers** (f0, t15, s0, etc.) per the Token-Optimized Code Representation whitepaper. See [../kova/docs/TOKENIZATION_IMPLEMENTATION.md](../kova/docs/TOKENIZATION_IMPLEMENTATION.md) and [../kova/docs/compression_map.md](../kova/docs/compression_map.md).
+## Screenshots
+
+| View | Artifact |
+|------|----------|
+| Homepage | ![Index](screenshots/index.png) |
+| Products | ![Products](screenshots/products.png) |
+| Deploy | ![Deploy](screenshots/deploy.png) |
+| About | ![About](screenshots/about.png) |
+| Book a Call | ![Book](screenshots/book.png) |
+| Contact | ![Contact](screenshots/contact.png) |
+| Community Grant | ![Grant](screenshots/community-grant.png) |
+
+## Code Style
+
+Source uses compact identifiers (f2, t0, C7, etc.) per the Token-Optimized Code Representation system. See the [kova compression map](https://github.com/cochranblock/kova) for the canonical mapping.
 
 ## Docs
 
-- [docs/architecture_guide.md](docs/architecture_guide.md) — Full architecture
-- [exopack/docs/testing_architecture.md](../exopack/docs/testing_architecture.md) — Two-binary test model
-- [content/whitepaper_text.txt](content/whitepaper_text.txt) — Tokenization whitepaper
+- [docs/architecture_guide.md](docs/architecture_guide.md) — Full architecture reference
+- [PROOF_OF_ARTIFACTS.md](PROOF_OF_ARTIFACTS.md) — Visual evidence this is real
+- [TIMELINE_OF_INVENTION.md](TIMELINE_OF_INVENTION.md) — Dated commit-level build record
+
+---
+
+Part of the [CochranBlock](https://cochranblock.org) zero-cloud architecture. 14 Unlicense repos. [See all products →](https://cochranblock.org/products)

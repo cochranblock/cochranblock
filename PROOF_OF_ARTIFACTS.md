@@ -29,8 +29,8 @@ flowchart LR
 | External services | Cloudflare tunnel (free tier) |
 | Database | Embedded sled + SQLite — no external DB |
 | Cloud dependencies | Zero |
-| Public repos | 11 (all Unlicense) |
-| Certification | SDVOSB pending, SAM.gov registered, eMMA registered |
+| Public repos | 14 (all Unlicense) |
+| Certification | SDVOSB pending · SAM.gov pending registration · eMMA vendor SUP1095449 · CSB approved |
 
 ## Screenshots
 
