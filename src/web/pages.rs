@@ -422,6 +422,62 @@ cochranblock.org/deploy — Start a project</p>
 </table>
 </div>
 
+<h2 class="services-section-head">Technical Approach — SBIR/STTR</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Zero-Cloud Edge Architecture for Defense and Federal Applications</summary>
+<div class="govdoc-print">
+
+<p><strong>Problem Statement</strong><br>
+Federal agencies spend $36,000+/year per application on cloud infrastructure. These deployments create single points of failure, expose sensitive data to third-party providers, and require dedicated DevOps teams. Forward-deployed and disconnected environments cannot rely on cloud connectivity for mission-critical operations.</p>
+
+<p><strong>Technical Innovation</strong><br>
+CochranBlock has developed a compiled single-binary architecture in Rust that eliminates cloud dependency entirely. A complete web application — server, database, authentication, TLS, asset pipeline — compiles into an 18MB binary that runs on commodity hardware ($10/month total infrastructure). This architecture is proven in production at cochranblock.org, serving multiple domains from a single laptop.</p>
+
+<p><strong>Key Technical Capabilities</strong><br>
+• <strong>Single-binary deployment</strong> — Entire application stack compiles to one executable. No containers, no orchestration, no package managers. Deploy by copying one file.<br>
+• <strong>On-device AI inference</strong> — Local LLM execution via custom Mixture-of-Experts architecture. No API calls, no data exfiltration risk. Runs on consumer GPUs.<br>
+• <strong>Edge-native by design</strong> — Operates in disconnected, intermittent, and limited-bandwidth (DIL) environments. Zero external dependencies at runtime.<br>
+• <strong>Distributed C2 mesh</strong> — Multi-node orchestration via SSH with tokenized command compression. Nodes operate independently and resync when connectivity restores.<br>
+• <strong>Zero-trust architecture</strong> — AES-256-GCM encryption, HKDF key derivation, Argon2id password hashing. No plaintext secrets in source. Cloudflare Zero Trust tunnel integration.<br>
+• <strong>Embedded storage</strong> — sled (embedded key-value store) + bincode serialization + zstd compression. No external database servers. Data lives with the application.<br>
+• <strong>97% cost reduction</strong> — Demonstrated: $36,000/year cloud → $120/year bare metal. Same availability, same performance, fraction of the attack surface.</p>
+
+<p><strong>Relevant SBIR/STTR Technology Areas</strong><br>
+• AI/Autonomy — On-device inference, Mixture-of-Experts routing, edge AI for sensor processing<br>
+• Cybersecurity — Zero-trust compiled architecture, embedded encryption, no third-party attack surface<br>
+• Edge Computing — DIL-capable single-binary deployment, IoT gateway (LoRa/915MHz)<br>
+• Advanced Computing — Compiled Rust replacing interpreted cloud stacks, WASM-capable architecture<br>
+• Command and Control — Distributed node mesh with compressed tokenized command protocol</p>
+
+<p><strong>Proof of Concept — Live Production Systems</strong><br>
+• <strong>cochranblock.org</strong> — 14-product portfolio site. 18MB binary. SQLite intake forms. Booking calendar. Cloudflare tunnel. $10/month.<br>
+• <strong>oakilydokily.com</strong> — Waiver management and digital intake with ESIGN compliance. Bare metal deployment.<br>
+• <strong>Kova augment engine</strong> — Local LLM inference, agentic tool loop, distributed node C2, cargo/git tokenization. Single binary.<br>
+• <strong>Approuter</strong> — Reverse proxy with automatic Cloudflare tunnel management, app registry, multi-domain routing. Single binary.<br>
+• <strong>14 Unlicense repositories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
+
+<p><strong>Phase I Objectives (6 months, $250K)</strong><br>
+1. Formalize the single-binary deployment framework as a reusable platform for federal applications<br>
+2. Demonstrate on-device AI inference for classified/sensitive workloads with zero cloud dependency<br>
+3. Deploy proof-of-concept in a simulated DIL environment with multi-node mesh recovery<br>
+4. Deliver security assessment and ATO-ready documentation package</p>
+
+<p><strong>Phase II Path ($2M, 18–24 months)</strong><br>
+1. Harden for IL4/IL5 deployment with FIPS 140-3 cryptographic module integration<br>
+2. Build agency-specific application templates (case management, intake, reporting)<br>
+3. Integrate with DoD identity providers (CAC/PIV authentication)<br>
+4. Develop training curriculum for agency adoption</p>
+
+<p><strong>Commercialization</strong><br>
+The technology has immediate dual-use application. Commercial clients (startups, SMBs) pay $3,500 base deployment + $225/hour consulting. Federal clients access through SBIR Phase III, GSA Schedule 70, or direct contract. Year 1 projected gross: $150,000.</p>
+
+<p><strong>Principal Investigator</strong><br>
+Michael Cochran — Army 17C (Cyber Operations), JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran.</p>
+</div>
+</details>
+</div>
+
 <h2 class="services-section-head">Cost Analysis</h2>
 <p>For a detailed cost comparison of cloud vs zero-cloud architecture: <a href="/mathskillz">cochranblock.org/mathskillz</a></p>
 
