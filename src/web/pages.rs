@@ -688,7 +688,99 @@ CochranBlock's single-binary monitoring platform runs on solar-powered edge hard
 </div>
 </details>
 
+<details class="service-card">
+<summary>DOT — Edge Computing for Transportation Infrastructure</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> DOT SBIR FY2026 — Intelligent Transportation Systems, Connected Infrastructure<br>
+<strong>Estimated Open:</strong> Spring–Summer 2026 · <strong>Phase I:</strong> ~$200,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+Transportation infrastructure — traffic signals, bridge sensors, highway weather stations — operates in harsh environments with unreliable connectivity. Cloud-dependent monitoring fails when the cell tower goes down during the storm you most need data from. DOT needs infrastructure monitoring that runs locally, stores months of data, and reports when backhaul is available.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary traffic/infrastructure monitor on roadside hardware (ARM SBC + solar)<br>
+2. LoRa mesh for bridge structural health sensors, flood gauges, and weather stations<br>
+3. On-device anomaly detection for structural fatigue patterns and weather hazards<br>
+4. V2I (Vehicle-to-Infrastructure) data ingestion for connected vehicle corridors<br>
+5. NTCIP (National Transportation Communications for ITS Protocol) compliance</p>
 </div>
+</details>
+
+<details class="service-card">
+<summary>NIST/Commerce — Software Supply Chain Security and SBOM</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> NIST SBIR FY2026 — Cybersecurity, Software Supply Chain, EO 14028 Compliance<br>
+<strong>Estimated Open:</strong> Spring–Summer 2026</p>
+
+<p><strong>Topic Alignment</strong><br>
+EO 14028 mandates Software Bills of Materials (SBOM) for federal software. Current SBOM tools bolt onto interpreted/containerized deployments and struggle with completeness. A compiled single-binary architecture produces a deterministic, complete dependency tree at build time — every dependency is known, versioned, and auditable before the binary ships.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Automated SBOM generation from compiled Rust binary — CycloneDX and SPDX output formats<br>
+2. Demonstrate provenance chain: source commit → build artifact → deployed binary with cryptographic attestation<br>
+3. SSDF (Secure Software Development Framework, NIST SP 800-218) compliance mapping for single-binary architecture<br>
+4. Comparison study: SBOM completeness and accuracy vs. container-based and interpreted-language equivalents<br>
+5. Open source the SBOM tooling under the Unlicense</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>NIH — Privacy-Preserving On-Device Health Data Processing</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> NIH SBIR/STTR FY2026 — Health IT, HIPAA-Compliant AI, Biomedical Informatics<br>
+<strong>Estimated Open:</strong> April 2026 (new NOFO) · <strong>Phase I:</strong> ~$275,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+Health data is the most regulated data in federal systems. Every cloud API call with patient data is a HIPAA exposure. Current health AI tools send PHI to third-party servers for inference. Clinics in rural and underserved areas lack reliable broadband for cloud-dependent EHR tools. NIH needs health data processing that never leaves the device.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary clinical intake system with HIPAA-compliant on-device storage (AES-256-GCM at rest)<br>
+2. On-device NLP for clinical note summarization and coding — zero PHI transmitted to cloud<br>
+3. FHIR R4 data export for EHR integration without cloud intermediary<br>
+4. Demonstrate offline-first operation for rural clinic scenario — 30-day autonomous with sync on reconnect<br>
+5. HIPAA Security Rule technical safeguard mapping for single-binary architecture</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>NOAA — Remote Environmental and Ocean Monitoring</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> NOAA SBIR FY2026 — Ocean Observation, Weather Monitoring, Remote Sensing<br>
+<strong>Estimated Open:</strong> Spring–Summer 2026 · <strong>Phase I:</strong> ~$150,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+NOAA operates monitoring stations in the most remote environments on earth — ocean buoys, arctic weather stations, volcanic observatories. These stations have intermittent satellite connectivity at best. Cloud-dependent monitoring loses data during the exact conditions worth recording. NOAA needs edge intelligence that runs for months unattended.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary monitoring platform on low-power marine-grade hardware<br>
+2. On-device ML for extreme weather event detection and priority alerting via satellite burst<br>
+3. 180-day autonomous operation with zero maintenance on solar/battery power<br>
+4. Compressed data encoding for low-bandwidth satellite uplink (Iridium SBD, GOES DCS compatible)<br>
+5. WMO BUFR/CREX data format export for integration with GTS (Global Telecommunication System)</p>
+</div>
+</details>
+
+</div>
+
+<h2 class="services-section-head">Upcoming Bids — SBIR/STTR 2026</h2>
+<p class="services-intro">Solicitation tracker. Updated as agencies publish topics. CochranBlock technical approach ready for each.</p>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Agency</strong></td><td><strong>Solicitation</strong></td><td><strong>Opens</strong></td><td><strong>Closes</strong></td><td><strong>Status</strong></td></tr>
+<tr><td>DoD</td><td>SBIR 26.1 Phase I</td><td>April 2026</td><td>May 2026 (est)</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>DOE</td><td>Phase II Release 2</td><td>March 2, 2026</td><td>April 21, 2026</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>NIH</td><td>New NOFO</td><td>April 2026 (est)</td><td>Rolling</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>NSF</td><td>Seed Fund Restart</td><td>April–May 2026</td><td>Rolling</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>NASA</td><td>BAA Appendix A</td><td>April–May 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>DHS/CISA</td><td>FY2026</td><td>Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>USDA</td><td>FY2026</td><td>June–Aug 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>EPA</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>DOT</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>NIST</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+<tr><td>NOAA</td><td>FY2026</td><td>Spring–Summer 2026</td><td>TBD</td><td class="cost-amount">Waiting for SAM.gov</td></tr>
+</table>
+</div>
+<p class="govdoc-note">Blocker: SAM.gov registration must be active before any SBIR/STTR proposal submission. Call Federal Service Desk (866-606-8220) to check status.</p>
 
 <h2 class="services-section-head">Cost Analysis</h2>
 <p>For a detailed cost comparison of cloud vs zero-cloud architecture: <a href="/mathskillz">cochranblock.org/mathskillz</a></p>
