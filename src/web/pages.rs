@@ -581,6 +581,115 @@ CochranBlock's zero-trust architecture is secure by compilation, not configurati
 </details>
 </div>
 
+<details class="service-card">
+<summary>NASA — Edge Computing for Space and Aeronautics Ground Systems</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> NASA SBIR 2026 BAA Appendix A — Ground Systems, Software, Edge Computing<br>
+<strong>Estimated Open:</strong> April–May 2026 (new BAA model, rolling appendices) · <strong>Phase I:</strong> ~$150,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+NASA ground systems process massive telemetry streams from spacecraft and launch vehicles. Current architectures route data through centralized cloud infrastructure, adding latency and single points of failure. Ground stations in remote locations need local processing capability that operates independently when connectivity degrades.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock's single-binary architecture deploys a complete data processing application — web interface, embedded database, real-time stream handling, and AI inference — as one file on ground station hardware. No cloud dependency. No container orchestration. Local processing with store-and-forward synchronization when connectivity restores.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary telemetry viewer and anomaly detection system on representative ground station hardware<br>
+2. Demonstrate real-time stream processing with on-device ML inference for anomaly flagging<br>
+3. Validate store-and-forward data synchronization across simulated intermittent satellite links<br>
+4. Benchmark binary size, memory footprint, and startup latency against containerized equivalent</p>
+
+<p><strong>Phase II Path</strong><br>
+1. Integration with NASA GSFC ground system data formats (CCSDS, XTCE)<br>
+2. Multi-station mesh deployment with distributed state consensus<br>
+3. Flight software qualification assessment (DO-178C gap analysis)<br>
+4. Mission-specific AI model training for spacecraft health monitoring</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>DOE — Cybersecurity for Energy Infrastructure and Scientific Computing</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> DOE SBIR FY2026 — Cybersecurity, Energy Security, Advanced Scientific Computing Research<br>
+<strong>Next Deadline:</strong> Phase II Release 2 — Applications due April 21, 2026 · FOA issued March 2, 2026</p>
+
+<p><strong>Topic Alignment</strong><br>
+Energy infrastructure — power grids, pipelines, nuclear facilities — runs on operational technology (OT) networks that were never designed for internet connectivity. Retrofitting cloud-based security monitoring onto these systems introduces the exact attack surface it claims to protect against. DOE needs security tools that run locally on OT networks without phoning home to cloud APIs.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock's compiled architecture deploys security monitoring as a single binary on OT-adjacent hardware. AES-256-GCM encryption, embedded log aggregation, and on-device anomaly detection — all without a single outbound network connection. The binary includes its own database (sled), web dashboard, and alerting engine. Air-gapped by design, not by configuration.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary OT network monitor on representative SCADA-adjacent hardware<br>
+2. Demonstrate passive traffic analysis and anomaly detection using on-device ML (no cloud egress)<br>
+3. Validate air-gapped operation — zero outbound connections over 30-day test period<br>
+4. Produce NERC CIP control mapping for the single-binary architecture<br>
+5. Integrate with DOE CESER (Cybersecurity, Energy Security, and Emergency Response) reporting formats</p>
+
+<p><strong>Phase II Path</strong><br>
+1. Multi-site deployment across simulated utility network (generation, transmission, distribution)<br>
+2. ICS protocol deep packet inspection (Modbus, DNP3, OPC-UA) compiled into the binary<br>
+3. Integration with DOE Argonne/Sandia cyber range for validation testing<br>
+4. NIST SP 800-82 (Guide to ICS Security) full compliance documentation</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>USDA — Rural Broadband and Agricultural Edge Computing</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> USDA SBIR FY2026 — Rural Broadband, Precision Agriculture, Agricultural AI<br>
+<strong>Estimated Open:</strong> June–August 2026 · <strong>Phase I:</strong> ~$175,000 / 8 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+Rural agricultural operations lack reliable broadband. Cloud-dependent farm management tools fail when connectivity drops — which is exactly when real-time sensor data matters most (irrigation, frost alerts, livestock monitoring). Farmers need software that works offline-first and syncs when a signal is available.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock's single-binary platform deploys a complete farm management application on any hardware — laptop, Raspberry Pi, or existing farm PC. Embedded database stores sensor history locally. LoRa/915MHz mesh network connects field sensors without WiFi or cellular. On-device AI provides crop health and weather anomaly alerts without internet. Syncs to cloud dashboard when broadband is available.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary farm management system on Raspberry Pi with LoRa sensor mesh (soil moisture, temperature, humidity)<br>
+2. Demonstrate 30-day offline operation with local data retention and automated sync on reconnect<br>
+3. On-device crop health inference from sensor fusion data — no cloud API dependency<br>
+4. Validate deployment simplicity — non-technical operator installs and configures in under 15 minutes<br>
+5. Cost analysis: total system cost vs. cloud-dependent alternatives in low-broadband regions</p>
+
+<p><strong>Phase II Path</strong><br>
+1. Integration with USDA NASS (National Agricultural Statistics Service) data formats<br>
+2. Livestock monitoring via LoRa-tagged wearable sensors<br>
+3. Cooperative deployment — multi-farm data sharing with privacy-preserving aggregation<br>
+4. USDA Rural Development grant integration for farmer subsidized adoption</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>EPA — Environmental Monitoring for Air and Water Quality</summary>
+<div class="govdoc-print">
+<p><strong>Solicitation Target:</strong> EPA SBIR FY2026 — Air Quality, Clean and Safe Water, Environmental Monitoring<br>
+<strong>Estimated Open:</strong> Spring–Summer 2026 · <strong>Phase I:</strong> ~$100,000 / 6 months</p>
+
+<p><strong>Topic Alignment</strong><br>
+Environmental monitoring stations in remote or underserved areas lack reliable connectivity for real-time reporting. Cloud-based dashboards go dark when the cell tower does. EPA needs monitoring systems that log continuously, alert locally, and report when connectivity permits — without losing data during outages.</p>
+
+<p><strong>Proposed Innovation</strong><br>
+CochranBlock's single-binary monitoring platform runs on solar-powered edge hardware. Embedded database stores months of sensor readings locally. LoRa mesh connects distributed sensors across miles without cellular infrastructure. On-device AI detects anomalies (contamination spikes, equipment drift) and triggers local alerts. Data syncs to EPA reporting systems when backhaul is available.</p>
+
+<p><strong>Technical Objectives — Phase I</strong><br>
+1. Deploy single-binary environmental monitor on low-power ARM hardware (Raspberry Pi + solar)<br>
+2. LoRa sensor mesh for distributed air quality (PM2.5, O3, NO2) and water quality (pH, turbidity, dissolved O2) monitoring<br>
+3. Demonstrate 90-day autonomous operation with zero maintenance and zero cloud dependency<br>
+4. On-device anomaly detection with configurable alerting thresholds<br>
+5. EPA AQS (Air Quality System) and WQX (Water Quality Exchange) data format export</p>
+
+<p><strong>Phase II Path</strong><br>
+1. Integration with EPA AirNow and ECHO (Enforcement and Compliance History) reporting APIs<br>
+2. Community-deployed network with public-facing dashboard (environmental justice applications)<br>
+3. Machine learning model for source attribution from multi-sensor correlation<br>
+4. Tribal and rural community pilot deployments with EPA Region coordinators</p>
+</div>
+</details>
+
+</div>
+
 <h2 class="services-section-head">Cost Analysis</h2>
 <p>For a detailed cost comparison of cloud vs zero-cloud architecture: <a href="/mathskillz">cochranblock.org/mathskillz</a></p>
 
