@@ -162,65 +162,56 @@ body::after {
   z-index: 0;
 }
 
-/* Per-page ambient color — subtle bottom/mid glow */
-[data-page="home"] body::after,
+/* Per-page ambient color — unique glow per page */
 body[data-page="home"]::after {
   background-image:
     radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
     radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 500px 300px at 50% 85%, rgba(0, 255, 204, 0.06), transparent 60%);
+    radial-gradient(ellipse 600px 400px at 50% 80%, rgba(0, 255, 204, 0.1), transparent 60%);
 }
 
 body[data-page="products"]::after {
   background-image:
     radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 450px 350px at 80% 60%, rgba(157, 78, 221, 0.08), transparent 55%),
-    radial-gradient(ellipse 400px 250px at 15% 70%, rgba(0, 255, 204, 0.06), transparent 50%);
+    radial-gradient(ellipse 500px 400px at 85% 55%, rgba(157, 78, 221, 0.14), transparent 55%),
+    radial-gradient(ellipse 450px 300px at 10% 70%, rgba(0, 255, 204, 0.1), transparent 50%);
 }
 
 body[data-page="services"]::after {
   background-image:
     radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
     radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 500px 300px at 70% 50%, rgba(255, 107, 53, 0.05), transparent 55%);
+    radial-gradient(ellipse 550px 350px at 75% 50%, rgba(255, 107, 53, 0.1), transparent 55%);
 }
 
 body[data-page="about"]::after {
   background-image:
-    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 450px 300px at 20% 55%, rgba(157, 78, 221, 0.07), transparent 55%),
-    radial-gradient(ellipse 400px 250px at 85% 75%, rgba(0, 217, 255, 0.05), transparent 50%);
+    radial-gradient(ellipse 500px 350px at 15% 50%, rgba(157, 78, 221, 0.12), transparent 55%),
+    radial-gradient(ellipse 450px 300px at 88% 70%, rgba(0, 217, 255, 0.1), transparent 50%);
 }
 
 body[data-page="book"]::after {
   background-image:
     radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 500px 350px at 50% 45%, rgba(0, 217, 255, 0.07), transparent 55%);
+    radial-gradient(ellipse 600px 400px at 50% 40%, rgba(0, 217, 255, 0.12), transparent 55%);
 }
 
 body[data-page="contact"]::after {
   background-image:
     radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 400px 300px at 60% 65%, rgba(0, 255, 204, 0.06), transparent 55%);
+    radial-gradient(ellipse 500px 350px at 65% 60%, rgba(0, 255, 204, 0.1), transparent 55%);
 }
 
 body[data-page="deploy"]::after {
   background-image:
     radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%),
-    radial-gradient(ellipse 500px 300px at 40% 70%, rgba(255, 107, 53, 0.06), transparent 55%);
+    radial-gradient(ellipse 550px 350px at 45% 65%, rgba(255, 107, 53, 0.1), transparent 55%);
 }
 
 body[data-page="community-grant"]::after {
   background-image:
-    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.12), transparent 50%),
-    radial-gradient(ellipse 500px 350px at 50% 30%, rgba(157, 78, 221, 0.08), transparent 55%),
-    radial-gradient(ellipse 400px 250px at 30% 80%, rgba(0, 255, 204, 0.05), transparent 50%);
+    radial-gradient(ellipse 500px 350px at 50% 25%, rgba(157, 78, 221, 0.14), transparent 55%),
+    radial-gradient(ellipse 450px 300px at 30% 75%, rgba(0, 255, 204, 0.1), transparent 50%);
 }
 
 .nav {
