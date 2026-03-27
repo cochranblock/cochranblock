@@ -86,7 +86,7 @@ openssl = { version = "0.10", features = ["vendored"] }
 include_packed = { version = "0.1", features = ["build"] }
 
 [profile.release]
-opt-level = 3
+opt-level = 's'
 lto = true
 codegen-units = 1
 strip = true
