@@ -55,7 +55,8 @@ CochranBlock replaces expensive cloud infrastructure with single compiled Rust b
 - Stack: Rust, single-binary, embedded sled database, Cloudflare Zero Trust tunnel
 - Infrastructure cost: $10/month total (97% reduction vs cloud)
 - Open source: 14 public repos (12 Unlicense) at github.com/cochranblock
-- Certifications: SDVOSB pending, SAM.gov pending registration, Maryland eMMA vendor SUP1095449, Maryland CSB approved
+- Certifications: SDVOSB pending, SAM.gov registered (UEI W7X3HAQL9CF9), Maryland eMMA vendor SUP1095449, Maryland CSB approved
+- UEI: W7X3HAQL9CF9
 
 ## Products
 - Kova: Augment engine with local AI inference, agentic tool loop, distributed C2
@@ -133,7 +134,7 @@ Source: github.com/cochranblock/cochranblock
 LLC formed to production: under 30 days
 14 public repos (12 Unlicense): March 2026
 First partnership signed: March 2026
-SAM.gov filed: March 2026
+SAM.gov registered: March 2026 (UEI W7X3HAQL9CF9)
 This site you're reading: 15MB, $10/month, zero cloud
 "#,
     )
@@ -174,7 +175,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 15MB Rust binary replaces your cloud infrastructure. 14 open source repos. SDVOSB pending.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 15MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 15MB Rust binary replaces your cloud infrastructure. 14 open source repos. SAM.gov UEI W7X3HAQL9CF9. SDVOSB pending.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 15MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
 
 const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 15MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2013. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 14 repositories are public on GitHub, 12 under the Unlicense. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 15MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
 
@@ -215,7 +216,7 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
     )
 }
 pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a><a href="/search" class="nav-more">Search</a></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Pending Registration · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Registered (UEI W7X3HAQL9CF9) · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
@@ -451,7 +452,7 @@ Security surface: 1 binary · Deployment: scp + run · Update: replace 1 file<br
 <summary>Credentials</summary>
 <p>
 Service-Disabled Veteran-Owned Small Business (SDVOSB) — pending certification<br>
-SAM.gov — Pending Registration<br>
+SAM.gov — Registered (UEI W7X3HAQL9CF9)<br>
 Maryland CSB (Certified Small Business) — Approved<br>
 13 years defense and enterprise — USCYBERCOM J38 dev lead<br>
 14 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
@@ -485,7 +486,7 @@ EIN: 41-3835237</p>
 <p><strong>Certifications &amp; Registrations</strong><br>
 Maryland CSB (Certified Small Business) — <strong>Approved</strong><br>
 SDVOSB (Service-Disabled Veteran-Owned Small Business) — Pending<br>
-SAM.gov — Pending Registration<br>
+SAM.gov — Registered (UEI W7X3HAQL9CF9)<br>
 Maryland eMMA — Vendor SUP1095449<br>
 CAGE Code — Pending assignment</p>
 
@@ -551,8 +552,8 @@ cochranblock.org/deploy — Start a project</p>
 <table class="cost-table">
 <tr><td>Maryland eMMA</td><td class="bid-ready">⬤ Vendor SUP1095449 — Active</td></tr>
 <tr><td>Certified Small Business (CSB)</td><td class="bid-ready">⬤ Approved</td></tr>
-<tr><td>SAM.gov</td><td class="bid-blocked">⬤ Pending Registration</td></tr>
-<tr><td>SDVOSB (VetCert)</td><td class="bid-blocked">⬤ Pending — Awaiting SAM.gov</td></tr>
+<tr><td>SAM.gov</td><td class="bid-ready">⬤ Registered — UEI W7X3HAQL9CF9</td></tr>
+<tr><td>SDVOSB (VetCert)</td><td class="bid-blocked">⬤ Pending — Apply at certifications.sba.gov</td></tr>
 <tr><td>GSA Schedule</td><td class="bid-date">○ Not Yet Applied</td></tr>
 </table>
 </div>
@@ -902,20 +903,20 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <div class="cost-summary">
 <table class="cost-table">
 <tr><td><strong>Agency</strong></td><td><strong>Solicitation</strong></td><td><strong>Opens</strong></td><td><strong>Closes</strong></td><td><strong>Status</strong></td></tr>
-<tr><td>DoD</td><td>SBIR 26.1 Phase I</td><td class="bid-date">April 2026</td><td class="bid-date">May 2026 (est)</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>DOE</td><td>Phase II Release 2</td><td class="bid-date">March 2, 2026</td><td class="bid-date">April 21, 2026</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>NIH</td><td>New NOFO</td><td class="bid-date">April 2026 (est)</td><td class="bid-date">Rolling</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>NSF</td><td>Seed Fund Restart</td><td class="bid-date">April–May 2026</td><td class="bid-date">Rolling</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>NASA</td><td>BAA Appendix A</td><td class="bid-date">April–May 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>DHS/CISA</td><td>FY2026</td><td class="bid-date">Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>USDA</td><td>FY2026</td><td class="bid-date">June–Aug 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>EPA</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>DOT</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>NIST</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
-<tr><td>NOAA</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-blocked">⬤ SAM.gov Pending</td></tr>
+<tr><td>DoD</td><td>SBIR 26.1 Phase I</td><td class="bid-date">April 2026</td><td class="bid-date">May 2026 (est)</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>DOE</td><td>Phase II Release 2</td><td class="bid-date">March 2, 2026</td><td class="bid-date">April 21, 2026</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>NIH</td><td>New NOFO</td><td class="bid-date">April 2026 (est)</td><td class="bid-date">Rolling</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>NSF</td><td>Seed Fund Restart</td><td class="bid-date">April–May 2026</td><td class="bid-date">Rolling</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>NASA</td><td>BAA Appendix A</td><td class="bid-date">April–May 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>DHS/CISA</td><td>FY2026</td><td class="bid-date">Summer 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>USDA</td><td>FY2026</td><td class="bid-date">June–Aug 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>EPA</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>DOT</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>NIST</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
+<tr><td>NOAA</td><td>FY2026</td><td class="bid-date">Spring–Summer 2026</td><td class="bid-date">TBD</td><td class="bid-ready">⬤ Ready</td></tr>
 </table>
 </div>
-<p class="govdoc-note">Blocker: SAM.gov registration must be active before any SBIR/STTR proposal submission. Call Federal Service Desk (866-606-8220) to check status.</p>
+<p class="govdoc-note">SAM.gov registered (UEI W7X3HAQL9CF9). SBIR/STTR proposals ready to submit when solicitations open. SDVOSB certification next — apply at certifications.sba.gov.</p>
 
 <h2 class="services-section-head" id="sbom">Software Bill of Materials (SBOM)</h2>
 <p class="services-intro">EO 14028 compliant. Every direct dependency, version, and license — known at compile time.</p>
@@ -1264,7 +1265,7 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <summary>The Cochran Block, LLC</summary>
 <p>
 Michael Cochran — Army veteran (17C Cyber Operations, 35Q start at JCAC 2013). 13 years defense and enterprise. USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study.<br><br>
-SDVOSB pending. SAM.gov pending registration. Maryland eMMA vendor.<br><br>
+SDVOSB pending. SAM.gov registered (UEI W7X3HAQL9CF9). Maryland eMMA vendor.<br><br>
 This framework was not designed in a lab. It was built by a developer who needed to prove that his AI-assisted code was human-directed — and discovered that no standard existed to do so.<br>
 <span class="service-outcome"><a href="https://github.com/cochranblock/provenance-docs/blob/main/WHITEPAPER.md">Read the full whitepaper →</a></span>
 </p>
@@ -1400,7 +1401,7 @@ for having you here." — Jay, USCYBERCOM
   <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Army veteran (17C Cyber Operations). 13 years defense and enterprise. SDVOSB pending. It's not the Mech — it's the pilot.</p>
-  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 14 repos open-sourced, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
+  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 14 repos open-sourced, site live, eMMA registered, SAM.gov registered, first partnership signed — all in under 30 days.</p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
@@ -1608,7 +1609,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/book", title: "Book a Discovery Call", body: "Schedule a 30-minute discovery call. Discuss your goals. Free. Eastern Standard Time. Available weekdays." },
     SearchEntry { path: "/codeskillz", title: "Code Skillz — 14 Repos", body: "14 repos. All Rust. All public. All live. Velocity tracking. GitHub commit history. Badges for every shipped product. Infrastructure: 4 bare metal Debian nodes. GPU compute RTX 3070 RTX 3050 Ti." },
     SearchEntry { path: "/mathskillz", title: "Cost Analysis — Zero-Cloud Savings", body: "Cloud vs bare metal cost comparison. AWS scenario. $36,000/year cloud vs $120/year bare metal. 97% cost reduction. ROI calculator. 37signals validation." },
-    SearchEntry { path: "/govdocs", title: "Government Documents", body: "Capability statement. NAICS codes. SBOM. SSDF NIST 800-218. CMMC Level 1-2. Security posture. SBIR proposals for 11 federal agencies. Registration status. CSB approved. SDVOSB pending. SAM.gov. eMMA SUP1095449." },
+    SearchEntry { path: "/govdocs", title: "Government Documents", body: "Capability statement. NAICS codes. SBOM. SSDF NIST 800-218. CMMC Level 1-2. Security posture. SBIR proposals for 11 federal agencies. Registration status. CSB approved. SDVOSB pending. SAM.gov registered UEI W7X3HAQL9CF9. eMMA SUP1095449." },
     SearchEntry { path: "/tinybinaries", title: "Tiny Binaries — Binary Size Leaderboard", body: "Binary size leaderboard. 48 KB to 51.5 MB. call-shield exopack provenance-docs whyyoulying pocket-server cochranblock pixel-forge kova. KB per function efficiency. Build profile. opt-level LTO strip panic abort." },
     SearchEntry { path: "/vre", title: "VR&E Self-Employment Business Plan", body: "VA VR&E Category II. Self-employment track. Lab-based workforce training. UMBC JHU APL UMD MC2. 12-month milestones. FIPS crypto validation. Air-gapped edge computing. Federal alignment CISA EO 14028 SSDF CMMC FedRAMP." },
     SearchEntry { path: "/source", title: "Source Code", body: "Read the source code of the server serving you this page. Cargo.toml. router.rs. assets.rs. pages.rs. Rust source compiled into the binary via include_str." },
@@ -1693,7 +1694,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <p><strong>Veteran:</strong> Michael Cochran · 30% Service-Connected · Army 17C (Cyber Operations) · JCAC 2013<br>
 <strong>Entity:</strong> The Cochran Block, LLC · EIN 41-3835237 · Dundalk, MD 21222<br>
 <strong>Post-9/11 GI Bill:</strong> 23 months remaining (electing P9/11SA for Baltimore BAH)<br>
-<strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Pending · <strong>SAM.gov:</strong> Pending Registration · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
+<strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Pending · <strong>SAM.gov:</strong> Registered · <strong>UEI:</strong> W7X3HAQL9CF9 · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
 
 <p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 8.2 MB binary replaces $36,000/year in AWS bills.</p>
 
