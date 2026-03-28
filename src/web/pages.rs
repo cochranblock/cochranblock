@@ -154,6 +154,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/govdocs", "0.8", "monthly"),
         ("/tinybinaries", "0.8", "monthly"),
         ("/vre", "0.8", "monthly"),
+        ("/source", "0.7", "monthly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -218,7 +219,7 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.2MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a></p></section>"#;
+    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.2MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a></p></section>"#;
     Html(format!("{}{}{}{}{}", f62d("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect", "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 15MB Rust binary. $10/month. 14 open source repos. Veteran-owned."), JSON_LD_FAQ, C7, v0, C8))
 }
 
@@ -1404,6 +1405,53 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 <p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/codeskillz" class="btn btn-secondary">See All 14 Repos Live</a></p></section>"#;
     Html(format!("{}{}{}{}", f62d("products", "Products | CochranBlock", "14 Rust products. Kova augment engine, Approuter reverse proxy, Rogue Repo payment engine, Pocket Server, Ronin Sites. All Rust. All live."), C7, v0, C8))
+}
+
+/// f83 = serve_source. Why: The site serves its own source code. Ultimate proof — you're reading the code that's serving you.
+pub async fn f83(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let src_pages = include_str!("pages.rs");
+    let src_router = include_str!("router.rs");
+    let src_assets = include_str!("assets.rs");
+    let cargo_toml = include_str!("../../Cargo.toml");
+
+    let esc = |s: &str| -> String {
+        s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
+    };
+
+    let v0 = format!(r#"<section class="services">
+<h1>Source Code</h1>
+<p class="services-intro">You're reading the source code of the server that's serving you this page. This is the actual Rust source — compiled into the binary, not fetched from a repo.</p>
+
+<h2 class="services-section-head">Cargo.toml</h2>
+<div class="service-cards"><details class="service-card"><summary>Cargo.toml — dependencies and build profile</summary>
+<pre class="resume-raw">{}</pre>
+</details></div>
+
+<h2 class="services-section-head">src/web/router.rs</h2>
+<div class="service-cards"><details class="service-card"><summary>router.rs — every route on this site</summary>
+<pre class="resume-raw">{}</pre>
+</details></div>
+
+<h2 class="services-section-head">src/web/assets.rs</h2>
+<div class="service-cards"><details class="service-card"><summary>assets.rs — embedded asset serving</summary>
+<pre class="resume-raw">{}</pre>
+</details></div>
+
+<h2 class="services-section-head">src/web/pages.rs</h2>
+<div class="service-cards"><details class="service-card"><summary>pages.rs — all page generation ({} lines)</summary>
+<pre class="resume-raw">{}</pre>
+</details></div>
+
+<p class="services-cta"><a href="https://github.com/cochranblock/cochranblock" class="btn">View on GitHub</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a><a href="/codeskillz" class="btn btn-secondary">All 14 Repos</a></p>
+</section>"#,
+        esc(cargo_toml),
+        esc(src_router),
+        esc(src_assets),
+        src_pages.lines().count(),
+        esc(src_pages),
+    );
+    let head = f62d("source", "Source Code | CochranBlock", "The actual Rust source code of cochranblock.org, served by the binary it was compiled into. Read the code that's serving you this page.");
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
 }
 
 /// f82 = serve_vre. Why: Public VR&E Category II self-employment business plan. VA counselor reads it in a browser.
