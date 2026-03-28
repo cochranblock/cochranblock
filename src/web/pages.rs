@@ -3,7 +3,7 @@
 // Unlicense — cochranblock.org
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
-use axum::extract::State;
+use axum::extract::{Query, State};
 use axum::response::Html;
 use chrono::{Datelike, Duration, NaiveDate, Utc, Weekday};
 use chrono_tz::America::New_York;
@@ -214,7 +214,7 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a></div></nav><main id="main" class="content">"##;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a><a href="/search" class="nav-more">Search</a></div></nav><main id="main" class="content">"##;
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Pending Registration · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
@@ -1589,6 +1589,93 @@ pub async fn f83(State(_p0): State<Arc<t0>>) -> Html<String> {
     );
     let head = f62d("source", "Source Code | CochranBlock", "The actual Rust source code of cochranblock.org, served by the binary it was compiled into. Read the code that's serving you this page.");
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
+/// Search index entry — baked at compile time, searched at runtime.
+struct SearchEntry {
+    path: &'static str,
+    title: &'static str,
+    body: &'static str,
+}
+
+const SEARCH_INDEX: &[SearchEntry] = &[
+    SearchEntry { path: "/", title: "Home", body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 14 open source repos." },
+    SearchEntry { path: "/services", title: "Services & Pricing", body: "Fractional CTO services. $225/hour consulting. $3,500 base deployment. $3,500/month retainer. Zero-cloud architecture. Binary hardening. Air-gapped deployment." },
+    SearchEntry { path: "/products", title: "Products", body: "14 Rust products. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework." },
+    SearchEntry { path: "/deploy", title: "Deploy — Start a Project", body: "Zero-cloud tech intake form. Deploy a single Rust binary. Replace your cloud infrastructure. $3,500 one-time deployment. Contact us to start." },
+    SearchEntry { path: "/about", title: "About CochranBlock", body: "Michael Cochran. Army 17C Cyber Operations. JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead. SDVOSB pending. LLC formed to production in under 30 days." },
+    SearchEntry { path: "/contact", title: "Contact", body: "Email mcochran@cochranblock.org. Book a 30-minute discovery call. LinkedIn. Responds within 24-48 hours." },
+    SearchEntry { path: "/book", title: "Book a Discovery Call", body: "Schedule a 30-minute discovery call. Discuss your goals. Free. Eastern Standard Time. Available weekdays." },
+    SearchEntry { path: "/codeskillz", title: "Code Skillz — 14 Repos", body: "14 repos. All Rust. All public. All live. Velocity tracking. GitHub commit history. Badges for every shipped product. Infrastructure: 4 bare metal Debian nodes. GPU compute RTX 3070 RTX 3050 Ti." },
+    SearchEntry { path: "/mathskillz", title: "Cost Analysis — Zero-Cloud Savings", body: "Cloud vs bare metal cost comparison. AWS scenario. $36,000/year cloud vs $120/year bare metal. 97% cost reduction. ROI calculator. 37signals validation." },
+    SearchEntry { path: "/govdocs", title: "Government Documents", body: "Capability statement. NAICS codes. SBOM. SSDF NIST 800-218. CMMC Level 1-2. Security posture. SBIR proposals for 11 federal agencies. Registration status. CSB approved. SDVOSB pending. SAM.gov. eMMA SUP1095449." },
+    SearchEntry { path: "/tinybinaries", title: "Tiny Binaries — Binary Size Leaderboard", body: "Binary size leaderboard. 48 KB to 51.5 MB. call-shield exopack provenance-docs whyyoulying pocket-server cochranblock pixel-forge kova. KB per function efficiency. Build profile. opt-level LTO strip panic abort." },
+    SearchEntry { path: "/vre", title: "VR&E Self-Employment Business Plan", body: "VA VR&E Category II. Self-employment track. Lab-based workforce training. UMBC JHU APL UMD MC2. 12-month milestones. FIPS crypto validation. Air-gapped edge computing. Federal alignment CISA EO 14028 SSDF CMMC FedRAMP." },
+    SearchEntry { path: "/source", title: "Source Code", body: "Read the source code of the server serving you this page. Cargo.toml. router.rs. assets.rs. pages.rs. Rust source compiled into the binary via include_str." },
+    SearchEntry { path: "/sbir", title: "SBIR / Provenance", body: "SBIR STTR proposals. Provenance documentation. AI development framework. Timeline of Invention. Proof of Artifacts. Human-piloted AI development." },
+    SearchEntry { path: "/downloads", title: "Downloads", body: "Download cochranblock binary. macOS Apple Silicon. Linux x86_64. Resume PDF. Logo card." },
+    SearchEntry { path: "/community-grant", title: "Community Grant", body: "Cochranblock community grant application. Non-profits. Zero-cloud architecture for community organizations. Baltimore area. Quarterly grants." },
+];
+
+/// f84 = serve_search. Why: Native full-text search. In-memory index, sub-millisecond.
+pub async fn f84(State(_p0): State<Arc<t0>>, Query(params): Query<std::collections::HashMap<String, String>>) -> Html<String> {
+    let html_escape = |s: &str| -> String {
+        s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('"', "&quot;")
+    };
+    let query = params.get("q").map(|s| s.trim()).unwrap_or("");
+    let query_lower = query.to_lowercase();
+    let esc_query = html_escape(query);
+
+    let results: Vec<(&str, &str, String)> = if query_lower.len() < 2 {
+        vec![]
+    } else {
+        SEARCH_INDEX.iter().filter_map(|entry| {
+            let title_lower = entry.title.to_lowercase();
+            let body_lower = entry.body.to_lowercase();
+            if title_lower.contains(&query_lower) || body_lower.contains(&query_lower) {
+                // Extract snippet around match
+                let snippet = if let Some(pos) = body_lower.find(&query_lower) {
+                    let start = pos.saturating_sub(60);
+                    let end = (pos + query_lower.len() + 60).min(entry.body.len());
+                    let raw = &entry.body[start..end];
+                    let highlighted = raw.replace(query, &format!("<mark>{}</mark>", &esc_query));
+                    if start > 0 { format!("...{highlighted}...") } else { format!("{highlighted}...") }
+                } else {
+                    entry.body.chars().take(120).collect::<String>() + "..."
+                };
+                Some((entry.path, entry.title, snippet))
+            } else {
+                None
+            }
+        }).collect()
+    };
+
+    let results_html = if query.is_empty() {
+        String::from("<p class=\"hero-note\">Type a query above to search all pages.</p>")
+    } else if results.is_empty() {
+        format!("<p class=\"hero-note\">No results for \"{}\".</p>", esc_query)
+    } else {
+        let mut html = format!("<p class=\"hero-stats\">{} result{} for \"{}\"</p>", results.len(), if results.len() == 1 { "" } else { "s" }, esc_query);
+        for (path, title, snippet) in &results {
+            html.push_str(&format!(
+                r#"<div class="testimonial" style="border-left-color:var(--accent)"><a href="{}" style="color:var(--accent);font-weight:600;font-size:1.1rem">{}</a><br><span style="color:var(--muted);font-size:0.9rem">{}</span><br><span style="font-size:0.75rem;color:var(--muted)">{}</span></div>"#,
+                path, title, snippet, path
+            ));
+        }
+        html
+    };
+
+    let v0 = format!(
+        r#"<section class="services">
+<h1>Search</h1>
+<form action="/search" method="get" style="max-width:500px;margin:0 auto 2rem">
+<div class="form-group"><input type="search" name="q" value="{}" placeholder="Search cochranblock.org..." autofocus style="width:100%;font-size:1.1rem"></div>
+</form>
+{}
+</section>"#,
+        esc_query, results_html
+    );
+    Html(format!("{}{}{}{}", f62d("search", "Search | CochranBlock", "Search all pages on cochranblock.org. Native Rust full-text search, in-memory index, sub-millisecond."), C7, v0, C8))
 }
 
 /// f82 = serve_vre. Why: Public VR&E Category II self-employment business plan. VA counselor reads it in a browser.
