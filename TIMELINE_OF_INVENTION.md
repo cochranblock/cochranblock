@@ -34,6 +34,64 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-03-27 — /tinybinaries Page + Binary Size Optimization
+
+**What:** Added /tinybinaries page with binary size leaderboard (10 projects, 48KB to 51.5MB) and efficiency table (KB per function). Changed release profile from `opt-level=3` to `opt-level='s'` — binaries dropped 16-17% (x86: 18MB→15MB, ARM: 9.9MB→8.2MB). Updated all size claims site-wide.
+**Why:** Prove the tiny binary claims with real measured data. Smaller binaries = smaller attack surface = better federal procurement story.
+**Commit:** `453c7b7`, `42de147`
+**AI Role:** AI benchmarked opt-level options and built the page. Human directed the optimization strategy and approved the page layout.
+**Proof:** cochranblock.org/tinybinaries
+
+### 2026-03-27 — QA Rounds 1 & 2 + Clippy Clean
+
+**What:** Full QA audit — clean compile, zero warnings, zero debug prints, zero AI slop words, all 17 routes verified 200. Clippy with `-D warnings` — fixed collapsible-if patterns in webhook handlers and frontmatter stripper.
+**Why:** Production QA gate before shipping to real users. Every claim must be verifiable.
+**Commit:** `e60d08e`, `2e8299c`
+**AI Role:** AI ran the audit and fixed clippy warnings. Human directed the QA process and approved the results.
+
+### 2026-03-27 — Truth Audit + CSB/SDVOSB Distinction + GPU Infrastructure
+
+**What:** Audited every fact on the site. Fixed "14 Unlicense repos" → "14 open source repos" (12 Unlicense, 2 without). CSB (Certified Small Business) marked Approved — separated from SDVOSB (still Pending). Added GPU infrastructure: lf RTX 3070 8GB, gd RTX 3050 Ti 4GB. Doubled starfield to 42 stars.
+**Why:** A site that claims to prove everything must be 100% accurate. CSB and SDVOSB are different certifications.
+**Commit:** `2e8299c`
+**AI Role:** AI audited all pages, verified binary sizes, counted repos, checked licenses. Human corrected the CSB/SDVOSB distinction.
+
+### 2026-03-27 — Docs Sweep — README, CODEOWNERS, OWNERS.yaml
+
+**What:** Rewrote README.md with full 24-route table and correct build command. Updated GITHUB_BANNER.md (8→14 repos). Fixed PROOF_OF_ARTIFACTS.md (11→14 repos, SAM.gov status). Replaced kova-specific CODEOWNERS and OWNERS.yaml with cochranblock-specific subsystems.
+**Why:** Docs referenced kova files that don't exist in this repo. Stale paths, wrong repo counts.
+**Commit:** `5b62dbb`
+**AI Role:** AI identified stale references and rewrote docs. Human approved all changes.
+
+### 2026-03-27 — SEO: Per-Page Meta, Canonical URLs, llms.txt, security.txt, FAQ Schema
+
+**What:** Added per-page meta descriptions and og:description (7 pages). Added `<link rel="canonical">` to every page. Created /llms.txt (AI crawler context), /.well-known/security.txt (RFC 9116), /humans.txt (team + tools). Added FAQPage JSON-LD schema with 7 questions. Updated 6 GitHub repos with cochranblock.org backlinks.
+**Why:** AI crawlers, search engines, and federal scanners all read these signals. Per-page SEO means each page ranks for its own terms.
+**Commit:** `ccd9896`, `05a7047`
+**AI Role:** AI built all SEO infrastructure. Human directed which pages needed descriptions and approved FAQ content.
+
+### 2026-03-27 — SBIR Technical Approaches for 11 Federal Agencies + Bid Tracker
+
+**What:** Added SBIR/STTR technical approach sections to /govdocs for DoD, NSF, DHS, NASA, DOE, USDA, EPA, DOT, NIST, NIH, and NOAA — 11 agency-specific proposals with Phase I/II objectives, past performance, and commercialization. Added color-coded upcoming bids tracker table (orange=blocked, cyan=ready, teal=open, purple=submitted, green=won).
+**Why:** SAM.gov pending. When it clears, proposals need to be ready to submit immediately. The compressed solicitation window (April-August 2026) means no time to draft from scratch.
+**Commit:** `87abae3`, `f417f61`, `4dc762e`, `0183dc1`, `72760b2`
+**AI Role:** AI researched solicitation timelines, drafted agency-specific proposals. Human directed the technical approach and approved all claims.
+**Proof:** cochranblock.org/govdocs
+
+### 2026-03-27 — SAM.gov Status Update + 30-Day Speed Flex
+
+**What:** Updated SAM.gov status from "Registered" to "Pending Registration" across all pages. Added flex line on about page: "LLC formed, 14 repos open-sourced, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days."
+**Why:** Accuracy. SAM.gov registration is still pending, not active. The speed flex shows execution velocity.
+**Commit:** `898c34c`, `a58cd50`
+**AI Role:** AI updated all references. Human directed the status change and approved the flex copy.
+
+### 2026-03-27 — Visual Polish: Starfield, Glassmorphism, Animations, Per-Page Color
+
+**What:** Added drifting starfield (42 CSS radial-gradient dots, 100s drift cycle), two shooting stars (20s/30s cycles), glassmorphism on cards (backdrop-filter blur), staggered fadeInUp hero animations, per-page ambient color gradients (8 pages), glow effects on buttons/inputs/nav. Rocket launch button on /deploy/confirmed with 3-2-1 countdown.
+**Why:** The site sells technology — it should look like technology. Professional but atmospheric.
+**Commit:** `cec512d`, `1698e76`, `b48d5ec`, `e897c4c`, `719bf95`, `c90b338`, `91dd2a1`, `7c25cf1`
+**AI Role:** AI implemented all CSS effects and the rocket JS. Human directed the aesthetic — "space theme, professional, not distracting."
+
 ### 2026-03-26 — Ghost Fabric Edge Intelligence + Cost Analysis Rewrite
 
 **What:** Added Ghost Fabric edge intelligence section to /mathskillz with Python vs Rust deployment math. Rewrote cost analysis page with specific AWS scenario, 37signals validation, always-visible summary table, and trust/compliance section.
