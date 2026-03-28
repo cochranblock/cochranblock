@@ -49,6 +49,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/sbir", get(pages::f74))
         .route("/codeskillz", get(pages::f76))
         .route("/govdocs", get(pages::f77))
+        .route("/tinybinaries", get(pages::f81))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/api/stats", get(pages::f73))
