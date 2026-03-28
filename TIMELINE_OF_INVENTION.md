@@ -34,6 +34,14 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-03-28 — Native Search Engine + Federal Compliance Docs (SBOM, SSDF, CMMC, Security)
+
+**What:** Added /search — native Rust full-text search with 16-entry compile-time index. GET /search?q= returns matching pages with highlighted snippets, sub-millisecond. No external search service, no JS library — 60 lines of Rust. Added SBOM (38 deps with versions/licenses/purpose), SSDF compliance matrix (PS/PW/RV/PO mapped to actual practices), CMMC Level 1-2 (11 practices across 8 domains), and Security posture (crypto primitives table with FIPS status, attack surface analysis) to /govdocs.
+**Why:** Search is the flex — a full-text search engine inside a 15MB binary. Federal compliance docs make /govdocs a one-stop procurement package.
+**Commit:** `52b025a`, `c08c568`
+**AI Role:** AI built the search index and compliance matrices. Human directed which pages to index and verified all SSDF/CMMC mappings.
+**Proof:** cochranblock.org/search, cochranblock.org/govdocs
+
 ### 2026-03-28 — /source Page + /vre Business Plan + Capability Statement Enhancement
 
 **What:** Added /source — site serves its own Rust source code via `include_str!`, baked into the binary. Added /vre — full VR&E Category II self-employment business plan as a web page with live cross-references to /tinybinaries, /codeskillz, /services, /govdocs. Enhanced /govdocs capability statement with core competencies, past performance (5 entries), differentiators framed as procurement benefits, CAGE code pending, 518210 NAICS code. Added "Read the Source" CTA to hero.

@@ -35,7 +35,7 @@ flowchart LR
 | Types | 7 |
 | Lines of code | 2,905 |
 | Direct dependencies | 42 |
-| Routes | 27 (20 pages + 4 meta + 3 API) |
+| Routes | 29 (22 pages + 4 meta + 3 API) |
 | Release profile | opt-level='s', lto=true, codegen-units=1, panic='abort', strip=true |
 | GPU nodes | lf: RTX 3070 8GB · gd: RTX 3050 Ti 4GB |
 | QA Round 1 | PASS — zero errors, zero warnings, zero debug prints, zero AI slop, all routes 200 |
