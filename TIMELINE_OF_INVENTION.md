@@ -34,6 +34,14 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-03-28 — /source Page + /vre Business Plan + Capability Statement Enhancement
+
+**What:** Added /source — site serves its own Rust source code via `include_str!`, baked into the binary. Added /vre — full VR&E Category II self-employment business plan as a web page with live cross-references to /tinybinaries, /codeskillz, /services, /govdocs. Enhanced /govdocs capability statement with core competencies, past performance (5 entries), differentiators framed as procurement benefits, CAGE code pending, 518210 NAICS code. Added "Read the Source" CTA to hero.
+**Why:** /source is the ultimate proof — the site IS the demo. /vre lets a VA counselor verify every claim by clicking through the site. Capability statement upgrade for federal matchmaking events.
+**Commit:** `2584d57`, `9361a7c`, `f48f31b`
+**AI Role:** AI built all three features. Human directed the VR&E content, capability statement structure, and source page concept.
+**Proof:** cochranblock.org/source, cochranblock.org/vre, cochranblock.org/govdocs#capability
+
 ### 2026-03-27 — /tinybinaries Page + Binary Size Optimization
 
 **What:** Added /tinybinaries page with binary size leaderboard (10 projects, 48KB to 51.5MB) and efficiency table (KB per function). Changed release profile from `opt-level=3` to `opt-level='s'` — binaries dropped 16-17% (x86: 18MB→15MB, ARM: 9.9MB→8.2MB). Updated all size claims site-wide.
