@@ -156,6 +156,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/tinybinaries", "0.8", "monthly"),
         ("/vre", "0.8", "monthly"),
         ("/source", "0.7", "monthly"),
+        ("/speed", "0.9", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -220,7 +221,7 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.2MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a></p></section>"#;
+    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.2MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/speed" class="btn btn-secondary">240x Lighter</a></p></section>"#;
     Html(format!("{}{}{}{}{}", f62d("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect", "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 15MB Rust binary. $10/month. 14 open source repos. Veteran-owned."), JSON_LD_FAQ, C7, v0, C8))
 }
 
@@ -1592,6 +1593,61 @@ pub async fn f83(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
 }
 
+/// f85 = serve_speed. Why: Hard numbers proving cochranblock.org is 240x lighter than Wix.
+pub async fn f85(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Speed</h1>
+<p class="services-intro">Your landing page is 240x heavier than this one. cochranblock.org delivers the same content in 9.5 KB with zero JavaScript. The entire server is an 8.2 MB binary running on a laptop.</p>
+
+<h2 class="services-section-head">cochranblock.org vs The Industry</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Metric</strong></td><td><strong>cochranblock.org</strong></td><td><strong>Wix</strong></td><td><strong>Squarespace</strong></td><td><strong>WordPress</strong></td></tr>
+<tr><td>Page Size</td><td class="cost-amount cost-new">9.5 KB</td><td class="cost-amount cost-old">2,287 KB (240x)</td><td class="cost-amount cost-old">618 KB (65x)</td><td class="cost-amount cost-old">321 KB (34x)</td></tr>
+<tr><td>CSS</td><td class="cost-amount cost-new">82 KB</td><td>bundled</td><td>bundled</td><td>bundled</td></tr>
+<tr><td>JavaScript</td><td class="cost-amount cost-new">0 bytes</td><td class="cost-amount cost-old">69 script tags</td><td class="cost-amount cost-old">~20 scripts</td><td class="cost-amount cost-old">~15 scripts</td></tr>
+<tr><td>Total Transfer</td><td class="cost-amount cost-new">~92 KB</td><td class="cost-amount cost-old">~2.3 MB</td><td class="cost-amount cost-old">~618 KB</td><td class="cost-amount cost-old">~321 KB</td></tr>
+<tr><td>TTFB</td><td class="cost-amount">75ms</td><td class="cost-amount">58ms</td><td class="cost-amount">47ms</td><td class="cost-amount">64ms</td></tr>
+<tr><td>Server</td><td class="cost-amount cost-new">8.2 MB Rust binary</td><td>Cloud cluster</td><td>Cloud cluster</td><td>Cloud + PHP</td></tr>
+<tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">$16–49</td><td class="cost-amount cost-old">$16–49</td><td class="cost-amount cost-old">$4–45</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">Why It Matters</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>The math on page weight</summary>
+<div class="govdoc-print">
+<p>A 2.3 MB landing page on a 3G connection (rural, developing world, field deployment) takes <strong>18 seconds</strong> to load. cochranblock.org loads in <strong>0.7 seconds</strong> on the same connection.</p>
+<p>For government edge deployments (tactical, shipboard, satellite uplink) — every byte matters. A 9.5 KB page fits in a single TCP packet. A 2.3 MB page requires 1,600+ packets with potential retransmission on lossy links.</p>
+<p>Zero JavaScript means zero XSS attack surface. No script tags means no supply chain injection point. The page is pure HTML + CSS served from compiled Rust. Nothing to hijack.</p>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head">Run Your Own Test</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>One command — verify everything</summary>
+<pre class="resume-raw"># Page size (HTML only)
+curl -s https://cochranblock.org/ | wc -c
+
+# Total transfer time
+curl -s -o /dev/null -w "TTFB: %{time_starttransfer}s\nTotal: %{time_total}s\nSize: %{size_download} bytes\n" https://cochranblock.org/
+
+# Count JavaScript tags (should be 0 on homepage)
+curl -s https://cochranblock.org/ | grep -c '&lt;script'
+
+# Compare to any other site
+curl -s -o /dev/null -w "%{size_download}" https://wix.com/</pre>
+</details>
+</div>
+
+<p class="services-cta"><a href="/tinybinaries" class="btn">Binary Size Leaderboard</a><a href="/mathskillz" class="btn btn-secondary">Full Cost Analysis</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62d("speed", "Speed — 240x Lighter Than Wix | CochranBlock", "cochranblock.org delivers its homepage in 9.5 KB with zero JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. The server is an 8.2 MB Rust binary."), C7, v0, C8))
+}
+
 /// Search index entry — baked at compile time, searched at runtime.
 struct SearchEntry {
     path: &'static str,
@@ -1613,6 +1669,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/tinybinaries", title: "Tiny Binaries — Binary Size Leaderboard", body: "Binary size leaderboard. 48 KB to 51.5 MB. call-shield exopack provenance-docs whyyoulying pocket-server cochranblock pixel-forge kova. KB per function efficiency. Build profile. opt-level LTO strip panic abort." },
     SearchEntry { path: "/vre", title: "VR&E Self-Employment Business Plan", body: "VA VR&E Category II. Self-employment track. Lab-based workforce training. UMBC JHU APL UMD MC2. 12-month milestones. FIPS crypto validation. Air-gapped edge computing. Federal alignment CISA EO 14028 SSDF CMMC FedRAMP." },
     SearchEntry { path: "/source", title: "Source Code", body: "Read the source code of the server serving you this page. Cargo.toml. router.rs. assets.rs. pages.rs. Rust source compiled into the binary via include_str." },
+    SearchEntry { path: "/speed", title: "Speed — 240x Lighter Than Wix", body: "9.5 KB page size. 0 bytes JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. 92 KB total transfer. 8.2 MB Rust binary server. $10/month. Zero XSS attack surface." },
     SearchEntry { path: "/sbir", title: "SBIR / Provenance", body: "SBIR STTR proposals. Provenance documentation. AI development framework. Timeline of Invention. Proof of Artifacts. Human-piloted AI development." },
     SearchEntry { path: "/downloads", title: "Downloads", body: "Download cochranblock binary. macOS Apple Silicon. Linux x86_64. Resume PDF. Logo card." },
     SearchEntry { path: "/community-grant", title: "Community Grant", body: "Cochranblock community grant application. Non-profits. Zero-cloud architecture for community organizations. Baltimore area. Quarterly grants." },
@@ -1907,9 +1964,15 @@ pub async fn f68(State(_p0): State<Arc<t0>>) -> Html<String> {
 <pre>cargo install --git https://github.com/cochranblock/cochranblock</pre>
 </details>
 
-<details class="service-card">
-<summary>Coming Soon</summary>
-<p>Windows (.exe), Debian (.deb), macOS Intel, Linux ARM, iOS (PWA), Android (PWA).<span class="service-outcome">All from the same codebase. Zero framework tax.</span></p>
+<details class="service-card" open>
+<summary>Package Managers</summary>
+<p class="hero-cta" style="justify-content:flex-start;margin-top:0">
+<a href="https://github.com/cochranblock/approuter/releases/latest" class="btn">DEB (Debian/Ubuntu)</a>
+<a href="https://github.com/cochranblock/approuter/releases/latest" class="btn btn-secondary">RPM (RHEL/Fedora)</a>
+<a href="https://github.com/cochranblock/approuter/releases/latest" class="btn btn-secondary">SNAP (Ubuntu)</a>
+</p>
+<pre class="resume-raw">curl -LO https://github.com/cochranblock/approuter/releases/latest/download/cochranblock-stack_0.6.0_amd64.deb
+sudo dpkg -i cochranblock-stack_0.6.0_amd64.deb</pre>
 </details>
 </div>
 

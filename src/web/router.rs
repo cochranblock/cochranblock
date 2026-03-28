@@ -53,6 +53,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/vre", get(pages::f82))
         .route("/source", get(pages::f83))
         .route("/search", get(pages::f84))
+        .route("/speed", get(pages::f85))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/api/stats", get(pages::f73))
