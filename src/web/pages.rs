@@ -917,6 +917,143 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 </div>
 <p class="govdoc-note">Blocker: SAM.gov registration must be active before any SBIR/STTR proposal submission. Call Federal Service Desk (866-606-8220) to check status.</p>
 
+<h2 class="services-section-head" id="sbom">Software Bill of Materials (SBOM)</h2>
+<p class="services-intro">EO 14028 compliant. Every direct dependency, version, and license — known at compile time.</p>
+<div class="service-cards">
+<details class="service-card">
+<summary>cochranblock — 38 direct dependencies</summary>
+<div class="govdoc-print">
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Crate</strong></td><td><strong>Version</strong></td><td><strong>License</strong></td><td><strong>Purpose</strong></td></tr>
+<tr><td>aes-gcm</td><td>0.10.3</td><td>Apache-2.0/MIT</td><td>AES-256-GCM encryption</td></tr>
+<tr><td>approuter-client</td><td>0.2.0</td><td>Unlicense</td><td>Approuter service registration</td></tr>
+<tr><td>argon2</td><td>0.5.3</td><td>MIT/Apache-2.0</td><td>Password hashing (Argon2id)</td></tr>
+<tr><td>axum</td><td>0.7.9</td><td>MIT</td><td>HTTP framework</td></tr>
+<tr><td>axum-extra</td><td>0.9.6</td><td>MIT</td><td>Cookie handling, typed headers</td></tr>
+<tr><td>axum-server</td><td>0.7.3</td><td>MIT</td><td>TLS server</td></tr>
+<tr><td>base64</td><td>0.21.7</td><td>MIT/Apache-2.0</td><td>Encoding</td></tr>
+<tr><td>bincode</td><td>2.0.1</td><td>MIT</td><td>Binary serialization</td></tr>
+<tr><td>chrono</td><td>0.4.44</td><td>MIT/Apache-2.0</td><td>Date/time handling</td></tr>
+<tr><td>chrono-tz</td><td>0.9.0</td><td>MIT/Apache-2.0</td><td>Timezone support</td></tr>
+<tr><td>clap</td><td>4.5.60</td><td>MIT/Apache-2.0</td><td>CLI argument parsing</td></tr>
+<tr><td>dirs</td><td>5.0.1</td><td>MIT/Apache-2.0</td><td>Platform directories</td></tr>
+<tr><td>dotenvy</td><td>0.15.7</td><td>MIT</td><td>Environment file loading</td></tr>
+<tr><td>hkdf</td><td>0.12.4</td><td>MIT/Apache-2.0</td><td>HKDF key derivation</td></tr>
+<tr><td>include_packed</td><td>0.1.5</td><td>MIT</td><td>zstd asset embedding</td></tr>
+<tr><td>lers</td><td>0.4.0</td><td>MIT</td><td>ACME/Let's Encrypt</td></tr>
+<tr><td>mime_guess</td><td>2.0.5</td><td>MIT</td><td>MIME type detection</td></tr>
+<tr><td>open</td><td>5.3.3</td><td>MIT</td><td>Open URLs in browser</td></tr>
+<tr><td>openssl</td><td>0.10.75</td><td>Apache-2.0</td><td>TLS backend</td></tr>
+<tr><td>rand</td><td>0.8.5</td><td>MIT/Apache-2.0</td><td>Random number generation</td></tr>
+<tr><td>rcgen</td><td>0.14.7</td><td>MIT/Apache-2.0</td><td>Certificate generation</td></tr>
+<tr><td>reqwest</td><td>0.11.27</td><td>MIT/Apache-2.0</td><td>HTTP client (webhooks, API)</td></tr>
+<tr><td>rustls</td><td>0.23.37</td><td>Apache-2.0/ISC/MIT</td><td>TLS implementation</td></tr>
+<tr><td>serde</td><td>1.0.228</td><td>MIT/Apache-2.0</td><td>Serialization framework</td></tr>
+<tr><td>serde_json</td><td>1.0.149</td><td>MIT/Apache-2.0</td><td>JSON parsing</td></tr>
+<tr><td>sha2</td><td>0.10.9</td><td>MIT/Apache-2.0</td><td>SHA-256 hashing</td></tr>
+<tr><td>sled</td><td>0.34.7</td><td>MIT/Apache-2.0</td><td>Embedded key-value database</td></tr>
+<tr><td>sqlx</td><td>0.8.6</td><td>MIT/Apache-2.0</td><td>SQLite database (intake forms)</td></tr>
+<tr><td>tempfile</td><td>3.26.0</td><td>MIT/Apache-2.0</td><td>Temporary file handling</td></tr>
+<tr><td>thiserror</td><td>1.0.69</td><td>MIT/Apache-2.0</td><td>Error type derivation</td></tr>
+<tr><td>time</td><td>0.3.47</td><td>MIT/Apache-2.0</td><td>Time formatting</td></tr>
+<tr><td>tokio</td><td>1.49.0</td><td>MIT</td><td>Async runtime</td></tr>
+<tr><td>tower-http</td><td>0.5.2</td><td>MIT</td><td>HTTP middleware (compression, headers)</td></tr>
+<tr><td>tracing</td><td>0.1.44</td><td>MIT</td><td>Structured logging</td></tr>
+<tr><td>tracing-subscriber</td><td>0.3.22</td><td>MIT</td><td>Log output formatting</td></tr>
+<tr><td>urlencoding</td><td>2.1.3</td><td>MIT</td><td>URL encoding</td></tr>
+<tr><td>uuid</td><td>1.21.0</td><td>Apache-2.0/MIT</td><td>UUID generation (lead IDs)</td></tr>
+<tr><td>zstd</td><td>0.13.3</td><td>MIT</td><td>Zstandard compression</td></tr>
+</table>
+</div>
+<p>All dependencies sourced from <a href="https://crates.io">crates.io</a>. Versions pinned in <code>Cargo.lock</code>. Full transitive tree: <code>cargo tree --features approuter</code>. Zero vendored binaries. Zero pre-built shared libraries.</p>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head" id="ssdf">NIST SP 800-218 — Secure Software Development Framework</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>SSDF Compliance Matrix — cochranblock</summary>
+<div class="govdoc-print">
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Task</strong></td><td><strong>Practice</strong></td><td><strong>Implementation</strong></td></tr>
+<tr><td><strong>PS — Prepare</strong></td><td>PS.1 — Define security requirements</td><td>Memory-safe language (Rust) eliminates buffer overflows, use-after-free, data races by construction. Release profile: LTO, strip, panic=abort.</td></tr>
+<tr><td></td><td>PS.2 — Implement roles and responsibilities</td><td>Single maintainer (CODEOWNERS). All code reviewed via git diff before commit. AI-assisted development with human verification (Timeline of Invention).</td></tr>
+<tr><td></td><td>PS.3 — Implement toolchains</td><td>Rust toolchain via rustup. Clippy (linter), cargo build (compiler), cargo tree (dependency audit). No third-party CI — build IS the test.</td></tr>
+<tr><td><strong>PW — Protect</strong></td><td>PW.1 — Design secure software</td><td>Single-binary architecture — no runtime deps, no container escape, no sidecar injection. Crypto: AES-256-GCM, Argon2id, HKDF. TLS via rustls.</td></tr>
+<tr><td></td><td>PW.4 — Reuse secure software</td><td>All deps from crates.io (Rust package registry). Versions pinned in Cargo.lock. SBOM generated from cargo tree. Zero vendored code.</td></tr>
+<tr><td></td><td>PW.5 — Create source code</td><td>Human-piloted AI development. Timeline of Invention documents every decision. Proof of Artifacts proves build output. All source public on GitHub.</td></tr>
+<tr><td></td><td>PW.6 — Configure compilation</td><td>opt-level='s', LTO, codegen-units=1, panic='abort', strip=true. Deterministic builds from Cargo.lock.</td></tr>
+<tr><td></td><td>PW.7 — Review code</td><td>Clippy with -D warnings (treat warnings as errors). All code pushed to public GitHub for community audit.</td></tr>
+<tr><td><strong>RV — Respond</strong></td><td>RV.1 — Identify vulnerabilities</td><td>cargo audit (dependency vulnerability scan). GitHub Dependabot alerts enabled. Public issue tracker.</td></tr>
+<tr><td></td><td>RV.2 — Assess vulnerabilities</td><td>Single maintainer triages all alerts. Rust's type system prevents most memory-safety CVE classes entirely.</td></tr>
+<tr><td></td><td>RV.3 — Address vulnerabilities</td><td>Cargo.lock update + rebuild + deploy. Single binary = single update point. No container layers to rebuild.</td></tr>
+<tr><td><strong>PO — Protect Ops</strong></td><td>PO.1 — Secure deployment</td><td>Binary copied via SCP. No package manager, no container registry, no orchestration. Cloudflare Zero Trust tunnel for internet exposure.</td></tr>
+<tr><td></td><td>PO.2 — Protect release integrity</td><td>Git commit hashes link source to build. Binary stripped but build is reproducible from Cargo.lock + source.</td></tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head" id="cmmc">CMMC Level 1-2 Practices</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>CMMC Domain Mapping — cochranblock</summary>
+<div class="govdoc-print">
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Domain</strong></td><td><strong>Level</strong></td><td><strong>Practice</strong></td><td><strong>Implementation</strong></td></tr>
+<tr><td>AC — Access Control</td><td>L1</td><td>AC.1.001 — Limit system access</td><td>No admin interface exposed. Deploy page uses form submission, not authenticated API. SSH with key-based auth to worker nodes.</td></tr>
+<tr><td></td><td>L1</td><td>AC.1.002 — Limit transactions</td><td>Intake forms rate-limited by Cloudflare. No bulk data export endpoints.</td></tr>
+<tr><td>AU — Audit</td><td>L2</td><td>AU.2.042 — Create audit records</td><td>tracing + tracing-subscriber for structured logging. All HTTP requests logged with method, path, status, latency.</td></tr>
+<tr><td>CM — Config Mgmt</td><td>L2</td><td>CM.2.061 — Establish baselines</td><td>Cargo.lock pins all dependency versions. Release profile codified in Cargo.toml. Single binary = single config baseline.</td></tr>
+<tr><td>IA — Identification</td><td>L1</td><td>IA.1.076 — Identify users</td><td>No user authentication in cochranblock (static site). Intake submissions identified by UUID + email.</td></tr>
+<tr><td>MP — Media Protection</td><td>L1</td><td>MP.1.118 — Sanitize media</td><td>No removable media. All data in embedded sled/SQLite databases. Binary replacement = complete sanitization.</td></tr>
+<tr><td>PE — Physical</td><td>L1</td><td>PE.1.131 — Limit physical access</td><td>Worker nodes in private residence. SSH only via kova-commander key. WoL for remote power management.</td></tr>
+<tr><td>SC — System/Comms</td><td>L1</td><td>SC.1.175 — Monitor communications</td><td>Cloudflare Zero Trust tunnel encrypts all internet traffic. Internal node communication via SSH.</td></tr>
+<tr><td></td><td>L2</td><td>SC.2.179 — Use encrypted sessions</td><td>TLS via rustls for all HTTPS. AES-256-GCM for data at rest. HKDF for key derivation.</td></tr>
+<tr><td>SI — System Integrity</td><td>L1</td><td>SI.1.210 — Identify flaws</td><td>Clippy -D warnings, cargo audit, GitHub Dependabot. Rust type system prevents memory-safety flaws.</td></tr>
+<tr><td></td><td>L2</td><td>SI.2.214 — Monitor inbound traffic</td><td>Cloudflare WAF + DDoS protection. Approuter proxies all inbound requests with logging.</td></tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head" id="security">Security Posture</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>Cryptographic Primitives &amp; Attack Surface</summary>
+<div class="govdoc-print">
+<p><strong>Cryptographic Primitives</strong></p>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Function</strong></td><td><strong>Algorithm</strong></td><td><strong>Crate</strong></td><td><strong>FIPS Status</strong></td></tr>
+<tr><td>Encryption at rest</td><td>AES-256-GCM</td><td>aes-gcm 0.10</td><td>Algorithm approved (FIPS 197/SP 800-38D). Crate not FIPS-validated.</td></tr>
+<tr><td>Password hashing</td><td>Argon2id</td><td>argon2 0.5</td><td>Not FIPS. Exceeds PBKDF2 requirements. Path: swap to FIPS-validated PBKDF2 if required.</td></tr>
+<tr><td>Key derivation</td><td>HKDF-SHA256</td><td>hkdf 0.12</td><td>Algorithm approved (SP 800-56C). Crate not FIPS-validated.</td></tr>
+<tr><td>TLS</td><td>TLS 1.3</td><td>rustls 0.23</td><td>Algorithm approved. Crate in FIPS validation process (Prossimo project).</td></tr>
+<tr><td>Hashing</td><td>SHA-256</td><td>sha2 0.10</td><td>Algorithm approved (FIPS 180-4). Crate not FIPS-validated.</td></tr>
+<tr><td>Random</td><td>ChaCha20</td><td>rand 0.8</td><td>CSPRNG. Not FIPS-validated.</td></tr>
+</table>
+</div>
+
+<p><strong>Attack Surface</strong></p>
+<ul>
+<li><strong>Network exposure:</strong> One port (8081) behind approuter (8080) behind Cloudflare tunnel. No direct internet exposure.</li>
+<li><strong>Input validation:</strong> All form inputs validated server-side. HTML-escaped output prevents XSS. No SQL injection (parameterized queries via sqlx).</li>
+<li><strong>Error handling:</strong> thiserror for typed errors. No stack traces exposed to users. Errors logged via tracing, not displayed.</li>
+<li><strong>Dependencies:</strong> 38 direct deps, all from crates.io. No C dependencies except openssl (system library). No vendored binaries.</li>
+<li><strong>Memory safety:</strong> 100% Rust. No unsafe blocks in application code. Memory-safety CVE classes eliminated by construction.</li>
+<li><strong>Secrets:</strong> No plaintext secrets in source. Environment variables loaded from .env file with restricted permissions.</li>
+</ul>
+</div>
+</details>
+</div>
+
 <h2 class="services-section-head">Cost Analysis</h2>
 <p>For a detailed cost comparison of cloud vs zero-cloud architecture: <a href="/mathskillz">cochranblock.org/mathskillz</a></p>
 
