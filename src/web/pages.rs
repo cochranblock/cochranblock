@@ -470,7 +470,8 @@ pub async fn f77(State(_p0): State<Arc<t0>>) -> Html<String> {
 <h1>Government Documents</h1>
 <p class="services-intro">Everything a procurement officer, contracting specialist, or prime contractor needs. Print or download.</p>
 
-<h2 class="services-section-head">Capability Statement</h2>
+<h2 class="services-section-head" id="capability">Capability Statement</h2>
+<p class="services-intro">Print this page for a clean one-pager. <kbd>Ctrl+P</kbd> / <kbd>⌘P</kbd></p>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>The Cochran Block, LLC — Capability Statement</summary>
@@ -481,30 +482,38 @@ mcochran@cochranblock.org · cochranblock.org<br>
 EIN: 41-3835237</p>
 
 <p><strong>Certifications &amp; Registrations</strong><br>
-SDVOSB — Pending · SAM.gov — Pending Registration · Maryland eMMA — Vendor SUP1095449 · CSB — Certified</p>
+Maryland CSB (Certified Small Business) — <strong>Approved</strong><br>
+SDVOSB (Service-Disabled Veteran-Owned Small Business) — Pending<br>
+SAM.gov — Pending Registration<br>
+Maryland eMMA — Vendor SUP1095449<br>
+CAGE Code — Pending assignment</p>
+
+<p><strong>Core Competencies</strong><br>
+• Memory-safe compiled architecture (Rust) — aligned with CISA Secure-by-Design mandate<br>
+• Zero-cloud single-binary deployment — eliminates cloud attack surface entirely<br>
+• On-device AI inference — no data exfiltration, runs in air-gapped environments<br>
+• DevSecOps binary optimization — 48 KB to 15 MB release binaries with full SBOM<br>
+• Edge computing and IoT integration — LoRa/915MHz mesh, ARM/RISC-V targets</p>
 
 <p><strong>NAICS Codes</strong><br>
 541511 — Custom Computer Programming Services<br>
 541512 — Computer Systems Design Services<br>
 541519 — Other Computer Related Services<br>
+518210 — Computing Infrastructure Providers<br>
 541330 — Engineering Services<br>
 541690 — Other Scientific and Technical Consulting</p>
 
-<p><strong>UNSPSC Codes</strong><br>
-81111500 — Software or Hardware Engineering<br>
-81111600 — Computer Programmers<br>
-81111700 — Management Information Systems (MIS)<br>
-43233500 — Healthcare Industry Software<br>
-43231500 — Business Function Specific Software<br>
-43232400 — Development Software<br>
-81112400 — Machine Learning and AI Services<br>
-43232500 — Artificial Intelligence Software</p>
-
-<p><strong>Core Competencies</strong><br>
-Zero-cloud architecture · Compiled Rust web applications · Edge computing and IoT (LoRa/915MHz) · On-device AI inference · Cybersecurity development · Fractional CTO services · Infrastructure cost reduction (97% savings demonstrated)</p>
+<p><strong>Past Performance</strong><br>
+• <strong>cochranblock.org</strong> — Production website. 15MB binary, $10/month, 14 products, intake forms, booking calendar, community grant app. Self-hosted on bare metal.<br>
+• <strong>oakilydokily.com</strong> — First paying client. Waiver management, digital intake, ESIGN compliance. Bare metal via Cloudflare Zero Trust.<br>
+• <strong>Pixel Forge</strong> — AI sprite generator with on-device diffusion models. 3 MoE models, LoRA fine-tuning. Pure Rust.<br>
+• <strong>USCYBERCOM J38 JMOC-E</strong> — Dev lead for Congressional NDAA-directed offensive cyber operations study.<br>
+• <strong>14 public GitHub repos</strong> — All code auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
 
 <p><strong>Differentiators</strong><br>
-• 15MB single-binary web server replaces $36K/year cloud stacks for $120/year<br>
+• <strong>Unlicense = zero procurement friction</strong> — No ITAR/EAR licensing, no sole-source justification, no vendor lock-in<br>
+• <strong>Single-binary = zero infrastructure</strong> — 15MB replaces $36K/year cloud stacks for $120/year<br>
+• <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
 • 14 open source Rust repos with Proof of Artifacts and Timeline of Invention<br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
 • Army 17C (Cyber Operations), JCAC 2013<br>
