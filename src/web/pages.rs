@@ -153,6 +153,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/codeskillz", "0.8", "weekly"),
         ("/govdocs", "0.8", "monthly"),
         ("/tinybinaries", "0.8", "monthly"),
+        ("/vre", "0.8", "monthly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -212,7 +213,7 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a></div></nav><main id="main" class="content">"##;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a></div></nav><main id="main" class="content">"##;
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Pending Registration · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
@@ -1394,6 +1395,148 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 <p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/codeskillz" class="btn btn-secondary">See All 14 Repos Live</a></p></section>"#;
     Html(format!("{}{}{}{}", f62d("products", "Products | CochranBlock", "14 Rust products. Kova augment engine, Approuter reverse proxy, Rogue Repo payment engine, Pocket Server, Ronin Sites. All Rust. All live."), C7, v0, C8))
+}
+
+/// f82 = serve_vre. Why: Public VR&E Category II self-employment business plan. VA counselor reads it in a browser.
+pub async fn f82(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>VR&amp;E Self-Employment Business Plan</h1>
+<p class="services-intro">Category II — Lab-Based Workforce Training + Self-Employment Track<br>
+Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional Office · March 2026</p>
+
+<h2 class="services-section-head">Executive Summary</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>The Cochran Block, LLC — Who We Are</summary>
+<div class="govdoc-print">
+<p><strong>Veteran:</strong> Michael Cochran · 30% Service-Connected · Army 17C (Cyber Operations) · JCAC 2013<br>
+<strong>Entity:</strong> The Cochran Block, LLC · EIN 41-3835237 · Dundalk, MD 21222<br>
+<strong>Post-9/11 GI Bill:</strong> 23 months remaining (electing P9/11SA for Baltimore BAH)<br>
+<strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Pending · <strong>SAM.gov:</strong> Pending Registration · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
+
+<p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 8.2 MB binary replaces $36,000/year in AWS bills.</p>
+
+<p><strong>The Business Model:</strong> All software released under The Unlicense (public domain). Zero procurement friction — no ITAR/EAR licensing, no sole-source justification, no vendor lock-in. Revenue comes from professional services: implementation consulting ($225/hour), air-gapped DevSecOps architecture, and environment-specific hardening for DoD/IC/federal deployments.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary>Commercial Viability — Live Proof</summary>
+<div class="govdoc-print">
+<p>Every claim below is verifiable by clicking through this site:</p>
+<ul>
+<li><strong><a href="/codeskillz">14 public repositories</a></strong> on GitHub, 12 Unlicense — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
+<li><strong><a href="/codeskillz">30-minute commit tracker</a></strong> — machine-verified continuous development, not self-reported</li>
+<li><strong><a href="/tinybinaries">Binary sizes from 48 KB to 51.5 MB</a></strong> — every binary measured, every claim verified</li>
+<li><strong>First paying client</strong> — <a href="https://oakilydokily.com">oakilydokily.com</a> under active contract</li>
+<li><strong>Production infrastructure:</strong> 4 bare metal Debian nodes, GPU compute (RTX 3070 8GB + RTX 3050 Ti 4GB), automated deployment pipeline</li>
+<li><strong>This site</strong> — <a href="/tinybinaries">8.2 MB Rust binary</a>, <a href="/mathskillz">$10/month infrastructure</a>, zero cloud</li>
+</ul>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head">Services &amp; Training Plan</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Current Service Offerings</summary>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Service</strong></td><td><strong>Rate</strong></td><td><strong>Description</strong></td></tr>
+<tr><td>Exopack Implementation</td><td class="cost-amount cost-new">$225/hr</td><td>Deploy memory-safe CI/CD pipeline in federal environment</td></tr>
+<tr><td>Air-Gapped Architecture</td><td class="cost-amount cost-new">$225/hr</td><td>Configure zero-cloud Rust deployments for SCIF/disconnected networks</td></tr>
+<tr><td>Binary Hardening</td><td class="cost-amount cost-new">$225/hr</td><td>Optimize release binaries (LTO, strip, size profiling) for constrained environments</td></tr>
+<tr><td>Fractional CTO</td><td class="cost-amount cost-new">$3,500/mo</td><td>Ongoing architecture leadership for federal software modernization</td></tr>
+<tr><td>Zero-Cloud Deployment</td><td class="cost-amount cost-new">$3,500 one-time</td><td>Replace cloud infrastructure with single-binary Rust architecture</td></tr>
+</table>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary>Why Lab-Based Workforce Training (Category II)</summary>
+<div class="govdoc-print">
+<p>Federal market entry requires <strong>validated performance data</strong> generated in enterprise-grade computing environments:</p>
+
+<p><strong>1. AI/ML Model Validation at Scale</strong><br>
+Federal procurement officers require performance benchmarks generated on hardware comparable to their deployment targets. University lab environments provide multi-GPU clusters, standardized benchmarking infrastructure, and published results that constitute "past performance by proxy" for SAM.gov proposals.</p>
+
+<p><strong>2. FIPS 140-3 Crypto Validation Environment</strong><br>
+Federal deployments require FIPS-validated cryptographic modules. Transitioning from development-grade crypto to FIPS-certified implementations requires testing against NIST CAVP test vectors on controlled lab equipment.</p>
+
+<p><strong>3. Air-Gapped/Edge Computing Stress Testing</strong><br>
+Government edge deployments (tactical, shipboard, SCIF) operate on resource-constrained hardware without internet. Validation requires isolated network segments, ARM/RISC-V boards matching DoD targets, and 72+ hour sustained load tests.</p>
+</div>
+</details>
+
+<details class="service-card">
+<summary>Candidate Institutions (Baltimore Region)</summary>
+<div class="govdoc-print">
+<p><strong>1. UMBC Center for Applied AI</strong> — GPU clusters, AI research focus, DoD-adjacent faculty<br>
+<strong>2. Johns Hopkins Applied Physics Laboratory</strong> — Federal research heritage, security clearance infrastructure<br>
+<strong>3. University of Maryland, College Park — Maryland Cybersecurity Center (MC2)</strong> — NIST partnership, FIPS expertise</p>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head">Proof of Discipline</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Machine-Verified Productivity</summary>
+<div class="govdoc-print">
+<p>The Veteran maintains a custom-built dashboard that tracks and verifies continuous Git commits at 30-minute intervals across all 14 active repositories:</p>
+<ul>
+<li><strong><a href="/codeskillz">30-minute commit tracker →</a></strong> Objective evidence of sustained productivity — machine-verified, not self-reported</li>
+<li><strong><a href="https://github.com/cochranblock">Public audit trail →</a></strong> Every commit timestamped, hashed, and published to GitHub</li>
+<li><strong><a href="/tinybinaries">Binary size leaderboard →</a></strong> Every product measured — 48 KB to 51.5 MB</li>
+<li><strong>Proof of Artifacts</strong> — Each repo maintains verifiable build metrics, test results, and binary sizes</li>
+<li><strong>Timeline of Invention</strong> — Dated, hash-verified commit history establishing IP provenance</li>
+</ul>
+<p>This documentation rigor exceeds standard industry practice and demonstrates the discipline, consistency, and technical capability required for successful self-employment under VR&amp;E Category II.</p>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head">12-Month Milestones</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Milestone</strong></td><td><strong>Timeline</strong></td><td><strong>Deliverable</strong></td></tr>
+<tr><td>Lab environment access established</td><td class="bid-date">Month 1</td><td>Signed MOU with institution</td></tr>
+<tr><td>AI benchmarks published</td><td class="bid-date">Month 3</td><td>Citable performance report</td></tr>
+<tr><td>FIPS crypto validation path documented</td><td class="bid-date">Month 6</td><td>CAVP test vector results</td></tr>
+<tr><td>Air-gapped deployment validated</td><td class="bid-date">Month 6</td><td>Edge computing reference architecture</td></tr>
+<tr><td>First SBIR/STTR proposal submitted</td><td class="bid-date">Month 9</td><td>Technical volume with lab-validated data</td></tr>
+<tr><td>First federal contract awarded or in negotiation</td><td class="bid-date">Month 12</td><td>SAM.gov contract action</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">Federal Alignment</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Compliance and Market Fit</summary>
+<div class="govdoc-print">
+<p><strong>CISA "Secure by Design" (2024-2026):</strong> Mandates memory-safe languages for all new federal software. Rust is the only compiled systems language on CISA's recommended list. Every Cochran Block product is 100% Rust.<br><br>
+<strong>EO 14028 SBOM Requirements:</strong> Cochran Block ships machine-readable Software Bills of Materials with every release. Complete dependency tree known at compile time.<br><br>
+<strong>NIST SP 800-218 (SSDF):</strong> Development practices mapped to all four task areas — Prepare (PS), Protect Software (PW), Respond to Vulnerabilities (RV), Protect Operations (PO).<br><br>
+<strong>CMMC Level 1-2:</strong> Compliance documentation maintained per-project in standardized <code>govdocs/</code> directories.<br><br>
+<strong>FedRAMP:</strong> On-premises deployment model eliminates cloud authorization boundary complexity entirely. No cloud = no FedRAMP boundary = faster ATO.</p>
+</div>
+</details>
+</div>
+
+<h2 class="services-section-head">Cross-References</h2>
+<p class="services-cta">
+<a href="/products" class="btn btn-secondary">All Products</a>
+<a href="/services" class="btn btn-secondary">Pricing</a>
+<a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a>
+<a href="/codeskillz" class="btn btn-secondary">Commit Tracker</a>
+<a href="/govdocs" class="btn btn-secondary">Gov Documents</a>
+<a href="/mathskillz" class="btn btn-secondary">Cost Analysis</a>
+<a href="/deploy" class="btn">Start a Project</a>
+</p>
+
+<p class="govdoc-note">This page is the business plan. Every claim links to live proof on this site or public GitHub repositories. A VA counselor can verify everything by clicking through. For the printable version: <a href="/assets/resume.pdf">Resume (PDF)</a> · <a href="mailto:mcochran@cochranblock.org?subject=VR%26E%20Business%20Plan">Email for full documentation package</a></p>
+</section>"#;
+    Html(format!("{}{}{}{}", f62d("vre", "VR&E Self-Employment Business Plan | CochranBlock", "VA VR&amp;E Category II self-employment business plan. Memory-safe Rust architecture for federal agencies. Every claim verifiable from live production systems."), C7, v0, C8))
 }
 
 /// f81 = serve_tinybinaries. Why: Prove the binary size claims with real data.
