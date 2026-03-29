@@ -27,6 +27,37 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+pre, code, .code-block {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+pre {
+  background: rgba(5, 5, 12, 0.9);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: rgba(0, 217, 255, 0.85);
+}
+
+@media (max-width: 768px) {
+  pre {
+    font-size: 0.68rem;
+    padding: 0.75rem;
+  }
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
 /* Skip link — visible on focus for keyboard users */
 .skip-link {
   position: absolute;
