@@ -15,6 +15,7 @@ fn t15_get(p0: &str) -> Option<Vec<u8>> {
         "js/booking.js" => include_packed!("assets/js/booking.js"),
         "js/calendar.js" => include_packed!("assets/js/calendar.js"),
         "js/main.js" => include_packed!("assets/js/main.js"),
+        "js/sw.js" => include_packed!("assets/js/sw.js"),
         "favicon.svg" => include_packed!("assets/favicon.svg"),
         "cochranblock-logo.svg" => include_packed!("assets/cochranblock-logo.svg"),
         "cochranblock-hero-logo.svg" => include_packed!("assets/cochranblock-hero-logo.svg"),

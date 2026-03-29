@@ -58,6 +58,10 @@ pub fn f1(p0: t0) -> Router {
         .route("/health", get(pages::f10))
         .route("/api/stats", get(pages::f73))
         .route("/api/velocity", get(pages::f75))
+        .route("/sw.js", get(|| async {
+            ([(axum::http::header::CONTENT_TYPE, "application/javascript; charset=utf-8")],
+             include_packed::include_packed!("assets/js/sw.js"))
+        }))
         .route("/robots.txt", get(pages::f69))
         .route("/llms.txt", get(pages::f78))
         .route("/humans.txt", get(pages::f80))
