@@ -958,6 +958,50 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 </div>
 <p class="govdoc-note">SAM.gov UEI assigned (W7X3HAQL9CF9), registration pending. Cannot submit SBIR/STTR proposals until SAM.gov registration is fully approved. CAGE code pending via DLA.</p>
 
+<h2 class="services-section-head" id="faq">Architecture &amp; Compliance FAQ</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Q: Who owns the IP, and how do you handle Data Rights?</summary>
+<div class="govdoc-print">
+<p>Zero vendor lock-in. All core code is Unlicense (public domain). Government or Prime owns their deployment 100%. No recurring licensing. No proprietary runtime. No vendor dependency.</p>
+<p>Every repo ships with a <strong>Timeline of Invention</strong> (TOI) and <strong>Proof of Artifacts</strong> (PoA) providing commit-level AI provenance documentation. This eliminates accidental copyright infringement risks from AI-generated code — every human decision and AI contribution is documented, dated, and hash-verified.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary>Q: Who handles sustainment, patching, and DevOps?</summary>
+<div class="govdoc-print">
+<p><strong>No DevOps team required.</strong> We replace Kubernetes clusters and microservices with single, memory-safe, statically linked Rust binaries — often under 50 KB. No dependency chains to patch. No container images to rebuild. No orchestration layer to manage.</p>
+<p>Patching = rebuild the binary from pinned Cargo.lock + SCP to the server. If the hardware has power, the binary runs. Total sustainment burden: one file.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary>Q: How does this survive DoD Authority to Operate (ATO) audits?</summary>
+<div class="govdoc-print">
+<p>Modern ATO delays are caused by bloated attack surfaces — cloud supply chains, Docker vulnerabilities, exposed Node/Python runtimes, 500+ transitive dependencies with unknown provenance.</p>
+<p>Our architecture <strong>eliminates that attack surface</strong>:</p>
+<ul>
+<li>Zero cloud supply chain — no AWS, no Azure, no GCP dependency</li>
+<li>Zero unnecessary open ports — one binary, one port, behind Cloudflare Zero Trust</li>
+<li>Zero interpreted runtimes — compiled Rust, memory-safe by construction</li>
+<li>Complete SBOM at compile time — every dependency pinned and auditable</li>
+<li>NIST SP 800-218 (SSDF) compliance documented — see SSDF matrix below</li>
+</ul>
+<p>Built by a former <strong>USCYBERCOM J38 JMOC-E offensive cyber operations dev lead</strong>. The architecture was designed to survive the audits, not to pass them after the fact.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary>Q: Is your operation DCAA compliant for SBIR Phase II/III or Prime subcontracts?</summary>
+<div class="govdoc-print">
+<p><strong>Radical financial transparency.</strong> The <a href="/openbooks">Open Books</a> page calculates IR&amp;D hours and value in real-time from GitHub commit timestamps. Every hour is machine-verified, not self-reported. The methodology is public. The data is auditable.</p>
+<p>IR&amp;D costs documented per FAR 31.205-18. AI tooling costs separately trackable as materials under FAR 31.205-26. Founder hours valued at published $225/hr rate.</p>
+<p>This is continuously auditable by design — not DCAA-compliant because we hired an accountant, but because the entire operation is transparent by architecture.</p>
+</div>
+</details>
+</div>
+
 <h2 class="services-section-head" id="sbom">Software Bill of Materials (SBOM)</h2>
 <p class="services-intro">EO 14028 compliant. Every direct dependency, version, and license — known at compile time.</p>
 <div class="service-cards">
