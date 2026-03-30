@@ -2044,7 +2044,9 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>All others</td><td class="cost-amount">1.0x</td></tr>
 </table></div>
 <p><strong>Rate:</strong> $225/hour — consistent with <a href="/services">published rate card</a>.</p>
-<p><strong>DCAA relevance:</strong> IR&amp;D (Independent Research &amp; Development) costs are allowable under FAR 31.205-18 when properly documented. This page provides the audit trail.</p>
+<p><strong>AI-accelerated, human-directed:</strong> All development uses AI tooling (Claude Opus, Kova, Cursor) as force multipliers — the same way a carpenter uses a nail gun instead of a hammer. The human directs every decision, verifies every output, and ships working software. The AI is the tool. The $225/hour rate is for the human. The hours above are human hours at the keyboard producing 3–5x the output of unassisted development. Each repo's <code>TIMELINE_OF_INVENTION.md</code> documents what the AI generated vs. what the human directed.</p>
+
+<p><strong>DCAA relevance:</strong> IR&amp;D (Independent Research &amp; Development) costs are allowable under FAR 31.205-18 when properly documented. This page provides the audit trail. AI tooling costs (API subscriptions) are separately trackable as materials under FAR 31.205-26.</p>
 </div>
 </details>
 </div>
