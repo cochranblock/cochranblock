@@ -545,7 +545,8 @@ CAGE Code — Pending assignment</p>
 • Zero-cloud single-binary deployment — eliminates cloud attack surface entirely<br>
 • On-device AI inference — no data exfiltration, runs in air-gapped environments<br>
 • DevSecOps binary optimization — 48 KB to 15 MB release binaries with full SBOM<br>
-• Edge computing and IoT integration — LoRa/915MHz mesh, ARM/RISC-V targets</p>
+• Edge computing and IoT integration — LoRa/915MHz mesh, ARM/RISC-V targets<br>
+• Autonomous threat detection — 312 KB APT hunter, zero-config deployment</p>
 
 <p><strong>NAICS Codes</strong><br>
 541511 — Custom Computer Programming Services<br>
@@ -1646,6 +1647,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p class="products-category-desc">Free. Copy-left. Use it, fork it, ship it. We build in the open.</p>
 <div class="product-cards">
 <article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/pixel-forge/releases" rel="noopener noreferrer"><img src="/assets/img/pixel-forge.png" alt="Pixel Forge" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/pixel-forge/releases" rel="noopener noreferrer">Pixel Forge</a></h2><p>Free pixel art generator. Three on-device diffusion models (Cinder 4.2 MB / Quench 22 MB / Anvil 64 MB) generate, judge, and arrange 16&times;16 sprites into game scenes. MoE cascade, LoRA fine-tuning, scene builder. No cloud. No subscription. Pure Rust.</p><p class="hero-cta" style="justify-content:flex-start;margin-top:0.75rem"><a href="https://github.com/cochranblock/pixel-forge/releases" class="btn" style="font-size:0.8rem">Download APK</a><span style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.75rem;margin-left:0.5rem">Google Play — coming soon</span></p></article>
+<article class="product-card"><span class="product-badge">New</span><a href="https://github.com/cochranblock/aptnomo" rel="noopener noreferrer"><img src="/assets/img/aptnomo.png" alt="aptnomo" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/aptnomo" rel="noopener noreferrer">aptnomo</a></h2><p>312 KB autonomous APT threat hunter. Scans for persistence, rootkits, suspicious processes, network anomalies, log tampering. Auto-kills cryptominers and reverse shells. Zero config. Drop it on a machine and forget it.</p></article>
 <article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer"><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer">Kova</a></h2><p>Augment engine. AI Bending — human directs, AI executes. Local LLM, egui GUI, agent loop with tool use. The brain behind everything we ship.</p></article>
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/illbethejudgeofthat" rel="noopener noreferrer">illbethejudgeofthat</a></h2><p>Pro se custody case builder. Google Takeout to court-ready exhibit book + filled forms in one evening. Built by a father who needed it.</p></article>
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/approuter" rel="noopener noreferrer">approuter</a></h2><p>Reverse proxy. All products behind one entry point. Cloudflare tunnel integration. Zero-config service registration.</p></article>
@@ -1768,7 +1770,7 @@ struct SearchEntry {
 const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/", title: "Home", body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 14 open source repos." },
     SearchEntry { path: "/services", title: "Services & Pricing", body: "Fractional CTO services. $225/hour consulting. $3,500 base deployment. $3,500/month retainer. Zero-cloud architecture. Binary hardening. Air-gapped deployment." },
-    SearchEntry { path: "/products", title: "Products", body: "14 Rust products. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework." },
+    SearchEntry { path: "/products", title: "Products", body: "16 Rust products. aptnomo 312 KB APT threat hunter. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework." },
     SearchEntry { path: "/deploy", title: "Deploy — Start a Project", body: "Zero-cloud tech intake form. Deploy a single Rust binary. Replace your cloud infrastructure. $3,500 one-time deployment. Contact us to start." },
     SearchEntry { path: "/about", title: "About CochranBlock", body: "Michael Cochran. Army 17C Cyber Operations. JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead. SDVOSB pending. LLC formed to production in under 30 days." },
     SearchEntry { path: "/contact", title: "Contact", body: "Email mcochran@cochranblock.org. Book a 30-minute discovery call. LinkedIn. Responds within 24-48 hours." },
@@ -2001,15 +2003,16 @@ pub async fn f81(State(_p0): State<Arc<t0>>) -> Html<String> {
 <table class="cost-table">
 <tr><td><strong>#</strong></td><td><strong>Project</strong></td><td><strong>Binary Size</strong></td><td><strong>Notes</strong></td></tr>
 <tr><td>1</td><td><a href="https://github.com/cochranblock/call-shield">call-shield</a></td><td class="cost-amount cost-new">48 KB</td><td>Zero deps, on-device call screening</td></tr>
-<tr><td>2</td><td><a href="https://github.com/cochranblock/exopack">exopack</a></td><td class="cost-amount cost-new">313 KB</td><td>Test framework — zero external test deps</td></tr>
-<tr><td>3</td><td><a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a></td><td class="cost-amount cost-new">328 KB</td><td>Docs + validation tooling</td></tr>
-<tr><td>4</td><td><a href="https://github.com/cochranblock/whyyoulying">whyyoulying</a></td><td class="cost-amount cost-new">505 KB</td><td>Fraud detection engine</td></tr>
-<tr><td>5</td><td><a href="https://github.com/cochranblock/pocket-server">pocket-server</a></td><td class="cost-amount cost-new">1.01 MB</td><td>Static site server — your site on your phone</td></tr>
-<tr><td>6</td><td><a href="https://github.com/cochranblock/illbethejudgeofthat">illbethejudgeofthat</a></td><td class="cost-amount cost-new">2.5 MB</td><td>Legal form builder + exhibit book</td></tr>
-<tr><td>7</td><td><a href="https://github.com/cochranblock/ronin-sites">ronin-sites</a></td><td class="cost-amount">4.0 MB</td><td>Multi-tenant shop platform</td></tr>
-<tr><td>8</td><td><a href="https://github.com/cochranblock/cochranblock">cochranblock</a></td><td class="cost-amount cost-new">8.4 MB</td><td>This site — right now, serving this page</td></tr>
-<tr><td>9</td><td><a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a></td><td class="cost-amount">9.2 MB</td><td>AI sprite generator + diffusion models</td></tr>
-<tr><td>10</td><td><a href="https://github.com/cochranblock/kova">kova</a></td><td class="cost-amount">~51.5 MB</td><td>Augment engine + local LLM inference</td></tr>
+<tr><td>2</td><td><a href="https://github.com/cochranblock/aptnomo">aptnomo</a></td><td class="cost-amount cost-new">312 KB</td><td>Autonomous APT threat hunter — auto-kills cryptominers</td></tr>
+<tr><td>3</td><td><a href="https://github.com/cochranblock/exopack">exopack</a></td><td class="cost-amount cost-new">313 KB</td><td>Test framework — zero external test deps</td></tr>
+<tr><td>4</td><td><a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a></td><td class="cost-amount cost-new">328 KB</td><td>Docs + validation tooling</td></tr>
+<tr><td>5</td><td><a href="https://github.com/cochranblock/whyyoulying">whyyoulying</a></td><td class="cost-amount cost-new">505 KB</td><td>Fraud detection engine</td></tr>
+<tr><td>6</td><td><a href="https://github.com/cochranblock/pocket-server">pocket-server</a></td><td class="cost-amount cost-new">1.01 MB</td><td>Static site server — your site on your phone</td></tr>
+<tr><td>7</td><td><a href="https://github.com/cochranblock/illbethejudgeofthat">illbethejudgeofthat</a></td><td class="cost-amount cost-new">2.5 MB</td><td>Legal form builder + exhibit book</td></tr>
+<tr><td>8</td><td><a href="https://github.com/cochranblock/ronin-sites">ronin-sites</a></td><td class="cost-amount">4.0 MB</td><td>Multi-tenant shop platform</td></tr>
+<tr><td>9</td><td><a href="https://github.com/cochranblock/cochranblock">cochranblock</a></td><td class="cost-amount cost-new">8.4 MB</td><td>This site — right now, serving this page</td></tr>
+<tr><td>10</td><td><a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a></td><td class="cost-amount">9.2 MB</td><td>AI sprite generator + diffusion models</td></tr>
+<tr><td>11</td><td><a href="https://github.com/cochranblock/kova">kova</a></td><td class="cost-amount">~51.5 MB</td><td>Augment engine + local LLM inference</td></tr>
 </table>
 </div>
 
@@ -2189,7 +2192,7 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
         ("cochranblock", 1.5), ("approuter", 1.5), ("rogue-repo", 1.5),
         ("oakilydokily", 1.0), ("illbethejudgeofthat", 1.0), ("exopack", 1.0),
         ("whyyoulying", 1.0), ("pocket-server", 1.0), ("wowasticker", 1.0),
-        ("provenance-docs", 1.0), ("call-shield", 1.0),
+        ("provenance-docs", 1.0), ("call-shield", 1.0), ("aptnomo", 1.5),
     ];
 
     let client = reqwest::Client::builder()
