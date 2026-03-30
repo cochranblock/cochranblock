@@ -280,6 +280,13 @@ Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
 <summary>14 open source repos as proof</summary>
 <p>Every repo at <a href="https://github.com/cochranblock">github.com/cochranblock</a> ships with Proof of Artifacts and a Timeline of Invention. Wire diagrams, screenshots, build output, commit-level history. You can verify my work before we ever talk.<span class="service-outcome">Talk is cheap. Code ships.</span></p>
 </details>
+<details class="service-card" open>
+<summary>Same-day rebrands</summary>
+<p>Most agencies quote 3–6 months for a rebrand. We do it in hours. cochranblock.org has been through <strong>7 major rebrands in 2 months</strong> — logo, messaging, page structure, visual identity, federal compliance pivot. Each one was same-day turnaround. No designers. No agencies. No Figma. No staging servers.</p>
+<p>Because the site is a compiled binary, not a WordPress theme — changing the brand is changing the code, and the code deploys in seconds. One <code>git push</code>, one build, one binary copy, live.</p>
+<p><strong>The numbers:</strong> 7 rebrands · 2 months · 22+ pages · 1 person · 1 binary (8.4 MB ARM) · $10/month infrastructure · average rebrand time: under 4 hours from concept to production.</p>
+<p><span class="service-outcome">Your agency charges $50K for a rebrand. We charge one afternoon.</span></p>
+</details>
 </div>
 
 <p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call First</a></p>
