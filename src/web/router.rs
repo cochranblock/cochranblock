@@ -67,6 +67,8 @@ pub fn f1(p0: t0) -> Router {
         }))
         .route("/robots.txt", get(pages::f69))
         .route("/llms.txt", get(pages::f78))
+        .route("/llms-full.txt", get(pages::f88))
+        .route("/api/summary", get(pages::f89))
         .route("/humans.txt", get(pages::f80))
         .route("/.well-known/security.txt", get(pages::f79))
         .route("/cochranblock-indexnow-key.txt", get(|| async { "cochranblock-indexnow-key" }))

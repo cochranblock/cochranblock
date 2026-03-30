@@ -33,7 +33,7 @@ pub async fn f69(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     (
         axum::http::StatusCode::OK,
         [(axum::http::header::CONTENT_TYPE, "text/plain; charset=utf-8")],
-        "User-agent: *\nAllow: /\nSitemap: https://cochranblock.org/sitemap.xml\n",
+        "User-agent: *\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: anthropic-ai\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nUser-agent: Bingbot\nAllow: /\n\nSitemap: https://cochranblock.org/sitemap.xml\n",
     )
 }
 
@@ -161,6 +161,8 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
+        ("/search", "0.5", "monthly"),
+        ("/community-grant", "0.7", "monthly"),
     ];
     let mut xml = String::from(r#"<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">"#);
     for (path, priority, changefreq) in urls {
@@ -2269,6 +2271,61 @@ pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         [(axum::http::header::CONTENT_TYPE, "application/json"),
          (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
         json,
+    )
+}
+
+/// f88 = llms_full_txt. Why: Full site content for AI ingestion in one request.
+pub async fn f88(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "text/plain; charset=utf-8")],
+        r#"# CochranBlock — Full Site Content
+> For AI crawlers. All page content in one file.
+
+## Home (/)
+Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 15MB Rust binary. $10/month. 14 open source repos. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
+
+## Services (/services)
+$225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. Zero lock-in — all code delivered under the Unlicense. Same-day rebrands: 7 rebrands in 2 months, under 4 hours each.
+
+## Products (/products)
+14 Rust products: Kova (augment engine, local LLM, agent loop), Pixel Forge (AI sprite generator, 3 diffusion models), Approuter (reverse proxy, Cloudflare tunnel), Rogue Repo (ISO 8583 payment engine), Ronin Sites (artist/shop platform), Pocket Server (phone-hosted website), OakilyDokily (waiver management, ESIGN), Ghost Fabric (LoRa mesh, edge AI), Call Shield (on-device call screening), Exopack (test framework), WhyYouLying (fraud detection), IllBeTheJudgeOfThat (legal case builder), Provenance Docs (AI dev documentation framework), Wowasticker (offline dictation app).
+
+## About (/about)
+Michael Cochran. Army 17C Cyber Operations, JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 14 repos open-sourced, first partnership signed — all in under 30 days.
+
+The Trifecta: 1) Can't outprice free — Unlicense, public domain. 2) Can't out-transparent public domain — source, bugs, IR&D audit all public. 3) Expertise is inherent — code IS the resume.
+
+The Method: Custom architecture (Rust diffusion models from scratch), our own hardware (RTX 3070/3050 Ti laptops), real debugging (tensor-level math fixes), ships on a phone (10 MB offline), 15 projects one person, AI-augmented not AI-dependent.
+
+## Speed (/speed)
+cochranblock.org homepage: 9.5 KB, 0 JavaScript, 92 KB total transfer. Wix: 2,287 KB (240x heavier), 69 script tags. Squarespace: 618 KB (65x). WordPress: 321 KB (34x). Server: 8.4 MB Rust binary. Monthly cost: $10.
+
+## Tiny Binaries (/tinybinaries)
+Binary sizes: call-shield 48 KB, exopack 313 KB, provenance-docs 328 KB, whyyoulying 505 KB, pocket-server 1.01 MB, illbethejudgeofthat 2.5 MB, ronin-sites 4.0 MB, cochranblock 8.4 MB, pixel-forge 9.2 MB, kova 51.5 MB. All ARM aarch64 release builds.
+
+## Open Books (/openbooks)
+Live IR&D audit from GitHub commit timestamps. Hours calculated from work sessions (commits within 2hr window, min 1hr each). Complexity multipliers per repo. Rate: $225/hour. Machine-verified, not self-reported. FAR 31.205-18 IR&D documentation.
+
+## Government Documents (/govdocs)
+Capability statement, NAICS codes (541511, 541512, 541519, 518210, 541330, 541690), SBOM (38 direct deps), SSDF compliance matrix (NIST SP 800-218), CMMC Level 1-2 practices, security posture (AES-256-GCM, Argon2id, HKDF, rustls), SBIR technical approaches for 11 federal agencies, upcoming bids tracker, Architecture & Compliance FAQ. CSB approved. SDVOSB pending. SAM.gov UEI W7X3HAQL9CF9 (pending). eMMA SUP1095449.
+
+## VR&E (/vre)
+VA VR&E Category II self-employment business plan. Lab-based workforce training justification. Candidate institutions: UMBC, JHU APL, UMD MC2. 12-month milestones. Federal alignment: CISA, EO 14028, SSDF, CMMC, FedRAMP.
+
+## Contact
+Email: mcochran@cochranblock.org. Book a call: cochranblock.org/book. GitHub: github.com/cochranblock. LinkedIn: linkedin.com/in/cochranblock.
+"#,
+    )
+}
+
+/// f89 = api_summary. Why: Machine-readable company summary for AI agents.
+pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "application/json"),
+         (axum::http::header::CACHE_CONTROL, "public, max-age=3600")],
+        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"uei_assigned_pending","naics":["541511","541512","541519","518210","541330","541690"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":14,"repos":14,"unlicense_repos":12,"binary_size_arm":"8.4MB","binary_size_x86":"15MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","key_pages":["/","/services","/products","/about","/govdocs","/tinybinaries","/speed","/openbooks","/source","/vre","/codeskillz","/mathskillz"]}"#,
     )
 }
 
