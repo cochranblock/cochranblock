@@ -222,7 +222,7 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.2MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Unlicense Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/speed" class="btn btn-secondary">240x Lighter</a></p></section>"#;
+    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.4MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Open Source Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/speed" class="btn btn-secondary">240x Lighter</a></p></section>"#;
     Html(format!("{}{}{}{}{}", f62d("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect", "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 15MB Rust binary. $10/month. 14 open source repos. Veteran-owned."), JSON_LD_FAQ, C7, v0, C8))
 }
 
@@ -390,7 +390,7 @@ That means I don't need to upsell you, I don't need to raise prices, and I don't
 <details class="service-card">
 <summary>Single binary architecture</summary>
 <p>
-Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 15MB on x86, 8.2MB on ARM. Deploy: copy it to a server and run it.<br>
+Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 15MB on x86, 8.4MB on ARM. Deploy: copy it to a server and run it.<br>
 <span class="service-outcome">cochranblock.org is that binary. Intake forms, SQLite, booking calendar, community grants — one process, one file.</span>
 </p>
 </details>
@@ -1598,7 +1598,7 @@ pub async fn f83(State(_p0): State<Arc<t0>>) -> Html<String> {
 pub async fn f85(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Speed</h1>
-<p class="services-intro">Your landing page is 240x heavier than this one. cochranblock.org delivers the same content in 9.5 KB with zero JavaScript. The entire server is an 8.2 MB binary running on a laptop.</p>
+<p class="services-intro">Your landing page is 240x heavier than this one. cochranblock.org delivers the same content in 9.5 KB with zero JavaScript. The entire server is an 8.4 MB binary running on a laptop.</p>
 
 <h2 class="services-section-head">cochranblock.org vs The Industry</h2>
 <div class="cost-summary">
@@ -1609,7 +1609,7 @@ pub async fn f85(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>JavaScript</td><td class="cost-amount cost-new">0 bytes</td><td class="cost-amount cost-old">69 script tags</td><td class="cost-amount cost-old">~20 scripts</td><td class="cost-amount cost-old">~15 scripts</td></tr>
 <tr><td>Total Transfer</td><td class="cost-amount cost-new">~92 KB</td><td class="cost-amount cost-old">~2.3 MB</td><td class="cost-amount cost-old">~618 KB</td><td class="cost-amount cost-old">~321 KB</td></tr>
 <tr><td>TTFB</td><td class="cost-amount">75ms</td><td class="cost-amount">58ms</td><td class="cost-amount">47ms</td><td class="cost-amount">64ms</td></tr>
-<tr><td>Server</td><td class="cost-amount cost-new">8.2 MB Rust binary</td><td>Cloud cluster</td><td>Cloud cluster</td><td>Cloud + PHP</td></tr>
+<tr><td>Server</td><td class="cost-amount cost-new">8.4 MB Rust binary</td><td>Cloud cluster</td><td>Cloud cluster</td><td>Cloud + PHP</td></tr>
 <tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">$16–49</td><td class="cost-amount cost-old">$16–49</td><td class="cost-amount cost-old">$4–45</td></tr>
 </table>
 </div>
@@ -1646,7 +1646,7 @@ curl -s -o /dev/null -w "%{size_download}" https://wix.com/</pre>
 
 <p class="services-cta"><a href="/tinybinaries" class="btn">Binary Size Leaderboard</a><a href="/mathskillz" class="btn btn-secondary">Full Cost Analysis</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a></p>
 </section>"#;
-    Html(format!("{}{}{}{}", f62d("speed", "Speed — 240x Lighter Than Wix | CochranBlock", "cochranblock.org delivers its homepage in 9.5 KB with zero JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. The server is an 8.2 MB Rust binary."), C7, v0, C8))
+    Html(format!("{}{}{}{}", f62d("speed", "Speed — 240x Lighter Than Wix | CochranBlock", "cochranblock.org delivers its homepage in 9.5 KB with zero JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. The server is an 8.4 MB Rust binary."), C7, v0, C8))
 }
 
 /// Search index entry — baked at compile time, searched at runtime.
@@ -1670,7 +1670,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/tinybinaries", title: "Tiny Binaries — Binary Size Leaderboard", body: "Binary size leaderboard. 48 KB to 51.5 MB. call-shield exopack provenance-docs whyyoulying pocket-server cochranblock pixel-forge kova. KB per function efficiency. Build profile. opt-level LTO strip panic abort." },
     SearchEntry { path: "/vre", title: "VR&E Self-Employment Business Plan", body: "VA VR&E Category II. Self-employment track. Lab-based workforce training. UMBC JHU APL UMD MC2. 12-month milestones. FIPS crypto validation. Air-gapped edge computing. Federal alignment CISA EO 14028 SSDF CMMC FedRAMP." },
     SearchEntry { path: "/source", title: "Source Code", body: "Read the source code of the server serving you this page. Cargo.toml. router.rs. assets.rs. pages.rs. Rust source compiled into the binary via include_str." },
-    SearchEntry { path: "/speed", title: "Speed — 240x Lighter Than Wix", body: "9.5 KB page size. 0 bytes JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. 92 KB total transfer. 8.2 MB Rust binary server. $10/month. Zero XSS attack surface." },
+    SearchEntry { path: "/speed", title: "Speed — 240x Lighter Than Wix", body: "9.5 KB page size. 0 bytes JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. 92 KB total transfer. 8.4 MB Rust binary server. $10/month. Zero XSS attack surface." },
     SearchEntry { path: "/sbir", title: "SBIR / Provenance", body: "SBIR STTR proposals. Provenance documentation. AI development framework. Timeline of Invention. Proof of Artifacts. Human-piloted AI development." },
     SearchEntry { path: "/downloads", title: "Downloads", body: "Download cochranblock binary. macOS Apple Silicon. Linux x86_64. Resume PDF. Logo card." },
     SearchEntry { path: "/community-grant", title: "Community Grant", body: "Cochranblock community grant application. Non-profits. Zero-cloud architecture for community organizations. Baltimore area. Quarterly grants." },
@@ -1754,7 +1754,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <strong>Post-9/11 GI Bill:</strong> 23 months remaining (electing P9/11SA for Baltimore BAH)<br>
 <strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Pending · <strong>SAM.gov:</strong> UEI Assigned (W7X3HAQL9CF9), Registration Pending · <strong>CAGE:</strong> Pending · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
 
-<p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 8.2 MB binary replaces $36,000/year in AWS bills.</p>
+<p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 8.4 MB binary replaces $36,000/year in AWS bills.</p>
 
 <p><strong>The Business Model:</strong> All software released under The Unlicense (public domain). Zero procurement friction — no ITAR/EAR licensing, no sole-source justification, no vendor lock-in. Revenue comes from professional services: implementation consulting ($225/hour), air-gapped DevSecOps architecture, and environment-specific hardening for DoD/IC/federal deployments.</p>
 </div>
@@ -1770,7 +1770,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <li><strong><a href="/tinybinaries">Binary sizes from 48 KB to 51.5 MB</a></strong> — every binary measured, every claim verified</li>
 <li><strong>First paying client</strong> — <a href="https://oakilydokily.com">oakilydokily.com</a> under active contract</li>
 <li><strong>Production infrastructure:</strong> 4 bare metal Debian nodes, GPU compute (RTX 3070 8GB + RTX 3050 Ti 4GB), automated deployment pipeline</li>
-<li><strong>This site</strong> — <a href="/tinybinaries">8.2 MB Rust binary</a>, <a href="/mathskillz">$10/month infrastructure</a>, zero cloud</li>
+<li><strong>This site</strong> — <a href="/tinybinaries">8.4 MB Rust binary</a>, <a href="/mathskillz">$10/month infrastructure</a>, zero cloud</li>
 </ul>
 </div>
 </details>
@@ -1897,7 +1897,7 @@ pub async fn f81(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>5</td><td><a href="https://github.com/cochranblock/pocket-server">pocket-server</a></td><td class="cost-amount cost-new">1.01 MB</td><td>Static site server — your site on your phone</td></tr>
 <tr><td>6</td><td><a href="https://github.com/cochranblock/illbethejudgeofthat">illbethejudgeofthat</a></td><td class="cost-amount cost-new">2.5 MB</td><td>Legal form builder + exhibit book</td></tr>
 <tr><td>7</td><td><a href="https://github.com/cochranblock/ronin-sites">ronin-sites</a></td><td class="cost-amount">4.0 MB</td><td>Multi-tenant shop platform</td></tr>
-<tr><td>8</td><td><a href="https://github.com/cochranblock/cochranblock">cochranblock</a></td><td class="cost-amount cost-new">8.2 MB</td><td>This site — right now, serving this page</td></tr>
+<tr><td>8</td><td><a href="https://github.com/cochranblock/cochranblock">cochranblock</a></td><td class="cost-amount cost-new">8.4 MB</td><td>This site — right now, serving this page</td></tr>
 <tr><td>9</td><td><a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a></td><td class="cost-amount">9.2 MB</td><td>AI sprite generator + diffusion models</td></tr>
 <tr><td>10</td><td><a href="https://github.com/cochranblock/kova">kova</a></td><td class="cost-amount">~51.5 MB</td><td>Augment engine + local LLM inference</td></tr>
 </table>
@@ -1913,7 +1913,7 @@ pub async fn f81(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>3</td><td>whyyoulying</td><td>21</td><td>21</td><td>1,870</td><td>505 KB</td><td class="cost-amount cost-new">23 KB/fn</td></tr>
 <tr><td>4</td><td>pixel-forge</td><td>184</td><td>37</td><td>11,032</td><td>9.2 MB</td><td class="cost-amount">51 KB/fn</td></tr>
 <tr><td>5</td><td>illbethejudgeofthat</td><td>40</td><td>44</td><td>6,208</td><td>2.5 MB</td><td class="cost-amount">63 KB/fn</td></tr>
-<tr><td>6</td><td>cochranblock</td><td>78</td><td>8</td><td>4,294</td><td>8.2 MB</td><td class="cost-amount">107 KB/fn</td></tr>
+<tr><td>6</td><td>cochranblock</td><td>55</td><td>7</td><td>3,404</td><td>8.4 MB</td><td class="cost-amount">156 KB/fn</td></tr>
 </table>
 </div>
 
@@ -1932,7 +1932,7 @@ strip = true         # remove debug symbols</pre>
 </div>
 
 <h2 class="services-section-head">Why This Matters</h2>
-<p>A 48 KB binary has a smaller attack surface than a Docker hello-world image (13 MB). A 8.2 MB binary replaces a cloud stack that downloads 500+ MB of node_modules. Every byte in these binaries was compiled from source — no vendored blobs, no pre-built shared libraries, no mystery code.</p>
+<p>A 48 KB binary has a smaller attack surface than a Docker hello-world image (13 MB). A 8.4 MB binary replaces a cloud stack that downloads 500+ MB of node_modules. Every byte in these binaries was compiled from source — no vendored blobs, no pre-built shared libraries, no mystery code.</p>
 <p>For federal procurement: SBOM is complete at build time. Every dependency is pinned in Cargo.lock. The binary is deterministic — same source, same output. Supply chain integrity by construction.</p>
 
 <p class="services-cta"><a href="/codeskillz" class="btn">See All Repos Live</a><a href="/govdocs" class="btn btn-secondary">Government Documents</a><a href="/deploy" class="btn btn-secondary">Deploy With Us</a></p>
@@ -2024,7 +2024,7 @@ pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse
         .map(|d| d.as_secs())
         .unwrap_or(0);
     let json = format!(
-        r#"{{"binary_size_arm":"8.2MB","binary_size_x86":"15MB","monthly_cost":"$10","repos":14,"leads":{},"grants":{},"timestamp":{}}}"#,
+        r#"{{"binary_size_arm":"8.4MB","binary_size_x86":"15MB","monthly_cost":"$10","repos":14,"leads":{},"grants":{},"timestamp":{}}}"#,
         lead_count, grant_count, uptime
     );
     (

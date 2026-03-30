@@ -3,7 +3,7 @@
 
 > **It's not the Mech — it's the pilot.**
 >
-> This repo is part of [CochranBlock](https://cochranblock.org) — 14 Unlicense Rust repositories that power an entire company on a **single 18MB binary** (x86) / **9.9MB** (ARM), a laptop, and **$10/month** infrastructure. No AWS. No Kubernetes. No six-figure DevOps team. Zero cloud.
+> This repo is part of [CochranBlock](https://cochranblock.org) — 14 open source Rust repositories (12 Unlicense) that power an entire company on a **single 15MB binary** (x86) / **8.4MB** (ARM), a laptop, and **$10/month** infrastructure. No AWS. No Kubernetes. No six-figure DevOps team. Zero cloud.
 >
 > **[cochranblock.org](https://cochranblock.org)** is a live demo of this architecture. You're welcome to read every line of source code — it's all public domain.
 >
@@ -94,4 +94,4 @@ Source uses compact identifiers (f2, t0, C7, etc.) per the Token-Optimized Code 
 
 ---
 
-Part of the [CochranBlock](https://cochranblock.org) zero-cloud architecture. 14 Unlicense repos. [See all products →](https://cochranblock.org/products)
+Part of the [CochranBlock](https://cochranblock.org) zero-cloud architecture. 14 open source repos (12 Unlicense). [See all products →](https://cochranblock.org/products)

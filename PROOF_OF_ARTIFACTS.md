@@ -24,18 +24,18 @@ flowchart LR
 | Metric | Value |
 |--------|-------|
 | Binary size (x86) | 15MB (release, opt-level='s', LTO, strip) |
-| Binary size (ARM) | 8.2MB |
+| Binary size (ARM) | 8.4MB |
 | Infrastructure cost | $10/month |
 | External services | Cloudflare tunnel (free tier) |
 | Database | Embedded sled + SQLite — no external DB |
 | Cloud dependencies | Zero |
 | Public repos | 14 (12 Unlicense, 2 proprietary) |
 | Certification | SDVOSB pending · SAM.gov pending registration · eMMA vendor SUP1095449 · CSB approved |
-| Functions | 52 |
+| Functions | 55 |
 | Types | 7 |
-| Lines of code | 2,905 |
-| Direct dependencies | 42 |
-| Routes | 29 (22 pages + 4 meta + 3 API) |
+| Lines of code | 3,404 |
+| Direct dependencies | 38 |
+| Routes | 34 (25 pages + 5 meta + 2 API + 2 redirects) |
 | Release profile | opt-level='s', lto=true, codegen-units=1, panic='abort', strip=true |
 | GPU nodes | lf: RTX 3070 8GB · gd: RTX 3050 Ti 4GB |
 | QA Round 1 | PASS — zero errors, zero warnings, zero debug prints, zero AI slop, all routes 200 |
