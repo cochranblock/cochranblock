@@ -1402,6 +1402,12 @@ for having you here." — Jay, USCYBERCOM
   <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 14 open source Rust repos back every claim we make.</p>
   <h3 class="profile-subhead">The Architecture</h3>
   <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
+  <h3 class="profile-subhead">The Trifecta</h3>
+  <div style="margin-bottom:2rem;padding:1.5rem;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--accent);border-radius:var(--radius)">
+    <p style="color:var(--accent);font-family:'Orbitron',monospace;font-size:1rem;font-weight:600;letter-spacing:0.08em;margin-bottom:1rem">THREE THINGS NO COMPETITOR CAN MATCH:</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin:0"><strong style="color:var(--cyber-teal)">1. You can't outprice free.</strong> Every line of code is Unlicense — public domain. No license fees. No vendor lock-in. No procurement friction.<br><strong style="color:var(--cyber-teal)">2. You can't out-transparent public domain.</strong> The source, the training data, the bugs, the fixes, the <a href="/openbooks" style="color:var(--accent)">IR&amp;D audit</a> — all public. Verify anything. Challenge everything.<br><strong style="color:var(--cyber-teal)">3. Expertise is inherent.</strong> Building it in public proves the capability. The <a href="/source" style="color:var(--accent)">code IS the resume</a>.</p>
+  </div>
+
   <h3 class="profile-subhead">The Method</h3>
   <p class="hero-note" style="font-style:normal;color:var(--text);font-size:0.95rem;margin-bottom:1.5rem">Most AI companies download a model and wrap an API around it. We train our own models on our own hardware, debug the math ourselves, and ship binaries that work without internet. The difference is ownership — we own every layer of the stack, and we release it all into the public domain.</p>
   <div class="testimonials-grid" style="margin-bottom:1.5rem">
