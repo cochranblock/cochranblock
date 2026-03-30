@@ -157,6 +157,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/vre", "0.8", "monthly"),
         ("/source", "0.7", "monthly"),
         ("/speed", "0.9", "weekly"),
+        ("/openbooks", "0.8", "weekly"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -217,7 +218,7 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a><a href="/search" class="nav-more">Search</a></div></nav><main id="main" class="content">"##;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a><a href="/search" class="nav-more">Search</a><a href="/openbooks" class="nav-more">Open Books</a></div></nav><main id="main" class="content">"##;
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/sbir">SBIR</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · UEI W7X3HAQL9CF9 (Pending) · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
@@ -1671,6 +1672,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/vre", title: "VR&E Self-Employment Business Plan", body: "VA VR&E Category II. Self-employment track. Lab-based workforce training. UMBC JHU APL UMD MC2. 12-month milestones. FIPS crypto validation. Air-gapped edge computing. Federal alignment CISA EO 14028 SSDF CMMC FedRAMP." },
     SearchEntry { path: "/source", title: "Source Code", body: "Read the source code of the server serving you this page. Cargo.toml. router.rs. assets.rs. pages.rs. Rust source compiled into the binary via include_str." },
     SearchEntry { path: "/speed", title: "Speed — 240x Lighter Than Wix", body: "9.5 KB page size. 0 bytes JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. 92 KB total transfer. 8.4 MB Rust binary server. $10/month. Zero XSS attack surface." },
+    SearchEntry { path: "/openbooks", title: "Open Books — IR&D Audit", body: "Live IR&D hours from GitHub commits. DCAA audit trail. Sessions calculated from commit timestamps. Complexity multipliers. $225/hour rate. Per-repo breakdown. FAR 31.205-18 IR&D documentation." },
     SearchEntry { path: "/sbir", title: "SBIR / Provenance", body: "SBIR STTR proposals. Provenance documentation. AI development framework. Timeline of Invention. Proof of Artifacts. Human-piloted AI development." },
     SearchEntry { path: "/downloads", title: "Downloads", body: "Download cochranblock binary. macOS Apple Silicon. Linux x86_64. Resume PDF. Logo card." },
     SearchEntry { path: "/community-grant", title: "Community Grant", body: "Cochranblock community grant application. Non-profits. Zero-cloud architecture for community organizations. Baltimore area. Quarterly grants." },
@@ -1995,6 +1997,180 @@ sudo dpkg -i cochranblock-stack_0.6.0_amd64.deb</pre>
 }
 
 // f68_old removed — federal-partners page retired.
+
+/// f86 = serve_openbooks. Why: DCAA IR&D audit page. Live hours from GitHub commit timestamps.
+pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let data = f86_data().await;
+    let mut rows = String::new();
+    let mut total_hours: f64 = 0.0;
+    let mut total_value: f64 = 0.0;
+    for entry in &data {
+        total_hours += entry.3;
+        total_value += entry.4;
+        rows.push_str(&format!(
+            r#"<tr><td><a href="https://github.com/cochranblock/{}">{}</a></td><td class="cost-amount">{}</td><td class="cost-amount">{:.1}x</td><td class="cost-amount cost-new">{:.1} hrs</td><td class="cost-amount cost-new">${:.0}</td></tr>"#,
+            entry.0, entry.0, entry.1, entry.2, entry.3, entry.4
+        ));
+    }
+
+    let v0 = format!(r#"<section class="services">
+<h1>Open Books</h1>
+<p class="services-intro">Live IR&amp;D audit. Hours calculated from actual GitHub commit timestamps. Sessions = commits within 2 hours, minimum 1 hour each. Rate: $225/hour. Complexity multiplier per repo based on technical depth.</p>
+
+<h2 class="services-section-head">IR&amp;D Time &amp; Value — By Repository</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Repository</strong></td><td><strong>Sessions</strong></td><td><strong>Multiplier</strong></td><td><strong>Hours</strong></td><td><strong>Value ($225/hr)</strong></td></tr>
+{}
+<tr style="border-top:2px solid var(--accent)"><td><strong>Total</strong></td><td></td><td></td><td class="cost-amount cost-new"><strong>{:.1} hrs</strong></td><td class="cost-amount cost-new"><strong>${:.0}</strong></td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">Methodology</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>How hours are calculated</summary>
+<div class="govdoc-print">
+<p><strong>Data source:</strong> GitHub API — commit timestamps from all 14 public repositories under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. No self-reported time. Machine-verified.</p>
+<p><strong>Session detection:</strong> Consecutive commits within a 2-hour window are grouped into a single work session. Each session counts as minimum 1 hour (accounts for thinking, testing, and review time between commits).</p>
+<p><strong>Complexity multiplier:</strong> Applied per-repo based on technical depth — augment engines and AI/ML systems rate higher than static documentation.</p>
+<div class="cost-summary"><table class="cost-table">
+<tr><td>kova (augment engine + LLM)</td><td class="cost-amount">2.0x</td></tr>
+<tr><td>pixel-forge (AI diffusion models)</td><td class="cost-amount">1.8x</td></tr>
+<tr><td>ghost-fabric (LoRa mesh + edge AI)</td><td class="cost-amount">1.8x</td></tr>
+<tr><td>cochranblock (web + forms + booking)</td><td class="cost-amount">1.5x</td></tr>
+<tr><td>approuter (reverse proxy + tunnel)</td><td class="cost-amount">1.5x</td></tr>
+<tr><td>rogue-repo (payment engine)</td><td class="cost-amount">1.5x</td></tr>
+<tr><td>All others</td><td class="cost-amount">1.0x</td></tr>
+</table></div>
+<p><strong>Rate:</strong> $225/hour — consistent with <a href="/services">published rate card</a>.</p>
+<p><strong>DCAA relevance:</strong> IR&amp;D (Independent Research &amp; Development) costs are allowable under FAR 31.205-18 when properly documented. This page provides the audit trail.</p>
+</div>
+</details>
+</div>
+
+<p class="govdoc-note">Data refreshes every 30 minutes from the GitHub API. Last calculated values cached in memory. <a href="/api/openbooks">JSON endpoint →</a></p>
+
+<p class="services-cta"><a href="/govdocs" class="btn btn-secondary">Gov Documents</a><a href="/codeskillz" class="btn btn-secondary">Commit Tracker</a><a href="/services" class="btn btn-secondary">Rate Card</a></p>
+</section>"#, rows, total_hours, total_value);
+
+    let head = f62d("openbooks", "Open Books — IR&D Audit | CochranBlock", "Live IR&D time and value calculated from GitHub commit timestamps. DCAA-auditable. $225/hour. 14 repositories.");
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
+/// f86_data = calculate hours per repo from GitHub commit timestamps. Cached 30 min.
+async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
+    use std::sync::OnceLock;
+    use std::sync::Mutex;
+    type CacheVal = Vec<(String, u32, f64, f64, f64)>;
+
+    static CACHE: OnceLock<Mutex<(CacheVal, std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| Mutex::new((Vec::new(), std::time::Instant::now() - std::time::Duration::from_secs(9999))));
+
+    {
+        let guard = cache.lock().unwrap();
+        if guard.1.elapsed().as_secs() < 1800 && !guard.0.is_empty() {
+            return guard.0.iter().map(|(n, s, m, h, v)| (leak_str(n), *s, *m, *h, *v)).collect();
+        }
+    }
+
+    let repos: &[(&str, f64)] = &[
+        ("kova", 2.0), ("pixel-forge", 1.8), ("ghost-fabric", 1.8),
+        ("cochranblock", 1.5), ("approuter", 1.5), ("rogue-repo", 1.5),
+        ("oakilydokily", 1.0), ("illbethejudgeofthat", 1.0), ("exopack", 1.0),
+        ("whyyoulying", 1.0), ("pocket-server", 1.0), ("wowasticker", 1.0),
+        ("provenance-docs", 1.0), ("call-shield", 1.0),
+    ];
+
+    let client = reqwest::Client::builder()
+        .user_agent("cochranblock/0.6")
+        .build()
+        .unwrap();
+
+    let mut results: Vec<(String, u32, f64, f64, f64)> = Vec::new();
+    let rate = 225.0_f64;
+
+    for &(repo, multiplier) in repos {
+        let url = format!("https://api.github.com/repos/cochranblock/{}/commits?per_page=100", repo);
+        let timestamps: Vec<i64> = if let Ok(resp) = client.get(&url).send().await {
+            if let Ok(body) = resp.text().await {
+                // Parse commit timestamps from JSON
+                let mut ts = Vec::new();
+                for chunk in body.split("\"date\":\"") {
+                    if let Some(end) = chunk.find('"') {
+                        let date_str = &chunk[..end];
+                        if date_str.len() > 18 {
+                            if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(date_str) {
+                                ts.push(dt.timestamp());
+                            }
+                        }
+                    }
+                }
+                ts.sort();
+                ts.dedup();
+                ts
+            } else { Vec::new() }
+        } else { Vec::new() };
+
+        // Group into sessions (commits within 2 hours)
+        let mut sessions: u32 = 0;
+        let mut base_hours: f64 = 0.0;
+        if !timestamps.is_empty() {
+            let mut session_start = timestamps[0];
+            let mut session_end = timestamps[0];
+            for &t in &timestamps[1..] {
+                if t - session_end > 7200 {
+                    // New session — close previous
+                    sessions += 1;
+                    let dur = (session_end - session_start) as f64 / 3600.0;
+                    base_hours += dur.max(1.0);
+                    session_start = t;
+                }
+                session_end = t;
+            }
+            // Close last session
+            sessions += 1;
+            let dur = (session_end - session_start) as f64 / 3600.0;
+            base_hours += dur.max(1.0);
+        }
+
+        let adjusted_hours = base_hours * multiplier;
+        let value = adjusted_hours * rate;
+        results.push((repo.to_string(), sessions, multiplier, adjusted_hours, value));
+    }
+
+    results.sort_by(|a, b| b.4.partial_cmp(&a.4).unwrap_or(std::cmp::Ordering::Equal));
+
+    let mut guard = cache.lock().unwrap();
+    *guard = (results.clone(), std::time::Instant::now());
+    results.iter().map(|(n, s, m, h, v)| (leak_str(n), *s, *m, *h, *v)).collect()
+}
+
+fn leak_str(s: &str) -> &'static str {
+    // Safe for cached strings that live for the program's lifetime
+    Box::leak(s.to_string().into_boxed_str())
+}
+
+/// f87 = api_openbooks. Why: JSON endpoint for IR&D data.
+pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    let data = f86_data().await;
+    let mut total_hours: f64 = 0.0;
+    let mut total_value: f64 = 0.0;
+    let entries: Vec<String> = data.iter().map(|(repo, sessions, mult, hours, value)| {
+        total_hours += hours;
+        total_value += value;
+        format!(r#"{{"repo":"{}","sessions":{},"multiplier":{:.1},"hours":{:.1},"value":{:.0}}}"#,
+            repo, sessions, mult, hours, value)
+    }).collect();
+    let json = format!(r#"{{"repos":[{}],"total_hours":{:.1},"total_value":{:.0},"rate":225,"methodology":"sessions_2hr_window_min_1hr","source":"github_api"}}"#,
+        entries.join(","), total_hours, total_value);
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "application/json"),
+         (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
+        json,
+    )
+}
 
 /// f10 = health. Why: Load balancer / approuter liveness probe.
 pub async fn f10(State(_p0): State<Arc<t0>>) -> &'static str {
