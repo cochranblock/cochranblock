@@ -26,6 +26,17 @@ pub mod screenshot;
 pub mod web;
 pub mod ux;
 
+/// t1 = SiteStats. Cached dynamic numbers. Single source of truth.
+#[derive(Clone, Default, serde::Serialize)]
+pub struct t1 {
+    pub repo_count: usize,
+    pub unlicense_count: usize,
+    pub requests_7d: u64,
+    pub visitors_7d: u64,
+    pub ird_hours: f64,
+    pub ird_value: f64,
+}
+
 /// t0 = AppState. Why: Shared state for router; intake pool for leads.
 #[derive(Clone)]
 pub struct t0 {

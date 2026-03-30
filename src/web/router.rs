@@ -59,6 +59,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/api/openbooks", get(pages::f87))
         .route("/analytics", get(pages::f90))
         .route("/api/analytics", get(pages::f91))
+        .route("/api/site-stats", get(pages::f92))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/api/stats", get(pages::f73))

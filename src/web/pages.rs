@@ -226,9 +226,9 @@ pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let (reqs, visitors) = f90_totals().await;
-    let stats_line = if reqs > 0 {
-        format!(r#"<p style="color:var(--muted);font-size:0.8rem;margin-top:0.5rem;letter-spacing:0.05em">This binary has served <strong style="color:var(--accent)">{} requests</strong> from <strong style="color:var(--accent)">{} visitors</strong> this week — on a laptop, for $10/month.</p>"#, fmt_num(reqs), fmt_num(visitors))
+    let ss = site_stats().await;
+    let stats_line = if ss.requests_7d > 0 {
+        format!(r#"<p style="color:var(--muted);font-size:0.8rem;margin-top:0.5rem;letter-spacing:0.05em">This binary has served <strong style="color:var(--accent)">{} requests</strong> from <strong style="color:var(--accent)">{} visitors</strong> this week — on a laptop, for $10/month.</p>"#, fmt_num(ss.requests_7d), fmt_num(ss.visitors_7d))
     } else {
         String::new()
     };
@@ -2282,6 +2282,28 @@ pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
+/// site_stats = aggregated dynamic numbers from GitHub + Cloudflare + OpenBooks.
+pub async fn site_stats() -> crate::t1 {
+    let (reqs, visitors) = f90_totals().await;
+    let ob = f86_data().await;
+    let total_hours: f64 = ob.iter().map(|e| e.3).sum();
+    let total_value: f64 = ob.iter().map(|e| e.4).sum();
+
+    // Repo count from GitHub API (lightweight — just count from velocity cache)
+    // The velocity endpoint already fetches all repos; reuse its repo list length
+    let repo_count = 14_usize; // TODO: dynamic from velocity cache
+    let unlicense_count = 12_usize;
+
+    crate::t1 {
+        repo_count,
+        unlicense_count,
+        requests_7d: reqs,
+        visitors_7d: visitors,
+        ird_hours: total_hours,
+        ird_value: total_value,
+    }
+}
+
 /// f90 = analytics data cache. Fetches from Cloudflare GraphQL, caches 30 min.
 async fn f90_data() -> Option<serde_json::Value> {
     use std::sync::OnceLock;
@@ -2521,6 +2543,18 @@ pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         [(axum::http::header::CONTENT_TYPE, "application/json"),
          (axum::http::header::CACHE_CONTROL, "public, max-age=3600")],
         r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"uei_assigned_pending","naics":["541511","541512","541519","518210","541330","541690"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":14,"repos":14,"unlicense_repos":12,"binary_size_arm":"8.4MB","binary_size_x86":"15MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","key_pages":["/","/services","/products","/about","/govdocs","/tinybinaries","/speed","/openbooks","/source","/vre","/codeskillz","/mathskillz"]}"#,
+    )
+}
+
+/// f92 = api_site_stats. Why: Single source of truth for all dynamic numbers.
+pub async fn f92(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    let ss = site_stats().await;
+    let json = serde_json::to_string(&ss).unwrap_or_else(|_| "{}".to_string());
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "application/json"),
+         (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
+        json,
     )
 }
 
