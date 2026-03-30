@@ -158,6 +158,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/source", "0.7", "monthly"),
         ("/speed", "0.9", "weekly"),
         ("/openbooks", "0.8", "weekly"),
+        ("/analytics", "0.7", "daily"),
         ("/about", "0.8", "monthly"),
         ("/contact", "0.8", "monthly"),
         ("/book", "0.8", "weekly"),
@@ -220,13 +221,20 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a><a href="/search" class="nav-more">Search</a><a href="/openbooks" class="nav-more">Open Books</a><a href="/tinybinaries" class="nav-more">Binaries</a><a href="/speed" class="nav-more">Speed</a><a href="/source" class="nav-more">Source</a></div></nav><main id="main" class="content">"##;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button><div id="nav-links" class="nav-links" role="navigation"><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/products">Products</a><a href="/about">About</a><a href="/sbir" class="nav-more">SBIR</a><a href="/downloads" class="nav-more">Downloads</a><a href="/contact" class="nav-more">Contact</a><a href="/govdocs" class="nav-more">Gov Docs</a><a href="/community-grant" class="nav-more">Grant</a><a href="/vre" class="nav-more">VR&amp;E</a><a href="/search" class="nav-more">Search</a><a href="/openbooks" class="nav-more">Open Books</a><a href="/analytics" class="nav-more">Analytics</a><a href="/tinybinaries" class="nav-more">Binaries</a><a href="/speed" class="nav-more">Speed</a><a href="/source" class="nav-more">Source</a></div></nav><main id="main" class="content">"##;
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/deploy">Deploy</a><a href="/book">Book</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/codeskillz">Code</a><a href="/mathskillz">Math</a><a href="/govdocs">Gov Docs</a><a href="/tinybinaries">Binaries</a><a href="/speed">Speed</a><a href="/openbooks">Open Books</a><a href="/source">Source</a><a href="/search">Search</a><a href="/vre">VR&amp;E</a><a href="/downloads">Downloads</a><a href="/sbir">SBIR</a><a href="/community-grant">Grant</a></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · UEI W7X3HAQL9CF9 (Pending) · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>(function(){var t=document.querySelector('.nav-toggle');var n=document.getElementById('nav-links');if(t&&n){t.onclick=function(){var o=n.classList.toggle('nav-open');t.setAttribute('aria-expanded',o);}}if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}}());</script></body></html>"#;
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.4MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Open Source Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/speed" class="btn btn-secondary">240x Lighter</a></p></section>"#;
-    Html(format!("{}{}{}{}{}", f62d("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect", "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 15MB Rust binary. $10/month. 14 open source repos. Veteran-owned."), JSON_LD_FAQ, C7, v0, C8))
+    let (reqs, visitors) = f90_totals().await;
+    let stats_line = if reqs > 0 {
+        format!(r#"<p style="color:var(--muted);font-size:0.8rem;margin-top:0.5rem;letter-spacing:0.05em">This binary has served <strong style="color:var(--accent)">{} requests</strong> from <strong style="color:var(--accent)">{} visitors</strong> this week — on a laptop, for $10/month.</p>"#, fmt_num(reqs), fmt_num(visitors))
+    } else {
+        String::new()
+    };
+    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 15MB on x86, 8.4MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">14 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 14 Open Source Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/speed" class="btn btn-secondary">240x Lighter</a></p></section>"#].concat();
+    let head = f62d("home", "CochranBlock | Fractional CTO · Zero-Cloud Architect", "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 15MB Rust binary. $10/month. 14 open source repos. Veteran-owned.");
+    Html([head.as_str(), JSON_LD_FAQ, C7, v0.as_str(), C8].concat())
 }
 
 /// f11 = serve_services. Why: Pricing + Fractional CTO services. Funnels to /deploy.
@@ -2266,6 +2274,193 @@ pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     }).collect();
     let json = format!(r#"{{"repos":[{}],"total_hours":{:.1},"total_value":{:.0},"rate":225,"methodology":"sessions_2hr_window_min_1hr","source":"github_api"}}"#,
         entries.join(","), total_hours, total_value);
+    (
+        axum::http::StatusCode::OK,
+        [(axum::http::header::CONTENT_TYPE, "application/json"),
+         (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
+        json,
+    )
+}
+
+/// f90 = analytics data cache. Fetches from Cloudflare GraphQL, caches 30 min.
+async fn f90_data() -> Option<serde_json::Value> {
+    use std::sync::OnceLock;
+    use std::sync::Mutex;
+
+    static CACHE: OnceLock<Mutex<(Option<serde_json::Value>, std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| Mutex::new((None, std::time::Instant::now() - std::time::Duration::from_secs(9999))));
+
+    {
+        let guard = cache.lock().unwrap();
+        if guard.1.elapsed().as_secs() < 1800 {
+            return guard.0.clone();
+        }
+    }
+
+    let token = std::env::var("CF_TOKEN").ok()?;
+    let date7 = (Utc::now() - Duration::days(7)).format("%Y-%m-%d").to_string();
+    let gql = format!(r#"{{viewer{{zones(filter:{{zoneTag:"1320f3a6c2f3dc2c2c5527f566c2fad3"}}){{httpRequests1dGroups(limit:7,filter:{{date_gt:"{}"}}){{dimensions{{date}}sum{{requests pageViews bytes cachedBytes countryMap{{clientCountryName requests}}}}uniq{{uniques}}}}}}}}}}"#, date7);
+    let query = format!(r#"{{"query":"{}"}}"#, gql.replace('"', "\\\""));
+
+    let client = reqwest::Client::new();
+    let resp = client.post("https://api.cloudflare.com/client/v4/graphql")
+        .header("Authorization", format!("Bearer {}", token))
+        .header("Content-Type", "application/json")
+        .body(query)
+        .send()
+        .await
+        .ok()?;
+    let data: serde_json::Value = resp.json().await.ok()?;
+
+    let mut guard = cache.lock().unwrap();
+    *guard = (Some(data.clone()), std::time::Instant::now());
+    Some(data)
+}
+
+/// f90_totals = get 7-day request + visitor totals from analytics cache.
+async fn f90_totals() -> (u64, u64) {
+    if let Some(data) = f90_data().await {
+        let groups = &data["data"]["viewer"]["zones"][0]["httpRequests1dGroups"];
+        if let Some(arr) = groups.as_array() {
+            let reqs: u64 = arr.iter().filter_map(|d| d["sum"]["requests"].as_u64()).sum();
+            let uniq: u64 = arr.iter().filter_map(|d| d["uniq"]["uniques"].as_u64()).sum();
+            return (reqs, uniq);
+        }
+    }
+    (0, 0)
+}
+
+fn fmt_num(n: u64) -> String {
+    let s = n.to_string();
+    let mut result = String::new();
+    for (i, c) in s.chars().rev().enumerate() {
+        if i > 0 && i % 3 == 0 { result.push(','); }
+        result.push(c);
+    }
+    result.chars().rev().collect()
+}
+
+/// f90 = serve_analytics. Why: Public Cloudflare analytics — ultimate transparency.
+pub async fn f90(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let data = f90_data().await;
+    let mut rows = String::new();
+    let mut total_reqs: u64 = 0;
+    let mut total_pv: u64 = 0;
+    let mut total_bytes: u64 = 0;
+    let mut total_cached: u64 = 0;
+    let mut total_uniq: u64 = 0;
+    let mut max_reqs: u64 = 1;
+    let mut countries: std::collections::HashMap<String, u64> = std::collections::HashMap::new();
+
+    if let Some(ref d) = data {
+        let groups = &d["data"]["viewer"]["zones"][0]["httpRequests1dGroups"];
+        if let Some(arr) = groups.as_array() {
+            // Find max for bar chart scaling
+            for day in arr {
+                let r = day["sum"]["requests"].as_u64().unwrap_or(0);
+                if r > max_reqs { max_reqs = r; }
+            }
+            // Sort by date
+            let mut sorted: Vec<&serde_json::Value> = arr.iter().collect();
+            sorted.sort_by_key(|d| d["dimensions"]["date"].as_str().unwrap_or(""));
+            for day in &sorted {
+                let date = day["dimensions"]["date"].as_str().unwrap_or("?");
+                let reqs = day["sum"]["requests"].as_u64().unwrap_or(0);
+                let pv = day["sum"]["pageViews"].as_u64().unwrap_or(0);
+                let bytes = day["sum"]["bytes"].as_u64().unwrap_or(0);
+                let cached = day["sum"]["cachedBytes"].as_u64().unwrap_or(0);
+                let uniq = day["uniq"]["uniques"].as_u64().unwrap_or(0);
+                let pct = (reqs as f64 / max_reqs as f64 * 100.0) as u32;
+                total_reqs += reqs;
+                total_pv += pv;
+                total_bytes += bytes;
+                total_cached += cached;
+                total_uniq += uniq;
+
+                rows.push_str(&format!(
+                    r#"<tr><td>{}</td><td class="cost-amount">{}</td><td class="cost-amount">{}</td><td class="cost-amount">{}</td><td class="cost-amount">{:.1} MB</td><td style="width:30%"><div style="background:var(--accent);height:16px;width:{}%;border-radius:3px;opacity:0.7"></div></td></tr>"#,
+                    date, fmt_num(reqs), fmt_num(pv), fmt_num(uniq), bytes as f64 / 1_048_576.0, pct
+                ));
+
+                // Accumulate countries
+                if let Some(cm) = day["sum"]["countryMap"].as_array() {
+                    for c in cm {
+                        let name = c["clientCountryName"].as_str().unwrap_or("Unknown").to_string();
+                        let cr = c["requests"].as_u64().unwrap_or(0);
+                        *countries.entry(name).or_insert(0) += cr;
+                    }
+                }
+            }
+        }
+    }
+
+    let cache_ratio = if total_bytes > 0 { total_cached as f64 / total_bytes as f64 * 100.0 } else { 0.0 };
+
+    let mut country_rows = String::new();
+    let mut country_vec: Vec<(String, u64)> = countries.into_iter().collect();
+    country_vec.sort_by(|a, b| b.1.cmp(&a.1));
+    for (name, reqs) in country_vec.iter().take(10) {
+        country_rows.push_str(&format!(
+            r#"<tr><td>{}</td><td class="cost-amount">{}</td></tr>"#,
+            name, fmt_num(*reqs)
+        ));
+    }
+
+    let v0 = format!(r#"<section class="services">
+<h1>Analytics</h1>
+<p class="services-intro">Live Cloudflare traffic data. Public. Because transparency is the product.</p>
+
+<h2 class="services-section-head">Last 7 Days</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Date</strong></td><td><strong>Requests</strong></td><td><strong>Pages</strong></td><td><strong>Visitors</strong></td><td><strong>Bandwidth</strong></td><td><strong>Volume</strong></td></tr>
+{}
+<tr style="border-top:2px solid var(--accent)"><td><strong>Total</strong></td><td class="cost-amount cost-new"><strong>{}</strong></td><td class="cost-amount cost-new"><strong>{}</strong></td><td class="cost-amount cost-new"><strong>{}</strong></td><td class="cost-amount cost-new"><strong>{:.1} MB</strong></td><td></td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">Cache Performance</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td>Total bandwidth</td><td class="cost-amount">{:.1} MB</td></tr>
+<tr><td>Cached bandwidth</td><td class="cost-amount cost-new">{:.1} MB</td></tr>
+<tr><td>Cache hit ratio</td><td class="cost-amount cost-new">{:.1}%</td></tr>
+<tr><td>Bandwidth saved</td><td class="cost-amount cost-new">{:.1} MB</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">Top Countries</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Country</strong></td><td><strong>Requests</strong></td></tr>
+{}
+</table>
+</div>
+
+<p class="govdoc-note">Data from Cloudflare GraphQL API. Cached 30 minutes. <a href="/api/analytics">JSON endpoint →</a></p>
+<p class="services-cta"><a href="/speed" class="btn btn-secondary">Speed Comparison</a><a href="/openbooks" class="btn btn-secondary">Open Books</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a></p>
+</section>"#,
+        rows,
+        fmt_num(total_reqs), fmt_num(total_pv), fmt_num(total_uniq),
+        total_bytes as f64 / 1_048_576.0,
+        total_bytes as f64 / 1_048_576.0,
+        total_cached as f64 / 1_048_576.0,
+        cache_ratio,
+        (total_bytes - total_cached) as f64 / 1_048_576.0,
+        country_rows
+    );
+
+    let head = f62d("analytics", "Analytics | CochranBlock", "Live Cloudflare traffic data for cochranblock.org. Requests, visitors, bandwidth, cache ratio, top countries. Public by choice.");
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
+/// f91 = api_analytics. Why: JSON endpoint for analytics data.
+pub async fn f91(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    let data = f90_data().await;
+    let json = match data {
+        Some(d) => serde_json::to_string(&d["data"]["viewer"]["zones"][0]).unwrap_or_else(|_| "{}".to_string()),
+        None => "{}".to_string(),
+    };
     (
         axum::http::StatusCode::OK,
         [(axum::http::header::CONTENT_TYPE, "application/json"),

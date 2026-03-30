@@ -57,6 +57,8 @@ pub fn f1(p0: t0) -> Router {
         .route("/openbooks", get(pages::f86))
         .route("/govdocs/faq", get(|| async { axum::response::Redirect::permanent("/govdocs") }))
         .route("/api/openbooks", get(pages::f87))
+        .route("/analytics", get(pages::f90))
+        .route("/api/analytics", get(pages::f91))
         .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
         .route("/health", get(pages::f10))
         .route("/api/stats", get(pages::f73))
