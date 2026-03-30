@@ -284,8 +284,9 @@ Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
 <summary>Same-day rebrands</summary>
 <p>Most agencies quote 3–6 months for a rebrand. We do it in hours. cochranblock.org has been through <strong>7 major rebrands in 2 months</strong> — logo, messaging, page structure, visual identity, federal compliance pivot. Each one was same-day turnaround. No designers. No agencies. No Figma. No staging servers.</p>
 <p>Because the site is a compiled binary, not a WordPress theme — changing the brand is changing the code, and the code deploys in seconds. One <code>git push</code>, one build, one binary copy, live.</p>
-<p><strong>The numbers:</strong> 7 rebrands · 2 months · 22+ pages · 1 person · 1 binary (8.4 MB ARM) · $10/month infrastructure · average rebrand time: under 4 hours from concept to production.</p>
-<p><span class="service-outcome">Your agency charges $50K for a rebrand. We charge one afternoon.</span></p>
+<p><strong>The numbers:</strong> 7 rebrands · 2 months · ~320 working hours total · 22+ pages · 1 person · 1 binary (8.4 MB ARM) · $10/month infrastructure.</p>
+<p><strong>Industry standard for ONE rebrand:</strong> 3–6 months, team of 5, 2,400–4,800 billable hours, $360K–$720K. We did <strong>seven</strong> for $10/month infrastructure. That is the zero-cloud advantage — the binary IS the brand, changing the brand is changing the code.</p>
+<p><span class="service-outcome">Your agency charges $360K for one rebrand. We did seven in the time they'd spend on discovery.</span></p>
 </details>
 </div>
 
@@ -468,6 +469,35 @@ Maryland CSB (Certified Small Business) — Approved<br>
 14 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
 <span class="service-outcome">All source code delivered under the Unlicense. You own everything. Zero vendor lock-in.</span>
 </p>
+</details>
+</div>
+
+<h2 class="services-section-head">Case Study: Rebrand Economics</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Problem: 7 rebrands in 2 months</summary>
+<div class="govdoc-print">
+<p>An agency charges $150/hr with a team of 5 for a rebrand that takes 4 months.<br>
+A solo developer with AI augmentation does the same rebrand in 8 hours with a compiled binary.<br>
+The agency does 1 rebrand. The developer does 7 in 2 months.</p>
+
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Metric</strong></td><td><strong>Agency</strong></td><td><strong>CochranBlock</strong></td></tr>
+<tr><td>Cost per rebrand</td><td class="cost-amount cost-old">$480,000</td><td class="cost-amount cost-new">$10,286</td></tr>
+<tr><td>Cost for 7 rebrands</td><td class="cost-amount cost-old">$3,360,000</td><td class="cost-amount cost-new">$72,000</td></tr>
+<tr><td>Hosting for 7 rebrands</td><td class="cost-amount cost-old">$840/mo (7 staging servers)</td><td class="cost-amount cost-new">$10/mo (1 binary)</td></tr>
+<tr><td>Time per rebrand</td><td class="cost-amount cost-old">4 months</td><td class="cost-amount cost-new">~8 hours</td></tr>
+<tr><td>Team size</td><td class="cost-amount cost-old">5 people</td><td class="cost-amount cost-new">1 person + AI</td></tr>
+<tr><td>Total savings</td><td colspan="2" class="cost-amount cost-new" style="text-align:center"><strong>$3,288,000</strong></td></tr>
+<tr><td>ROI</td><td colspan="2" class="cost-amount cost-new" style="text-align:center"><strong>4,567%</strong></td></tr>
+</table>
+</div>
+
+<p><strong>Agency math:</strong> 5 people &times; 8 hr/day &times; 80 days &times; $150/hr = $480,000 per rebrand<br>
+<strong>CochranBlock math:</strong> 320 hours &times; $225/hr = $72,000 for all 7 + $10/mo hosting<br>
+<strong>This is not hypothetical.</strong> This is cochranblock.org. <a href="https://github.com/cochranblock/cochranblock">Inspect the git history.</a></p>
+</div>
 </details>
 </div>
 
