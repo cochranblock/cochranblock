@@ -1,13 +1,62 @@
 #![allow(non_camel_case_types, non_snake_case, dead_code)]
 
-//! CochranBlock server.
-//! With `approuter` feature: registers with approuter, binds 0.0.0.0 (production).
-//! Without: binds 127.0.0.1, opens browser (installable offline app).
+//! CochranBlock server with hot reload via PID lockfile.
+//! Deploy: copy new binary, run it. Old one dies gracefully.
 // Unlicense — cochranblock.org
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 use cochranblock::t0;
 use cochranblock::web::{intake, router};
+use std::path::PathBuf;
+
+fn pid_path() -> PathBuf {
+    let base = dirs::data_local_dir()
+        .unwrap_or_else(|| PathBuf::from("/tmp"));
+    let dir = base.join("cochranblock");
+    let _ = std::fs::create_dir_all(&dir);
+    dir.join("pid")
+}
+
+fn read_old_pid() -> Option<u32> {
+    std::fs::read_to_string(pid_path())
+        .ok()
+        .and_then(|s| s.trim().parse().ok())
+}
+
+fn write_pid() {
+    let _ = std::fs::write(pid_path(), std::process::id().to_string());
+}
+
+fn kill_old(pid: u32) {
+    #[cfg(unix)]
+    {
+        use std::process::Command;
+        use std::time::{Duration, Instant};
+
+        // SIGTERM — graceful
+        let _ = Command::new("kill").arg("-TERM").arg(pid.to_string()).output();
+        tracing::info!("sent SIGTERM to old PID {}", pid);
+
+        // Wait up to 5 seconds
+        let deadline = Instant::now() + Duration::from_secs(5);
+        while Instant::now() < deadline {
+            let alive = Command::new("kill").arg("-0").arg(pid.to_string())
+                .output()
+                .map(|o| o.status.success())
+                .unwrap_or(false);
+            if !alive {
+                tracing::info!("old PID {} exited cleanly", pid);
+                return;
+            }
+            std::thread::sleep(Duration::from_millis(100));
+        }
+
+        // SIGKILL — force
+        let _ = Command::new("kill").arg("-KILL").arg(pid.to_string()).output();
+        tracing::warn!("sent SIGKILL to old PID {} (didn't exit in 5s)", pid);
+        std::thread::sleep(Duration::from_millis(200));
+    }
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
@@ -26,12 +75,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         .and_then(|s| s.parse().ok())
         .unwrap_or(8081);
 
-    // Production (approuter): bind 0.0.0.0. Offline/local: bind 127.0.0.1.
     let is_local = !cfg!(feature = "approuter");
     let bind = std::env::var("BIND").unwrap_or_else(|_| {
         if is_local { "127.0.0.1".into() } else { "0.0.0.0".into() }
     });
     let addr = format!("{}:{}", bind, port);
+
+    // Kill old instance before binding port
+    if let Some(pid) = read_old_pid() {
+        if pid != std::process::id() {
+            kill_old(pid);
+        }
+    }
+
+    let listener = tokio::net::TcpListener::bind(&addr).await?;
+    tracing::info!("cochranblock listening on http://127.0.0.1:{}", port);
+
+    // Write our PID
+    write_pid();
 
     let intake_pool = intake::init_pool().await;
     let app = router::f1(t0 { intake_pool });
@@ -50,12 +111,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     })
     .await;
 
-    let listener = tokio::net::TcpListener::bind(&addr).await?;
-    let url = format!("http://127.0.0.1:{}", port);
-    tracing::info!("cochranblock listening on {}", url);
-
-    // Offline mode: open browser automatically
     if is_local {
+        let url = format!("http://127.0.0.1:{}", port);
         println!("\n  cochranblock v{}", env!("CARGO_PKG_VERSION"));
         println!("  Running at {}", url);
         println!("  Press Ctrl+C to stop\n");

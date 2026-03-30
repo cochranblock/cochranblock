@@ -2090,10 +2090,12 @@ body[data-page="community-grant"]::after {
   border-radius: 0.5rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .cost-table {
   width: 100%;
+  min-width: 320px;
   border-collapse: collapse;
   font-size: 1.05rem;
 }
@@ -2166,26 +2168,43 @@ body[data-page="community-grant"]::after {
 
 @media (max-width: 768px) {
   .cost-table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   .cost-table td {
-    padding: 0.5rem 0.6rem;
+    padding: 0.5rem 0.5rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+  .cost-amount {
+    white-space: nowrap;
+  }
+  .bid-date {
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
+  .cost-summary {
+    border-radius: 0.25rem;
+  }
   .cost-table {
-    font-size: 0.75rem;
-  }
-  .cost-table td {
-    padding: 0.4rem 0.5rem;
-  }
-  .cost-amount {
     font-size: 0.7rem;
   }
+  .cost-table td {
+    padding: 0.35rem 0.4rem;
+  }
+  .cost-amount {
+    font-size: 0.65rem;
+  }
+  .cost-old {
+    font-size: 0.6rem;
+  }
   .cost-row-highlight td {
-    padding: 0.6rem;
-    font-size: 0.85rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  .bid-blocked, .bid-ready, .bid-open {
+    font-size: 0.6rem;
   }
 }
 
