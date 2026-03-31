@@ -1997,7 +1997,8 @@ Government edge deployments (tactical, shipboard, SCIF) operate on resource-cons
 pub async fn f81(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Tiny Binaries</h1>
-<p class="hero-stats" style="text-align:left;margin-bottom:1.5rem"><em>But can it run on a potato?...</em></p>
+<p class="hero-stats" style="text-align:left;margin-bottom:0.5rem"><em>But can it run on a potato?...</em></p>
+<p style="color:var(--muted);font-size:0.85rem;margin-bottom:1.5rem">Your entire portfolio — 22 pages, search engine, source code viewer, analytics dashboard, DCAA audit, govdocs — in an app smaller than a selfie.</p>
 <p class="services-intro">Every binary. Measured. No Docker, no runtime, no cloud. One file per product. These are ARM aarch64 release builds compiled with <code>opt-level='s'</code>, LTO, <code>codegen-units=1</code>, <code>panic='abort'</code>, <code>strip=true</code>. Pure Rust.</p>
 
 <h2 class="services-section-head">Binary Size Leaderboard</h2>

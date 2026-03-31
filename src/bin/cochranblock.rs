@@ -82,10 +82,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let addr = format!("{}:{}", bind, port);
 
     // Kill old instance before binding port
-    if let Some(pid) = read_old_pid() {
-        if pid != std::process::id() {
-            kill_old(pid);
-        }
+    if let Some(pid) = read_old_pid().filter(|&p| p != std::process::id()) {
+        kill_old(pid);
     }
 
     let listener = tokio::net::TcpListener::bind(&addr).await?;
