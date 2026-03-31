@@ -2215,9 +2215,7 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
                     if let Some(end) = chunk.find('"') {
                         let date_str = &chunk[..end];
                         if date_str.len() > 18 {
-                            if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(date_str) {
-                                ts.push(dt.timestamp());
-                            }
+                            let _ = chrono::DateTime::parse_from_rfc3339(date_str).map(|dt| ts.push(dt.timestamp()));
                         }
                     }
                 }
