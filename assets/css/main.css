@@ -517,7 +517,12 @@ body[data-page="community-grant"]::after {
   .search-hero-input { font-size: 0.95rem; }
 }
 
-/* Hamburger — hidden on desktop */
+/* Hidden checkbox drives the menu — zero JS */
+.nav-check {
+  display: none;
+}
+
+/* Hamburger label — hidden on desktop */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -542,16 +547,24 @@ body[data-page="community-grant"]::after {
   transition: transform var(--transition);
 }
 
-.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+/* Checkbox checked → animate hamburger to X */
+.nav-check:checked + .nav-toggle .nav-toggle-bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 
-.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+.nav-check:checked + .nav-toggle .nav-toggle-bar:nth-child(2) {
   opacity: 0;
 }
 
-.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+.nav-check:checked + .nav-toggle .nav-toggle-bar:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Checkbox checked → show nav links */
+.nav-check:checked ~ .nav-links {
+  max-height: 100vh;
+  opacity: 1;
+  overflow-y: auto;
 }
 
 @media (max-width: 1024px) {
@@ -596,11 +609,7 @@ body[data-page="community-grant"]::after {
     transition: max-height var(--transition), opacity var(--transition);
   }
 
-  .nav-links.nav-open {
-    max-height: 100vh;
-    opacity: 1;
-    overflow-y: auto;
-  }
+  /* nav-open now driven by .nav-check:checked ~ .nav-links above */
 
   .nav-links a {
     padding: 0.85rem 0;

@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends Activity {
     private WebView webView;
 
-    // JNI — starts axum server on a background thread in Rust
     private static native void startServer();
+    private static boolean serverStarted = false;
 
     static {
         System.loadLibrary("cochranblock");
@@ -20,20 +22,36 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Start the Rust server via JNI (spawns background thread)
-        startServer();
+        // Start server only once (survives activity restart)
+        if (!serverStarted) {
+            startServer();
+            serverStarted = true;
+        }
 
-        // Create WebView pointing to localhost
         webView = new WebView(this);
         WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(false);
+        settings.setJavaScriptEnabled(false); // zero JS — nav is CSS-only checkbox toggle
         settings.setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient());
+        webView.setBackgroundColor(0xFF050508);
         setContentView(webView);
 
-        // Wait for server to bind, then load
+        // Poll until server responds, then load
         new Thread(() -> {
-            try { Thread.sleep(2000); } catch (Exception e) {}
+            for (int i = 0; i < 50; i++) {
+                try {
+                    HttpURLConnection c = (HttpURLConnection)
+                        new URL("http://127.0.0.1:8081/health").openConnection();
+                    c.setConnectTimeout(200);
+                    c.setReadTimeout(200);
+                    if (c.getResponseCode() == 200) {
+                        runOnUiThread(() -> webView.loadUrl("http://127.0.0.1:8081"));
+                        return;
+                    }
+                } catch (Exception e) { /* server not ready yet */ }
+                try { Thread.sleep(100); } catch (Exception e) {}
+            }
+            // Fallback after 5 seconds
             runOnUiThread(() -> webView.loadUrl("http://127.0.0.1:8081"));
         }).start();
     }
