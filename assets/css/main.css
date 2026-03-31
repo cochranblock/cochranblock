@@ -678,6 +678,7 @@ body[data-page="community-grant"]::after {
   }
 
   .nav-links {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
@@ -687,13 +688,12 @@ body[data-page="community-grant"]::after {
     padding: 1rem 2rem;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height var(--transition), opacity var(--transition);
   }
 
-  /* nav-open driven by .nav-check:checked ~ .nav-links above */
+  /* Checkbox checked → show nav links (mobile) */
+  .nav-check:checked ~ .nav-links {
+    display: flex;
+  }
 
   .nav-links > a {
     padding: 0.85rem 0;
