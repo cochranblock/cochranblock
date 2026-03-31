@@ -29,6 +29,7 @@ approuter = ["dep:approuter-client", "dep:lers"]
 [lib]
 name = "cochranblock"
 path = "src/lib.rs"
+crate-type = ["lib", "cdylib"]
 
 # Server binary: serves cochranblock.org. With --features approuter registers with approuter.
 # Without approuter feature: runs as installable offline app, opens browser.

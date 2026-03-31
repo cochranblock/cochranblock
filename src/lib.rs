@@ -25,6 +25,8 @@ pub mod tests;
 pub mod screenshot;
 pub mod web;
 pub mod ux;
+#[cfg(target_os = "android")]
+pub mod android;
 
 /// t1 = SiteStats. Cached dynamic numbers. Single source of truth.
 #[derive(Clone, Default, serde::Serialize)]

@@ -5,23 +5,28 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
-import java.io.*;
 
 public class MainActivity extends Activity {
     private WebView webView;
-    private Process serverProcess;
+
+    // JNI — starts axum server on a background thread in Rust
+    private static native void startServer();
+
+    static {
+        System.loadLibrary("cochranblock");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Extract and start the Rust server binary
+        // Start the Rust server via JNI (spawns background thread)
         startServer();
 
         // Create WebView pointing to localhost
         webView = new WebView(this);
         WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(false); // zero JS site
+        settings.setJavaScriptEnabled(false);
         settings.setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         setContentView(webView);
@@ -33,44 +38,12 @@ public class MainActivity extends Activity {
         }).start();
     }
 
-    private void startServer() {
-        try {
-            // Copy native lib to executable location
-            String nativeDir = getApplicationInfo().nativeLibraryDir;
-            String binaryPath = nativeDir + "/libcochranblock.so";
-
-            File binary = new File(binaryPath);
-            if (!binary.exists()) return;
-
-            // Make executable
-            binary.setExecutable(true);
-
-            // Start server process
-            ProcessBuilder pb = new ProcessBuilder(binaryPath);
-            pb.environment().put("PORT", "8081");
-            pb.environment().put("BIND", "127.0.0.1");
-            pb.redirectErrorStream(true);
-            serverProcess = pb.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onBackPressed() {
         if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             super.onBackPressed();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (serverProcess != null) {
-            serverProcess.destroy();
         }
     }
 }
