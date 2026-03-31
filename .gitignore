@@ -10,3 +10,7 @@
 
 # Claude Code worktrees
 .claude/worktrees/
+android/cochranblock-release.jks
+android/app/src/main/jniLibs/
+android/.gradle/
+android/app/build/

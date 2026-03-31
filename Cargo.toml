@@ -24,7 +24,7 @@ default = []
 tests = ["exopack", "colored", "admin", "dev"]
 admin = []
 dev = []
-approuter = ["dep:approuter-client"]
+approuter = ["dep:approuter-client", "dep:lers"]
 
 [lib]
 name = "cochranblock"
@@ -81,8 +81,8 @@ approuter-client = { version = "0.2", git = "https://github.com/cochranblock/app
 axum-server = { version = "0.7", features = ["tls-rustls"] }
 rustls = { version = "0.23", features = ["ring"] }
 rcgen = "0.14"
-lers = { version = "0.4", features = ["dns-01-cloudflare"] }
-openssl = { version = "0.10", features = ["vendored"] }
+lers = { version = "0.4", features = ["dns-01-cloudflare"], optional = true }
+# openssl removed — rustls handles all TLS. Zero C dependencies.
 
 [build-dependencies]
 include_packed = { version = "0.1", features = ["build"] }
