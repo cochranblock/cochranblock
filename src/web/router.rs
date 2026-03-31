@@ -59,6 +59,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/api/openbooks", get(pages::f87))
         .route("/dcaa", get(pages::f86))
         .route("/api/dcaa", get(pages::f87))
+        .route("/privacy", get(pages::f93))
         .route("/analytics", get(pages::f90))
         .route("/api/analytics", get(pages::f91))
         .route("/api/site-stats", get(pages::f92))

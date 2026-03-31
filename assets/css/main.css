@@ -369,6 +369,53 @@ body[data-page="community-grant"]::after {
   backdrop-filter: blur(8px);
 }
 
+/* Nav search bar */
+.nav-search {
+  margin: 0;
+  display: flex;
+}
+
+.nav-search-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  width: 160px;
+  transition: border-color var(--transition), box-shadow var(--transition), width var(--transition);
+}
+
+.nav-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.25);
+  width: 220px;
+}
+
+.nav-search-input::placeholder {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+@media (max-width: 768px) {
+  .nav-search-input {
+    width: 120px;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .nav-search-input:focus {
+    width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-search {
+    display: none;
+  }
+}
+
 /* Hamburger — hidden on desktop */
 .nav-toggle {
   display: none;
