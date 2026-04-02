@@ -1884,6 +1884,22 @@ body[data-page="community-grant"]::after {
   line-height: 1.5;
 }
 
+.product-deps {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.product-deps a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.product-deps a:hover {
+  text-decoration: underline;
+}
+
 .products-cta {
   margin-top: 2rem;
 }
