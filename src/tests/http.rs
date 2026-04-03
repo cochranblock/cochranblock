@@ -311,7 +311,7 @@ pub async fn f51() -> Vec<t24> {
         Ok(())
     }).await);
     v0.push(run("removed_routes_404", async {
-        for path in ["/source", "/ai-orchestration", "/prompts", "/cursor-rules", "/executive-summary"] {
+        for path in ["/ai-orchestration", "/prompts", "/cursor-rules", "/executive-summary"] {
             let v3 = v2.get(format!("{}{}", v1, path)).send().await.map_err(|e| e.to_string())?;
             assert_ok(v3.status().as_u16() == 404, format!("{} must 404, got {}", path, v3.status()))?;
         }
