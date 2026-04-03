@@ -685,8 +685,9 @@ CochranBlock's compiled single-binary architecture eliminates every external dep
 <p><strong>Technical Objectives — Phase I</strong><br>
 1. Deploy single-binary web application in a simulated JWICS/SIPRNet disconnected environment with zero external dependencies<br>
 2. Demonstrate on-device AI inference (classification, NLP, anomaly detection) using custom Mixture-of-Experts model running on commodity GPU hardware<br>
-3. Validate multi-node mesh recovery — nodes operate independently during network partition and resync state when connectivity restores<br>
-4. Deliver threat model and security architecture document suitable for ATO initiation at IL4</p>
+3. NanoSign model integrity — 36-byte BLAKE3 signatures on all AI model files, verified at load time. Unsigned or tampered models are rejected before inference. Zero-infrastructure supply chain security for AI at the tactical edge<br>
+4. Validate multi-node mesh recovery — nodes operate independently during network partition and resync state when connectivity restores<br>
+5. Deliver threat model and security architecture document suitable for ATO initiation at IL4</p>
 
 <p><strong>Technical Objectives — Phase II ($2M / 24 months)</strong><br>
 1. FIPS 140-3 cryptographic module integration for IL5 deployment<br>
@@ -719,7 +720,8 @@ CochranBlock has built a working on-device AI inference system (Kova) that runs 
 1. Package on-device inference engine as a reusable Rust library crate (WASM-safe, no-std compatible)<br>
 2. Benchmark inference latency and quality against cloud API baselines (GPT-4, Claude) on standardized tasks<br>
 3. Demonstrate privacy-preserving AI for healthcare (HIPAA), legal (attorney-client privilege), and defense (classified) use cases<br>
-4. Publish reproducible benchmarks and open-source the inference runtime under the Unlicense</p>
+4. NanoSign model signing — 36-byte BLAKE3 integrity verification for AI model files. Prevents model poisoning and ensures provenance without key infrastructure<br>
+5. Publish reproducible benchmarks and open-source the inference runtime under the Unlicense</p>
 
 <p><strong>Technical Objectives — Phase II ($1M / 24 months)</strong><br>
 1. Train domain-specific expert models (cybersecurity, code generation, document analysis) from production data<br>
@@ -750,9 +752,10 @@ CochranBlock's zero-trust architecture is secure by compilation, not configurati
 <p><strong>Technical Objectives — Phase I</strong><br>
 1. Deploy zero-trust edge node at a simulated critical infrastructure site (water/power/transportation) with zero cloud dependency<br>
 2. Demonstrate real-time log aggregation and anomaly detection using on-device AI inference — no data exfiltration to cloud SIEM<br>
-3. Validate IoT device monitoring via LoRa/915MHz mesh network for air-gapped OT environments<br>
-4. Produce NIST 800-53 control mapping for the single-binary architecture<br>
-5. Deliver pen test results and security assessment from independent third party</p>
+3. NanoSign AI model integrity verification — BLAKE3-based 36-byte model signing prevents supply chain poisoning of on-device ML models. Self-verifying, no key infrastructure, no network required<br>
+4. Validate IoT device monitoring via LoRa/915MHz mesh network for air-gapped OT environments<br>
+5. Produce NIST 800-53 control mapping for the single-binary architecture<br>
+6. Deliver pen test results and security assessment from independent third party</p>
 
 <p><strong>Technical Objectives — Phase II ($2M / 24 months)</strong><br>
 1. Integration with CISA's Continuous Diagnostics and Mitigation (CDM) program<br>
@@ -909,7 +912,8 @@ EO 14028 mandates Software Bills of Materials (SBOM) for federal software. Curre
 2. Demonstrate provenance chain: source commit → build artifact → deployed binary with cryptographic attestation<br>
 3. SSDF (Secure Software Development Framework, NIST SP 800-218) compliance mapping for single-binary architecture<br>
 4. Comparison study: SBOM completeness and accuracy vs. container-based and interpreted-language equivalents<br>
-5. Open source the SBOM tooling under the Unlicense</p>
+5. NanoSign integration — 36-byte AI model signing (BLAKE3) for tamper detection of ML model files in the supply chain. Self-verifying, zero infrastructure, format-agnostic (safetensors/GGUF/ONNX/PyTorch)<br>
+6. Open source the SBOM and NanoSign tooling under the Unlicense</p>
 </div>
 </details>
 
@@ -1136,8 +1140,12 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <tr><td>TLS</td><td>TLS 1.3</td><td>rustls 0.23</td><td>Algorithm approved. Crate in FIPS validation process (Prossimo project).</td></tr>
 <tr><td>Hashing</td><td>SHA-256</td><td>sha2 0.10</td><td>Algorithm approved (FIPS 180-4). Crate not FIPS-validated.</td></tr>
 <tr><td>Random</td><td>ChaCha20</td><td>rand 0.8</td><td>CSPRNG. Not FIPS-validated.</td></tr>
+<tr><td>AI Model Signing</td><td>BLAKE3 (NanoSign)</td><td>blake3 1.x</td><td>36-byte self-verifying signature. Any model format. Zero infrastructure. <a href="https://github.com/cochranblock/kova">Spec</a></td></tr>
 </table>
 </div>
+
+<p><strong>NanoSign — AI Supply Chain Integrity</strong></p>
+<p>AI model files ship unsigned. NanoSign appends 36 bytes (4-byte magic + 32-byte BLAKE3 hash) to any model file — safetensors, GGUF, ONNX, PyTorch. The file becomes self-verifying with zero infrastructure. No key servers, no PKI, no ceremony. Verification runs at memory bandwidth (~6 GB/s). A 4GB model verifies in under 1 second. Aligns with EO 14028 supply chain transparency requirements, SSDF PS.1 (protect software components), and CMMC SC.L2-3.13.11 (CUI encryption). Reference implementation: 3 lines of Rust.</p>
 
 <p><strong>Attack Surface</strong></p>
 <ul>
