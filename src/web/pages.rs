@@ -158,6 +158,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         ("/source", "0.7", "monthly"),
         ("/speed", "0.9", "weekly"),
         ("/openbooks", "0.8", "weekly"),
+        ("/changelog", "0.7", "daily"),
         ("/dcaa", "0.8", "weekly"),
         ("/analytics", "0.7", "daily"),
         ("/about", "0.8", "monthly"),
@@ -1807,6 +1808,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/vre", title: "VR&E Self-Employment Business Plan", body: "VA VR&E Category II. Self-employment track. Lab-based workforce training. UMBC JHU APL UMD MC2. 12-month milestones. FIPS crypto validation. Air-gapped edge computing. Federal alignment CISA EO 14028 SSDF CMMC FedRAMP." },
     SearchEntry { path: "/source", title: "Source Code", body: "Read the source code of the server serving you this page. Cargo.toml. router.rs. assets.rs. pages.rs. Rust source compiled into the binary via include_str." },
     SearchEntry { path: "/speed", title: "Speed — 240x Lighter Than Wix", body: "9.5 KB page size. 0 bytes JavaScript. 240x lighter than Wix. 65x lighter than Squarespace. 92 KB total transfer. 8.4 MB Rust binary server. $10/month. Zero XSS attack surface." },
+    SearchEntry { path: "/changelog", title: "Changelog", body: "Live commit feed from GitHub. Recent changes across cochranblock kova approuter pixel-forge any-gpu exopack rogue-repo oakilydokily. Machine-verified timestamps." },
     SearchEntry { path: "/dcaa", title: "DCAA — IR&D Audit", body: "DCAA compliance. Live IR&D hours from GitHub commits. FAR 31.205-18 documentation. Continuously auditable. Same data as /openbooks." },
     SearchEntry { path: "/openbooks", title: "Open Books — IR&D Audit", body: "Live IR&D hours from GitHub commits. DCAA audit trail. Sessions calculated from commit timestamps. Complexity multipliers. $225/hour rate. Per-repo breakdown. FAR 31.205-18 IR&D documentation." },
     SearchEntry { path: "/sbir", title: "SBIR / Provenance", body: "SBIR STTR proposals. Provenance documentation. AI development framework. Timeline of Invention. Proof of Artifacts. Human-piloted AI development." },
@@ -2701,6 +2703,101 @@ pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
          (axum::http::header::CACHE_CONTROL, "public, max-age=1800")],
         json,
     )
+}
+
+/// f94 = serve_changelog. Why: Live commit feed from GitHub — proves shipping velocity without hardcoded entries.
+pub async fn f94(State(_p0): State<Arc<t0>>) -> Html<String> {
+    use std::sync::OnceLock;
+    use std::sync::Mutex;
+
+    static CACHE: OnceLock<Mutex<(String, std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| Mutex::new((String::new(), std::time::Instant::now() - std::time::Duration::from_secs(9999))));
+
+    {
+        let guard = cache.lock().unwrap();
+        if guard.1.elapsed().as_secs() < 1800 && !guard.0.is_empty() {
+            let head = f62d("changelog", "Changelog | CochranBlock", "Live commit feed from GitHub. Every change, every repo, machine-verified timestamps. No self-reported velocity.");
+            return Html(format!("{}{}{}{}", head, C7, guard.0, C8));
+        }
+    }
+
+    let token = std::env::var("GITHUB_TOKEN").unwrap_or_default();
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert(reqwest::header::USER_AGENT, "cochranblock/1.0".parse().unwrap());
+    if !token.is_empty() {
+        headers.insert(reqwest::header::AUTHORIZATION, format!("Bearer {}", token).parse().unwrap());
+    }
+
+    let client = reqwest::Client::builder()
+        .default_headers(headers)
+        .build()
+        .unwrap();
+
+    // Fetch recent commits from top repos (limit API calls)
+    let key_repos = ["cochranblock", "kova", "approuter", "pixel-forge", "any-gpu", "exopack", "rogue-repo", "oakilydokily"];
+    let mut all_commits: Vec<(String, String, String, String)> = Vec::new(); // (date, repo, msg, hash)
+
+    for repo in key_repos {
+        let url = format!("https://api.github.com/repos/cochranblock/{}/commits?per_page=5", repo);
+        let resp = match client.get(&url).send().await.ok() {
+            Some(r) => r,
+            None => continue,
+        };
+        let body = resp.text().await.unwrap_or_default();
+        if let Ok(arr) = serde_json::from_str::<Vec<serde_json::Value>>(&body) {
+            for c in arr.iter().take(5) {
+                let sha = c.get("sha").and_then(|v| v.as_str()).unwrap_or("").get(..7).unwrap_or("");
+                let msg = c.pointer("/commit/message").and_then(|v| v.as_str()).unwrap_or("");
+                let first_line = msg.lines().next().unwrap_or("");
+                let date = c.pointer("/commit/committer/date").and_then(|v| v.as_str()).unwrap_or("");
+                let day = date.get(..10).unwrap_or(date);
+                if !sha.is_empty() && !first_line.is_empty() {
+                    all_commits.push((day.to_string(), repo.to_string(), first_line.to_string(), sha.to_string()));
+                }
+            }
+        }
+    }
+
+    // Sort by date descending
+    all_commits.sort_by(|a, b| b.0.cmp(&a.0));
+    all_commits.truncate(40);
+
+    let mut html_entries = String::new();
+    let mut current_day = String::new();
+    for (day, repo, msg, sha) in &all_commits {
+        if *day != current_day {
+            if !current_day.is_empty() {
+                html_entries.push_str("</div>");
+            }
+            html_entries.push_str(&format!(r#"<h3 class="services-section-head">{}</h3><div class="service-cards">"#, day));
+            current_day = day.clone();
+        }
+        let escaped_msg = msg.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;");
+        html_entries.push_str(&format!(
+            r#"<div class="changelog-entry"><span class="changelog-repo">{}</span> <code class="changelog-sha">{}</code> <span class="changelog-msg">{}</span></div>"#,
+            repo, sha, escaped_msg
+        ));
+    }
+    if !current_day.is_empty() {
+        html_entries.push_str("</div>");
+    }
+
+    let fallback = if all_commits.is_empty() {
+        "<p>Commit data unavailable — GitHub API may be rate-limited. Check <a href=\"https://github.com/cochranblock\">github.com/cochranblock</a> directly.</p>"
+    } else { "" };
+
+    let v0 = format!(
+        r#"<section class="services"><h1>Changelog</h1><p class="services-intro">Live commit feed from GitHub. Every change, every repo, machine-verified timestamps.</p>{}{}<p class="services-cta"><a href="https://github.com/cochranblock" class="btn">All Repos on GitHub</a><a href="/codeskillz" class="btn btn-secondary">Velocity Dashboard</a></p></section>"#,
+        fallback, html_entries
+    );
+
+    {
+        let mut guard = cache.lock().unwrap();
+        *guard = (v0.clone(), std::time::Instant::now());
+    }
+
+    let head = f62d("changelog", "Changelog | CochranBlock", "Live commit feed from GitHub. Every change, every repo, machine-verified timestamps. No self-reported velocity.");
+    Html(format!("{}{}{}{}", head, C7, v0, C8))
 }
 
 /// f71 = handler_404. Why: Site-styled 404 instead of axum default.

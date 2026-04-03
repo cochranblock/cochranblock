@@ -1900,6 +1900,31 @@ body[data-page="community-grant"]::after {
   text-decoration: underline;
 }
 
+.changelog-entry {
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.changelog-repo {
+  display: inline-block;
+  min-width: 140px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.changelog-sha {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+}
+
+.changelog-msg {
+  color: var(--text);
+}
+
 .products-cta {
   margin-top: 2rem;
 }
