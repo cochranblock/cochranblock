@@ -549,5 +549,292 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(v4.contains("website_url"), "deploy missing honeypot field")?;
         Ok(())
     }).await);
+
+    // === PAGES: full route coverage ===
+    v0.push(run("downloads_200", async {
+        let v3 = v2.get(format!("{}/downloads", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/downloads status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("Download") || v4.contains("Binary") || v4.contains("ARM"), "/downloads missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("mathskillz_200", async {
+        let v3 = v2.get(format!("{}/mathskillz", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/mathskillz status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("cloud") || v4.contains("cost") || v4.contains("$"), "/mathskillz missing cost content")?;
+        Ok(())
+    }).await);
+    v0.push(run("provenance_200", async {
+        let v3 = v2.get(format!("{}/provenance", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/provenance status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("Provenance") || v4.contains("SBIR") || v4.contains("documentation"), "/provenance missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("sbir_same_as_provenance", async {
+        let v3 = v2.get(format!("{}/sbir", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/sbir status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("Provenance") || v4.contains("SBIR") || v4.contains("documentation"), "/sbir missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("codeskillz_200", async {
+        let v3 = v2.get(format!("{}/codeskillz", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/codeskillz status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("velocity") || v4.contains("repo") || v4.contains("Rust"), "/codeskillz missing content")?;
+        assert_ok(v4.contains("api/velocity"), "/codeskillz must reference velocity API")?;
+        Ok(())
+    }).await);
+    v0.push(run("govdocs_200", async {
+        let v3 = v2.get(format!("{}/govdocs", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/govdocs status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("NAICS") || v4.contains("capability") || v4.contains("government"), "/govdocs missing content")?;
+        assert_ok(v4.contains("NanoSign"), "/govdocs missing NanoSign")?;
+        Ok(())
+    }).await);
+    v0.push(run("govdocs_faq_redirect", async {
+        let v3 = v2.get(format!("{}/govdocs/faq", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().as_u16() == 308 || v3.status().is_success(), format!("/govdocs/faq must 308 or 200, got {}", v3.status()))?;
+        Ok(())
+    }).await);
+    v0.push(run("tinybinaries_200", async {
+        let v3 = v2.get(format!("{}/tinybinaries", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/tinybinaries status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("MB") || v4.contains("binary") || v4.contains("KB"), "/tinybinaries missing size content")?;
+        Ok(())
+    }).await);
+    v0.push(run("vre_200", async {
+        let v3 = v2.get(format!("{}/vre", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/vre status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("VR&E") || v4.contains("VA") || v4.contains("veteran"), "/vre missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("source_200", async {
+        let v3 = v2.get(format!("{}/source", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/source status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("source") || v4.contains("code") || v4.contains("Rust"), "/source missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("search_200", async {
+        let v3 = v2.get(format!("{}/search", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/search status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("search") || v4.contains("Search") || v4.contains("query"), "/search missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("search_with_query", async {
+        let v3 = v2.get(format!("{}/search?q=rust", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/search?q=rust status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(!v4.is_empty(), "/search?q=rust must return content")?;
+        Ok(())
+    }).await);
+    v0.push(run("speed_200", async {
+        let v3 = v2.get(format!("{}/speed", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/speed status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("KB") || v4.contains("Wix") || v4.contains("weight"), "/speed missing comparison content")?;
+        Ok(())
+    }).await);
+    v0.push(run("openbooks_200", async {
+        let v3 = v2.get(format!("{}/openbooks", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/openbooks status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("IR&D") || v4.contains("hours") || v4.contains("audit"), "/openbooks missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("dcaa_same_as_openbooks", async {
+        let v3 = v2.get(format!("{}/dcaa", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/dcaa status {}", v3.status()))?;
+        Ok(())
+    }).await);
+    v0.push(run("privacy_200", async {
+        let v3 = v2.get(format!("{}/privacy", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/privacy status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("Privacy") || v4.contains("data") || v4.contains("collection"), "/privacy missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("changelog_200", async {
+        let v3 = v2.get(format!("{}/changelog", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/changelog status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("changelog") || v4.contains("Changelog") || v4.contains("commit"), "/changelog missing content")?;
+        Ok(())
+    }).await);
+    v0.push(run("analytics_200", async {
+        let v3 = v2.get(format!("{}/analytics", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/analytics status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("analytic") || v4.contains("request") || v4.contains("visitor"), "/analytics missing content")?;
+        Ok(())
+    }).await);
+
+    // === API ENDPOINTS ===
+    v0.push(run("api_openbooks_json", async {
+        let v3 = v2.get(format!("{}/api/openbooks", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/openbooks status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("json"), format!("/api/openbooks content-type must be json, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        assert_ok(parsed.get("repos").is_some(), "/api/openbooks missing repos field")?;
+        assert_ok(parsed.get("total_hours").is_some(), "/api/openbooks missing total_hours")?;
+        assert_ok(parsed.get("total_value").is_some(), "/api/openbooks missing total_value")?;
+        assert_ok(parsed.get("rate").is_some(), "/api/openbooks missing rate")?;
+        Ok(())
+    }).await);
+    v0.push(run("api_dcaa_same_as_openbooks", async {
+        let v3 = v2.get(format!("{}/api/dcaa", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/dcaa status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        assert_ok(parsed.get("repos").is_some(), "/api/dcaa missing repos field")?;
+        Ok(())
+    }).await);
+    v0.push(run("api_analytics_json", async {
+        let v3 = v2.get(format!("{}/api/analytics", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/analytics status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("json"), format!("/api/analytics must be json, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let _parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        Ok(())
+    }).await);
+    v0.push(run("api_site_stats_json", async {
+        let v3 = v2.get(format!("{}/api/site-stats", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/site-stats status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("json"), format!("/api/site-stats must be json, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        assert_ok(parsed.get("repo_count").is_some(), "/api/site-stats missing repo_count")?;
+        Ok(())
+    }).await);
+    v0.push(run("api_site_stats_repo_count_nonzero", async {
+        let v3 = v2.get(format!("{}/api/site-stats", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        let count = parsed["repo_count"].as_u64().unwrap_or(0);
+        assert_ok(count > 0, format!("repo_count must be > 0, got {}", count))?;
+        Ok(())
+    }).await);
+    v0.push(run("api_stats_json", async {
+        let v3 = v2.get(format!("{}/api/stats", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/stats status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("json"), format!("/api/stats must be json, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        assert_ok(parsed.get("binary_size_arm").is_some(), "/api/stats missing binary_size_arm")?;
+        assert_ok(parsed.get("repos").is_some(), "/api/stats missing repos")?;
+        assert_ok(parsed.get("timestamp").is_some(), "/api/stats missing timestamp")?;
+        Ok(())
+    }).await);
+    v0.push(run("api_velocity_json", async {
+        let v3 = v2.get(format!("{}/api/velocity", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/velocity status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("json"), format!("/api/velocity must be json, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let _parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        Ok(())
+    }).await);
+    v0.push(run("api_summary_json", async {
+        let v3 = v2.get(format!("{}/api/summary", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/api/summary status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("json"), format!("/api/summary must be json, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        let parsed: serde_json::Value = serde_json::from_str(&v4).map_err(|e| e.to_string())?;
+        assert_ok(parsed.get("company").is_some(), "/api/summary missing company")?;
+        assert_ok(parsed.get("innovations").is_some(), "/api/summary missing innovations")?;
+        assert_ok(parsed.get("naics").is_some(), "/api/summary missing naics")?;
+        let innovations = parsed["innovations"].as_array().ok_or("innovations must be array")?;
+        assert_ok(innovations.iter().any(|i| i.as_str() == Some("NanoSign")), "/api/summary innovations missing NanoSign")?;
+        Ok(())
+    }).await);
+
+    // === WELL-KNOWN / TEXT FILES ===
+    v0.push(run("llms_txt", async {
+        let v3 = v2.get(format!("{}/llms.txt", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/llms.txt status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("text/plain"), format!("/llms.txt must be text/plain, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("CochranBlock"), "/llms.txt missing CochranBlock")?;
+        assert_ok(v4.contains("veteran") || v4.contains("Veteran"), "/llms.txt missing veteran context")?;
+        Ok(())
+    }).await);
+    v0.push(run("llms_full_txt", async {
+        let v3 = v2.get(format!("{}/llms-full.txt", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/llms-full.txt status {}", v3.status()))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("CochranBlock"), "/llms-full.txt missing CochranBlock")?;
+        assert_ok(v4.len() > v4.len() / 2, "llms-full.txt must have content")?;
+        Ok(())
+    }).await);
+    v0.push(run("humans_txt", async {
+        let v3 = v2.get(format!("{}/humans.txt", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/humans.txt status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("text/plain"), format!("/humans.txt must be text/plain, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("TEAM") || v4.contains("Developer"), "/humans.txt missing TEAM section")?;
+        assert_ok(v4.contains("Michael Cochran"), "/humans.txt missing developer name")?;
+        Ok(())
+    }).await);
+    v0.push(run("security_txt", async {
+        let v3 = v2.get(format!("{}/.well-known/security.txt", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/.well-known/security.txt status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("text/plain"), format!("security.txt must be text/plain, got {}", ct))?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("Contact:"), "security.txt missing Contact field")?;
+        assert_ok(v4.contains("Expires:"), "security.txt missing Expires field")?;
+        assert_ok(v4.contains("Canonical:"), "security.txt missing Canonical field")?;
+        Ok(())
+    }).await);
+    v0.push(run("sw_js", async {
+        let v3 = v2.get(format!("{}/sw.js", v1)).send().await.map_err(|e| e.to_string())?;
+        assert_ok(v3.status().is_success(), format!("/sw.js status {}", v3.status()))?;
+        let ct = v3.headers().get("content-type").and_then(|h| h.to_str().ok()).unwrap_or("").to_string();
+        assert_ok(ct.contains("javascript"), format!("/sw.js must be javascript, got {}", ct))?;
+        Ok(())
+    }).await);
+
+    // === SECURITY HEADERS ===
+    v0.push(run("security_headers", async {
+        let v3 = v2.get(format!("{}/", v1)).send().await.map_err(|e| e.to_string())?;
+        let headers = v3.headers();
+        let xcto = headers.get("x-content-type-options").and_then(|h| h.to_str().ok()).unwrap_or("");
+        assert_ok(xcto == "nosniff", format!("X-Content-Type-Options must be nosniff, got '{}'", xcto))?;
+        let xfo = headers.get("x-frame-options").and_then(|h| h.to_str().ok()).unwrap_or("");
+        assert_ok(xfo == "SAMEORIGIN", format!("X-Frame-Options must be SAMEORIGIN, got '{}'", xfo))?;
+        let rp = headers.get("referrer-policy").and_then(|h| h.to_str().ok()).unwrap_or("");
+        assert_ok(rp == "strict-origin-when-cross-origin", format!("Referrer-Policy wrong, got '{}'", rp))?;
+        Ok(())
+    }).await);
+
+    // === API CACHE HEADERS ===
+    v0.push(run("api_openbooks_cache_header", async {
+        let v3 = v2.get(format!("{}/api/openbooks", v1)).send().await.map_err(|e| e.to_string())?;
+        let cc = v3.headers().get("cache-control").and_then(|h| h.to_str().ok()).unwrap_or("");
+        assert_ok(cc.contains("max-age"), format!("/api/openbooks missing cache-control, got '{}'", cc))?;
+        Ok(())
+    }).await);
+    v0.push(run("api_summary_cache_header", async {
+        let v3 = v2.get(format!("{}/api/summary", v1)).send().await.map_err(|e| e.to_string())?;
+        let cc = v3.headers().get("cache-control").and_then(|h| h.to_str().ok()).unwrap_or("");
+        assert_ok(cc.contains("max-age"), format!("/api/summary missing cache-control, got '{}'", cc))?;
+        Ok(())
+    }).await);
+
     v0
 }
