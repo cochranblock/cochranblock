@@ -226,6 +226,14 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
 pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><form action="/search" method="get" class="nav-search"><input type="search" name="q" placeholder="Search..." aria-label="Search" class="nav-search-input"></form><input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu"><label for="nav-check" class="nav-toggle"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></label><div id="nav-links" class="nav-links" role="navigation"><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a><details class="nav-group"><summary>Gov</summary><div class="nav-group-links"><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div></details><details class="nav-group"><summary>Tools</summary><div class="nav-group-links"><a href="/search">Search</a><a href="/source">Source</a><a href="/speed">Speed</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div></details><details class="nav-group"><summary>More</summary><div class="nav-group-links"><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></details></div></nav><main id="main" class="content">"##;
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><div class="footer-group"><span class="footer-heading">Main</span><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a></div><div class="footer-group"><span class="footer-heading">Gov</span><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div><div class="footer-group"><span class="footer-heading">Tools</span><a href="/search">Search</a><a href="/source">Source</a><a href="/speed">Speed</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div><div class="footer-group"><span class="footer-heading">More</span><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/mathskillz">Math</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · IRS Validated · CAGE Pending · UEI W7X3HAQL9CF9 · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script></body></html>"#;
 
+/// Canonical repo list. Single source of truth for velocity API + site_stats.
+const REPOS: &[&str] = &[
+    "cochranblock", "ghost-fabric", "kova", "pixel-forge", "approuter",
+    "oakilydokily", "illbethejudgeofthat", "exopack", "rogue-repo",
+    "wowasticker", "whyyoulying", "pocket-server", "provenance-docs", "call-shield",
+    "any-gpu",
+];
+
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
     let ss = site_stats().await;
@@ -2312,10 +2320,8 @@ pub async fn site_stats() -> crate::t1 {
     let total_hours: f64 = ob.iter().map(|e| e.3).sum();
     let total_value: f64 = ob.iter().map(|e| e.4).sum();
 
-    // Repo count from GitHub API (lightweight — just count from velocity cache)
-    // The velocity endpoint already fetches all repos; reuse its repo list length
-    let repo_count = 15_usize; // TODO: dynamic from velocity cache
-    let unlicense_count = 12_usize;
+    let repo_count = REPOS.len();
+    let unlicense_count = 13_usize;
 
     crate::t1 {
         repo_count,
@@ -2653,13 +2659,6 @@ pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         }
     }
 
-    let repos = [
-        "cochranblock", "ghost-fabric", "kova", "pixel-forge", "approuter",
-        "oakilydokily", "illbethejudgeofthat", "exopack", "rogue-repo",
-        "wowasticker", "whyyoulying", "pocket-server", "provenance-docs", "call-shield",
-        "any-gpu",
-    ];
-
     let token = std::env::var("GITHUB_TOKEN").unwrap_or_default();
     let mut headers = reqwest::header::HeaderMap::new();
     headers.insert(reqwest::header::USER_AGENT, "cochranblock/1.0".parse().unwrap());
@@ -2673,7 +2672,7 @@ pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         .unwrap();
 
     let mut entries = Vec::new();
-    for repo in repos {
+    for repo in REPOS {
         let url = format!("https://api.github.com/repos/cochranblock/{}", repo);
         #[allow(clippy::collapsible_if)]
         if let Ok(resp) = client.get(&url).send().await {
