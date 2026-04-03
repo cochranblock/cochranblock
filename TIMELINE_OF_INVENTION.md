@@ -34,6 +34,12 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-04-02 — any-gpu Added as 15th Repo, Full Docs Audit
+
+**What:** Added any-gpu (GPU tensor engine via wgpu — AMD/NVIDIA/Intel/Apple from one codebase) to products page, codeskillz metadata, tinybinaries leaderboard, velocity API, llms.txt, and search index. Updated all repo counts from 14→15 and Unlicense counts from 12→13 across ~50 site references. Full documentation audit: PROOF_OF_ARTIFACTS.md metrics updated (92 functions, 10 types, 5,980 LOC, 50 routes), architecture diagram corrected, README binary sizes fixed. CSS-only nav redesign shipped. Deployed to gd (x86 production).
+**Commit:** `e6de722` (any-gpu addition), subsequent commits for docs audit
+**AI Role:** AI executed all site updates, metric counting, and cross-referencing. Human directed product addition and audit scope.
+
 ### 2026-03-28 — Native Search Engine + Federal Compliance Docs (SBOM, SSDF, CMMC, Security)
 
 **What:** Added /search — native Rust full-text search with 16-entry compile-time index. GET /search?q= returns matching pages with highlighted snippets, sub-millisecond. No external search service, no JS library — 60 lines of Rust. Added SBOM (38 deps with versions/licenses/purpose), SSDF compliance matrix (PS/PW/RV/PO mapped to actual practices), CMMC Level 1-2 (11 practices across 8 domains), and Security posture (crypto primitives table with FIPS status, attack surface analysis) to /govdocs.

@@ -14,8 +14,8 @@ flowchart LR
     CF --> AR[approuter :8080]
     AR --> CB[cochranblock :8081]
     AR --> OD[oakilydokily :3000]
-    AR --> RR[rogue-repo :3001]
     CB --> Sled[(sled DB)]
+    CB --> SQLite[(SQLite)]
     CB --> Assets[Embedded Assets]
 ```
 
@@ -29,13 +29,13 @@ flowchart LR
 | External services | Cloudflare tunnel (free tier) |
 | Database | Embedded sled + SQLite — no external DB |
 | Cloud dependencies | Zero |
-| Public repos | 14 (12 Unlicense, 2 proprietary) |
+| Public repos | 15 (13 Unlicense, 2 proprietary) |
 | Certification | SDVOSB pending · SAM.gov pending registration · eMMA vendor SUP1095449 · CSB approved |
-| Functions | 55 |
-| Types | 7 |
-| Lines of code | 3,404 |
+| Functions | 92 |
+| Types | 10 |
+| Lines of code | 5,980 |
 | Direct dependencies | 38 |
-| Routes | 34 (25 pages + 5 meta + 2 API + 2 redirects) |
+| Routes | 50 (45 production + 5 dev) |
 | Release profile | opt-level='s', lto=true, codegen-units=1, panic='abort', strip=true |
 | GPU nodes | lf: RTX 3070 8GB · gd: RTX 3050 Ti 4GB |
 | QA Round 1 | PASS — zero errors, zero warnings, zero debug prints, zero AI slop, all routes 200 |
@@ -55,7 +55,7 @@ flowchart LR
 
 ```bash
 # Clone, build, run. That's it.
-cargo build --release -p cochranblock
+cargo build --release -p cochranblock --features approuter
 ls -lh target/release/cochranblock   # <10MB
 ./target/release/cochranblock         # localhost:8081
 ```

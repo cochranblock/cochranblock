@@ -54,7 +54,7 @@ CochranBlock replaces expensive cloud infrastructure with single compiled Rust b
 - Rate: $225/hour, $3,500 base deployment
 - Stack: Rust, single-binary, embedded sled database, Cloudflare Zero Trust tunnel
 - Infrastructure cost: $10/month total (97% reduction vs cloud)
-- Open source: 15 public repos (12 Unlicense) at github.com/cochranblock
+- Open source: 15 public repos (13 Unlicense) at github.com/cochranblock
 - Certifications: SDVOSB pending, SAM.gov IRS validated, CAGE pending (DLA reviewing), UEI W7X3HAQL9CF9, Maryland eMMA vendor SUP1095449, Maryland CSB approved
 - UEI: W7X3HAQL9CF9
 
@@ -132,7 +132,7 @@ Source: github.com/cochranblock/cochranblock
 
 /* SPEED */
 LLC formed to production: under 30 days
-15 public repos (12 Unlicense): March 2026
+15 public repos (13 Unlicense): March 2026
 First partnership signed: March 2026
 SAM.gov IRS validated, CAGE pending (DLA): March 2026 (UEI W7X3HAQL9CF9)
 This site you're reading: 15MB, $10/month, zero cloud
@@ -1775,7 +1775,7 @@ struct SearchEntry {
 const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry { path: "/", title: "Home", body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 15 open source repos." },
     SearchEntry { path: "/services", title: "Services & Pricing", body: "Fractional CTO services. $225/hour consulting. $3,500 base deployment. $3,500/month retainer. Zero-cloud architecture. Binary hardening. Air-gapped deployment." },
-    SearchEntry { path: "/products", title: "Products", body: "16 Rust products. aptnomo 312 KB APT threat hunter. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework." },
+    SearchEntry { path: "/products", title: "Products", body: "15 Rust products. aptnomo APT threat hunter. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework. any-gpu GPU tensor engine." },
     SearchEntry { path: "/deploy", title: "Deploy — Start a Project", body: "Zero-cloud tech intake form. Deploy a single Rust binary. Replace your cloud infrastructure. $3,500 one-time deployment. Contact us to start." },
     SearchEntry { path: "/about", title: "About CochranBlock", body: "Michael Cochran. Army 17C Cyber Operations. JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead. SDVOSB pending. LLC formed to production in under 30 days." },
     SearchEntry { path: "/contact", title: "Contact", body: "Email mcochran@cochranblock.org. Book a 30-minute discovery call. LinkedIn. Responds within 24-48 hours." },
@@ -1885,7 +1885,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <div class="govdoc-print">
 <p>Every claim below is verifiable by clicking through this site:</p>
 <ul>
-<li><strong><a href="/codeskillz">15 public repositories</a></strong> on GitHub, 12 Unlicense — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
+<li><strong><a href="/codeskillz">15 public repositories</a></strong> on GitHub, 13 Unlicense — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
 <li><strong><a href="/codeskillz">30-minute commit tracker</a></strong> — machine-verified continuous development, not self-reported</li>
 <li><strong><a href="/tinybinaries">Binary sizes from 48 KB to 51.5 MB</a></strong> — every binary measured, every claim verified</li>
 <li><strong>First paying client</strong> — <a href="https://oakilydokily.com">oakilydokily.com</a> under active contract</li>
@@ -2017,11 +2017,12 @@ pub async fn f81(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>4</td><td><a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a></td><td class="cost-amount cost-new">328 KB</td><td>Docs + validation tooling</td></tr>
 <tr><td>5</td><td><a href="https://github.com/cochranblock/whyyoulying">whyyoulying</a></td><td class="cost-amount cost-new">505 KB</td><td>Fraud detection engine</td></tr>
 <tr><td>6</td><td><a href="https://github.com/cochranblock/pocket-server">pocket-server</a></td><td class="cost-amount cost-new">1.01 MB</td><td>Static site server — your site on your phone</td></tr>
-<tr><td>7</td><td><a href="https://github.com/cochranblock/illbethejudgeofthat">illbethejudgeofthat</a></td><td class="cost-amount cost-new">2.5 MB</td><td>Legal form builder + exhibit book</td></tr>
-<tr><td>8</td><td><a href="https://github.com/cochranblock/ronin-sites">ronin-sites</a></td><td class="cost-amount">4.0 MB</td><td>Multi-tenant shop platform</td></tr>
-<tr><td>9</td><td><a href="https://github.com/cochranblock/cochranblock">cochranblock</a></td><td class="cost-amount cost-new">8.4 MB</td><td>This site — right now, serving this page</td></tr>
-<tr><td>10</td><td><a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a></td><td class="cost-amount">9.2 MB</td><td>AI sprite generator + diffusion models</td></tr>
-<tr><td>11</td><td><a href="https://github.com/cochranblock/kova">kova</a></td><td class="cost-amount">~51.5 MB</td><td>Augment engine + local LLM inference</td></tr>
+<tr><td>7</td><td><a href="https://github.com/cochranblock/any-gpu">any-gpu</a></td><td class="cost-amount cost-new">1.5 MB</td><td>GPU tensor engine — AMD/NVIDIA/Intel/Apple via wgpu (bench example)</td></tr>
+<tr><td>8</td><td><a href="https://github.com/cochranblock/illbethejudgeofthat">illbethejudgeofthat</a></td><td class="cost-amount cost-new">2.5 MB</td><td>Legal form builder + exhibit book</td></tr>
+<tr><td>9</td><td><a href="https://github.com/cochranblock/ronin-sites">ronin-sites</a></td><td class="cost-amount">4.0 MB</td><td>Multi-tenant shop platform</td></tr>
+<tr><td>10</td><td><a href="https://github.com/cochranblock/cochranblock">cochranblock</a></td><td class="cost-amount cost-new">8.4 MB</td><td>This site — right now, serving this page</td></tr>
+<tr><td>11</td><td><a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a></td><td class="cost-amount">9.2 MB</td><td>AI sprite generator + diffusion models</td></tr>
+<tr><td>12</td><td><a href="https://github.com/cochranblock/kova">kova</a></td><td class="cost-amount">~51.5 MB</td><td>Augment engine + local LLM inference</td></tr>
 </table>
 </div>
 
@@ -2516,7 +2517,7 @@ Your server bill is too high. CochranBlock replaces cloud infrastructure with a 
 $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. Zero lock-in — all code delivered under the Unlicense. Same-day rebrands: 7 rebrands in 2 months, under 4 hours each.
 
 ## Products (/products)
-15 Rust products: Kova (augment engine, local LLM, agent loop), Pixel Forge (AI sprite generator, 3 diffusion models), Approuter (reverse proxy, Cloudflare tunnel), Rogue Repo (ISO 8583 payment engine), Ronin Sites (artist/shop platform), Pocket Server (phone-hosted website), OakilyDokily (waiver management, ESIGN), Ghost Fabric (LoRa mesh, edge AI), Call Shield (on-device call screening), Exopack (test framework), WhyYouLying (fraud detection), IllBeTheJudgeOfThat (legal case builder), Provenance Docs (AI dev documentation framework), Wowasticker (offline dictation app).
+15 Rust products: Kova (augment engine, local LLM, agent loop), Pixel Forge (AI sprite generator, 3 diffusion models), Approuter (reverse proxy, Cloudflare tunnel), Rogue Repo (ISO 8583 payment engine), Ronin Sites (artist/shop platform), Pocket Server (phone-hosted website), OakilyDokily (waiver management, ESIGN), Ghost Fabric (LoRa mesh, edge AI), Call Shield (on-device call screening), Exopack (test framework), WhyYouLying (fraud detection), IllBeTheJudgeOfThat (legal case builder), Provenance Docs (AI dev documentation framework), Wowasticker (offline dictation app), any-gpu (GPU tensor engine, AMD/NVIDIA/Intel/Apple via wgpu).
 
 ## About (/about)
 Michael Cochran. Army 17C Cyber Operations, JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 15 repos open-sourced, first partnership signed — all in under 30 days.
@@ -2529,7 +2530,7 @@ The Method: Custom architecture (Rust diffusion models from scratch), our own ha
 cochranblock.org homepage: 9.5 KB, 0 JavaScript, 92 KB total transfer. Wix: 2,287 KB (240x heavier), 69 script tags. Squarespace: 618 KB (65x). WordPress: 321 KB (34x). Server: 8.4 MB Rust binary. Monthly cost: $10.
 
 ## Tiny Binaries (/tinybinaries)
-Binary sizes: call-shield 48 KB, exopack 313 KB, provenance-docs 328 KB, whyyoulying 505 KB, pocket-server 1.01 MB, illbethejudgeofthat 2.5 MB, ronin-sites 4.0 MB, cochranblock 8.4 MB, pixel-forge 9.2 MB, kova 51.5 MB. All ARM aarch64 release builds.
+Binary sizes: call-shield 48 KB, exopack 313 KB, provenance-docs 328 KB, whyyoulying 505 KB, pocket-server 1.01 MB, any-gpu 1.5 MB (bench), illbethejudgeofthat 2.5 MB, ronin-sites 4.0 MB, cochranblock 8.4 MB, pixel-forge 9.2 MB, kova 51.5 MB. All ARM aarch64 release builds.
 
 ## Open Books (/openbooks)
 Live IR&D audit from GitHub commit timestamps. Hours calculated from work sessions (commits within 2hr window, min 1hr each). Complexity multipliers per repo. Rate: $225/hour. Machine-verified, not self-reported. FAR 31.205-18 IR&D documentation.
@@ -2644,6 +2645,7 @@ pub async fn f75(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         "cochranblock", "ghost-fabric", "kova", "pixel-forge", "approuter",
         "oakilydokily", "illbethejudgeofthat", "exopack", "rogue-repo",
         "wowasticker", "whyyoulying", "pocket-server", "provenance-docs", "call-shield",
+        "any-gpu",
     ];
 
     let token = std::env::var("GITHUB_TOKEN").unwrap_or_default();

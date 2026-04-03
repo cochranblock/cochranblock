@@ -19,7 +19,7 @@
 
 # cochranblock
 
-The cochranblock.org website — Rust Axum server with embedded assets, SQLite intake forms, sled key-value store, booking calendar, and community grant application. Compiles to a single binary (~8.8 MB ARM, ~9.2 MB x86) with zero external dependencies at runtime.
+The cochranblock.org website — Rust Axum server with embedded assets, SQLite intake forms, sled key-value store, booking calendar, and community grant application. Compiles to a single binary (8.4 MB ARM, 15 MB x86) with zero external dependencies at runtime.
 
 ## Architecture
 
