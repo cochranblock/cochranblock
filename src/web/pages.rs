@@ -1181,7 +1181,7 @@ pub async fn f76(State(_p0): State<Arc<t0>>) -> Html<String> {
 (function(){
   var meta={
     'cochranblock':{cat:'Web',desc:'This site. 15MB binary. $10/month. The live demo.'},
-    'kova':{cat:'AI',desc:'Augment engine. Agent loop, 7 tools, 4-node cluster.'},
+    'kova':{cat:'AI',desc:'Augment engine. Agent loop, 7 tools, 4-node cluster, NanoSign, P23 Triple Lens.'},
     'ghost-fabric':{cat:'Edge',desc:'Sovereign intelligence over LoRa mesh. 19MB binary.'},
     'pixel-forge':{cat:'AI',desc:'On-device diffusion models. 3 tiers. Pure Rust.'},
     'pocket-server':{cat:'Hardware',desc:'Phone-as-web-server. $2.60/year electricity.'},
@@ -1273,7 +1273,9 @@ pub async fn f74(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td>Repositories using this framework</td><td class="cost-amount cost-new">13</td></tr>
+<tr><td>Repositories using this framework</td><td class="cost-amount cost-new">15</td></tr>
+<tr><td>Total Rust LOC across all repos</td><td class="cost-amount cost-new">132,773</td></tr>
+<tr><td>Total tests across all repos</td><td class="cost-amount cost-new">1,066</td></tr>
 <tr><td>Commits documented with human/AI attribution</td><td class="cost-amount cost-new">500+</td></tr>
 <tr><td>External tooling required</td><td class="cost-amount cost-new">git (already everywhere)</td></tr>
 <tr><td>Framework overhead per repo</td><td class="cost-amount cost-new">2 markdown files</td></tr>
@@ -1325,7 +1327,7 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <a href="https://github.com/cochranblock/cochranblock">cochranblock</a> — production site, 15MB binary<br>
 <a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a> — this framework's whitepaper and spec<br>
 <a href="https://github.com/cochranblock/ghost-fabric">ghost-fabric</a> — edge intelligence over LoRa mesh<br>
-<a href="https://github.com/cochranblock/kova">kova</a> — AI augment engine<br>
+<a href="https://github.com/cochranblock/kova">kova</a> — AI augment engine, NanoSign model signing, P23 Triple Lens<br>
 <a href="https://github.com/cochranblock/pixel-forge">pixel-forge</a> — on-device diffusion models<br>
 <a href="https://github.com/cochranblock/pocket-server">pocket-server</a> — phone-as-web-server<br>
 <a href="https://github.com/cochranblock/approuter">approuter</a> — reverse proxy<br>
@@ -1361,7 +1363,9 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <strong>EO 14028</strong> — treats AI output as a supply chain input requiring provenance<br>
 <strong>NIST SP 800-218 (SSDF)</strong> — extends provenance tracking to AI-generated components<br>
 <strong>SBOM (NTIA)</strong> — POA serves as an AI-aware extension to the Software Bill of Materials<br>
-<span class="service-outcome">One framework, four compliance requirements addressed.</span>
+<strong>NanoSign</strong> — 36-byte BLAKE3 model signing ensures AI model integrity in the supply chain. Self-verifying, zero infrastructure<br>
+<strong>P23 Triple Lens</strong> — three-perspective research protocol (Optimist/Pessimist/Paranoia + Synthesis) for architecture decisions and risk assessment. Eliminates groupthink in AI-assisted development<br>
+<span class="service-outcome">One framework, six compliance and quality requirements addressed.</span>
 </p>
 </details>
 </div>
@@ -1519,7 +1523,7 @@ for having you here." — Jay, USCYBERCOM
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Our own hardware.</strong> Trained on consumer GPUs — RTX 3070 8GB and RTX 3050 Ti 4GB in laptops running Debian. Not rented cloud A100s. Total training cost: electricity.<cite>→ <a href="/codeskillz">infrastructure details</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Real debugging.</strong> We found and fixed fundamental math bugs — Gaussian noise scaling, epsilon prediction, DDIM sampling — by reading tensor values and tracing gradients. Not by throwing more compute at the problem.<cite>→ <a href="https://github.com/cochranblock/pixel-forge">commit history</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Ships on a phone.</strong> The model runs offline in a 10 MB app. No API key. No cloud. No subscription. No internet required. Try that with a HuggingFace download.<cite>→ <a href="/tinybinaries">binary sizes</a></cite></blockquote>
-    <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>15 projects, one person.</strong> Every repo is public domain. Every binary serves its own SBOM. Every claim is verifiable from source code. The site you are reading runs the same code it serves.<cite>→ <a href="/source">read the source</a></cite></blockquote>
+    <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>15 projects, one person.</strong> 132,773 lines of Rust across 387 source files. 1,066 tests. Every repo is public domain. Every binary serves its own SBOM. Every claim is verifiable from source code. The site you are reading runs the same code it serves.<cite>→ <a href="/source">read the source</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>AI-augmented, not AI-dependent.</strong> We use Claude, Gemini, Cursor as force multipliers. The AI writes code. The human directs architecture, catches bugs, makes decisions. Full transparency — the <a href="https://github.com/cochranblock/provenance-docs">Timeline of Invention</a> documents exactly what the AI did vs what the human directed.<cite>→ <a href="/openbooks">open books</a></cite></blockquote>
   </div>
 
@@ -1660,7 +1664,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <div class="product-cards">
 <article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/pixel-forge/releases" rel="noopener noreferrer"><img src="/assets/img/pixel-forge.png" alt="Pixel Forge" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/pixel-forge/releases" rel="noopener noreferrer">Pixel Forge</a></h2><p>Free pixel art generator. Three on-device diffusion models (Cinder 4.2 MB / Quench 22 MB / Anvil 64 MB) generate, judge, and arrange 16&times;16 sprites into game scenes. MoE cascade, LoRA fine-tuning, scene builder. No cloud. No subscription. Pure Rust.</p><p class="hero-cta" style="justify-content:flex-start;margin-top:0.75rem"><a href="https://github.com/cochranblock/pixel-forge/releases" class="btn" style="font-size:0.8rem">Download APK</a><span style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.75rem;margin-left:0.5rem">Google Play — coming soon, waiting on <a href="https://github.com/cochranblock/pixel-forge" style="color:var(--muted)">pixel-forge</a></span></p></article>
 <article class="product-card"><span class="product-badge">New</span><a href="https://github.com/cochranblock/aptnomo" rel="noopener noreferrer"><img src="/assets/img/aptnomo.png" alt="aptnomo" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/aptnomo" rel="noopener noreferrer">aptnomo</a></h2><p>312 KB autonomous APT threat hunter. Scans for persistence, rootkits, suspicious processes, network anomalies, log tampering. Auto-kills cryptominers and reverse shells. Zero config. Drop it on a machine and forget it.</p></article>
-<article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer"><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer">Kova</a></h2><p>Augment engine. AI Bending — human directs, AI executes. Local LLM, egui GUI, agent loop with tool use. The brain behind everything we ship.</p></article>
+<article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer"><img src="/assets/img/kova.png" alt="Kova" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/kova" rel="noopener noreferrer">Kova</a></h2><p>Augment engine. AI Bending — human directs, AI executes. Local LLM, egui GUI, agent loop with tool use, NanoSign model integrity, P23 Triple Lens research protocol. The brain behind everything we ship.</p></article>
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/illbethejudgeofthat" rel="noopener noreferrer">illbethejudgeofthat</a></h2><p>Pro se custody case builder. Google Takeout to court-ready exhibit book + filled forms in one evening. Built by a father who needed it.</p></article>
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/approuter" rel="noopener noreferrer">approuter</a></h2><p>Reverse proxy. All products behind one entry point. Cloudflare tunnel integration. Zero-config service registration.</p></article>
 <article class="product-card"><span class="product-badge">New</span><h2><a href="https://github.com/cochranblock/any-gpu" rel="noopener noreferrer">any-gpu</a></h2><p>GPU tensor engine. Runs on AMD, NVIDIA, Intel, and Apple GPUs from a single codebase via wgpu. 27 operations, zero vendor lock-in. Matmul, conv2d, attention, normalization — one cargo build, every GPU.</p></article>
@@ -2525,14 +2529,14 @@ Your server bill is too high. CochranBlock replaces cloud infrastructure with a 
 $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. Zero lock-in — all code delivered under the Unlicense. Same-day rebrands: 7 rebrands in 2 months, under 4 hours each.
 
 ## Products (/products)
-15 Rust products: Kova (augment engine, local LLM, agent loop), Pixel Forge (AI sprite generator, 3 diffusion models), Approuter (reverse proxy, Cloudflare tunnel), Rogue Repo (ISO 8583 payment engine), Ronin Sites (artist/shop platform), Pocket Server (phone-hosted website), OakilyDokily (waiver management, ESIGN), Ghost Fabric (LoRa mesh, edge AI), Call Shield (on-device call screening), Exopack (test framework), WhyYouLying (fraud detection), IllBeTheJudgeOfThat (legal case builder), Provenance Docs (AI dev documentation framework), Wowasticker (offline dictation app), any-gpu (GPU tensor engine, AMD/NVIDIA/Intel/Apple via wgpu).
+15 Rust products: Kova (augment engine, local LLM, agent loop, NanoSign model signing, P23 Triple Lens research protocol), Pixel Forge (AI sprite generator, 3 diffusion models), Approuter (reverse proxy, Cloudflare tunnel), Rogue Repo (ISO 8583 payment engine), Ronin Sites (artist/shop platform), Pocket Server (phone-hosted website), OakilyDokily (waiver management, ESIGN), Ghost Fabric (LoRa mesh, edge AI), Call Shield (on-device call screening), Exopack (test framework), WhyYouLying (fraud detection), IllBeTheJudgeOfThat (legal case builder), Provenance Docs (AI dev documentation framework), Wowasticker (offline dictation app), any-gpu (GPU tensor engine, AMD/NVIDIA/Intel/Apple via wgpu).
 
 ## About (/about)
 Michael Cochran. Army 17C Cyber Operations, JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 15 repos open-sourced, first partnership signed — all in under 30 days.
 
 The Trifecta: 1) Can't outprice free — Unlicense, public domain. 2) Can't out-transparent public domain — source, bugs, IR&D audit all public. 3) Expertise is inherent — code IS the resume.
 
-The Method: Custom architecture (Rust diffusion models from scratch), our own hardware (RTX 3070/3050 Ti laptops), real debugging (tensor-level math fixes), ships on a phone (10 MB offline), 15 projects one person, AI-augmented not AI-dependent.
+The Method: Custom architecture (Rust diffusion models from scratch), our own hardware (RTX 3070/3050 Ti laptops), real debugging (tensor-level math fixes), ships on a phone (10 MB offline), 15 projects one person (132,773 lines of Rust, 387 source files, 1,066 tests), AI-augmented not AI-dependent. NanoSign for AI model integrity. P23 Triple Lens for architecture decisions.
 
 ## Speed (/speed)
 cochranblock.org homepage: 9.5 KB, 0 JavaScript, 92 KB total transfer. Wix: 2,287 KB (240x heavier), 69 script tags. Squarespace: 618 KB (65x). WordPress: 321 KB (34x). Server: 8.4 MB Rust binary. Monthly cost: $10.
@@ -2561,7 +2565,7 @@ pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
         axum::http::StatusCode::OK,
         [(axum::http::header::CONTENT_TYPE, "application/json"),
          (axum::http::header::CACHE_CONTROL, "public, max-age=3600")],
-        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"irs_validated_cage_pending","naics":["541511","541512","541519","518210","541330","541690"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":15,"repos":15,"unlicense_repos":13,"binary_size_arm":"8.4MB","binary_size_x86":"15MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","key_pages":["/","/services","/products","/about","/govdocs","/tinybinaries","/speed","/openbooks","/source","/vre","/codeskillz","/mathskillz"]}"#,
+        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"irs_validated_cage_pending","naics":["541511","541512","541519","518210","541330","541690"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":15,"repos":15,"unlicense_repos":13,"binary_size_arm":"8.4MB","binary_size_x86":"15MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":132773,"total_rs_files":387,"total_tests":1066,"innovations":["NanoSign","P23 Triple Lens","any-gpu"],"key_pages":["/","/services","/products","/about","/govdocs","/tinybinaries","/speed","/openbooks","/source","/vre","/codeskillz","/mathskillz"]}"#,
     )
 }
 
