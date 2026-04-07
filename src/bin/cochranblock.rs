@@ -10,8 +10,7 @@ use cochranblock::web::{intake, router};
 use std::path::PathBuf;
 
 fn pid_path() -> PathBuf {
-    let base = dirs::data_local_dir()
-        .unwrap_or_else(|| PathBuf::from("/tmp"));
+    let base = dirs::data_local_dir().unwrap_or_else(|| PathBuf::from("/tmp"));
     let dir = base.join("cochranblock");
     let _ = std::fs::create_dir_all(&dir);
     dir.join("pid")
@@ -34,13 +33,18 @@ fn kill_old(pid: u32) {
         use std::time::{Duration, Instant};
 
         // SIGTERM — graceful
-        let _ = Command::new("kill").arg("-TERM").arg(pid.to_string()).output();
+        let _ = Command::new("kill")
+            .arg("-TERM")
+            .arg(pid.to_string())
+            .output();
         tracing::info!("sent SIGTERM to old PID {}", pid);
 
         // Wait up to 5 seconds
         let deadline = Instant::now() + Duration::from_secs(5);
         while Instant::now() < deadline {
-            let alive = Command::new("kill").arg("-0").arg(pid.to_string())
+            let alive = Command::new("kill")
+                .arg("-0")
+                .arg(pid.to_string())
                 .output()
                 .map(|o| o.status.success())
                 .unwrap_or(false);
@@ -52,7 +56,10 @@ fn kill_old(pid: u32) {
         }
 
         // SIGKILL — force
-        let _ = Command::new("kill").arg("-KILL").arg(pid.to_string()).output();
+        let _ = Command::new("kill")
+            .arg("-KILL")
+            .arg(pid.to_string())
+            .output();
         tracing::warn!("sent SIGKILL to old PID {} (didn't exit in 5s)", pid);
         std::thread::sleep(Duration::from_millis(200));
     }
@@ -67,17 +74,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     }
     let _ = dotenvy::from_path_override("cochranblock/.env");
     tracing_subscriber::fmt()
-        .with_env_filter(tracing_subscriber::EnvFilter::try_from_default_env()
-            .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info")))
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info")),
+        )
         .init();
 
-    let port: u16 = std::env::var("PORT").ok()
+    let port: u16 = std::env::var("PORT")
+        .ok()
         .and_then(|s| s.parse().ok())
         .unwrap_or(8081);
 
     let is_local = !cfg!(feature = "approuter");
     let bind = std::env::var("BIND").unwrap_or_else(|_| {
-        if is_local { "127.0.0.1".into() } else { "0.0.0.0".into() }
+        if is_local {
+            "127.0.0.1".into()
+        } else {
+            "0.0.0.0".into()
+        }
     });
     let addr = format!("{}:{}", bind, port);
 

@@ -3,12 +3,12 @@
 // Unlicense — cochranblock.org
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
-use colored::Colorize;
 use crate::std_aliases::F374;
+use colored::Colorize;
 
-pub mod unit;
-pub mod integration;
 pub mod http;
+pub mod integration;
+pub mod unit;
 
 #[derive(Clone)]
 pub struct t24 {
@@ -30,24 +30,26 @@ pub fn f52(p0: &t24) {
 
 /// Assert-style helper: Ok(()) = pass, Err(msg) = fail with reason. No self-licking.
 pub fn assert_ok(pass: bool, msg: impl Into<String>) -> Result<(), String> {
-    if pass {
-        Ok(())
-    } else {
-        Err(msg.into())
-    }
+    if pass { Ok(()) } else { Err(msg.into()) }
 }
 
 /// f30 = run_tests — f49 f50 f51 aggregate
 pub async fn f30() -> bool {
     println!("\n=== Unit Tests ===");
     let v0 = unit::f49().await;
-    for v1 in &v0 { f52(v1); }
+    for v1 in &v0 {
+        f52(v1);
+    }
     println!("\n=== Integration Tests ===");
     let v1 = integration::f50().await;
-    for v2 in &v1 { f52(v2); }
+    for v2 in &v1 {
+        f52(v2);
+    }
     println!("\n=== HTTP Tests ===");
     let v2 = http::f51().await;
-    for v3 in &v2 { f52(v3); }
+    for v3 in &v2 {
+        f52(v3);
+    }
     let mut v4 = v0.f374().chain(v1.f374()).chain(v2.f374());
     v4.all(|v5| v5.s31)
 }

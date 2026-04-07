@@ -35,11 +35,19 @@ fn copy_to_repo() {
         let dst = repo.join(format!("{}.png", name));
         if src.exists() {
             if let Err(e) = fs::copy(&src, &dst) {
-                eprintln!("screenshot: copy {} -> {}: {}", src.display(), dst.display(), e);
+                eprintln!(
+                    "screenshot: copy {} -> {}: {}",
+                    src.display(),
+                    dst.display(),
+                    e
+                );
             }
         }
     }
-    println!("Screenshots copied to {}/ (for TRIPLE SIMS)", repo.display());
+    println!(
+        "Screenshots copied to {}/ (for TRIPLE SIMS)",
+        repo.display()
+    );
 }
 
 /// f53 = screenshot_capture. Why: TRIPLE SIMS visual verification via exopack.
@@ -61,7 +69,9 @@ pub async fn f53() -> bool {
         }
     };
     let v4 = format!("http://127.0.0.1:{}", v3.port());
-    tokio::spawn(async move { let _ = axum::serve(v2, v1).await; });
+    tokio::spawn(async move {
+        let _ = axum::serve(v2, v1).await;
+    });
 
     tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
 

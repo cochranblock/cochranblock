@@ -4,18 +4,18 @@
 // Community Grant: eligibility-audit questionnaire, reuses intake pattern.
 // Unlisted page — no nav link.
 
+use axum::Form;
 use axum::extract::{ConnectInfo, Query, State};
 use axum::http::{HeaderMap, StatusCode};
 use axum::response::{Html, IntoResponse, Redirect};
-use axum::Form;
 use chrono::Utc;
 use serde::Deserialize;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use uuid::Uuid;
 
+use super::pages::{C7, C8, f62};
 use crate::t0;
-use super::pages::{f62, C7, C8};
 
 const INTRO: &str = include_str!("../../content/community_grant_intro.txt");
 
@@ -117,7 +117,11 @@ pub async fn post_form(
     headers: HeaderMap,
     Form(f): Form<CommunityGrantForm>,
 ) -> impl IntoResponse {
-    if f.honeypot.as_deref().map(|v| !v.trim().is_empty()).unwrap_or(false) {
+    if f.honeypot
+        .as_deref()
+        .map(|v| !v.trim().is_empty())
+        .unwrap_or(false)
+    {
         tracing::debug!("community grant honeypot triggered");
         return (StatusCode::OK, Html(confirmed_html(None))).into_response();
     }
@@ -129,8 +133,14 @@ pub async fn post_form(
     let mission = f.mission.trim();
     let technical_objective = f.technical_objective.trim();
 
-    if validate_grant_input(org_name, contact_name, contact_email, mission, technical_objective)
-        .is_err()
+    if validate_grant_input(
+        org_name,
+        contact_name,
+        contact_email,
+        mission,
+        technical_objective,
+    )
+    .is_err()
     {
         return (StatusCode::BAD_REQUEST, "Invalid input").into_response();
     }
@@ -191,46 +201,55 @@ pub async fn post_form(
             .into_response();
     }
 
-    if let Some(url) = std::env::var("INTAKE_WEBHOOK_URL").ok().map(|u| u.trim().to_string()).filter(|u| !u.is_empty()) {
-            let client = reqwest::Client::new();
-            let payload = serde_json::json!({
-                "type": "community_grant",
-                "id": id.clone(),
-                "org_name": org_name,
-                "ein": if ein.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(ein.to_string()) },
-                "contact_name": contact_name,
-                "contact_email": contact_email,
-                "mission": mission,
-                "technical_objective": technical_objective,
-                "submitted_at": submitted_at,
-            });
-            let grant_id = id.clone();
-            tokio::spawn(async move {
-                if let Err(e) = client
-                    .post(url.trim())
-                    .json(&payload)
-                    .timeout(std::time::Duration::from_secs(10))
-                    .send()
-                    .await
-                {
-                    tracing::warn!("community grant webhook failed: {}", e);
-                } else {
-                    tracing::info!("community grant webhook sent for {}", grant_id);
-                }
-            });
+    if let Some(url) = std::env::var("INTAKE_WEBHOOK_URL")
+        .ok()
+        .map(|u| u.trim().to_string())
+        .filter(|u| !u.is_empty())
+    {
+        let client = reqwest::Client::new();
+        let payload = serde_json::json!({
+            "type": "community_grant",
+            "id": id.clone(),
+            "org_name": org_name,
+            "ein": if ein.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(ein.to_string()) },
+            "contact_name": contact_name,
+            "contact_email": contact_email,
+            "mission": mission,
+            "technical_objective": technical_objective,
+            "submitted_at": submitted_at,
+        });
+        let grant_id = id.clone();
+        tokio::spawn(async move {
+            if let Err(e) = client
+                .post(url.trim())
+                .json(&payload)
+                .timeout(std::time::Duration::from_secs(10))
+                .send()
+                .await
+            {
+                tracing::warn!("community grant webhook failed: {}", e);
+            } else {
+                tracing::info!("community grant webhook sent for {}", grant_id);
+            }
+        });
     }
 
-    let loc = format!("/community-grant/confirmed?ref={}", urlencoding::encode(&id));
+    let loc = format!(
+        "/community-grant/confirmed?ref={}",
+        urlencoding::encode(&id)
+    );
     Redirect::temporary(loc.as_str()).into_response()
 }
 
 fn confirmed_html(ref_id: Option<&str>) -> String {
     let ref_line = ref_id
         .filter(|s| !s.is_empty())
-        .map(|r| format!(
-            r#"<p class="intake-detail">Reference ID: <code>{}</code></p>"#,
-            html_escape(r)
-        ))
+        .map(|r| {
+            format!(
+                r#"<p class="intake-detail">Reference ID: <code>{}</code></p>"#,
+                html_escape(r)
+            )
+        })
         .unwrap_or_default();
 
     let content = format!(
@@ -240,7 +259,10 @@ fn confirmed_html(ref_id: Option<&str>) -> String {
 
     format!(
         "{}{}{}{}",
-        f62("community-grant-confirmed", "Application Received | CochranBlock"),
+        f62(
+            "community-grant-confirmed",
+            "Application Received | CochranBlock"
+        ),
         C7,
         content,
         C8
@@ -248,9 +270,7 @@ fn confirmed_html(ref_id: Option<&str>) -> String {
 }
 
 /// GET /community-grant/confirmed
-pub async fn confirmed(
-    Query(q): Query<std::collections::HashMap<String, String>>,
-) -> Html<String> {
+pub async fn confirmed(Query(q): Query<std::collections::HashMap<String, String>>) -> Html<String> {
     let ref_id = q.get("ref").map(|s| s.as_str());
     Html(confirmed_html(ref_id))
 }

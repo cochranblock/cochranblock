@@ -3,7 +3,7 @@
 // Unlicense — cochranblock.org
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
-use argon2::password_hash::{rand_core::OsRng, SaltString};
+use argon2::password_hash::{SaltString, rand_core::OsRng};
 use argon2::{Argon2, PasswordHash, PasswordHasher, PasswordVerifier};
 
 use crate::error::t18;

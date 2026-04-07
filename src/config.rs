@@ -25,33 +25,43 @@ impl t1 {
         let s20 = std::env::var("COCHRANBLOCK_MASTER_KEY")
             .map_err(|_| t18::E7("COCHRANBLOCK_MASTER_KEY required".into()))?;
         if s20.len() < 16 {
-            return Err(t18::E7("COCHRANBLOCK_MASTER_KEY must be at least 16 bytes".into()));
+            return Err(t18::E7(
+                "COCHRANBLOCK_MASTER_KEY must be at least 16 bytes".into(),
+            ));
         }
-        let env = |a: &str, default: &str| {
-            std::env::var(a).unwrap_or_else(|_| default.into())
-        };
+        let env = |a: &str, default: &str| std::env::var(a).unwrap_or_else(|_| default.into());
         Ok(Self {
             s16: env("COCHRANBLOCK_PORT", "3000").parse().unwrap_or(3000),
             s17: env("COCHRANBLOCK_BIND", "127.0.0.1"),
-            s18: std::env::var("COCHRANBLOCK_DATA_DIR")
-                .unwrap_or_else(|_| {
-                    std::env::var("COCHRANBLOCK_DATA_ROOT")
-                        .ok()
-                        .map(|r| format!("{}/cochranblock", r.trim_end_matches('/')))
-                        .or_else(|| {
-                            dirs::data_dir()
-                                .map(|p| p.join("cochranblock").join("data"))
-                                .and_then(|p| p.to_str().map(String::from))
-                        })
-                        .unwrap_or_else(|| "data".into())
-                }),
+            s18: std::env::var("COCHRANBLOCK_DATA_DIR").unwrap_or_else(|_| {
+                std::env::var("COCHRANBLOCK_DATA_ROOT")
+                    .ok()
+                    .map(|r| format!("{}/cochranblock", r.trim_end_matches('/')))
+                    .or_else(|| {
+                        dirs::data_dir()
+                            .map(|p| p.join("cochranblock").join("data"))
+                            .and_then(|p| p.to_str().map(String::from))
+                    })
+                    .unwrap_or_else(|| "data".into())
+            }),
             s20,
-            s21: env("COCHRANBLOCK_CF_BASE", "https://api.cloudflare.com/client/v4"),
+            s21: env(
+                "COCHRANBLOCK_CF_BASE",
+                "https://api.cloudflare.com/client/v4",
+            ),
             s22: env("COCHRANBLOCK_IPIFY_URL", "https://api.ipify.org"),
-            s9: env("COCHRANBLOCK_DNS_INTERVAL", "300").parse().unwrap_or(300),
-            s23: std::env::var("COCHRANBLOCK_DOMAIN").ok().filter(|s| !s.trim().is_empty()),
-            s24: std::env::var("COCHRANBLOCK_BIND_2").ok().filter(|s| !s.trim().is_empty()),
-            s26: std::env::var("COCHRANBLOCK_PORT_2").ok().and_then(|s| s.trim().parse().ok()),
+            s9: env("COCHRANBLOCK_DNS_INTERVAL", "300")
+                .parse()
+                .unwrap_or(300),
+            s23: std::env::var("COCHRANBLOCK_DOMAIN")
+                .ok()
+                .filter(|s| !s.trim().is_empty()),
+            s24: std::env::var("COCHRANBLOCK_BIND_2")
+                .ok()
+                .filter(|s| !s.trim().is_empty()),
+            s26: std::env::var("COCHRANBLOCK_PORT_2")
+                .ok()
+                .and_then(|s| s.trim().parse().ok()),
         })
     }
 

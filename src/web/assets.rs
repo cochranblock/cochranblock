@@ -4,8 +4,8 @@
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 use axum::extract::Path;
-use axum::response::IntoResponse;
 use axum::http::StatusCode;
+use axum::response::IntoResponse;
 use include_packed::include_packed;
 
 /// f23 = serve_static — include_packed assets (zstd)

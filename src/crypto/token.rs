@@ -3,8 +3,8 @@
 // Unlicense — cochranblock.org
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
-use aes_gcm::{aead::Aead, Aes256Gcm, KeyInit};
-use base64::{engine::general_purpose::STANDARD as b64, Engine};
+use aes_gcm::{Aes256Gcm, KeyInit, aead::Aead};
+use base64::{Engine, engine::general_purpose::STANDARD as b64};
 use rand::RngCore;
 
 use crate::error::t18;
@@ -25,7 +25,9 @@ pub fn f14(plaintext: &str, key: &[u8; 32]) -> Result<String, t18> {
 
 /// f15 = decrypt_token. Why: Reverse of f14; auth token decryption.
 pub fn f15(ciphertext_b64: &str, key: &[u8; 32]) -> Result<String, t18> {
-    let raw = b64.decode(ciphertext_b64).map_err(|e| t18::E5(e.to_string()))?;
+    let raw = b64
+        .decode(ciphertext_b64)
+        .map_err(|e| t18::E5(e.to_string()))?;
     if raw.len() < 13 {
         return Err(t18::E5("Ciphertext too short".into()));
     }

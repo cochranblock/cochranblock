@@ -3,17 +3,15 @@
 // Unlicense — cochranblock.org
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
-use axum::{routing::get, Router};
 use axum::http::header::{HeaderName, HeaderValue};
 use axum::response::Redirect;
+use axum::{Router, routing::get};
 use tower_http::{
-    compression::CompressionLayer,
-    set_header::SetResponseHeaderLayer,
-    trace::TraceLayer,
+    compression::CompressionLayer, set_header::SetResponseHeaderLayer, trace::TraceLayer,
 };
 
-use crate::t0;
 use super::{assets, community_grant, intake, pages};
+use crate::t0;
 
 /// f1 = app_router. Why: Single router with compression, trace, security headers; state shared via Arc.
 pub fn f1(p0: t0) -> Router {
@@ -39,8 +37,14 @@ pub fn f1(p0: t0) -> Router {
         .route("/contact", get(pages::f13))
         .route("/book", get(pages::f63))
         .route("/downloads", get(pages::f68))
-        .route("/community-grant", get(community_grant::get_form).post(community_grant::post_form))
-        .route("/community-grant/confirmed", get(community_grant::confirmed))
+        .route(
+            "/community-grant",
+            get(community_grant::get_form).post(community_grant::post_form),
+        )
+        .route(
+            "/community-grant/confirmed",
+            get(community_grant::confirmed),
+        )
         // Redirects for old routes
         .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
         .route("/services", get(pages::f11))
@@ -55,7 +59,10 @@ pub fn f1(p0: t0) -> Router {
         .route("/search", get(pages::f84))
         .route("/speed", get(pages::f85))
         .route("/openbooks", get(pages::f86))
-        .route("/govdocs/faq", get(|| async { axum::response::Redirect::permanent("/govdocs") }))
+        .route(
+            "/govdocs/faq",
+            get(|| async { axum::response::Redirect::permanent("/govdocs") }),
+        )
         .route("/api/openbooks", get(pages::f87))
         .route("/dcaa", get(pages::f86))
         .route("/api/dcaa", get(pages::f87))
@@ -65,21 +72,35 @@ pub fn f1(p0: t0) -> Router {
         .route("/analytics", get(pages::f90))
         .route("/api/analytics", get(pages::f91))
         .route("/api/site-stats", get(pages::f92))
-        .route("/federal-partners", get(|| async { Redirect::permanent("/products") }))
+        .route(
+            "/federal-partners",
+            get(|| async { Redirect::permanent("/products") }),
+        )
         .route("/health", get(pages::f10))
         .route("/api/stats", get(pages::f73))
         .route("/api/velocity", get(pages::f75))
-        .route("/sw.js", get(|| async {
-            ([(axum::http::header::CONTENT_TYPE, "application/javascript; charset=utf-8")],
-             include_packed::include_packed!("assets/js/sw.js"))
-        }))
+        .route(
+            "/sw.js",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "application/javascript; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/js/sw.js"),
+                )
+            }),
+        )
         .route("/robots.txt", get(pages::f69))
         .route("/llms.txt", get(pages::f78))
         .route("/llms-full.txt", get(pages::f88))
         .route("/api/summary", get(pages::f89))
         .route("/humans.txt", get(pages::f80))
         .route("/.well-known/security.txt", get(pages::f79))
-        .route("/cochranblock-indexnow-key.txt", get(|| async { "cochranblock-indexnow-key" }))
+        .route(
+            "/cochranblock-indexnow-key.txt",
+            get(|| async { "cochranblock-indexnow-key" }),
+        )
         .route("/sitemap.xml", get(pages::f70))
         .route("/assets/*path", get(assets::f23));
     #[cfg(feature = "dev")]
@@ -89,8 +110,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/dev/rules", get(pages::f59))
         .route("/dev/ai-orchestration", get(pages::f65))
         .route("/dev/prompts", get(pages::f66));
-    r0
-        .fallback(pages::f71)
+    r0.fallback(pages::f71)
         .layer(h1)
         .layer(h2)
         .layer(h3)

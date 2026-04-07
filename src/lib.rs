@@ -9,24 +9,24 @@ pub mod error;
 pub mod std_aliases;
 
 #[cfg(feature = "admin")]
+pub mod auth;
+#[cfg(feature = "admin")]
 pub mod config;
 #[cfg(feature = "admin")]
 pub mod crypto;
 #[cfg(feature = "admin")]
-pub mod auth;
+pub mod db;
 #[cfg(feature = "admin")]
 pub mod dns;
-#[cfg(feature = "admin")]
-pub mod db;
 
-#[cfg(feature = "tests")]
-pub mod tests;
-#[cfg(feature = "tests")]
-pub mod screenshot;
-pub mod web;
-pub mod ux;
 #[cfg(target_os = "android")]
 pub mod android;
+#[cfg(feature = "tests")]
+pub mod screenshot;
+#[cfg(feature = "tests")]
+pub mod tests;
+pub mod ux;
+pub mod web;
 
 /// t1 = SiteStats. Cached dynamic numbers. Single source of truth.
 #[derive(Clone, Default, serde::Serialize)]

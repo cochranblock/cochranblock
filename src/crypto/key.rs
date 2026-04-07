@@ -13,7 +13,8 @@ pub fn f31(master: &str, context: &str) -> Result<[u8; 32], t18> {
     let salt = b"cochranblock-salt";
     let hk = Hkdf::<Sha256>::new(Some(salt), master.as_bytes());
     let mut out = [0u8; 32];
-    hk.expand(context.as_bytes(), &mut out).map_err(|e| t18::E5(e.to_string()))?;
+    hk.expand(context.as_bytes(), &mut out)
+        .map_err(|e| t18::E5(e.to_string()))?;
     Ok(out)
 }
 

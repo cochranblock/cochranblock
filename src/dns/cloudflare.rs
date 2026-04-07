@@ -41,7 +41,12 @@ struct CreateRecordResponse {
 
 /// f47 = dns_cname_url — Cloudflare API CNAME record URL
 pub fn f47(base: &str, zone: &str, record: &str) -> String {
-    format!("{}/zones/{}/dns_records/{}", base.trim_end_matches('/'), zone, record)
+    format!(
+        "{}/zones/{}/dns_records/{}",
+        base.trim_end_matches('/'),
+        zone,
+        record
+    )
 }
 
 /// f48 = ip_changed — compare two IP strings
@@ -102,7 +107,13 @@ pub async fn f49(base_url: &str, token: &str, domain: &str) -> Result<String, t1
 }
 
 /// Create or get A record for zone. Returns (record_id, record_name).
-pub async fn f50(base_url: &str, token: &str, zone_id: &str, domain: &str, ip: &str) -> Result<(String, String), t18> {
+pub async fn f50(
+    base_url: &str,
+    token: &str,
+    zone_id: &str,
+    domain: &str,
+    ip: &str,
+) -> Result<(String, String), t18> {
     f46(token)?;
     let base = base_url.trim_end_matches('/');
     let list_url = format!("{}/zones/{}/dns_records?name={}", base, zone_id, domain);

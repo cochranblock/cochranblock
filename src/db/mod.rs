@@ -76,7 +76,8 @@ pub fn f37(db: &t9, s10: &str, s11: &str) -> Result<(), t18> {
     if db.contains_key(&k).map_err(|e| t18::E6(e.to_string()))? {
         return Err(t18::E6("admin already exists".into()));
     }
-    db.insert(k, s11.as_bytes()).map_err(|e| t18::E6(e.to_string()))?;
+    db.insert(k, s11.as_bytes())
+        .map_err(|e| t18::E6(e.to_string()))?;
     Ok(())
 }
 
@@ -141,7 +142,8 @@ pub fn f42(db: &t9, key: &str) -> Result<Option<String>, t18> {
 /// f43 = settings_upsert.
 pub fn f43(db: &t9, key: &str, value: &str) -> Result<(), t18> {
     let k = [P_SETTINGS, key.as_bytes()].concat();
-    db.insert(k, value.as_bytes()).map_err(|e| t18::E6(e.to_string()))?;
+    db.insert(k, value.as_bytes())
+        .map_err(|e| t18::E6(e.to_string()))?;
     Ok(())
 }
 

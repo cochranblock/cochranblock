@@ -4,10 +4,10 @@
 // Client Intake: waiver-style form, honeypot, SQLite, async webhook.
 // Themed to blend with cochranblock cosmic aesthetic.
 
+use axum::Form;
 use axum::extract::{ConnectInfo, Path, Query, State};
 use axum::http::{HeaderMap, StatusCode};
 use axum::response::{Html, IntoResponse, Redirect};
-use axum::Form;
 use chrono::Utc;
 use serde::Deserialize;
 use sqlx::SqlitePool;
@@ -15,8 +15,8 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 use uuid::Uuid;
 
+use super::pages::{C7, C8, f62};
 use crate::t0;
-use super::pages::{f62, C7, C8};
 
 const TERMS_VERSION: &str = "2026-03";
 const TERMS: &str = include_str!("../../content/intake_terms.txt");
@@ -200,7 +200,11 @@ pub async fn post_form(
     headers: HeaderMap,
     Form(f): Form<IntakeForm>,
 ) -> impl IntoResponse {
-    if f.honeypot.as_deref().map(|v| !v.trim().is_empty()).unwrap_or(false) {
+    if f.honeypot
+        .as_deref()
+        .map(|v| !v.trim().is_empty())
+        .unwrap_or(false)
+    {
         tracing::debug!("intake honeypot triggered");
         return (StatusCode::OK, Html(confirmed_html(None))).into_response();
     }
@@ -274,31 +278,35 @@ pub async fn post_form(
             .into_response();
     }
 
-    if let Some(url) = std::env::var("INTAKE_WEBHOOK_URL").ok().map(|u| u.trim().to_string()).filter(|u| !u.is_empty()) {
-            let client = reqwest::Client::new();
-            let payload = serde_json::json!({
-                "id": id.clone(),
-                "deploy_class": if deploy_class.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(deploy_class.to_string()) },
-                "full_name": full_name,
-                "email": email,
-                "company": if company.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(company.to_string()) },
-                "message": if message.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(message.to_string()) },
-                "submitted_at": submitted_at,
-            });
-            let lead_id = id.clone();
-            tokio::spawn(async move {
-                if let Err(e) = client
-                    .post(url.trim())
-                    .json(&payload)
-                    .timeout(std::time::Duration::from_secs(10))
-                    .send()
-                    .await
-                {
-                    tracing::warn!("intake webhook failed: {}", e);
-                } else {
-                    tracing::info!("intake webhook sent for lead {}", lead_id);
-                }
-            });
+    if let Some(url) = std::env::var("INTAKE_WEBHOOK_URL")
+        .ok()
+        .map(|u| u.trim().to_string())
+        .filter(|u| !u.is_empty())
+    {
+        let client = reqwest::Client::new();
+        let payload = serde_json::json!({
+            "id": id.clone(),
+            "deploy_class": if deploy_class.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(deploy_class.to_string()) },
+            "full_name": full_name,
+            "email": email,
+            "company": if company.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(company.to_string()) },
+            "message": if message.is_empty() { serde_json::Value::Null } else { serde_json::Value::String(message.to_string()) },
+            "submitted_at": submitted_at,
+        });
+        let lead_id = id.clone();
+        tokio::spawn(async move {
+            if let Err(e) = client
+                .post(url.trim())
+                .json(&payload)
+                .timeout(std::time::Duration::from_secs(10))
+                .send()
+                .await
+            {
+                tracing::warn!("intake webhook failed: {}", e);
+            } else {
+                tracing::info!("intake webhook sent for lead {}", lead_id);
+            }
+        });
     }
 
     let loc = format!("/deploy/confirmed?ref={}", urlencoding::encode(&id));
@@ -308,10 +316,12 @@ pub async fn post_form(
 fn confirmed_html(ref_id: Option<&str>) -> String {
     let ref_line = ref_id
         .filter(|s| !s.is_empty())
-        .map(|r| format!(
-            r#"<p class="intake-detail">Reference ID: <code>{}</code></p>"#,
-            html_escape(r)
-        ))
+        .map(|r| {
+            format!(
+                r#"<p class="intake-detail">Reference ID: <code>{}</code></p>"#,
+                html_escape(r)
+            )
+        })
         .unwrap_or_default();
 
     let content = format!(
@@ -344,9 +354,7 @@ function launchRocket(btn){{var r=document.getElementById('rocket-ship');if(r.cl
 }
 
 /// GET /intake/confirmed
-pub async fn confirmed(
-    Query(q): Query<std::collections::HashMap<String, String>>,
-) -> Html<String> {
+pub async fn confirmed(Query(q): Query<std::collections::HashMap<String, String>>) -> Html<String> {
     let ref_id = q.get("ref").map(|s| s.as_str());
     Html(confirmed_html(ref_id))
 }
