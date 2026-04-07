@@ -182,29 +182,30 @@ body::before {
 }
 
 /* Starfield — tiny drifting dots */
+/* Drifting light — single gradient behind the star mask, compositor-only */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(2px 2px at 40% 8%, rgba(255,255,255,0.75), transparent),
-    radial-gradient(2.5px 2.5px at 5% 50%, rgba(0,217,255,0.6), transparent),
-    radial-gradient(2.5px 2.5px at 62% 5%, rgba(157,78,221,0.5), transparent),
-    radial-gradient(3px 3px at 50% 30%, rgba(255,255,255,0.9), transparent),
-    radial-gradient(2.5px 2.5px at 42% 62%, rgba(0,255,204,0.5), transparent),
-    radial-gradient(2px 2px at 85% 65%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(2px 2px at 73% 48%, rgba(0,217,255,0.5), transparent);
-  background-size: 100% 100%;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse 600px 400px at 50% 50%,
+    rgba(255,255,255,0.12),
+    rgba(0,217,255,0.06) 40%,
+    transparent 70%);
   animation: starDrift 100s linear infinite;
   will-change: transform;
+  contain: layout style paint;
   pointer-events: none;
   z-index: 0;
 }
 
 @keyframes starDrift {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 50%; }
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(15%, 10%, 0); }
+  50% { transform: translate3d(25%, -5%, 0); }
+  75% { transform: translate3d(10%, -15%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 /* Shooting star — rare streak across the sky */
@@ -218,19 +219,20 @@ body::before {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), rgba(0,217,255,0.5), transparent);
   border-radius: 1px;
   opacity: 0;
+  transform: rotate(-15deg);
   animation: shootingStar 20s ease-in-out infinite;
-  will-change: opacity;
+  will-change: transform, opacity;
+  contain: layout style paint;
   pointer-events: none;
   z-index: 1;
-  filter: blur(0.3px);
 }
 
 @keyframes shootingStar {
-  0%, 94% { opacity: 0; transform: rotate(-15deg); }
+  0%, 94% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-15deg); }
   95% { opacity: 0; }
-  96% { opacity: 1; }
-  98% { opacity: 0.6; }
-  100% { opacity: 0; transform: rotate(-15deg); }
+  96% { opacity: 1; transform: translate3d(30vw, 5vh, 0) rotate(-15deg); }
+  98% { opacity: 0.6; transform: translate3d(70vw, 12vh, 0) rotate(-15deg); }
+  100% { opacity: 0; transform: translate3d(90vw, 16vh, 0) rotate(-15deg); }
 }
 
 /* Second shooting star — different timing and angle */
@@ -244,29 +246,49 @@ body::before {
   background: linear-gradient(270deg, transparent, rgba(255,255,255,0.6), rgba(157,78,221,0.4), transparent);
   border-radius: 1px;
   opacity: 0;
+  transform: rotate(12deg);
   animation: shootingStar2 30s ease-in-out 8s infinite;
-  will-change: opacity;
+  will-change: transform, opacity;
+  contain: layout style paint;
   pointer-events: none;
   z-index: 1;
-  filter: blur(0.3px);
 }
 
 @keyframes shootingStar2 {
-  0%, 95% { opacity: 0; transform: rotate(12deg); }
+  0%, 95% { opacity: 0; transform: translate3d(0, 0, 0) rotate(12deg); }
   96% { opacity: 0; }
-  97% { opacity: 0.8; }
-  99% { opacity: 0.4; }
-  100% { opacity: 0; transform: rotate(12deg); }
+  97% { opacity: 0.8; transform: translate3d(-30vw, 4vh, 0) rotate(12deg); }
+  99% { opacity: 0.4; transform: translate3d(-70vw, 9vh, 0) rotate(12deg); }
+  100% { opacity: 0; transform: translate3d(-85vw, 11vh, 0) rotate(12deg); }
 }
 
-/* Cosmic ambient — base layer all pages get */
+/* Static star mask — transparent holes over dark, light drifts behind */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    radial-gradient(ellipse 400px 250px at 8% 12%, rgba(0, 217, 255, 0.12), transparent 50%),
-    radial-gradient(ellipse 350px 220px at 92% 8%, rgba(157, 78, 221, 0.1), transparent 50%);
+  background: var(--void, #0a0a0f);
+  mask-image:
+    radial-gradient(2px 2px at 10% 15%, transparent 50%, black 51%),
+    radial-gradient(2px 2px at 40% 8%, transparent 50%, black 51%),
+    radial-gradient(2.5px 2.5px at 5% 50%, transparent 50%, black 51%),
+    radial-gradient(2.5px 2.5px at 62% 5%, transparent 50%, black 51%),
+    radial-gradient(3px 3px at 50% 30%, transparent 50%, black 51%),
+    radial-gradient(2.5px 2.5px at 42% 62%, transparent 50%, black 51%),
+    radial-gradient(2px 2px at 85% 65%, transparent 50%, black 51%),
+    radial-gradient(2px 2px at 73% 48%, transparent 50%, black 51%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    radial-gradient(2px 2px at 10% 15%, transparent 50%, black 51%),
+    radial-gradient(2px 2px at 40% 8%, transparent 50%, black 51%),
+    radial-gradient(2.5px 2.5px at 5% 50%, transparent 50%, black 51%),
+    radial-gradient(2.5px 2.5px at 62% 5%, transparent 50%, black 51%),
+    radial-gradient(3px 3px at 50% 30%, transparent 50%, black 51%),
+    radial-gradient(2.5px 2.5px at 42% 62%, transparent 50%, black 51%),
+    radial-gradient(2px 2px at 85% 65%, transparent 50%, black 51%),
+    radial-gradient(2px 2px at 73% 48%, transparent 50%, black 51%);
+  -webkit-mask-composite: source-in;
+  contain: layout style paint;
   pointer-events: none;
   z-index: 0;
 }
@@ -4099,14 +4121,14 @@ body[data-page="community-grant"] .intake-form textarea {
     rgba(157, 78, 221, 0.3),
     rgba(0, 217, 255, 0.4)
   );
-  background-size: 300% 300%;
   animation: holo-border-shift 8s ease-in-out infinite;
-  will-change: background-position;
+  will-change: filter;
+  contain: layout style paint;
 }
 
 @keyframes holo-border-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
 }
 
 /* Outer glow — the holo floats above the page */
@@ -4147,6 +4169,7 @@ body[data-page="community-grant"] .intake-form textarea {
   box-shadow: 0 0 8px var(--cyber-teal), 0 0 16px rgba(0, 255, 204, 0.3);
   animation: holo-power-pulse 3s ease-in-out infinite;
   will-change: opacity;
+  contain: layout style paint;
 }
 
 @keyframes holo-power-pulse {
@@ -4223,21 +4246,14 @@ body[data-page="community-grant"] .intake-form textarea {
 
 /* Breathing ambient glow — the holo hums */
 @keyframes holo-ambient {
-  0%, 100% {
-    box-shadow:
-      inset 0 0 40px rgba(0, 217, 255, 0.03),
-      inset 0 0 80px rgba(157, 78, 221, 0.02);
-  }
-  50% {
-    box-shadow:
-      inset 0 0 60px rgba(0, 217, 255, 0.06),
-      inset 0 0 100px rgba(157, 78, 221, 0.04);
-  }
+  0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+  50% { filter: hue-rotate(15deg) brightness(1.05); }
 }
 
 .crt-screen {
   animation: holo-ambient 6s ease-in-out infinite;
-  will-change: box-shadow;
+  will-change: filter;
+  contain: layout style paint;
 }
 
 /* Terminal content */
