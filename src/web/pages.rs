@@ -2459,7 +2459,20 @@ pub async fn f90(State(_p0): State<Arc<t0>>) -> Html<String> {
         ));
     }
 
-    let v0 = format!(r#"<section class="services">
+    let v0 = if data.is_none() || rows.is_empty() {
+        r#"<section class="services">
+<h1>Analytics</h1>
+<p class="services-intro">Live Cloudflare traffic data. Public. Because transparency is the product.</p>
+<div class="cost-summary" style="padding:2rem;text-align:center">
+<p style="font-size:1.1rem;margin-bottom:0.5rem"><strong>Live data requires Cloudflare integration.</strong></p>
+<p style="color:var(--muted)">Traffic analytics are pulled from the Cloudflare GraphQL API and cached for 30 minutes. Data is unavailable in this environment.</p>
+<p style="margin-top:1.5rem"><a href="mailto:mcochran@cochranblock.org?subject=Analytics%20Demo" class="btn btn-primary">Request a Live Demo</a></p>
+</div>
+<p class="govdoc-note">On the production site, this page shows 7-day requests, page views, unique visitors, bandwidth, cache ratio, and top countries — all machine-pulled, nothing self-reported. <a href="/api/analytics">JSON endpoint →</a></p>
+<p class="services-cta"><a href="/speed" class="btn btn-secondary">Speed Comparison</a><a href="/openbooks" class="btn btn-secondary">Open Books</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a></p>
+</section>"#.to_string()
+    } else {
+        format!(r#"<section class="services">
 <h1>Analytics</h1>
 <p class="services-intro">Live Cloudflare traffic data. Public. Because transparency is the product.</p>
 
@@ -2493,15 +2506,15 @@ pub async fn f90(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p class="govdoc-note">Data from Cloudflare GraphQL API. Cached 30 minutes. <a href="/api/analytics">JSON endpoint →</a></p>
 <p class="services-cta"><a href="/speed" class="btn btn-secondary">Speed Comparison</a><a href="/openbooks" class="btn btn-secondary">Open Books</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a></p>
 </section>"#,
-        rows,
-        fmt_num(total_reqs), fmt_num(total_pv), fmt_num(total_uniq),
-        total_bytes as f64 / 1_048_576.0,
-        total_bytes as f64 / 1_048_576.0,
-        total_cached as f64 / 1_048_576.0,
-        cache_ratio,
-        (total_bytes - total_cached) as f64 / 1_048_576.0,
-        country_rows
-    );
+            rows,
+            fmt_num(total_reqs), fmt_num(total_pv), fmt_num(total_uniq),
+            total_bytes as f64 / 1_048_576.0,
+            total_bytes as f64 / 1_048_576.0,
+            total_cached as f64 / 1_048_576.0,
+            cache_ratio,
+            (total_bytes - total_cached) as f64 / 1_048_576.0,
+            country_rows)
+    };
 
     let head = f62d("analytics", "Analytics | CochranBlock", "Live Cloudflare traffic data for cochranblock.org. Requests, visitors, bandwidth, cache ratio, top countries. Public by choice.");
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
@@ -2916,4 +2929,336 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
         v0,
         C8
     ))
+}
+
+/// f95 = barz. Live traffic bars — CF analytics + GitHub repo traffic. ASCII bar charts.
+pub async fn f95(State(_p0): State<Arc<t0>>) -> Html<String> {
+    use std::sync::OnceLock;
+    use std::sync::Mutex;
+
+    static CACHE: OnceLock<Mutex<(String, std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| Mutex::new((String::new(), std::time::Instant::now() - std::time::Duration::from_secs(9999))));
+
+    {
+        let guard = cache.lock().unwrap();
+        if guard.1.elapsed().as_secs() < 1800 && !guard.0.is_empty() {
+            let head = f62d("barz", "Barz | CochranBlock", "Live traffic data. ASCII bar charts. Cloudflare analytics + GitHub repo traffic.");
+            return Html(format!("{}{}{}{}", head, C7, guard.0, C8));
+        }
+    }
+
+    // ── CF daily traffic (30 days) ──
+    let cf_data = f95_cf_daily().await;
+
+    // ── Local git activity ──
+    let gh_data = f95_git_local();
+    let daily_commits = f95_git_daily();
+
+    // ── Build page ──
+    let mut html = String::from(r#"<section class="services"><h1>Barz</h1><p class="services-intro">Live traffic. Bar charts. No fluff.</p>"#);
+
+    // CF daily chart
+    html.push_str(r#"<h2 class="services-section-head">cochranblock.org — 30 Day Traffic</h2><div class="cost-summary"><pre style="font-family:var(--font-mono,monospace);font-size:0.85rem;line-height:1.4;overflow-x:auto;margin:0;padding:1rem">"#);
+
+    if !cf_data.is_empty() {
+        let max_r = cf_data.iter().map(|d| d.0).max().unwrap_or(1).max(1);
+        html.push_str(&format!("{:<12} {:>7} {:>6} {:>6} {:>5} {:>6}\n", "DATE", "TOTAL", "US", "FR", "CN", "OTHER"));
+        html.push_str(&format!("{}\n", "─".repeat(60)));
+        for (total, us, fr, cn, other, date) in &cf_data {
+            let bar_len = (*total as f64 / max_r as f64 * 30.0) as usize;
+            let bar: String = "█".repeat(bar_len);
+            html.push_str(&format!("{:<12} {:>7} {:>6} {:>6} {:>5} {:>6}  {}\n",
+                date, fmt_num(*total), fmt_num(*us), fmt_num(*fr), fmt_num(*cn), fmt_num(*other), bar));
+        }
+        let t_total: u64 = cf_data.iter().map(|d| d.0).sum();
+        let t_us: u64 = cf_data.iter().map(|d| d.1).sum();
+        let t_fr: u64 = cf_data.iter().map(|d| d.2).sum();
+        let t_cn: u64 = cf_data.iter().map(|d| d.3).sum();
+        let t_other: u64 = cf_data.iter().map(|d| d.4).sum();
+        html.push_str(&format!("{}\n", "─".repeat(60)));
+        html.push_str(&format!("{:<12} {:>7} {:>6} {:>6} {:>5} {:>6}\n", "TOTAL", fmt_num(t_total), fmt_num(t_us), fmt_num(t_fr), fmt_num(t_cn), fmt_num(t_other)));
+
+        // Country breakdown
+        html.push_str(&format!("\n{}\n", "─".repeat(60)));
+        html.push_str(&format!("{:<25} {:>8}  {:>5}  {}\n", "COUNTRY", "REQUESTS", "%", ""));
+        html.push_str(&format!("{}\n", "─".repeat(60)));
+        let mut countries: std::collections::HashMap<String, u64> = std::collections::HashMap::new();
+        // Extract countries from daily data (already fetched)
+        // f95_cf_daily includes countryMap but we only extracted top 3
+        // Use a separate lightweight query for full breakdown
+        for (name, count) in f95_cf_countries().await {
+            *countries.entry(name).or_insert(0) += count;
+        }
+        let mut cvec: Vec<(String, u64)> = countries.into_iter().collect();
+        cvec.sort_by(|a, b| b.1.cmp(&a.1));
+        for (name, count) in cvec.iter().take(20) {
+            let pct = *count as f64 / t_total.max(1) as f64 * 100.0;
+            let bar_len = (pct / 2.0) as usize;
+            let bar: String = "█".repeat(bar_len);
+            html.push_str(&format!("{:<25} {:>8}  {:>4.1}%  {}\n", name, fmt_num(*count), pct, bar));
+        }
+    } else {
+        html.push_str("CF data unavailable — requires CF_TOKEN.\n");
+    }
+
+    html.push_str("</pre></div>");
+
+    // Repo activity (local git)
+    html.push_str(r#"<h2 class="services-section-head">Repo Activity — 30 Days</h2><div class="cost-summary"><pre style="font-family:var(--font-mono,monospace);font-size:0.85rem;line-height:1.4;overflow-x:auto;margin:0;padding:1rem">"#);
+
+    if !gh_data.is_empty() {
+        let max_commits = gh_data.iter().map(|d| d.1).max().unwrap_or(1).max(1);
+        html.push_str(&format!("{:<20} {:>8} {:>6} {:>12}\n", "REPO", "COMMITS", "NODES", "LAST PUSH"));
+        html.push_str(&format!("{}\n", "─".repeat(55)));
+        for (repo, commits, last_push, nodes) in &gh_data {
+            let bar_len = (*commits as f64 / max_commits as f64 * 25.0) as usize;
+            let bar: String = "█".repeat(bar_len);
+            html.push_str(&format!("{:<20} {:>8} {:>6} {:>12}  {}\n",
+                repo, commits, nodes, last_push, bar));
+        }
+        let t_commits: u64 = gh_data.iter().map(|d| d.1).sum();
+        html.push_str(&format!("{}\n", "─".repeat(55)));
+        html.push_str(&format!("{:<20} {:>8}\n", "TOTAL", t_commits));
+    } else {
+        html.push_str("No local git repos found.\n");
+    }
+
+    html.push_str("</pre></div>");
+
+    // Daily commit heatmap
+    if !daily_commits.is_empty() {
+        html.push_str(r#"<h2 class="services-section-head">Daily Commits (all repos)</h2><div class="cost-summary"><pre style="font-family:var(--font-mono,monospace);font-size:0.85rem;line-height:1.4;overflow-x:auto;margin:0;padding:1rem">"#);
+        let max_day = daily_commits.iter().map(|d| d.1).max().unwrap_or(1).max(1);
+        html.push_str(&format!("{:<12} {:>8}\n", "DATE", "COMMITS"));
+        html.push_str(&format!("{}\n", "─".repeat(50)));
+        for (date, count) in &daily_commits {
+            let bar_len = (*count as f64 / max_day as f64 * 30.0) as usize;
+            let bar: String = "█".repeat(bar_len);
+            html.push_str(&format!("{:<12} {:>8}  {}\n", date, count, bar));
+        }
+        let total: u64 = daily_commits.iter().map(|d| d.1).sum();
+        html.push_str(&format!("{}\n", "─".repeat(50)));
+        html.push_str(&format!("{:<12} {:>8}\n", "TOTAL", total));
+        html.push_str("</pre></div>");
+    }
+
+    html.push_str(r#"<p class="govdoc-note">CF data cached 30 min. Git data from local repos on disk. Zero API calls for repo stats.</p>"#);
+    html.push_str(r#"<p class="services-cta"><a href="/analytics" class="btn btn-secondary">Full Analytics</a><a href="/codeskillz" class="btn btn-secondary">Velocity</a><a href="/changelog" class="btn btn-secondary">Changelog</a></p></section>"#);
+
+    {
+        let mut guard = cache.lock().unwrap();
+        *guard = (html.clone(), std::time::Instant::now());
+    }
+
+    let head = f62d("barz", "Barz | CochranBlock", "Live traffic data. ASCII bar charts. Cloudflare analytics + GitHub repo traffic.");
+    Html(format!("{}{}{}{}", head, C7, html, C8))
+}
+
+/// CF daily traffic for barz (30 days). Returns (total, us, fr, cn, other, date).
+async fn f95_cf_daily() -> Vec<(u64, u64, u64, u64, u64, String)> {
+    let token = match std::env::var("CF_TOKEN").ok() {
+        Some(t) => t,
+        None => return Vec::new(),
+    };
+    let date30 = (Utc::now() - Duration::days(30)).format("%Y-%m-%d").to_string();
+    let today = Utc::now().format("%Y-%m-%d").to_string();
+    let gql = format!(
+        r#"{{viewer{{zones(filter:{{zoneTag:"1320f3a6c2f3dc2c2c5527f566c2fad3"}}){{httpRequests1dGroups(limit:30,orderBy:[date_ASC],filter:{{date_geq:"{}",date_leq:"{}"}}){{dimensions{{date}}sum{{requests countryMap{{clientCountryName requests}}}}}}}}}}}}"#,
+        date30, today
+    );
+    let query = format!(r#"{{"query":"{}"}}"#, gql.replace('"', "\\\""));
+    let client = reqwest::Client::new();
+    let resp = match client.post("https://api.cloudflare.com/client/v4/graphql")
+        .header("Authorization", format!("Bearer {}", token))
+        .header("Content-Type", "application/json")
+        .body(query)
+        .send()
+        .await
+        .ok()
+    {
+        Some(r) => r,
+        None => return Vec::new(),
+    };
+    let data: serde_json::Value = match resp.json().await.ok() {
+        Some(d) => d,
+        None => return Vec::new(),
+    };
+    let groups = &data["data"]["viewer"]["zones"][0]["httpRequests1dGroups"];
+    let arr = match groups.as_array() {
+        Some(a) => a,
+        None => return Vec::new(),
+    };
+    arr.iter().map(|day| {
+        let date = day["dimensions"]["date"].as_str().unwrap_or("?").to_string();
+        let total = day["sum"]["requests"].as_u64().unwrap_or(0);
+        let cm: std::collections::HashMap<String, u64> = day["sum"]["countryMap"].as_array()
+            .map(|a| a.iter().map(|c| (
+                c["clientCountryName"].as_str().unwrap_or("").to_string(),
+                c["requests"].as_u64().unwrap_or(0),
+            )).collect())
+            .unwrap_or_default();
+        let us = *cm.get("US").unwrap_or(&0);
+        let fr = *cm.get("FR").unwrap_or(&0);
+        let cn = *cm.get("CN").unwrap_or(&0);
+        let other = total - us - fr - cn;
+        (total, us, fr, cn, other, date)
+    }).collect()
+}
+
+/// CF country totals for barz.
+async fn f95_cf_countries() -> Vec<(String, u64)> {
+    let token = match std::env::var("CF_TOKEN").ok() {
+        Some(t) => t,
+        None => return Vec::new(),
+    };
+    let date30 = (Utc::now() - Duration::days(30)).format("%Y-%m-%d").to_string();
+    let today = Utc::now().format("%Y-%m-%d").to_string();
+    let gql = format!(
+        r#"{{viewer{{zones(filter:{{zoneTag:"1320f3a6c2f3dc2c2c5527f566c2fad3"}}){{httpRequests1dGroups(limit:30,filter:{{date_geq:"{}",date_leq:"{}"}}){{sum{{countryMap{{clientCountryName requests}}}}}}}}}}}}"#,
+        date30, today
+    );
+    let query = format!(r#"{{"query":"{}"}}"#, gql.replace('"', "\\\""));
+    let client = reqwest::Client::new();
+    let resp = match client.post("https://api.cloudflare.com/client/v4/graphql")
+        .header("Authorization", format!("Bearer {}", token))
+        .header("Content-Type", "application/json")
+        .body(query)
+        .send()
+        .await
+        .ok()
+    {
+        Some(r) => r,
+        None => return Vec::new(),
+    };
+    let data: serde_json::Value = match resp.json().await.ok() {
+        Some(d) => d,
+        None => return Vec::new(),
+    };
+    let groups = &data["data"]["viewer"]["zones"][0]["httpRequests1dGroups"];
+    let mut result = Vec::new();
+    if let Some(arr) = groups.as_array() {
+        for day in arr {
+            if let Some(cm) = day["sum"]["countryMap"].as_array() {
+                for c in cm {
+                    let name = c["clientCountryName"].as_str().unwrap_or("Unknown").to_string();
+                    let count = c["requests"].as_u64().unwrap_or(0);
+                    result.push((name, count));
+                }
+            }
+        }
+    }
+    result
+}
+
+/// Nodes to scan for git data. localhost only — nodes aggregated via cron later.
+const GIT_NODES: &[(&str, &str)] = &[
+    ("gd", ""),        // localhost — no SSH needed
+];
+
+/// Run a git command locally or via SSH. Returns stdout.
+fn git_on_node(ssh_host: &str, repo_path: &str, git_args: &str) -> Option<String> {
+    let out = if ssh_host.is_empty() {
+        std::process::Command::new("sh")
+            .args(["-c", &format!("cd {} && git {}", repo_path, git_args)])
+            .output()
+    } else {
+        std::process::Command::new("ssh")
+            .args(["-o", "ConnectTimeout=3", "-o", "StrictHostKeyChecking=accept-new",
+                   "-o", "BatchMode=yes", ssh_host,
+                   &format!("cd {} && git {}", repo_path, git_args)])
+            .output()
+    };
+    out.ok().filter(|o| o.status.success())
+        .map(|o| String::from_utf8_lossy(&o.stdout).to_string())
+}
+
+/// Check if a repo exists on a node.
+fn repo_exists_on_node(ssh_host: &str, repo_path: &str) -> bool {
+    let cmd = format!("test -d {}/.git", repo_path);
+    let out = if ssh_host.is_empty() {
+        std::process::Command::new("sh").args(["-c", &cmd]).status()
+    } else {
+        std::process::Command::new("ssh")
+            .args(["-o", "ConnectTimeout=3", "-o", "BatchMode=yes", ssh_host, &cmd])
+            .status()
+    };
+    out.map(|s| s.success()).unwrap_or(false)
+}
+
+/// Swarm-wide git repo activity. Scans all nodes for all repos, dedupes by commit hash.
+/// Returns (repo, commits_30d, last_push_date, nodes_present).
+fn f95_git_local() -> Vec<(String, u64, String, u64)> {
+    let since = (Utc::now() - Duration::days(30)).format("%Y-%m-%d").to_string();
+    let mut results = Vec::new();
+
+    let home = std::env::var("HOME").unwrap_or_else(|_| "/home/mcochran".into());
+    for repo in REPOS {
+        let repo_path = format!("{}/{}", home, repo);
+        let mut all_hashes: std::collections::HashSet<String> = std::collections::HashSet::new();
+        let mut best_push = String::new();
+        let mut node_count: u64 = 0;
+
+        for (_, ssh_host) in GIT_NODES {
+            if !repo_exists_on_node(ssh_host, &repo_path) { continue; }
+            node_count += 1;
+
+            // Collect unique commit hashes (dedup across nodes)
+            if let Some(out) = git_on_node(ssh_host, &repo_path,
+                &format!("log --format=%H --since {}", since))
+            {
+                for line in out.lines() {
+                    let h = line.trim().to_string();
+                    if !h.is_empty() { all_hashes.insert(h); }
+                }
+            }
+
+            // Last commit date
+            if let Some(out) = git_on_node(ssh_host, &repo_path, "log -1 --format=%cI") {
+                let raw = out.trim().to_string();
+                if raw.len() >= 10 {
+                    let date = raw[..10].to_string();
+                    if date > best_push { best_push = date; }
+                }
+            }
+        }
+
+        let commits = all_hashes.len() as u64;
+        if commits > 0 {
+            results.push((repo.to_string(), commits, best_push, node_count));
+        }
+    }
+    results.sort_by(|a, b| b.1.cmp(&a.1));
+    results
+}
+
+/// Swarm-wide daily commit heatmap (30 days). Deduped by hash.
+fn f95_git_daily() -> Vec<(String, u64)> {
+    let since = (Utc::now() - Duration::days(30)).format("%Y-%m-%d").to_string();
+    // hash → date, so we dedup commits seen on multiple nodes
+    let mut hash_to_date: std::collections::HashMap<String, String> = std::collections::HashMap::new();
+    let home = std::env::var("HOME").unwrap_or_else(|_| "/home/mcochran".into());
+
+    for repo in REPOS {
+        let repo_path = format!("{}/{}", home, repo);
+        for (_, ssh_host) in GIT_NODES {
+            if !repo_exists_on_node(ssh_host, &repo_path) { continue; }
+            if let Some(out) = git_on_node(ssh_host, &repo_path,
+                &format!("log --format=%H:%cd --date=short --since {}", since))
+            {
+                for line in out.lines() {
+                    if let Some((hash, date)) = line.trim().split_once(':') {
+                        if !hash.is_empty() && !date.is_empty() {
+                            hash_to_date.entry(hash.to_string()).or_insert_with(|| date.to_string());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    let mut day_map: std::collections::BTreeMap<String, u64> = std::collections::BTreeMap::new();
+    for date in hash_to_date.values() {
+        *day_map.entry(date.clone()).or_insert(0) += 1;
+    }
+    day_map.into_iter().collect()
 }

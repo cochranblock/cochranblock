@@ -654,6 +654,7 @@ body[data-page="community-grant"]::after {
     padding: 0.5rem 0;
     z-index: 100;
     min-width: 10rem;
+    max-width: calc(100vw - 2rem);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
   .nav-group a {
@@ -1462,7 +1463,8 @@ body[data-page="community-grant"]::after {
   line-height: 1.7;
   color: rgba(0, 217, 255, 0.85);
   white-space: pre-wrap;
-  word-break: break-word;
+  word-break: break-all;
+  overflow-wrap: anywhere;
   overflow-x: auto;
   user-select: all;
   cursor: text;
@@ -4481,6 +4483,53 @@ body[data-page="community-grant"] .intake-form textarea {
     min-height: 300px;
     font-size: 0.8rem;
     padding: 1rem;
+  }
+}
+
+/* Mobile fixes — hero CTA, tagline, pricing, analytics, product images */
+@media (max-width: 768px) {
+  .tagline {
+    font-size: 1.1rem;
+  }
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-cta .btn {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+  .pricing-cards {
+    grid-template-columns: 1fr;
+  }
+  .product-img {
+    max-height: 140px;
+  }
+  .cost-table {
+    font-size: 0.85rem;
+  }
+  .cost-table td {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tagline {
+    font-size: 1rem;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+  .hero-stats {
+    font-size: 0.8rem;
+  }
+  .cost-table .cost-bar-cell {
+    display: none;
+  }
+  .product-img {
+    max-height: 120px;
   }
 }
 

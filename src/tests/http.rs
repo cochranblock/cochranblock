@@ -200,6 +200,42 @@ pub async fn f51() -> Vec<t24> {
         assert_ok(ct.contains("css"), format!("content-type {} not css", ct))?;
         Ok(())
     }).await);
+    v0.push(run("css_mobile_hero_cta", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains(".hero-cta") && v4.contains("flex-direction: column"), "hero-cta must stack vertically on mobile")?;
+        Ok(())
+    }).await);
+    v0.push(run("css_mobile_tagline", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains(".tagline") && v4.contains("1.1rem"), "tagline must have mobile font-size reduction")?;
+        Ok(())
+    }).await);
+    v0.push(run("css_mobile_pricing_cards", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains(".pricing-cards") && v4.contains("grid-template-columns: 1fr"), "pricing-cards must go single-column on mobile")?;
+        Ok(())
+    }).await);
+    v0.push(run("css_mobile_cost_table", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains(".cost-bar-cell") && v4.contains("display: none"), "analytics volume bar must hide on small phones")?;
+        Ok(())
+    }).await);
+    v0.push(run("css_nav_dropdown_clamp", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains(".nav-group-links") && v4.contains("max-width: calc(100vw"), "nav dropdown must clamp to viewport")?;
+        Ok(())
+    }).await);
+    v0.push(run("css_resume_overflow", async {
+        let v3 = v2.get(format!("{}/assets/css/main.css", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains(".resume-raw") && v4.contains("overflow-wrap: anywhere"), "resume-raw must break long unicode lines")?;
+        Ok(())
+    }).await);
     v0.push(run("calendar_js", async {
         let v3 = v2.get(format!("{}/assets/js/calendar.js", v1)).send().await.map_err(|e| e.to_string())?;
         let status = v3.status();
@@ -672,7 +708,38 @@ pub async fn f51() -> Vec<t24> {
         let v3 = v2.get(format!("{}/analytics", v1)).send().await.map_err(|e| e.to_string())?;
         assert_ok(v3.status().is_success(), format!("/analytics status {}", v3.status()))?;
         let v4 = v3.text().await.map_err(|e| e.to_string())?;
-        assert_ok(v4.contains("analytic") || v4.contains("request") || v4.contains("visitor"), "/analytics missing content")?;
+        assert_ok(v4.contains("Analytics"), "/analytics missing heading")?;
+        Ok(())
+    }).await);
+    v0.push(run("analytics_no_token_fallback", async {
+        // Test server has no CF_TOKEN — must show fallback, never a zero-filled table.
+        let v3 = v2.get(format!("{}/analytics", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(
+            v4.contains("Live data requires Cloudflare integration"),
+            "/analytics must show fallback when CF_TOKEN absent, not a zero table"
+        )?;
+        assert_ok(
+            !v4.contains(">0<") && !v4.contains(">0.0 MB<"),
+            "/analytics must not render zero-filled table rows when no data"
+        )?;
+        assert_ok(
+            v4.contains("Request a Live Demo") || v4.contains("mcochran@cochranblock.org"),
+            "/analytics fallback must have a contact CTA"
+        )?;
+        Ok(())
+    }).await);
+    v0.push(run("analytics_fallback_has_json_link", async {
+        let v3 = v2.get(format!("{}/analytics", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("/api/analytics"), "/analytics fallback must link to JSON endpoint")?;
+        Ok(())
+    }).await);
+    v0.push(run("analytics_fallback_has_nav_ctas", async {
+        let v3 = v2.get(format!("{}/analytics", v1)).send().await.map_err(|e| e.to_string())?;
+        let v4 = v3.text().await.map_err(|e| e.to_string())?;
+        assert_ok(v4.contains("href=\"/speed\""), "/analytics fallback missing /speed link")?;
+        assert_ok(v4.contains("href=\"/openbooks\""), "/analytics fallback missing /openbooks link")?;
         Ok(())
     }).await);
 

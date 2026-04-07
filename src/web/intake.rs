@@ -101,14 +101,14 @@ async fn migrate(pool: &SqlitePool) -> Result<(), sqlx::Error> {
     Ok(())
 }
 
-fn html_escape(s: &str) -> String {
+pub(crate) fn html_escape(s: &str) -> String {
     s.replace('&', "&amp;")
         .replace('<', "&lt;")
         .replace('>', "&gt;")
         .replace('"', "&quot;")
 }
 
-fn client_ip(addr: SocketAddr, headers: &HeaderMap) -> String {
+pub(crate) fn client_ip(addr: SocketAddr, headers: &HeaderMap) -> String {
     headers
         .get("x-forwarded-for")
         .and_then(|v| v.to_str().ok())
@@ -175,7 +175,7 @@ pub struct IntakeForm {
     consent_terms: Option<String>,
 }
 
-fn validate_input(full_name: &str, email: &str) -> Result<(), &'static str> {
+pub(crate) fn validate_input(full_name: &str, email: &str) -> Result<(), &'static str> {
     let n = full_name.trim();
     let e = email.trim();
     if n.is_empty() {

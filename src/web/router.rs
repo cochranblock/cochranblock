@@ -61,6 +61,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/api/dcaa", get(pages::f87))
         .route("/privacy", get(pages::f93))
         .route("/changelog", get(pages::f94))
+        .route("/barz", get(pages::f95))
         .route("/analytics", get(pages::f90))
         .route("/api/analytics", get(pages::f91))
         .route("/api/site-stats", get(pages::f92))

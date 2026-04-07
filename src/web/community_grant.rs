@@ -19,14 +19,14 @@ use super::pages::{f62, C7, C8};
 
 const INTRO: &str = include_str!("../../content/community_grant_intro.txt");
 
-fn html_escape(s: &str) -> String {
+pub(crate) fn html_escape(s: &str) -> String {
     s.replace('&', "&amp;")
         .replace('<', "&lt;")
         .replace('>', "&gt;")
         .replace('"', "&quot;")
 }
 
-fn client_ip(addr: SocketAddr, headers: &HeaderMap) -> String {
+pub(crate) fn client_ip(addr: SocketAddr, headers: &HeaderMap) -> String {
     headers
         .get("x-forwarded-for")
         .and_then(|v| v.to_str().ok())
@@ -79,7 +79,7 @@ pub struct CommunityGrantForm {
     consent_grant: Option<String>,
 }
 
-fn validate_grant_input(
+pub(crate) fn validate_grant_input(
     org_name: &str,
     contact_name: &str,
     contact_email: &str,
