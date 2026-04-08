@@ -171,18 +171,7 @@ body {
   position: relative;
 }
 
-/* Cosmic base */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: var(--void);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Starfield — tiny drifting dots */
-/* Drifting light — single gradient behind the star mask, compositor-only */
+/* Starfield — drifting light behind the star mask, compositor-only */
 body::before {
   content: '';
   position: fixed;
@@ -4540,4 +4529,25 @@ body[data-page="community-grant"] .intake-form textarea {
     transition-duration: 0.01ms !important;
   }
   html { scroll-behavior: auto; }
+}
+
+/* Android/mobile GPU fix — kill cosmetic pseudo-elements that crash low-end GPUs */
+@media (max-width: 768px) {
+  body::before {
+    animation: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    inset: 0 !important;
+    background: var(--void) !important;
+    will-change: auto !important;
+  }
+  body::after {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    background: var(--void) !important;
+  }
+  .content::before,
+  .content::after {
+    display: none !important;
+  }
 }
