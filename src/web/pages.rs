@@ -202,7 +202,7 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 
 const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 15MB Rust binary replaces your cloud infrastructure. 15 open source repos. SAM.gov IRS validated, CAGE pending, UEI W7X3HAQL9CF9. SDVOSB pending.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 15MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
 
-const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 15MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2013. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 15 repositories are public on GitHub, 12 under the Unlicense. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 15MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
+const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 15MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 15 repositories are public on GitHub, 12 under the Unlicense. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 15MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -625,7 +625,7 @@ CAGE Code — 1CQ66</p>
 • <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
 • 15 open source Rust repos with Proof of Artifacts and Timeline of Invention<br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
-• Army 17C (Cyber Operations), JCAC 2013<br>
+• Army 17C (Cyber Operations), JCAC 2014<br>
 • All code delivered under the Unlicense — zero vendor lock-in</p>
 
 <p><strong>Past Performance</strong><br>
@@ -716,7 +716,7 @@ CochranBlock has developed a compiled single-binary architecture in Rust that el
 The technology has immediate dual-use application. Commercial clients (startups, SMBs) pay $3,500 base deployment + $225/hour consulting. Federal clients access through SBIR Phase III, GSA Schedule 70, or direct contract. Year 1 projected gross: $150,000.</p>
 
 <p><strong>Principal Investigator</strong><br>
-Michael Cochran — Army 17C (Cyber Operations), JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran.</p>
+Michael Cochran — Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran.</p>
 </div>
 </details>
 </div>
@@ -752,7 +752,7 @@ CochranBlock's compiled single-binary architecture eliminates every external dep
 
 <p><strong>Past Performance</strong><br>
 • PI served as dev lead at USCYBERCOM J38 JMOC-E for a Congressional NDAA-directed offensive cyber operations study<br>
-• Army 17C (Cyber Operations), JCAC 2013, 30% service-connected disabled veteran<br>
+• Army 17C (Cyber Operations), JCAC 2014, 30% service-connected disabled veteran<br>
 • 15 open source Rust repositories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
 • cochranblock.org running in production as a single 15MB binary on $10/month infrastructure</p>
 </div>
@@ -1318,7 +1318,7 @@ No OpenAI API calls in production. Models compiled into the binary via Candle. W
 <summary>Certifications &amp; Registrations</summary>
 <p>
 SDVOSB (pending) · SAM.gov (pending registration) · Maryland eMMA (vendor) · CSB (approved)<br>
-Army 17C Cyber Operations · JCAC 2013 · USCYBERCOM J38<br>
+Army 17C Cyber Operations · JCAC 2014 · USCYBERCOM J38<br>
 <span class="service-outcome">Every badge earned. Every registration filed. Every repo proves the claim.</span>
 </p>
 </details>
@@ -1449,7 +1449,7 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <details class="service-card" open>
 <summary>The Cochran Block, LLC</summary>
 <p>
-Michael Cochran — Army veteran (17C Cyber Operations, 35Q start at JCAC 2013). 13 years defense and enterprise. USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study.<br><br>
+Michael Cochran — Army veteran (17C Cyber Operations, 35Q start at JCAC 2014). 13 years defense and enterprise. USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study.<br><br>
 SDVOSB pending. SAM.gov IRS validated, CAGE pending (DLA reviewing), UEI W7X3HAQL9CF9. Maryland eMMA vendor.<br><br>
 This framework was not designed in a lab. It was built by a developer who needed to prove that his AI-assisted code was human-directed — and discovered that no standard existed to do so.<br>
 <span class="service-outcome"><a href="https://github.com/cochranblock/provenance-docs/blob/main/WHITEPAPER.md">Read the full whitepaper →</a></span>
@@ -1938,7 +1938,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry {
         path: "/about",
         title: "About CochranBlock",
-        body: "Michael Cochran. Army 17C Cyber Operations. JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead. SDVOSB pending. LLC formed to production in under 30 days.",
+        body: "Michael Cochran. Army 17C Cyber Operations. JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead. SDVOSB pending. LLC formed to production in under 30 days.",
     },
     SearchEntry {
         path: "/contact",
@@ -2126,7 +2126,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <details class="service-card" open>
 <summary>The Cochran Block, LLC — Who We Are</summary>
 <div class="govdoc-print">
-<p><strong>Veteran:</strong> Michael Cochran · 30% Service-Connected · Army 17C (Cyber Operations) · JCAC 2013<br>
+<p><strong>Veteran:</strong> Michael Cochran · 30% Service-Connected · Army 17C (Cyber Operations) · JCAC 2014<br>
 <strong>Entity:</strong> The Cochran Block, LLC · EIN 41-3835237 · Dundalk, MD 21222<br>
 <strong>Post-9/11 GI Bill:</strong> 23 months remaining (electing P9/11SA for Baltimore BAH)<br>
 <strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Pending · <strong>SAM.gov:</strong> IRS Validated · CAGE Pending (DLA Reviewing) · UEI W7X3HAQL9CF9 · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
@@ -2912,7 +2912,7 @@ $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fracti
 15 Rust products: Kova (augment engine, local LLM, agent loop, NanoSign model signing, P23 Triple Lens research protocol), Pixel Forge (AI sprite generator, 3 diffusion models), Approuter (reverse proxy, Cloudflare tunnel), Rogue Repo (ISO 8583 payment engine), Ronin Sites (artist/shop platform), Pocket Server (phone-hosted website), OakilyDokily (waiver management, ESIGN), Ghost Fabric (LoRa mesh, edge AI), Call Shield (on-device call screening), Exopack (test framework), WhyYouLying (fraud detection), IllBeTheJudgeOfThat (legal case builder), Provenance Docs (AI dev documentation framework), Wowasticker (offline dictation app), any-gpu (GPU tensor engine, AMD/NVIDIA/Intel/Apple via wgpu).
 
 ## About (/about)
-Michael Cochran. Army 17C Cyber Operations, JCAC 2013. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 15 repos open-sourced, first partnership signed — all in under 30 days.
+Michael Cochran. Army 17C Cyber Operations, JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 15 repos open-sourced, first partnership signed — all in under 30 days.
 
 The Trifecta: 1) Can't outprice free — Unlicense, public domain. 2) Can't out-transparent public domain — source, bugs, IR&D audit all public. 3) Expertise is inherent — code IS the resume.
 
