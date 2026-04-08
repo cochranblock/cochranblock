@@ -43,7 +43,7 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 **Named:** Fish Tank Starfield
 **Commit:** `11c115f`
 **Benchmark:** `whobelooking perf https://cochranblock.org` — 75fps, 0.0000 CLS, 164ms FP
-**Origin:** Arizona garage sale, circa 1998. Michael Cochran, age ~6.
+**Origin:** Arizona garage sale, circa 2006-2010. Michael Cochran.
 
 ---
 
