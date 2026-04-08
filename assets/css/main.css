@@ -2499,13 +2499,17 @@ body[data-page="community-grant"]::after {
 }
 
 @media (max-width: 768px) {
+  .cost-summary {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .cost-table {
     font-size: 0.8rem;
+    min-width: 500px;
   }
   .cost-table td {
     padding: 0.5rem 0.5rem;
-    white-space: normal;
-    word-break: break-word;
+    white-space: nowrap;
   }
   .cost-amount {
     white-space: nowrap;
