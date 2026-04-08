@@ -14,3 +14,6 @@ android/cochranblock-release.jks
 android/app/src/main/jniLibs/
 android/.gradle/
 android/app/build/
+vendor/
+.env.bak
+.cargo/config.toml
