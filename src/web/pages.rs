@@ -227,7 +227,7 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         p2
     };
     format!(
-        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{}"><title>{}</title><link rel="canonical" href="{}{}"><meta property="og:title" content="{}"><meta property="og:description" content="{}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/assets/manifest.json"><meta name="theme-color" content="{}"><link rel="stylesheet" href="/assets/css/main.css?v=3">{}</head><body data-page="{}">"#,
+        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{}"><title>{}</title><link rel="canonical" href="{}{}"><meta property="og:title" content="{}"><meta property="og:description" content="{}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image" content="https://cochranblock.org/assets/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:type" content="website"><meta property="og:url" content="{}{}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9" sizes="32x32"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/assets/manifest.json"><meta name="theme-color" content="{}"><link rel="stylesheet" href="/assets/css/main.css?v=4">{}</head><body data-page="{}">"#,
         desc, p1, BASE_URL, v_path, p1, og_desc, BASE_URL, v_path, "#00d9ff", JSON_LD_ORG, p0
     )
 }
@@ -590,11 +590,12 @@ mcochran@cochranblock.org · cochranblock.org<br>
 EIN: 41-3835237</p>
 
 <p><strong>Certifications &amp; Registrations</strong><br>
+SAM.gov — <strong>Active</strong> · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · EIN 41-3835237<br>
 Maryland CSB (Certified Small Business) — <strong>Approved</strong><br>
-SDVOSB (Service-Disabled Veteran-Owned Small Business) — Pending<br>
-SAM.gov — Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9<br>
-Maryland eMMA — Vendor SUP1095449<br>
-CAGE Code — 1CQ66</p>
+SDVOSB (Service-Disabled Veteran-Owned Small Business) — Pending (VetCert/SBA)<br>
+Maryland eMMA — Vendor SUP1095449 · ACH Direct Deposit Active<br>
+crates.io — 4 published crates (kova-engine, exopack, any-gpu, header-writer)<br>
+GitHub — 15+ open source repositories at github.com/cochranblock</p>
 
 <p><strong>Core Competencies</strong><br>
 • Memory-safe compiled architecture (Rust) — aligned with CISA Secure-by-Design mandate<br>
@@ -623,7 +624,9 @@ CAGE Code — 1CQ66</p>
 • <strong>Unlicense = zero procurement friction</strong> — No ITAR/EAR licensing, no sole-source justification, no vendor lock-in<br>
 • <strong>Single-binary = zero infrastructure</strong> — 15MB replaces $36K/year cloud stacks for $120/year<br>
 • <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
+• 4 published crates on <a href="https://crates.io">crates.io</a>: kova-engine, exopack, any-gpu, header-writer<br>
 • 15 open source Rust repos with Proof of Artifacts and Timeline of Invention<br>
+• 7 named inventions with no known prior art (Fish Tank Starfield, Triple Sims, NanoSign, P13 Compression, Gemini Man Pattern, Sponge Mesh, Self-Converging Flywheel)<br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
 • Army 17C (Cyber Operations), JCAC 2014<br>
 • All code delivered under the Unlicense — zero vendor lock-in</p>
