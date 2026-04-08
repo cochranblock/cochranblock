@@ -356,6 +356,7 @@ body[data-page="community-grant"]::after {
   background: linear-gradient(180deg, rgba(5, 5, 8, 0.97) 0%, rgba(13, 13, 20, 0.95) 100%);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Nav search bar — subtle, minimal */
@@ -394,16 +395,27 @@ body[data-page="community-grant"]::after {
 
 @media (max-width: 768px) {
   .nav-search-input {
-    width: 100px;
+    width: 80px;
     font-size: 0.65rem;
   }
   .nav-search-input:focus {
-    width: 140px;
+    width: 120px;
   }
 }
 
 @media (max-width: 480px) {
-  .nav-search { display: none; }
+  .nav-search {
+    position: absolute;
+    right: 3.5rem;
+  }
+  .nav-search-input {
+    width: 70px;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem 0.2rem 1.4rem;
+  }
+  .nav-search-input:focus {
+    width: 110px;
+  }
 }
 
 /* Search page — clean, centered, Google-style CRT */
@@ -675,6 +687,7 @@ body[data-page="community-grant"]::after {
     left: 0;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
     flex-direction: column;
     gap: 0;
     padding: 70px 0 2rem;
