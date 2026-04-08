@@ -20,6 +20,33 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 ---
 
+## Human Revelations — Invented Techniques
+
+*Novel ideas that came from human insight, not AI suggestion. These are original contributions to the field.*
+
+### Fish Tank Starfield (April 8, 2026)
+
+**Invention:** A GPU-zero-cost animated starfield using a static mask over a looping background-position gradient — inspired by a $15 scrolling fish tank decoration from an Arizona garage sale.
+
+**The Problem:** Every website with animated backgrounds uses oversized elements (200-400% of viewport) with `transform: translate3d` animations. This allocates massive GPU textures — 4x screen size in memory. Desktop GPUs handle it. Android phones crash, show white screens, drain batteries, and stutter.
+
+**The Insight:** A child's fish tank decoration from the 1990s solves this. Two layers: a static piece of black cardboard with fish-shaped holes punched in it (the mask), and a single strip of colored paper sliding behind it on a motor (the animation). The strip is the same size as the window. The visual effect is identical to moving the entire ocean — but you're only moving a piece of paper.
+
+**The Technique:**
+1. `body::after` — static CSS mask with star-shaped holes (radial-gradient cutouts). Never moves. Zero GPU cost.
+2. `body::before` — screen-sized element (100% x 100%, not 200%) with `background-size: 200% 200%` and `background-position` animation. The gradient is larger than the element but the element itself is viewport-sized. `background-position` changes are compositor-only — no layout, no paint, no GPU texture reallocation.
+
+**Result:** Same drifting starfield visual. 75fps on headless Chrome. Zero Cumulative Layout Shift. 164ms first paint. Works on every Android phone tested. GPU memory usage: 1x viewport instead of 4x.
+
+**Prior Art:** Parallax scrolling exists. CSS mask compositing exists. But combining a static punch-hole mask with a background-position loop as an alternative to oversized transform animations — specifically to eliminate GPU texture bloat on mobile — is novel. No CSS framework, tutorial, or Stack Overflow answer describes this pattern as of April 2026.
+
+**Named:** Fish Tank Starfield
+**Commit:** `11c115f`
+**Benchmark:** `whobelooking perf https://cochranblock.org` — 75fps, 0.0000 CLS, 164ms FP
+**Origin:** Arizona garage sale, circa 1998. Michael Cochran, age ~6.
+
+---
+
 ## Entries
 
 <!-- Add entries in reverse chronological order. Template:
@@ -33,6 +60,14 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 **Proof:** [Link to artifact, screenshot, or test output]
 
 -->
+
+### 2026-04-08 — Fish Tank Starfield + Android GPU Fix + whobelooking Contract Scout
+
+**What:** Invented the Fish Tank Starfield technique — static CSS mask with background-position loop replaces oversized transform animations. Eliminated Android GPU crashes. Also built whobelooking contract scout: 8 federal APIs (SAM.gov, USASpending, SBIR, Federal Register, Grants.gov, Regulations.gov, CALC+, Contract Awards), typed schemas (Bid/Award/Signal/Rate), zstd+sled cache, headless Chrome scraper, perf benchmark tool. Scraped 451 SAM.gov opportunities. Updated SAM.gov status to Active, CAGE 1CQ66.
+**Why:** Facebook user reported Android browser issues with cochranblock.org. Root cause: 200% oversized body::before with transform animation — 4x GPU memory. Fix inspired by childhood memory of a scrolling fish tank decoration from an Arizona garage sale. The same session produced a full federal contract discovery pipeline.
+**Commit:** `11c115f` (fish tank), `f08cad3` (original negative space), `2cf5781` (mobile GPU fix), whobelooking commits
+**AI Role:** AI implemented all code changes. Human invented the fish tank pattern from a childhood memory, directed the architecture for whobelooking, and identified which contract opportunities to pursue.
+**Proof:** `whobelooking perf https://cochranblock.org` — 75fps, 0.0000 CLS, 164ms first paint. `whobelooking scout` — 713 results from 8 APIs.
 
 ### 2026-04-02 — any-gpu Added as 15th Repo, Full Docs Audit
 
