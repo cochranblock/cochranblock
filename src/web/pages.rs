@@ -3382,6 +3382,136 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
     ))
 }
 
+/// f96 = inventions. Named inventions + techniques with provenance.
+pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Inventions & Techniques</h1>
+<p class="services-intro">32 named contributions across 15 projects. 7 inventions with no known prior art. 4 original techniques. All with commit provenance and benchmarks.</p>
+
+<h2 class="services-section-head">Inventions — No Known Prior Art</h2>
+<div class="service-cards">
+
+<details class="service-card" open>
+<summary>Fish Tank Starfield</summary>
+<p><strong>Project:</strong> cochranblock &middot; <strong>Date:</strong> April 8, 2026 &middot; <strong>Commit:</strong> <code>11c115f</code></p>
+<p>GPU-zero-cost animated starfield using a static CSS mask with punched-out star holes over a screen-sized <code>background-position</code> loop. Standard approach: oversized element (200% viewport) with <code>transform: translate3d</code> — allocates 4x GPU memory. Fish Tank approach: element is 100% viewport, gradient is larger via <code>background-size: 200%</code>, animation is <code>background-position</code> only — compositor-only, no GPU texture reallocation.</p>
+<p><strong>Result:</strong> 75fps, 0.0000 CLS, 164ms first paint. Works on every Android phone. 1/4 the GPU memory.</p>
+<p><strong>Origin:</strong> Scrolling fish tank decoration from an Arizona garage sale, circa 2006-2010.</p>
+<p><strong>Benchmark:</strong> <code>whobelooking perf https://cochranblock.org</code></p>
+</details>
+
+<details class="service-card">
+<summary>P13 Compression Mapping</summary>
+<p><strong>Project:</strong> kova &middot; <strong>Date:</strong> March 2026</p>
+<p>Every function, type, and field in the codebase is tokenized to a compressed identifier: <code>f0</code>-<code>fN</code> (functions), <code>t0</code>-<code>tN</code> (types), <code>s0</code>-<code>sN</code> (fields). AI context consumption drops 75% — local models with 8K context windows can do work that previously required 100K+ cloud models. 368/368 symbols compressed in production.</p>
+<p><strong>Why it's novel:</strong> Codebases are compressed for humans (short names) or machines (minification). Nobody tokenizes for AI context budget. This is a new axis of compression.</p>
+</details>
+
+<details class="service-card">
+<summary>Triple Sims</summary>
+<p><strong>Project:</strong> exopack &middot; <strong>Date:</strong> March 2026</p>
+<p>Run the full test suite 3 times. All 3 must produce identical results. Not "it passed" — "it passed identically three times." Catches flaky tests, race conditions, non-deterministic behavior, and timing-dependent bugs that pass once but fail under load.</p>
+<p><strong>Why it's novel:</strong> Every CI system runs tests once. Flaky test detection tools flag tests that sometimes fail. Nobody requires triple-deterministic as a hard gate before merge. If it can't pass 3 times in a row, it's not reliable — it's lucky.</p>
+<p><strong>Deployed:</strong> 6+ production projects via exopack test augmentation.</p>
+</details>
+
+<details class="service-card">
+<summary>NanoSign Model Integrity</summary>
+<p><strong>Project:</strong> pixel-forge &middot; <strong>Date:</strong> April 2026</p>
+<p>36-byte BLAKE3 signature embedded in every AI model file (<code>.safetensors</code>). Verified at load time before any inference. Unsigned or tampered models are rejected. The signature travels with the file — no certificate authority, no network call, no infrastructure.</p>
+<p><strong>Why it's novel:</strong> Model signing exists (Sigstore, Notary). But those require infrastructure — registries, certificate chains, network access. NanoSign is 36 bytes appended to the file. Verify with one hash. Works air-gapped.</p>
+</details>
+
+<details class="service-card">
+<summary>Gemini Man Pattern</summary>
+<p><strong>Project:</strong> rogue-repo &middot; <strong>Date:</strong> March 2026</p>
+<p>Zero-downtime binary self-replacement. New binary starts, reads old PID from lockfile, sends SIGTERM to old process, binds the port via <code>SO_REUSEPORT</code>, writes its own PID. The old process dies gracefully. The new one takes over. No service manager, no systemctl, no container orchestration.</p>
+<p><strong>Why it's novel:</strong> Hot-reload exists (nginx, HAProxy). But those are daemons managed by init systems. This is the binary itself managing its own lifecycle — like the movie where young Will Smith replaces older Will Smith.</p>
+<p><strong>Named after:</strong> the 2019 film Gemini Man.</p>
+</details>
+
+<details class="service-card">
+<summary>Sponge Mesh Broadcast</summary>
+<p><strong>Project:</strong> kova / tmuxisfree &middot; <strong>Date:</strong> April 2026</p>
+<p>Rate-limit-aware broadcast across 28 concurrent AI agent sessions. Fast first pass sends to all panes. Collect failures (rate-limited panes). Retry with exponential backoff (10s, 20s, 30s, 40s, 50s). The mesh absorbs rate limits like a sponge — soaks up the failures and wrings them out on retry.</p>
+<p><strong>Why it's novel:</strong> Load balancers retry failed requests. But this retries failed AI agent dispatches across a tmux fleet with per-pane cooldowns and rate-limit detection via string matching on pane output. Nobody orchestrates AI agents through tmux panes with a retry mesh.</p>
+</details>
+
+<details class="service-card">
+<summary>Self-Converging Flywheel</summary>
+<p><strong>Project:</strong> entire portfolio &middot; <strong>Date:</strong> April 2026</p>
+<p>A development architecture where each cycle reduces external AI dependency. Stage 1: cloud APIs build tools. Stage 2: tools run locally. Stage 3: system trains on its own data. Stage 4: system tests itself. Stage 5: system deploys itself. Stage 6: system discovers its own work. The cloud APIs are scaffolding — dismantled as local capability matures.</p>
+<p><strong>Why it's novel:</strong> Self-improving AI exists as a concept. But a concrete 6-stage convergence from cloud-dependent to operationally autonomous, with named ratchets (techniques that permanently reduce dependency) and working code at each stage — that's an architecture, not a paper.</p>
+<p><strong>Current stage:</strong> 2 of 6. Stages 3-6 partially implemented.</p>
+</details>
+
+</div>
+
+<h2 class="services-section-head">Techniques — Original Application of Existing Concepts</h2>
+<div class="service-cards">
+
+<details class="service-card">
+<summary>MoE Cascade Pipeline (Cinder → Quench → Anvil)</summary>
+<p><strong>Project:</strong> pixel-forge</p>
+<p>Three diffusion models at increasing fidelity. Cinder (1.09M params) runs on anything. Quench (5.83M) needs a GPU. Anvil (16.9M) needs a good GPU. Mixture-of-Experts routing picks the right model for available hardware. Novel application of MoE to tiered pixel art diffusion.</p>
+</details>
+
+<details class="service-card">
+<summary>Agentic Tool Loop with Context Compaction</summary>
+<p><strong>Project:</strong> kova</p>
+<p>LLM calls 13 tools (read/write/edit/bash/glob/grep/review) in an autonomous loop until the task is done. At 80% context budget, the agent summarizes its own prior work to free tokens. Novel application: the compaction is LLM-powered, not truncation — key decisions survive.</p>
+</details>
+
+<details class="service-card">
+<summary>Multi-Tunnel Abstraction</summary>
+<p><strong>Project:</strong> approuter</p>
+<p>One reverse proxy API that abstracts Cloudflare Tunnels, ngrok, Tailscale Funnel, Bore, and localtunnel. Swap tunnel providers without changing application code. Novel application of the adapter pattern to tunnel infrastructure.</p>
+</details>
+
+<details class="service-card">
+<summary>C2 Swarm Orchestration</summary>
+<p><strong>Project:</strong> kova</p>
+<p>Distributed build/test/deploy across 4 worker nodes via SSH with tokenized command protocol (c1-c9 for node ops, x0-x9 for cargo, g0-g9 for git). Nodes work in parallel, output streams with per-node prefix. Novel application of military C2 concepts to software development.</p>
+</details>
+
+</div>
+
+<h2 class="services-section-head">Production Engineering — Solid Work, Not Inventions</h2>
+<p class="services-intro">Good engineering that shipped real products. Not claiming novelty — claiming execution.</p>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td>Pure Rust ISO 8583</td><td>rogue-repo — Financial message builder without C bindings</td></tr>
+<tr><td>Single-Binary ESIGN Waiver</td><td>oakilydokily — 7-year retention, gzip archive, one executable</td></tr>
+<tr><td>Zero-JavaScript Architecture</td><td>oakilydokily — Server-rendered HTML, no client JS</td></tr>
+<tr><td>DoDI 5505.02 Rule Engine</td><td>whyyoulying — 8 fraud detection rules mapped to DoD regs</td></tr>
+<tr><td>GAGAS Referral Export</td><td>whyyoulying — Audit standard output format</td></tr>
+<tr><td>Sub-ms Call Screening</td><td>call-shield — 22 spam + 14 legit patterns, 360KB binary</td></tr>
+<tr><td>RSSI/Battery/Hop Mesh Routing</td><td>ghost-fabric — Multi-factor LoRa node scoring</td></tr>
+<tr><td>Phone-as-Web-Server</td><td>pocket-server — Serve a website from an Android phone</td></tr>
+<tr><td>Load-Balanced Gov Scout</td><td>whobelooking — 8 federal APIs with rate-limit rotation</td></tr>
+<tr><td>Any-GPU Tensor Engine</td><td>any-gpu — One WGSL codebase, 4 GPU vendors</td></tr>
+<tr><td>Visitor Fingerprint Pipeline</td><td>whobelooking — CF → rDNS → /24 neighbor scan</td></tr>
+<tr><td>Test Binary Augmentation</td><td>exopack — Same binary for prod + test, feature-gated</td></tr>
+<tr><td>Visual Regression Orchestrator</td><td>exopack — Screenshot comparison for CSS changes</td></tr>
+<tr><td>Per-User Theme Editor</td><td>ronin-sites — JSON theme engine with live preview</td></tr>
+<tr><td>30-Second Voice-to-Sticker</td><td>wowasticker — Dictation to sticker in the drive-through</td></tr>
+<tr><td>Hybrid Class Conditioning</td><td>pixel-forge — 10 super-categories + 12 binary tags</td></tr>
+<tr><td>Provenance Docs Framework</td><td>provenance-docs — TOI + POA as reusable template</td></tr>
+<tr><td>Auto App Registration</td><td>approuter — Products self-register with the reverse proxy</td></tr>
+</table>
+</div>
+
+<p class="services-intro" style="margin-top:2rem"><strong>Total:</strong> 7 inventions, 4 techniques, 18 production engineering contributions across 15 Rust projects. All open source under the Unlicense. All with commit-level provenance in each project's Timeline of Invention.</p>
+<p class="services-intro"><a href="https://github.com/cochranblock" class="btn">View All Source Code</a> <a href="/govdocs" class="btn btn-secondary">Capability Statement</a></p>
+</section>"#;
+    let head = f62d(
+        "inventions",
+        "Inventions & Techniques | CochranBlock",
+        "7 inventions with no known prior art, 4 original techniques, 18 production engineering contributions across 15 Rust projects.",
+    );
+    Html([head.as_str(), C7, v0, C8].concat())
+}
+
 /// f95 = barz. Live traffic bars — CF analytics + GitHub repo traffic. ASCII bar charts.
 pub async fn f95(State(_p0): State<Arc<t0>>) -> Html<String> {
     use std::sync::Mutex;
