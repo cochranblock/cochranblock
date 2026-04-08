@@ -812,10 +812,13 @@ body[data-page="community-grant"]::after {
   -webkit-text-fill-color: transparent;
 }
 
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: nowrap;
+/* Desktop nav — horizontal links. Mobile override in @media below uses display:none. */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+  }
 }
 
 .nav-links a {

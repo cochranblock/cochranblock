@@ -1,0 +1,13 @@
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/cochranblock/approuter"]
+git = "https://github.com/cochranblock/approuter"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/cochranblock/exopack"]
+git = "https://github.com/cochranblock/exopack"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"
