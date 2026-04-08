@@ -394,18 +394,7 @@ body[data-page="community-grant"]::after {
 }
 
 @media (max-width: 480px) {
-  .nav-search {
-    position: absolute;
-    right: 3.5rem;
-  }
-  .nav-search-input {
-    width: 70px;
-    font-size: 0.6rem;
-    padding: 0.2rem 0.4rem 0.2rem 1.4rem;
-  }
-  .nav-search-input:focus {
-    width: 110px;
-  }
+  .nav-search { display: none; }
 }
 
 /* Search page — clean, centered, Google-style CRT */
