@@ -384,16 +384,6 @@ body[data-page="community-grant"]::after {
 }
 
 @media (max-width: 768px) {
-  .nav-search-input {
-    width: 80px;
-    font-size: 0.65rem;
-  }
-  .nav-search-input:focus {
-    width: 120px;
-  }
-}
-
-@media (max-width: 480px) {
   .nav-search { display: none; }
 }
 

@@ -16,6 +16,6 @@ I also wrote a whitepaper on edge AI over LoRa mesh networks using Candle — co
 
 Architecture proof: https://github.com/cochranblock/cochranblock/blob/main/PROOF_OF_ARTIFACTS.md
 
-Cost breakdown: https://cochranblock.org/mathskillz
+Cost breakdown: https://cochranblock.org/stats
 
 All source is public domain (Unlicense). AMA.

@@ -77,7 +77,7 @@ The company that sells web hosting ships 116 JavaScript files. We ship zero. Dra
 All 16 repos: [github.com/cochranblock](https://github.com/cochranblock)
 The live demo: [cochranblock.org](https://cochranblock.org)
 Binary leaderboard: [cochranblock.org/tinybinaries](https://cochranblock.org/tinybinaries)
-Speed proof: [cochranblock.org/speed](https://cochranblock.org/speed)
+Speed proof: [cochranblock.org/stats](https://cochranblock.org/stats)
 
 ---
 

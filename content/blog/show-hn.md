@@ -15,7 +15,7 @@ I built my entire company website as a single Rust binary. 8.4 MB on ARM, 15 MB 
 The binary serves its own source code at /source via `include_str!`. You're reading the Rust code of the server that's serving you the page. It also has:
 
 - /tinybinaries — leaderboard of 16 Rust binaries from 48 KB to 51 MB
-- /speed — side-by-side comparison vs Wix/Vercel/Stripe
+- /stats — performance, cloud cost math, live traffic, defense contractor benchmarks
 - /search — native full-text search with compile-time index (no JS)
 - /openbooks — live IR&D audit calculated from GitHub commit timestamps
 - /analytics — public Cloudflare traffic stats

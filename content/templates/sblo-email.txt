@@ -14,7 +14,7 @@ What I build:
 Compiled Rust web applications that run on bare metal with zero cloud dependencies. One binary, one process, $10/month infrastructure. I replace $36K/year cloud stacks with an 18MB executable.
 
 Public proof:
-- Cost analysis: https://cochranblock.org/mathskillz
+- Cost analysis: https://cochranblock.org/stats
 - Architecture: https://github.com/cochranblock
 - Edge intelligence whitepaper: https://github.com/cochranblock/ghost-fabric
 

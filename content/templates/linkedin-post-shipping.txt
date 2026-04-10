@@ -10,7 +10,7 @@ Shipped [FEATURE] on [PROJECT].
 
 This runs on a 9.9MB Rust binary. $10/month. No AWS. No Kubernetes.
 
-Full cost math: cochranblock.org/mathskillz
+Full cost math: cochranblock.org/stats
 
 ---
 
@@ -22,4 +22,4 @@ Side-by-side comparison: a 3-person startup's AWS bill ($36K/year) vs the same a
 
 This runs on a 9.9MB Rust binary. $10/month. No AWS. No Kubernetes.
 
-Full cost math: cochranblock.org/mathskillz
+Full cost math: cochranblock.org/stats

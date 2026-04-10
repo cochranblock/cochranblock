@@ -48,7 +48,7 @@ pub fn f1(p0: t0) -> Router {
         // Redirects for old routes
         .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
         .route("/services", get(pages::f11))
-        .route("/mathskillz", get(pages::f72))
+        .route("/mathskillz", get(|| async { Redirect::permanent("/stats") }))
         .route("/provenance", get(pages::f74))
         .route("/sbir", get(pages::f74))
         .route("/codeskillz", get(pages::f76))
@@ -57,7 +57,8 @@ pub fn f1(p0: t0) -> Router {
         .route("/vre", get(pages::f82))
         .route("/source", get(pages::f83))
         .route("/search", get(pages::f84))
-        .route("/speed", get(pages::f85))
+        .route("/stats", get(pages::f97))
+        .route("/speed", get(|| async { Redirect::permanent("/stats") }))
         .route("/openbooks", get(pages::f86))
         .route(
             "/govdocs/faq",
@@ -69,7 +70,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/inventions", get(pages::f96))
         .route("/privacy", get(pages::f93))
         .route("/changelog", get(pages::f94))
-        .route("/barz", get(pages::f95))
+        .route("/barz", get(|| async { Redirect::permanent("/stats") }))
         .route("/analytics", get(pages::f90))
         .route("/api/analytics", get(pages::f91))
         .route("/api/site-stats", get(pages::f92))

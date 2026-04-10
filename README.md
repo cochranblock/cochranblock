@@ -65,7 +65,7 @@ Runs unit, integration, and HTTP tests three times (TRIPLE SIMS gate) with scree
 | `/community-grant/confirmed` | Grant submission confirmation |
 | `/downloads` | Resume PDF, logo card |
 | `/codeskillz` | Live velocity tracking for repos |
-| `/mathskillz` | Cost analysis: cloud vs zero-cloud |
+| `/stats` | Performance, cloud cost math, live traffic |
 | `/govdocs` | Capability statement, SBIR proposals, bid tracker |
 | `/sbir` | SBIR/provenance documentation |
 | `/provenance` | AI development documentation framework |
@@ -73,7 +73,7 @@ Runs unit, integration, and HTTP tests three times (TRIPLE SIMS gate) with scree
 | `/tinybinaries` | Binary size comparison across repos |
 | `/source` | Live source code of the running server |
 | `/search` | Site search |
-| `/speed` | Performance metrics |
+| `/speed` | Redirects to /stats |
 | `/openbooks` | Open books financial transparency |
 | `/dcaa` | DCAA-ready accounting (alias for /openbooks) |
 | `/analytics` | Site analytics dashboard |

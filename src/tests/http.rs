@@ -1443,20 +1443,20 @@ pub async fn f51() -> Vec<t24> {
         .await,
     );
     v0.push(
-        run("mathskillz_200", async {
+        run("stats_200", async {
             let v3 = v2
-                .get(format!("{}/mathskillz", v1))
+                .get(format!("{}/stats", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
             assert_ok(
                 v3.status().is_success(),
-                format!("/mathskillz status {}", v3.status()),
+                format!("/stats status {}", v3.status()),
             )?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(
                 v4.contains("cloud") || v4.contains("cost") || v4.contains("$"),
-                "/mathskillz missing cost content",
+                "/stats missing cost content",
             )?;
             Ok(())
         })
@@ -1660,7 +1660,7 @@ pub async fn f51() -> Vec<t24> {
         .await,
     );
     v0.push(
-        run("speed_200", async {
+        run("speed_redirect", async {
             let v3 = v2
                 .get(format!("{}/speed", v1))
                 .send()
@@ -1668,12 +1668,7 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             assert_ok(
                 v3.status().is_success(),
-                format!("/speed status {}", v3.status()),
-            )?;
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(
-                v4.contains("KB") || v4.contains("Wix") || v4.contains("weight"),
-                "/speed missing comparison content",
+                format!("/speed redirect status {}", v3.status()),
             )?;
             Ok(())
         })
@@ -1821,8 +1816,8 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(
-                v4.contains("href=\"/speed\""),
-                "/analytics fallback missing /speed link",
+                v4.contains("href=\"/stats\""),
+                "/analytics fallback missing /stats link",
             )?;
             assert_ok(
                 v4.contains("href=\"/openbooks\""),
