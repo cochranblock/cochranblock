@@ -3998,12 +3998,13 @@ pub async fn f97(State(_p0): State<Arc<t0>>) -> Html<String> {
 <div class="cost-summary">
 <table class="cost-table">
 <tr><td><strong>Metric</strong></td><td><strong>cochranblock.org</strong></td><td><strong>Booz Allen</strong></td><td><strong>Leidos</strong></td><td><strong>SAIC</strong></td><td><strong>CACI</strong></td></tr>
-<tr><td>First Paint</td><td class="cost-amount cost-new">176ms</td><td class="cost-amount cost-old">360ms</td><td class="cost-amount cost-old">580ms</td><td class="cost-amount">200ms</td><td class="cost-amount cost-old">212ms</td></tr>
-<tr><td>DOM Complete</td><td class="cost-amount cost-new">145ms</td><td class="cost-amount cost-old">600ms</td><td class="cost-amount cost-old">1,065ms</td><td class="cost-amount cost-old">432ms</td><td class="cost-amount cost-old">1,420ms</td></tr>
-<tr><td>CLS</td><td class="cost-amount cost-new">0.0000</td><td class="cost-amount cost-old">0.0083</td><td class="cost-amount cost-old">0.0034</td><td class="cost-amount cost-old">0.0259</td><td class="cost-amount cost-old">0.0180</td></tr>
-<tr><td>Page Weight</td><td class="cost-amount cost-new">131 KB</td><td class="cost-amount cost-old">4,376 KB</td><td class="cost-amount cost-old">1,028 KB</td><td class="cost-amount cost-old">1,394 KB</td><td class="cost-amount cost-old">250 KB</td></tr>
-<tr><td>JavaScript</td><td class="cost-amount cost-new">0 bytes</td><td class="cost-amount cost-old">3,108 KB (16 files)</td><td class="cost-amount cost-old">593 KB (7 files)</td><td class="cost-amount cost-old">1,290 KB (20 files)</td><td class="cost-amount cost-old">145 KB (20 files)</td></tr>
-<tr><td>DOM Elements</td><td class="cost-amount cost-new">131</td><td class="cost-amount cost-old">2,050</td><td class="cost-amount cost-old">1,015</td><td class="cost-amount cost-old">890</td><td class="cost-amount cost-old">1,069</td></tr>
+<tr><td>First Paint</td><td class="cost-amount cost-new">252ms</td><td class="cost-amount cost-old">448ms</td><td class="cost-amount cost-old">572ms</td><td class="cost-amount">240ms</td><td class="cost-amount cost-old">360ms</td></tr>
+<tr><td>DOM Complete</td><td class="cost-amount cost-new">250ms</td><td class="cost-amount cost-old">631ms</td><td class="cost-amount cost-old">1,186ms</td><td class="cost-amount cost-old">515ms</td><td class="cost-amount cost-old">629ms</td></tr>
+<tr><td>CLS</td><td class="cost-amount cost-new">0.0000</td><td class="cost-amount cost-old">0.0083</td><td class="cost-amount cost-old">0.0047</td><td class="cost-amount cost-old">0.0232</td><td class="cost-amount cost-old">0.0105</td></tr>
+<tr><td>Page Weight</td><td class="cost-amount cost-new">117 KB</td><td class="cost-amount cost-old">3,432 KB</td><td class="cost-amount cost-old">4,949 KB</td><td class="cost-amount cost-old">2,238 KB</td><td class="cost-amount cost-old">4,403 KB</td></tr>
+<tr><td>Requests</td><td class="cost-amount cost-new">18</td><td class="cost-amount cost-old">74</td><td class="cost-amount cost-old">53</td><td class="cost-amount cost-old">123</td><td class="cost-amount cost-old">181</td></tr>
+<tr><td>Scripts</td><td class="cost-amount cost-new">2</td><td class="cost-amount cost-old">36</td><td class="cost-amount cost-old">14</td><td class="cost-amount cost-old">48</td><td class="cost-amount cost-old">109</td></tr>
+<tr><td>DOM Elements</td><td class="cost-amount cost-new">129</td><td class="cost-amount cost-old">2,050</td><td class="cost-amount cost-old">1,015</td><td class="cost-amount cost-old">890</td><td class="cost-amount cost-old">1,069</td></tr>
 <tr><td>Server</td><td class="cost-amount cost-new">10 MB binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
 <tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td></tr>
 </table>
@@ -4014,11 +4015,11 @@ pub async fn f97(State(_p0): State<Arc<t0>>) -> Html<String> {
 <div class="cost-summary">
 <table class="cost-table">
 <tr><td><strong>Site</strong></td><td><strong>Page Weight</strong></td><td><strong>Data Transfer</strong></td><td><strong>vs Us</strong></td></tr>
-<tr><td>cochranblock.org</td><td class="cost-amount cost-new">131 KB</td><td class="cost-amount cost-new">6.3 GB</td><td>—</td></tr>
-<tr><td>boozallen.com</td><td class="cost-amount cost-old">4,376 KB</td><td class="cost-amount cost-old">208.7 GB</td><td class="cost-amount cost-old">33x more</td></tr>
-<tr><td>saic.com</td><td class="cost-amount cost-old">1,394 KB</td><td class="cost-amount cost-old">66.5 GB</td><td class="cost-amount cost-old">11x more</td></tr>
-<tr><td>leidos.com</td><td class="cost-amount cost-old">1,028 KB</td><td class="cost-amount cost-old">49.0 GB</td><td class="cost-amount cost-old">8x more</td></tr>
-<tr><td>caci.com</td><td class="cost-amount cost-old">250 KB</td><td class="cost-amount cost-old">11.9 GB</td><td class="cost-amount cost-old">2x more</td></tr>
+<tr><td>cochranblock.org</td><td class="cost-amount cost-new">117 KB</td><td class="cost-amount cost-new">5.6 GB</td><td>—</td></tr>
+<tr><td>leidos.com</td><td class="cost-amount cost-old">4,949 KB</td><td class="cost-amount cost-old">235.7 GB</td><td class="cost-amount cost-old">42x more</td></tr>
+<tr><td>caci.com</td><td class="cost-amount cost-old">4,403 KB</td><td class="cost-amount cost-old">209.6 GB</td><td class="cost-amount cost-old">38x more</td></tr>
+<tr><td>boozallen.com</td><td class="cost-amount cost-old">3,432 KB</td><td class="cost-amount cost-old">163.4 GB</td><td class="cost-amount cost-old">29x more</td></tr>
+<tr><td>saic.com</td><td class="cost-amount cost-old">2,238 KB</td><td class="cost-amount cost-old">106.5 GB</td><td class="cost-amount cost-old">19x more</td></tr>
 </table>
 </div>
 <div class="service-cards">
@@ -4211,7 +4212,7 @@ curl -s https://cochranblock.org/ | grep -c '&lt;script'
 curl -s -o /dev/null -w "%{size_download}" https://boozallen.com/</pre>
 </details></div>
 
-<p class="govdoc-note">CF data cached 30 min. Git data from local repos. Cloud pricing: AWS CloudFront, Azure CDN Standard, GCP Cloud CDN — US East, pay-as-you-go, April 2026.</p>
+<p class="govdoc-note">Page weights measured via Chrome DevTools Protocol (CDP) with cache disabled — real browser render, not HTML scraping. Tool: <code>whobelooking perf</code> (Rust + chromiumoxide). CF data cached 30 min. Cloud pricing: AWS/Azure/GCP US East, pay-as-you-go, April 2026.</p>
 <p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a><a href="/arch" class="btn btn-secondary">Architecture</a></p>
 </section>"#);
 
