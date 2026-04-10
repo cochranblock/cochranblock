@@ -230,8 +230,8 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         desc, p1, BASE_URL, v_path, p1, og_desc, BASE_URL, v_path, "#00d9ff", JSON_LD_ORG, p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><form action="/search" method="get" class="nav-search"><input type="search" name="q" placeholder="Search..." aria-label="Search" class="nav-search-input"></form><input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu"><label for="nav-check" class="nav-toggle"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></label><div id="nav-links" class="nav-links" role="navigation"><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a><details class="nav-group"><summary>Gov</summary><div class="nav-group-links"><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div></details><details class="nav-group"><summary>Tools</summary><div class="nav-group-links"><a href="/search">Search</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div></details><details class="nav-group"><summary>More</summary><div class="nav-group-links"><a href="/inventions">Inventions</a><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></details></div></nav><main id="main" class="content">"##;
-pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><div class="footer-group"><span class="footer-heading">Main</span><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a></div><div class="footer-group"><span class="footer-heading">Gov</span><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div><div class="footer-group"><span class="footer-heading">Tools</span><a href="/search">Search</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div><div class="footer-group"><span class="footer-heading">More</span><a href="/inventions">Inventions</a><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script></body></html>"#;
+pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><form action="/search" method="get" class="nav-search"><input type="search" name="q" placeholder="Search..." aria-label="Search" class="nav-search-input"></form><input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu"><label for="nav-check" class="nav-toggle"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></label><div id="nav-links" class="nav-links" role="navigation"><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a><details class="nav-group"><summary>Gov</summary><div class="nav-group-links"><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div></details><details class="nav-group"><summary>Tools</summary><div class="nav-group-links"><a href="/search">Search</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div></details><details class="nav-group"><summary>More</summary><div class="nav-group-links"><a href="/arch">Arch</a><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></details></div></nav><main id="main" class="content">"##;
+pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><div class="footer-group"><span class="footer-heading">Main</span><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a></div><div class="footer-group"><span class="footer-heading">Gov</span><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div><div class="footer-group"><span class="footer-heading">Tools</span><a href="/search">Search</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div><div class="footer-group"><span class="footer-heading">More</span><a href="/arch">Arch</a><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Pending · SAM.gov · Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script></body></html>"#;
 
 /// Canonical repo list. Single source of truth for velocity API + site_stats.
 const REPOS: &[&str] = &[
@@ -625,7 +625,7 @@ GitHub — 15+ open source repositories at github.com/cochranblock</p>
 • <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
 • 4 published crates on <a href="https://crates.io">crates.io</a>: kova-engine, exopack, any-gpu, header-writer<br>
 • 15 open source Rust repos with Proof of Artifacts and Timeline of Invention<br>
-• 7 named inventions with no known prior art (Fish Tank Starfield, Triple Sims, NanoSign, P13 Compression, Gemini Man Pattern, Sponge Mesh, Self-Converging Flywheel)<br>
+• 4 inventions, 3 architecture patterns, 5 techniques — honestly classified at <a href="/arch">cochranblock.org/arch</a><br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
 • Army 17C (Cyber Operations), JCAC 2014<br>
 • All code delivered under the Unlicense — zero vendor lock-in</p>
@@ -3386,8 +3386,8 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// f96 = inventions. Named inventions + techniques with provenance.
 pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
-<h1>Inventions & Techniques</h1>
-<p class="services-intro">32 named contributions across 15 projects. 7 inventions with no known prior art. 4 original techniques. All with commit provenance and benchmarks.</p>
+<h1>Architecture & Techniques</h1>
+<p class="services-intro">32 named contributions across 15 projects. Inventions, architecture patterns, techniques, and production engineering. Honest classification — we don't call architecture an invention.</p>
 
 <h2 class="services-section-head">Inventions — No Known Prior Art</h2>
 <div class="service-cards">
@@ -3398,7 +3398,6 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p>GPU-zero-cost animated starfield using a static CSS mask with punched-out star holes over a screen-sized <code>background-position</code> loop. Standard approach: oversized element (200% viewport) with <code>transform: translate3d</code> — allocates 4x GPU memory. Fish Tank approach: element is 100% viewport, gradient is larger via <code>background-size: 200%</code>, animation is <code>background-position</code> only — compositor-only, no GPU texture reallocation.</p>
 <p><strong>Result:</strong> 72fps, 0.0000 CLS, 176ms first paint. Works on every Android phone. 1/4 the GPU memory.</p>
 <p><strong>Origin:</strong> Scrolling fish tank decoration from an Arizona garage sale, circa 2006-2010.</p>
-<p><strong>Benchmark:</strong> <code>whobelooking perf https://cochranblock.org</code></p>
 </details>
 
 <details class="service-card">
@@ -3409,26 +3408,10 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 </details>
 
 <details class="service-card">
-<summary>Triple Sims</summary>
-<p><strong>Project:</strong> exopack &middot; <strong>Date:</strong> March 2026</p>
-<p>Run the full test suite 3 times. All 3 must produce identical results. Not "it passed" — "it passed identically three times." Catches flaky tests, race conditions, non-deterministic behavior, and timing-dependent bugs that pass once but fail under load.</p>
-<p><strong>Why it's novel:</strong> Every CI system runs tests once. Flaky test detection tools flag tests that sometimes fail. Nobody requires triple-deterministic as a hard gate before merge. If it can't pass 3 times in a row, it's not reliable — it's lucky.</p>
-<p><strong>Deployed:</strong> 6+ production projects via exopack test augmentation.</p>
-</details>
-
-<details class="service-card">
 <summary>NanoSign Model Integrity</summary>
 <p><strong>Project:</strong> pixel-forge &middot; <strong>Date:</strong> April 2026</p>
 <p>36-byte BLAKE3 signature embedded in every AI model file (<code>.safetensors</code>). Verified at load time before any inference. Unsigned or tampered models are rejected. The signature travels with the file — no certificate authority, no network call, no infrastructure.</p>
 <p><strong>Why it's novel:</strong> Model signing exists (Sigstore, Notary). But those require infrastructure — registries, certificate chains, network access. NanoSign is 36 bytes appended to the file. Verify with one hash. Works air-gapped.</p>
-</details>
-
-<details class="service-card">
-<summary>Gemini Man Pattern</summary>
-<p><strong>Project:</strong> rogue-repo &middot; <strong>Date:</strong> March 2026</p>
-<p>Zero-downtime binary self-replacement. New binary starts, reads old PID from lockfile, sends SIGTERM to old process, binds the port via <code>SO_REUSEPORT</code>, writes its own PID. The old process dies gracefully. The new one takes over. No service manager, no systemctl, no container orchestration.</p>
-<p><strong>Why it's novel:</strong> Hot-reload exists (nginx, HAProxy). But those are daemons managed by init systems. This is the binary itself managing its own lifecycle — like the movie where young Will Smith replaces older Will Smith.</p>
-<p><strong>Named after:</strong> the 2019 film Gemini Man.</p>
 </details>
 
 <details class="service-card">
@@ -3438,11 +3421,31 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p><strong>Why it's novel:</strong> Load balancers retry failed requests. But this retries failed AI agent dispatches across a tmux fleet with per-pane cooldowns and rate-limit detection via string matching on pane output. Nobody orchestrates AI agents through tmux panes with a retry mesh.</p>
 </details>
 
+</div>
+
+<h2 class="services-section-head">Architecture Patterns — Original Combinations of Known Techniques</h2>
+<div class="service-cards">
+
+<details class="service-card" open>
+<summary>Zero-Cloud Single-Binary Architecture</summary>
+<p><strong>Project:</strong> entire portfolio &middot; <strong>Date:</strong> 2026</p>
+<p>One Rust binary embeds HTTP server, database (sled), routing, templates, static assets, compression, and TLS config. Deploy is a streaming pipe: <code>ssh bt 'cat binary' | ssh gd 'cat > .new && mv .new binary'</code>. No container, no orchestrator, no config file, no asset directory. The binary IS the infrastructure.</p>
+<p><strong>Prior art:</strong> Single binaries exist (Caddy, BusyBox). Pipe deploys are Unix fundamentals. The architecture is the combination: binary with everything embedded + streaming pipe deploy + self-managing PID relay + zero external dependencies. We haven't found this exact stack elsewhere.</p>
+</details>
+
+<details class="service-card">
+<summary>Gemini Man Pattern</summary>
+<p><strong>Project:</strong> rogue-repo &middot; <strong>Date:</strong> March 2026</p>
+<p>Zero-downtime binary self-replacement. New binary starts, reads old PID from lockfile, sends SIGTERM to old process, binds the port via <code>SO_REUSEPORT</code>, writes its own PID. The old process dies gracefully. The new one takes over. No service manager, no systemctl, no container orchestration.</p>
+<p><strong>Prior art:</strong> Unicorn (Ruby, 2009) does PID relay. Nginx does master-worker handoff. What's different: those need an external supervisor. This binary manages its own lifecycle — the binary IS the supervisor.</p>
+<p><strong>Named after:</strong> the 2019 film Gemini Man.</p>
+</details>
+
 <details class="service-card">
 <summary>Self-Converging Flywheel</summary>
 <p><strong>Project:</strong> entire portfolio &middot; <strong>Date:</strong> April 2026</p>
 <p>A development architecture where each cycle reduces external AI dependency. Stage 1: cloud APIs build tools. Stage 2: tools run locally. Stage 3: system trains on its own data. Stage 4: system tests itself. Stage 5: system deploys itself. Stage 6: system discovers its own work. The cloud APIs are scaffolding — dismantled as local capability matures.</p>
-<p><strong>Why it's novel:</strong> Self-improving AI exists as a concept. But a concrete 6-stage convergence from cloud-dependent to operationally autonomous, with named ratchets (techniques that permanently reduce dependency) and working code at each stage — that's an architecture, not a paper.</p>
+<p><strong>Prior art:</strong> Self-improving AI is a research concept. What's different: a concrete 6-stage convergence with working code at each stage, not a paper. Named ratchets (techniques that permanently reduce dependency) with commit-level provenance.</p>
 <p><strong>Current stage:</strong> 2 of 6. Stages 3-6 partially implemented.</p>
 </details>
 
@@ -3452,27 +3455,35 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <div class="service-cards">
 
 <details class="service-card">
+<summary>Triple Sims</summary>
+<p><strong>Project:</strong> exopack &middot; <strong>Date:</strong> March 2026</p>
+<p>Run the full test suite 3 times. All 3 must produce identical results. Not "it passed" — "it passed identically three times." Catches flaky tests, race conditions, non-deterministic behavior, and timing-dependent bugs that pass once but fail under load.</p>
+<p><strong>Prior art:</strong> Flaky test detection exists. Running tests N times exists. What's different: triple-deterministic as a hard merge gate, not a diagnostic. If it can't pass 3 times identically, it doesn't merge.</p>
+<p><strong>Deployed:</strong> 6+ production projects via exopack test augmentation.</p>
+</details>
+
+<details class="service-card">
 <summary>MoE Cascade Pipeline (Cinder → Quench → Anvil)</summary>
 <p><strong>Project:</strong> pixel-forge</p>
-<p>Three diffusion models at increasing fidelity. Cinder (1.09M params) runs on anything. Quench (5.83M) needs a GPU. Anvil (16.9M) needs a good GPU. Mixture-of-Experts routing picks the right model for available hardware. Novel application of MoE to tiered pixel art diffusion.</p>
+<p>Three diffusion models at increasing fidelity. Cinder (1.09M params) runs on anything. Quench (5.83M) needs a GPU. Anvil (16.9M) needs a good GPU. Mixture-of-Experts routing picks the right model for available hardware. Original application of MoE to tiered pixel art diffusion.</p>
 </details>
 
 <details class="service-card">
 <summary>Agentic Tool Loop with Context Compaction</summary>
 <p><strong>Project:</strong> kova</p>
-<p>LLM calls 13 tools (read/write/edit/bash/glob/grep/review) in an autonomous loop until the task is done. At 80% context budget, the agent summarizes its own prior work to free tokens. Novel application: the compaction is LLM-powered, not truncation — key decisions survive.</p>
+<p>LLM calls 13 tools (read/write/edit/bash/glob/grep/review) in an autonomous loop until the task is done. At 80% context budget, the agent summarizes its own prior work to free tokens. The compaction is LLM-powered, not truncation — key decisions survive.</p>
 </details>
 
 <details class="service-card">
 <summary>Multi-Tunnel Abstraction</summary>
 <p><strong>Project:</strong> approuter</p>
-<p>One reverse proxy API that abstracts Cloudflare Tunnels, ngrok, Tailscale Funnel, Bore, and localtunnel. Swap tunnel providers without changing application code. Novel application of the adapter pattern to tunnel infrastructure.</p>
+<p>One reverse proxy API that abstracts Cloudflare Tunnels, ngrok, Tailscale Funnel, Bore, and localtunnel. Swap tunnel providers without changing application code. Adapter pattern applied to tunnel infrastructure.</p>
 </details>
 
 <details class="service-card">
 <summary>C2 Swarm Orchestration</summary>
 <p><strong>Project:</strong> kova</p>
-<p>Distributed build/test/deploy across 4 worker nodes via SSH with tokenized command protocol (c1-c9 for node ops, x0-x9 for cargo, g0-g9 for git). Nodes work in parallel, output streams with per-node prefix. Novel application of military C2 concepts to software development.</p>
+<p>Distributed build/test/deploy across 4 worker nodes via SSH with tokenized command protocol (c1-c9 for node ops, x0-x9 for cargo, g0-g9 for git). Nodes work in parallel, output streams with per-node prefix. Military C2 concepts applied to software development.</p>
 </details>
 
 </div>
@@ -3502,13 +3513,13 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 </table>
 </div>
 
-<p class="services-intro" style="margin-top:2rem"><strong>Total:</strong> 7 inventions, 4 techniques, 18 production engineering contributions across 15 Rust projects. All open source under the Unlicense. All with commit-level provenance in each project's Timeline of Invention.</p>
+<p class="services-intro" style="margin-top:2rem"><strong>Total:</strong> 4 inventions, 3 architecture patterns, 5 techniques, 18 production engineering contributions across 15 Rust projects. All open source under the Unlicense. All with commit-level provenance in each project's Timeline of Invention.</p>
 <p class="services-intro"><a href="https://github.com/cochranblock" class="btn">View All Source Code</a> <a href="/govdocs" class="btn btn-secondary">Capability Statement</a></p>
 </section>"#;
     let head = f62d(
-        "inventions",
-        "Inventions & Techniques | CochranBlock",
-        "7 inventions with no known prior art, 4 original techniques, 18 production engineering contributions across 15 Rust projects.",
+        "arch",
+        "Architecture & Techniques | CochranBlock",
+        "4 inventions, 3 architecture patterns, 5 techniques, 18 production engineering contributions across 15 Rust projects.",
     );
     Html([head.as_str(), C7, v0, C8].concat())
 }
@@ -4201,7 +4212,7 @@ curl -s -o /dev/null -w "%{size_download}" https://boozallen.com/</pre>
 </details></div>
 
 <p class="govdoc-note">CF data cached 30 min. Git data from local repos. Cloud pricing: AWS CloudFront, Azure CDN Standard, GCP Cloud CDN — US East, pay-as-you-go, April 2026.</p>
-<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a><a href="/inventions" class="btn btn-secondary">Inventions</a></p>
+<p class="services-cta"><a href="/deploy" class="btn">Start a Project</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a><a href="/arch" class="btn btn-secondary">Architecture</a></p>
 </section>"#);
 
     {
