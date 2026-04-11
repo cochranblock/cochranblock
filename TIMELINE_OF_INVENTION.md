@@ -61,6 +61,14 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-04-09 — /inventions Page + Truth Audit + Defense Contractor Benchmarks + Mobile Polish
+
+**What:** Added /inventions page cataloguing 7 inventions (no known prior art), 4 original techniques, and 18 production engineering contributions — all with commit provenance. Truth audit updated all site metrics to live deployment benchmarks (9.9MB binary, 116ms TTFB, 176ms first paint, 72fps, 0.0000 CLS, 131 DOM elements). /speed page replaced Wix comparison with defense contractor benchmarks — cochranblock.org vs Booz Allen, Leidos, SAIC, CACI. Capability statement updated with EIN, ACH, 4 crates.io crates, 7 named inventions, CSS v4. Mobile fixes: nav menu default state, search overlap on <480px, horizontal table scroll, Facebook webview. SAM.gov status updated to Active (CAGE 1CQ66). Fish Tank Starfield invented and documented in Human Revelations section. JCAC date corrected to 2014.
+**Why:** The /inventions page is the IP portfolio — proof that human-directed AI development produces original work, not generated spaghetti. Truth audit ensures every number on the site matches live deployment. Defense contractor benchmarks position a $10/month laptop against billion-dollar cloud infrastructure. Mobile fixes triggered by real user reports (Facebook webview on Android).
+**Commit:** `ff54f91` (inventions), `1471258` (truth audit), `fe0dfbf` (/speed benchmarks), `569b8df` (capability statement), `99bed7a` (mobile tables), `efc7a69` (nav search), `c61736d` (nav menu), `11c115f` (fish tank), `4556efd` (human revelations), `2cf5781` (android GPU), `a6233ed` (SAM active), `fe29702` (JCAC fix), `1fc51cf` (fish tank date fix)
+**AI Role:** AI implemented all code, page layouts, and CSS fixes. Human invented Fish Tank Starfield, classified inventions vs techniques, directed truth audit scope, chose defense contractor comparisons, and identified mobile bugs from user reports.
+**Proof:** cochranblock.org/inventions, cochranblock.org/speed, 14 commits in one session
+
 ### 2026-04-08 — Fish Tank Starfield + Android GPU Fix + whobelooking Contract Scout
 
 **What:** Invented the Fish Tank Starfield technique — static CSS mask with background-position loop replaces oversized transform animations. Eliminated Android GPU crashes. Also built whobelooking contract scout: 8 federal APIs (SAM.gov, USASpending, SBIR, Federal Register, Grants.gov, Regulations.gov, CALC+, Contract Awards), typed schemas (Bid/Award/Signal/Rate), zstd+sled cache, headless Chrome scraper, perf benchmark tool. Scraped 451 SAM.gov opportunities. Updated SAM.gov status to Active, CAGE 1CQ66.
