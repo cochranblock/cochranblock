@@ -649,6 +649,7 @@ cochranblock.org/deploy — Start a project</p>
 <details class="service-card" open>
 <summary>Available documents</summary>
 <p>
+<a href="/assets/capability-statement.pdf" class="btn" download>Capability Statement (PDF)</a>
 <a href="/assets/resume.pdf" class="btn" download>Resume (PDF)</a>
 <a href="/assets/og-image.png" class="btn btn-secondary" download>Company Logo Card</a>
 </p>
