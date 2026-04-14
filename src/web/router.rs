@@ -106,6 +106,51 @@ pub fn f1(p0: t0) -> Router {
         )
         .route("/fisma", get(|| async { Redirect::permanent("/security") }))
         .route("/soc2", get(|| async { Redirect::permanent("/security") }))
+        // ── Iron Man monologue easter egg — read top to bottom, forms a
+        //    hidden paragraph about kova, JARVIS, Mouse copyright threats,
+        //    hero complex, and rust binaries gatling firewall gun protocol.
+        //    Each URL is its own row in CF Analytics but the paragraph
+        //    only reveals itself to someone who reads the whole list.
+        .route(
+            "/socyou3000",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/kova-was-supposed-to-jarvis-but-mouse-will-sue-me",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/ironman-is-my-favorite-superhero",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/the-way-iron-man-1-ended-was-fucking-epic",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/but-think-about-the-way-iron-man-1-started",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/the-whole-structure-of-the-movie-plot",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/was-to-hook-us-and-then-leave-us-happy",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/i-know-i-have-massive-hero-complex-and-wield-it-",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/like-surprise-mofo-when-someone-try-me",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/rust-binaries-gatling-firewall-gun-protocol-initiate",
+            get(|| async { Redirect::permanent("/security") }),
+        )
         .route("/ato", get(|| async { Redirect::permanent("/security") }))
         .route(
             "/eo-14028",
