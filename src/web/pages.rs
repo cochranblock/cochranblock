@@ -2202,7 +2202,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <tr><td><strong>Service</strong></td><td><strong>Rate</strong></td><td><strong>Description</strong></td></tr>
 <tr><td>Exopack Implementation</td><td class="cost-amount cost-new">$225/hr</td><td>Deploy memory-safe CI/CD pipeline in federal environment</td></tr>
 <tr><td>Air-Gapped Architecture</td><td class="cost-amount cost-new">$225/hr</td><td>Configure zero-cloud Rust deployments for SCIF/disconnected networks</td></tr>
-<tr><td>Binary Hardening</td><td class="cost-amount cost-new">$225/hr</td><td>Optimize release binaries (LTO, strip, size profiling) for constrained environments</td></tr>
+<tr><td>Binary Hardening</td><td class="cost-amount cost-new">$225/hr</td><td>Shrink release binaries (LTO, strip, size profiling) for constrained environments</td></tr>
 <tr><td>Fractional CTO</td><td class="cost-amount cost-new">$3,500/mo</td><td>Ongoing architecture leadership for federal software modernization</td></tr>
 <tr><td>Zero-Cloud Deployment</td><td class="cost-amount cost-new">$3,500 one-time</td><td>Replace cloud infrastructure with single-binary Rust architecture</td></tr>
 </table>
