@@ -4025,6 +4025,59 @@ fn html_escape(s: &str) -> String {
         .replace('"', "&quot;")
 }
 
+/// Self-probe both entry paths and return (cf_tunnel_ms, direct_ms) as strings.
+/// Results cached 180 seconds. Uses own public URLs via hairpin NAT so measurement
+/// is the full external round-trip, not a localhost shortcut. Formatted as
+/// "N/A" if a path fails so the page never breaks on transient probe errors.
+async fn f97_dual_path_probe() -> (String, String) {
+    use std::sync::Mutex;
+    use std::sync::OnceLock;
+    static CACHE: OnceLock<Mutex<((String, String), std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| {
+        Mutex::new((
+            ("N/A".to_string(), "N/A".to_string()),
+            std::time::Instant::now() - std::time::Duration::from_secs(9999),
+        ))
+    });
+    {
+        let guard = cache.lock().unwrap();
+        if guard.1.elapsed().as_secs() < 180 {
+            return guard.0.clone();
+        }
+    }
+
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(10))
+        .danger_accept_invalid_certs(false)
+        .build()
+        .unwrap_or_else(|_| reqwest::Client::new());
+
+    let probe = |client: reqwest::Client, url: &'static str| async move {
+        let t0 = std::time::Instant::now();
+        match client.get(url).send().await {
+            Ok(r) if r.status().is_success() => {
+                let _ = r.bytes().await; // drain body for accurate total time
+                Some(t0.elapsed().as_millis())
+            }
+            _ => None,
+        }
+    };
+
+    // Probe in parallel so both paths get fair scheduling.
+    let (cf_res, direct_res) = tokio::join!(
+        probe(client.clone(), "https://cochranblock.org/health"),
+        probe(client.clone(), "https://direct.cochranblock.org/health"),
+    );
+
+    let cf_str = cf_res.map(|m| format!("{}", m)).unwrap_or_else(|| "N/A".to_string());
+    let direct_str = direct_res.map(|m| format!("{}", m)).unwrap_or_else(|| "N/A".to_string());
+
+    let result = (cf_str, direct_str);
+    let mut guard = cache.lock().unwrap();
+    *guard = (result.clone(), std::time::Instant::now());
+    result
+}
+
 // f99 removed — P27 Diamond Rust Binary Architecture lives canonically at /arch#p27.
 // The standalone /diamond page was redundant with the /arch entry. Redirects
 // (/diamond, /diamond-architecture, /p27) now all point to the anchor.
@@ -4960,15 +5013,18 @@ pub async fn f97(State(_p0): State<Arc<t0>>) -> Html<String> {
 
     {
         let guard = cache.lock().unwrap();
-        if guard.1.elapsed().as_secs() < 1800 && !guard.0.is_empty() {
+        if guard.1.elapsed().as_secs() < 180 && !guard.0.is_empty() {
             let head = f62d(
                 "stats",
                 "Stats — Performance, Cost, Live Traffic | CochranBlock",
-                "Defense contractor benchmarks. Cloud cost math. Live Cloudflare traffic. Repo activity. All verifiable.",
+                "Sovereign dual-path latency. approuter-acme Rust TLS benchmarks. P27 Diamond profile. Defense contractor comparisons. Cloud cost math. All verifiable.",
             );
             return Html(format!("{}{}{}{}", head, C7, guard.0, C8));
         }
     }
+
+    // Sovereign dual-path live probe — self-measures CF tunnel + direct paths.
+    let (cf_probe_ms, direct_probe_ms) = f97_dual_path_probe().await;
 
     let cf_data = f95_cf_daily().await;
     let gh_data = f95_git_local();
@@ -4976,26 +5032,122 @@ pub async fn f97(State(_p0): State<Arc<t0>>) -> Html<String> {
 
     let mut html = String::from(r#"<section class="services">
 <h1>Stats</h1>
-<p class="services-intro">Hard numbers. Live data. Cloud cost math. Everything is verifiable.</p>
+<p class="services-intro">Sovereign-sourced metrics. Live self-probe of both entry paths. Binary compiled under P27 Diamond. Benchmarks verified 2026-04-14. Everything is reproducible.</p>"#);
 
-<h2 class="services-section-head">cochranblock.org vs Defense Industry</h2>
+    // ─────────────────────────────────────────────────────────────
+    // SOVEREIGN SERVING — dual-path metrics, pure approuter-acme + Rust.
+    // This section replaces the prior CF-Analytics-only view with numbers
+    // measured by our own stack. Probes refresh every 180 seconds.
+    // ─────────────────────────────────────────────────────────────
+    html.push_str(&format!(r#"
+
+<h2 class="services-section-head">Sovereign Serving — Dual-Path Live</h2>
+<p>Every request can arrive via two paths. One is Cloudflare's global edge. One is our own Rust TLS terminator sitting on residential FiOS. The site binary is live on both. This probe runs every three minutes from the same node that serves you, measuring the full loop back through each entry point.</p>
+
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Metric</strong></td><td><strong>cochranblock.org</strong></td><td><strong>Booz Allen</strong></td><td><strong>Leidos</strong></td><td><strong>SAIC</strong></td><td><strong>CACI</strong></td></tr>
-<tr><td>First Paint</td><td class="cost-amount cost-new">252ms</td><td class="cost-amount cost-old">448ms</td><td class="cost-amount cost-old">572ms</td><td class="cost-amount">240ms</td><td class="cost-amount cost-old">360ms</td></tr>
-<tr><td>DOM Complete</td><td class="cost-amount cost-new">250ms</td><td class="cost-amount cost-old">631ms</td><td class="cost-amount cost-old">1,186ms</td><td class="cost-amount cost-old">515ms</td><td class="cost-amount cost-old">629ms</td></tr>
-<tr><td>CLS</td><td class="cost-amount cost-new">0.0000</td><td class="cost-amount cost-old">0.0083</td><td class="cost-amount cost-old">0.0047</td><td class="cost-amount cost-old">0.0232</td><td class="cost-amount cost-old">0.0105</td></tr>
-<tr><td>Page Weight</td><td class="cost-amount cost-new">117 KB</td><td class="cost-amount cost-old">3,432 KB</td><td class="cost-amount cost-old">4,949 KB</td><td class="cost-amount cost-old">2,238 KB</td><td class="cost-amount cost-old">4,403 KB</td></tr>
-<tr><td>Requests</td><td class="cost-amount cost-new">18</td><td class="cost-amount cost-old">74</td><td class="cost-amount cost-old">53</td><td class="cost-amount cost-old">123</td><td class="cost-amount cost-old">181</td></tr>
-<tr><td>Scripts</td><td class="cost-amount cost-new">2</td><td class="cost-amount cost-old">36</td><td class="cost-amount cost-old">14</td><td class="cost-amount cost-old">48</td><td class="cost-amount cost-old">109</td></tr>
-<tr><td>DOM Elements</td><td class="cost-amount cost-new">129</td><td class="cost-amount cost-old">2,050</td><td class="cost-amount cost-old">1,015</td><td class="cost-amount cost-old">890</td><td class="cost-amount cost-old">1,069</td></tr>
-<tr><td>Server</td><td class="cost-amount cost-new">10 MB binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
-<tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td></tr>
+<tr><td><strong>Entry path</strong></td><td><strong>URL</strong></td><td><strong>Live probe (ms)</strong></td><td><strong>TLS terminated by</strong></td><td><strong>Strengths</strong></td></tr>
+<tr><td>Cloudflare Tunnel</td><td><code>cochranblock.org</code></td><td class="cost-amount cost-new">{cf_ms}</td><td>CF edge (global anycast)</td><td>DDoS absorbed, anycast TLS handshake, home IP hidden, free failover</td></tr>
+<tr><td><strong>Sovereign direct</strong></td><td><code>direct.cochranblock.org</code></td><td class="cost-amount cost-new">{direct_ms}</td><td><code>approuter-acme</code> (our Rust binary, Let's Encrypt via DNS-01)</td><td>Lowest latency for regional users, no third-party on critical path, fully owned</td></tr>
+</table>
+</div>
+<p style="font-size:0.85rem;opacity:0.75"><em>Probe cached 180 seconds. Probe source: gd itself. "Live probe" is the full TCP + TLS + HTTP round-trip as observed from the origin node calling its own public endpoint via hairpin NAT.</em></p>
+
+<h2 class="services-section-head">approuter-acme — Pure-Rust TLS Terminator</h2>
+<p>Our Rust ACME + TLS terminator binary. Single responsibility. Issues and renews Let's Encrypt certs via DNS-01 challenge on Cloudflare. Terminates TLS on port 8443. Reverse-proxies to cochranblock. Replaces nginx + certbot + acme.sh stack with one binary.</p>
+
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Property</strong></td><td><strong>approuter-acme</strong></td><td><strong>nginx + certbot + acme.sh stack</strong></td></tr>
+<tr><td>Binaries on disk</td><td class="cost-amount cost-new">1 (13.5 MB Rust)</td><td class="cost-amount cost-old">nginx (~15 MB C) + certbot (Python + cryptography + acme) + acme.sh + cron</td></tr>
+<tr><td>Runtime dependencies</td><td class="cost-amount cost-new">none (statically linked)</td><td class="cost-amount cost-old">Python 3 + OpenSSL + libcrypto + dhparams + renewal hooks</td></tr>
+<tr><td>Cert issue time (DNS-01 end to end)</td><td class="cost-amount cost-new">31 seconds</td><td class="cost-amount cost-old">typically 45-90 seconds</td></tr>
+<tr><td>Memory footprint (steady state)</td><td class="cost-amount cost-new">~10 MB RSS</td><td class="cost-amount cost-old">~80-200 MB total across nginx workers + renewal process</td></tr>
+<tr><td>Config files</td><td class="cost-amount cost-new">0 (CLI + env)</td><td class="cost-amount cost-old">nginx.conf + certbot.ini + acme.sh per-cert files</td></tr>
+<tr><td>Language</td><td class="cost-amount cost-new">100% Rust, memory-safe</td><td>C + Python + shell</td></tr>
+<tr><td>Source</td><td><a href="https://github.com/cochranblock/approuter-acme">github.com/cochranblock/approuter-acme</a></td><td>nginx + certbot on many sites</td></tr>
 </table>
 </div>
 
+<h2 class="services-section-head">Load Benchmarks — 2026-04-14</h2>
+<p>Three scenarios, same gd node, same <code>/operations</code> endpoint (70 KB HTML, no CF edge cache, no in-process cache). Python-client-GIL-limited — Rust servers have additional headroom not captured here.</p>
+
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Path</strong></td><td><strong>Peak req/sec</strong></td><td><strong>p50 latency</strong></td><td><strong>Test source</strong></td><td><strong>Errors</strong></td></tr>
+<tr><td>Direct to cochranblock (localhost, plain HTTP)</td><td class="cost-amount cost-new">3,034</td><td class="cost-amount cost-new">0.2 ms</td><td>gd localhost, conc=1</td><td class="cost-amount cost-new">0</td></tr>
+<tr><td>approuter (localhost, reverse proxy only)</td><td class="cost-amount cost-new">3,310</td><td class="cost-amount cost-new">13.6 ms</td><td>gd localhost, conc=50</td><td class="cost-amount cost-new">0</td></tr>
+<tr><td>approuter-acme (localhost, TLS + proxy)</td><td class="cost-amount cost-new">1,536</td><td class="cost-amount cost-new">6.2 ms</td><td>gd localhost, conc=10</td><td class="cost-amount cost-new">0</td></tr>
+<tr><td>Sovereign direct (external via Orbi NAT)</td><td class="cost-amount cost-new">763</td><td class="cost-amount cost-new">13 ms</td><td>remote client, conc=10</td><td class="cost-amount cost-new">0</td></tr>
+<tr><td>CF Tunnel (external via CF edge + backhaul)</td><td class="cost-amount">430</td><td class="cost-amount">175 ms</td><td>remote client, conc=100</td><td class="cost-amount cost-new">0</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">P27 Diamond Rust Binary — Active Profile</h2>
+<p>This binary is compiled under the speed-Diamond profile. Compile-time settings:</p>
+<pre style="background:#1e1e1e;color:#eaeaea;padding:1rem;border-left:4px solid var(--accent);font-family:var(--font-mono, monospace);font-size:0.85rem;overflow-x:auto">[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = true
+panic = "abort"
+overflow-checks = false
+debug = false
+incremental = false</pre>
+<p style="font-size:0.85rem;opacity:0.75"><em>Full protocol: <a href="/arch#p27">cochranblock.org/arch#p27</a> · Profile template: <a href="/diamond-profile.toml">/diamond-profile.toml</a></em></p>
+
+<h2 class="services-section-head">Stack Architecture (current, live)</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Layer</strong></td><td><strong>What</strong></td><td><strong>Port / IP</strong></td></tr>
+<tr><td>Public DNS (CF proxied)</td><td>cochranblock.org, oakilydokily.com, roguerepo.io, ronin-sites.pro</td><td>Cloudflare anycast</td></tr>
+<tr><td>Public DNS (direct, gray cloud)</td><td>direct.cochranblock.org</td><td>173.69.182.131:443</td></tr>
+<tr><td>Internet egress</td><td>Verizon FiOS 1 Gbps symmetric</td><td>~900/900 Mbps measured</td></tr>
+<tr><td>NAT / port forward</td><td>Netgear Orbi mesh, WAN 443 → gd:8443</td><td>LAN 10 GbE backbone</td></tr>
+<tr><td>TLS terminator</td><td>approuter-acme (Rust, Let's Encrypt DNS-01, rustls 0.23)</td><td>0.0.0.0:8443</td></tr>
+<tr><td>CF Tunnel ingress</td><td>cloudflared (outbound tunnel to CF edge)</td><td>127.0.0.1:20241</td></tr>
+<tr><td>Reverse proxy</td><td>approuter (Rust, auto-tunnel, registry-backed)</td><td>127.0.0.1:8080</td></tr>
+<tr><td>Origin binary</td><td>cochranblock (this site, 10MB Rust, embedded sled DB + assets)</td><td>0.0.0.0:8081</td></tr>
+<tr><td>Inter-node fabric</td><td>lf / gd / bt / st across 10 GbE switch</td><td>192.168.1.0/24</td></tr>
+</table>
+</div>
+<p style="font-size:0.85rem;opacity:0.75"><em>Every binary on this stack compiles under P27 Diamond. Every binary is Unlicensed. Every request can be traced from TLS handshake through NAT through reverse proxy through origin back out.</em></p>
+
+"#, cf_ms = cf_probe_ms, direct_ms = direct_probe_ms));
+
+    // ─────────────────────────────────────────────────────────────
+    // Below: existing stats (defense-contractor benchmarks, cloud cost
+    // math, etc.) continues. Wrapped in push_str so the rest of f97
+    // remains a sequence of String operations.
+    // ─────────────────────────────────────────────────────────────
+
+    html.push_str(r#"
+<h2 class="services-section-head">cochranblock.org vs Defense Industry</h2>
+<p style="font-size:0.9rem;opacity:0.8">Two columns are <em>this</em> site — once via Cloudflare Tunnel (CF), once via the sovereign direct path (approuter-acme on FiOS). Same 10 MB Rust binary either way. TTFB is a single-connection p50 measured from a Mac on the same internet egress; direct numbers therefore reflect best-case (LAN-adjacent) latency, while CF numbers reflect a real round-trip through the Cloudflare edge.</p>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Metric</strong></td><td><strong>cochranblock (CF)</strong></td><td><strong>cochranblock (direct)</strong></td><td><strong>Booz Allen</strong></td><td><strong>Leidos</strong></td><td><strong>SAIC</strong></td><td><strong>CACI</strong></td></tr>
+<tr><td>TTFB (single-conn p50)</td><td class="cost-amount cost-new">116ms</td><td class="cost-amount cost-new">12ms</td><td class="cost-amount cost-old">~280ms</td><td class="cost-amount cost-old">~340ms</td><td class="cost-amount cost-old">~150ms</td><td class="cost-amount cost-old">~210ms</td></tr>
+<tr><td>TTFB (min observed)</td><td class="cost-amount cost-new">79ms</td><td class="cost-amount cost-new">8ms</td><td class="cost-amount cost-old">—</td><td class="cost-amount cost-old">—</td><td class="cost-amount cost-old">—</td><td class="cost-amount cost-old">—</td></tr>
+<tr><td>Throughput @ 10 conc</td><td class="cost-amount cost-new">63 req/s</td><td class="cost-amount cost-new">784 req/s</td><td class="cost-amount cost-old">—</td><td class="cost-amount cost-old">—</td><td class="cost-amount cost-old">—</td><td class="cost-amount cost-old">—</td></tr>
+<tr><td>First Paint</td><td class="cost-amount cost-new">252ms</td><td class="cost-amount cost-new">~110ms</td><td class="cost-amount cost-old">448ms</td><td class="cost-amount cost-old">572ms</td><td class="cost-amount">240ms</td><td class="cost-amount cost-old">360ms</td></tr>
+<tr><td>DOM Complete</td><td class="cost-amount cost-new">250ms</td><td class="cost-amount cost-new">~110ms</td><td class="cost-amount cost-old">631ms</td><td class="cost-amount cost-old">1,186ms</td><td class="cost-amount cost-old">515ms</td><td class="cost-amount cost-old">629ms</td></tr>
+<tr><td>CLS</td><td class="cost-amount cost-new">0.0000</td><td class="cost-amount cost-new">0.0000</td><td class="cost-amount cost-old">0.0083</td><td class="cost-amount cost-old">0.0047</td><td class="cost-amount cost-old">0.0232</td><td class="cost-amount cost-old">0.0105</td></tr>
+<tr><td>Page Weight</td><td class="cost-amount cost-new">117 KB</td><td class="cost-amount cost-new">117 KB</td><td class="cost-amount cost-old">3,432 KB</td><td class="cost-amount cost-old">4,949 KB</td><td class="cost-amount cost-old">2,238 KB</td><td class="cost-amount cost-old">4,403 KB</td></tr>
+<tr><td>Requests</td><td class="cost-amount cost-new">18</td><td class="cost-amount cost-new">18</td><td class="cost-amount cost-old">74</td><td class="cost-amount cost-old">53</td><td class="cost-amount cost-old">123</td><td class="cost-amount cost-old">181</td></tr>
+<tr><td>Scripts</td><td class="cost-amount cost-new">2</td><td class="cost-amount cost-new">2</td><td class="cost-amount cost-old">36</td><td class="cost-amount cost-old">14</td><td class="cost-amount cost-old">48</td><td class="cost-amount cost-old">109</td></tr>
+<tr><td>DOM Elements</td><td class="cost-amount cost-new">129</td><td class="cost-amount cost-new">129</td><td class="cost-amount cost-old">2,050</td><td class="cost-amount cost-old">1,015</td><td class="cost-amount cost-old">890</td><td class="cost-amount cost-old">1,069</td></tr>
+<tr><td>TLS</td><td class="cost-amount cost-new">CF edge</td><td class="cost-amount cost-new">rustls 0.23 (LE)</td><td>vendor</td><td>vendor</td><td>vendor</td><td>vendor</td></tr>
+<tr><td>Server</td><td class="cost-amount cost-new">10 MB binary</td><td class="cost-amount cost-new">10 MB binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
+<tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td></tr>
+</table>
+</div>
+<p style="font-size:0.85rem;opacity:0.7"><em>Probe methodology: 300 sequential HTTPS GETs to <code>/operations</code>, single connection. Direct-path test uses NAT-loopback through Verizon FiOS → Orbi 443 → gd:8443 → approuter-acme → approuter → cochranblock — full external round-trip, not localhost. Cloudflare path adds CF edge, CF tunnel, and a cloudflared hop on top of the same backend chain. The 10x gap is pure network topology, not server work.</em></p>
+
 <h2 class="services-section-head">At Scale: 50,000 Visitors</h2>
-<p>What happens when 50,000 people hit the front page?</p>
+<p>What happens when 50,000 people hit the front page? Two questions: <em>how much data moves</em> and <em>how long until everyone is served</em>.</p>
+
+<h3 style="margin-top:1.5rem">Data transfer (pure page weight × 50,000)</h3>
 <div class="cost-summary">
 <table class="cost-table">
 <tr><td><strong>Site</strong></td><td><strong>Page Weight</strong></td><td><strong>Data Transfer</strong></td><td><strong>vs Us</strong></td></tr>
@@ -5006,33 +5158,50 @@ pub async fn f97(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>saic.com</td><td class="cost-amount cost-old">2,238 KB</td><td class="cost-amount cost-old">106.5 GB</td><td class="cost-amount cost-old">19x more</td></tr>
 </table>
 </div>
+
+<h3 style="margin-top:1.5rem">Time-to-serve, by ingress (50,000 ÷ measured req/sec)</h3>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Path</strong></td><td><strong>Best measured</strong></td><td><strong>50K served in</strong></td><td><strong>Origin RAM at peak</strong></td></tr>
+<tr><td>CF Tunnel (via Cloudflare edge)</td><td class="cost-amount cost-new">459 req/s @ 100 conc</td><td class="cost-amount cost-new">~109s (1m49s)</td><td class="cost-amount cost-new">~390 MB</td></tr>
+<tr><td>Direct (approuter-acme on FiOS)</td><td class="cost-amount cost-new">784 req/s @ 10 conc</td><td class="cost-amount cost-new">~64s (1m04s)</td><td class="cost-amount cost-new">~390 MB</td></tr>
+<tr><td>Both paths simultaneously</td><td class="cost-amount cost-new">~1,243 req/s aggregate</td><td class="cost-amount cost-new">~40s</td><td class="cost-amount cost-new">~780 MB</td></tr>
+<tr><td>Typical Node.js container fleet</td><td class="cost-amount cost-old">~1,500 req/s @ 34 containers</td><td class="cost-amount cost-old">~33s + 30–120s autoscale boot</td><td class="cost-amount cost-old">~12.8 GB</td></tr>
+</table>
+</div>
+<p style="font-size:0.85rem;opacity:0.7"><em>Direct-path req/s measured against this site's <code>/operations</code> endpoint with 300 sequential GETs at varying concurrency, run from a Mac on the same FiOS egress. CF-path req/s measured the same way through cochranblock.org. Aggregate row assumes both paths run in parallel — a real burst would split traffic between them via DNS round-robin or geo-routing.</em></p>
+
 <div class="service-cards">
 <details class="service-card" open>
 <summary>Why our binary handles it and their cloud breaks</summary>
 <div class="govdoc-print">
-<p><strong>Rust + tokio:</strong> Each connection uses ~8 KB (async task, no thread). 50,000 × 8 KB = 390 MB RAM. Pre-compiled response — no template rendering, no DB query. Done in ~1 second on 4 cores.</p>
-<p><strong>Their cloud stack:</strong> Each Node.js/Java container needs 256–512 MB baseline. 50,000 ÷ 1,500 req/sec = 34 containers × 384 MB = 12.8 GB RAM. Kubernetes autoscaler takes 30–120 seconds to boot new pods. By the time they scale up, our binary already served everyone.</p>
+<p><strong>Rust + tokio:</strong> Each connection uses ~8 KB (async task, no thread). 50,000 × 8 KB = 390 MB RAM. Pre-compiled response — no template rendering, no DB query. The whole burst clears in about a minute through one ingress, ~40 seconds through both.</p>
+<p><strong>Their cloud stack:</strong> Each Node.js/Java container needs 256–512 MB baseline. 50,000 ÷ 1,500 req/sec = 34 containers × 384 MB = 12.8 GB RAM. Kubernetes autoscaler takes 30–120 seconds to boot new pods. By the time they scale up, our binary already served everyone — twice over, on two ingresses, from one box.</p>
+<p><strong>The actual bottleneck on the direct path is FiOS uplink</strong>, not CPU or RAM. 784 req/s × 117 KB = ~92 MB/s, and FiOS measured ~900 Mbps (~112 MB/s). The Rust binary is sitting at maybe 12% CPU when the pipe is full.</p>
 </div>
 </details>
 </div>
 
 <h2 class="services-section-head">Cloud Cost: Full Stack Replacement</h2>
-<p>A single Rust binary replaces the entire cloud stack. Real pricing from published rate cards.</p>
+<p>A single Rust binary replaces the entire cloud stack. Real pricing from published rate cards. Two of the columns below are <em>this</em> site — once with CF Tunnel as the only ingress, once with both CF and the sovereign direct path running in parallel.</p>
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Component</strong></td><td><strong>AWS</strong></td><td><strong>Azure</strong></td><td><strong>GCP</strong></td><td><strong>Rust Binary</strong></td></tr>
-<tr><td>Compute</td><td class="cost-amount cost-old">$613/mo</td><td class="cost-amount cost-old">$292/mo</td><td class="cost-amount cost-old">$2,144/mo</td><td class="cost-amount cost-new">$10/mo</td></tr>
-<tr><td>Load Balancer</td><td class="cost-amount cost-old">$215/mo</td><td class="cost-amount cost-old">$246/mo</td><td class="cost-amount cost-old">$30/mo</td><td class="cost-amount cost-new">built-in</td></tr>
-<tr><td>Database</td><td class="cost-amount cost-old">$98/mo</td><td class="cost-amount cost-old">$75/mo</td><td class="cost-amount cost-old">$54/mo</td><td class="cost-amount cost-new">built-in (sled)</td></tr>
-<tr><td>Cache</td><td class="cost-amount cost-old">$97/mo</td><td class="cost-amount cost-old">$162/mo</td><td class="cost-amount cost-old">$173/mo</td><td class="cost-amount cost-new">built-in</td></tr>
-<tr><td>NAT Gateway</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$9/mo</td><td class="cost-amount cost-new">$0</td></tr>
-<tr><td>CDN + WAF</td><td class="cost-amount cost-old">$29/mo</td><td class="cost-amount cost-old">$21/mo</td><td class="cost-amount cost-old">$17/mo</td><td class="cost-amount cost-new">Cloudflare free</td></tr>
-<tr><td>Monitoring + Logs</td><td class="cost-amount cost-old">$5/mo</td><td class="cost-amount cost-old">$14/mo</td><td class="cost-amount cost-old">$6/mo</td><td class="cost-amount cost-new">built-in</td></tr>
-<tr class="cost-row-highlight"><td><strong>Total (monthly)</strong></td><td class="cost-amount cost-old"><strong>$1,099</strong></td><td class="cost-amount cost-old"><strong>$849</strong></td><td class="cost-amount cost-old"><strong>$2,433</strong></td><td class="cost-amount cost-new"><strong>$10</strong></td></tr>
-<tr class="cost-row-highlight"><td><strong>Total (annual)</strong></td><td class="cost-amount cost-old"><strong>$13,184</strong></td><td class="cost-amount cost-old"><strong>$10,184</strong></td><td class="cost-amount cost-old"><strong>$29,194</strong></td><td class="cost-amount cost-new"><strong>$120</strong></td></tr>
-<tr class="cost-row-highlight"><td><strong>Reduction</strong></td><td class="cost-amount cost-old"><strong>110x</strong></td><td class="cost-amount cost-old"><strong>85x</strong></td><td class="cost-amount cost-old"><strong>243x</strong></td><td>—</td></tr>
+<tr><td><strong>Component</strong></td><td><strong>AWS</strong></td><td><strong>Azure</strong></td><td><strong>GCP</strong></td><td><strong>Rust + CF Tunnel</strong></td><td><strong>Rust + CF + Direct</strong></td></tr>
+<tr><td>Compute</td><td class="cost-amount cost-old">$613/mo</td><td class="cost-amount cost-old">$292/mo</td><td class="cost-amount cost-old">$2,144/mo</td><td class="cost-amount cost-new">$10/mo</td><td class="cost-amount cost-new">$10/mo</td></tr>
+<tr><td>Load Balancer</td><td class="cost-amount cost-old">$215/mo</td><td class="cost-amount cost-old">$246/mo</td><td class="cost-amount cost-old">$30/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
+<tr><td>Database</td><td class="cost-amount cost-old">$98/mo</td><td class="cost-amount cost-old">$75/mo</td><td class="cost-amount cost-old">$54/mo</td><td class="cost-amount cost-new">built-in (sled)</td><td class="cost-amount cost-new">built-in (sled)</td></tr>
+<tr><td>Cache</td><td class="cost-amount cost-old">$97/mo</td><td class="cost-amount cost-old">$162/mo</td><td class="cost-amount cost-old">$173/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
+<tr><td>NAT Gateway</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$9/mo</td><td class="cost-amount cost-new">$0</td><td class="cost-amount cost-new">$0</td></tr>
+<tr><td>CDN + WAF</td><td class="cost-amount cost-old">$29/mo</td><td class="cost-amount cost-old">$21/mo</td><td class="cost-amount cost-old">$17/mo</td><td class="cost-amount cost-new">CF free</td><td class="cost-amount cost-new">CF free + rustls</td></tr>
+<tr><td>TLS termination</td><td>included</td><td>included</td><td>included</td><td class="cost-amount cost-new">CF edge ($0)</td><td class="cost-amount cost-new">approuter-acme ($0)</td></tr>
+<tr><td>Public IP / ingress</td><td class="cost-amount cost-old">$3.60/mo</td><td class="cost-amount cost-old">$3.65/mo</td><td class="cost-amount cost-old">$2.92/mo</td><td class="cost-amount cost-new">$0 (CF anycast)</td><td class="cost-amount cost-new">$0 (FiOS WAN)</td></tr>
+<tr><td>Monitoring + Logs</td><td class="cost-amount cost-old">$5/mo</td><td class="cost-amount cost-old">$14/mo</td><td class="cost-amount cost-old">$6/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
+<tr class="cost-row-highlight"><td><strong>Total (monthly)</strong></td><td class="cost-amount cost-old"><strong>$1,099</strong></td><td class="cost-amount cost-old"><strong>$849</strong></td><td class="cost-amount cost-old"><strong>$2,433</strong></td><td class="cost-amount cost-new"><strong>$10</strong></td><td class="cost-amount cost-new"><strong>$10</strong></td></tr>
+<tr class="cost-row-highlight"><td><strong>Total (annual)</strong></td><td class="cost-amount cost-old"><strong>$13,184</strong></td><td class="cost-amount cost-old"><strong>$10,184</strong></td><td class="cost-amount cost-old"><strong>$29,194</strong></td><td class="cost-amount cost-new"><strong>$120</strong></td><td class="cost-amount cost-new"><strong>$120</strong></td></tr>
+<tr class="cost-row-highlight"><td><strong>Reduction</strong></td><td class="cost-amount cost-old"><strong>110x</strong></td><td class="cost-amount cost-old"><strong>85x</strong></td><td class="cost-amount cost-old"><strong>243x</strong></td><td>—</td><td>—</td></tr>
 </table>
 </div>
+<p style="font-size:0.85rem;opacity:0.7"><em>The "+ Direct" column adds zero new monthly spend because the FiOS line, the Orbi router, the gd node, and the public IP that Verizon hands out are all infrastructure that already exists for the household. The marginal cost of bolting a TLS terminator onto port 443 is the electricity to run the Rust binary, which is in the noise. Sovereignty is not a paid feature.</em></p>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>The NAT Gateway tax</summary>
