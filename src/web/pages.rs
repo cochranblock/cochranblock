@@ -2425,38 +2425,45 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = format!(
         r#"<section class="services">
 <h1>Open Books</h1>
-<p class="services-intro">Live IR&amp;D audit. Hours calculated from actual GitHub commit timestamps. Sessions = commits within 2 hours, minimum 1 hour each. Rate: $225/hour. Complexity multiplier per repo based on technical depth.</p>
+<p class="services-intro">Public R&amp;D activity log. Hours calculated from actual GitHub commit timestamps. This page is <strong>marketing evidence of sustained R&amp;D investment</strong>, NOT a billing record. Actual contract billing is done via contemporaneous daily timesheets per DCAA guidance, maintained separately.</p>
 
-<h2 class="services-section-head">IR&amp;D Time &amp; Value — By Repository</h2>
+<div class="warning" style="background:#fef6e7;border:1px solid #e6b800;padding:12px 16px;margin:16px 0;border-radius:4px;font-size:0.95rem">
+<strong>What this page is NOT:</strong> a billing record, a labor timecard, an IR&amp;D voucher, or a substitute for contemporaneous time tracking on federal contracts. Numbers below are observed from public commit history as a transparency artifact.
+</div>
+
+<h2 class="services-section-head">R&amp;D Activity — By Repository</h2>
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Repository</strong></td><td><strong>Sessions</strong></td><td><strong>Multiplier</strong></td><td><strong>Hours</strong></td><td><strong>Value ($225/hr)</strong></td></tr>
+<tr><td><strong>Repository</strong></td><td><strong>Sessions</strong></td><td><strong>Complexity Context</strong></td><td><strong>Observed Session Hours</strong></td><td><strong>Notional Value @$225/hr</strong></td></tr>
 {}
 <tr style="border-top:2px solid var(--accent)"><td><strong>Total</strong></td><td></td><td></td><td class="cost-amount cost-new"><strong>{:.1} hrs</strong></td><td class="cost-amount cost-new"><strong>${:.0}</strong></td></tr>
 </table>
 </div>
+
+<p class="govdoc-note" style="font-size:0.9rem;color:#666;margin-top:0.5rem"><em>Observed session hours reflect actual elapsed time between first and last commit of each session. No imputed minimums. No complexity multipliers applied to hours. "Notional value" is observed hours × published rate — reference figure for scale, not a claim for payment.</em></p>
 
 <h2 class="services-section-head">Methodology</h2>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>How hours are calculated</summary>
 <div class="govdoc-print">
-<p><strong>Data source:</strong> GitHub API — commit timestamps from all 15 public repositories under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. No self-reported time. Machine-verified.</p>
-<p><strong>Session detection:</strong> Consecutive commits within a 2-hour window are grouped into a single work session. Each session counts as minimum 1 hour (accounts for thinking, testing, and review time between commits).</p>
-<p><strong>Complexity multiplier:</strong> Applied per-repo based on technical depth — augment engines and AI/ML systems rate higher than static documentation.</p>
+<p><strong>Data source:</strong> GitHub API — commit timestamps from public repositories under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Machine-verified public record.</p>
+<p><strong>Session detection:</strong> Consecutive commits within a 2-hour window are grouped into a single work session. Session hours = actual elapsed time between the first and last commit of the session. <strong>No imputed minimum.</strong> A session with one commit contributes zero hours. A session with commits 12 minutes apart contributes 12 minutes.</p>
+<p><strong>Complexity Context (display only):</strong> Repos are tagged with a complexity indicator reflecting technical depth — augment engines rank higher than static docs. <strong>This indicator is not applied to hours.</strong> Hours are hours. Complexity is context.</p>
 <div class="cost-summary"><table class="cost-table">
-<tr><td>kova (augment engine + LLM)</td><td class="cost-amount">2.0x</td></tr>
-<tr><td>pixel-forge (AI diffusion models)</td><td class="cost-amount">1.8x</td></tr>
-<tr><td>ghost-fabric (LoRa mesh + edge AI)</td><td class="cost-amount">1.8x</td></tr>
-<tr><td>cochranblock (web + forms + booking)</td><td class="cost-amount">1.5x</td></tr>
-<tr><td>approuter (reverse proxy + tunnel)</td><td class="cost-amount">1.5x</td></tr>
-<tr><td>rogue-repo (payment engine)</td><td class="cost-amount">1.5x</td></tr>
-<tr><td>All others</td><td class="cost-amount">1.0x</td></tr>
+<tr><td>kova (augment engine + LLM)</td><td class="cost-amount">high</td></tr>
+<tr><td>pixel-forge (AI diffusion models)</td><td class="cost-amount">high</td></tr>
+<tr><td>ghost-fabric (LoRa mesh + edge AI)</td><td class="cost-amount">high</td></tr>
+<tr><td>cochranblock (web + forms + booking)</td><td class="cost-amount">medium</td></tr>
+<tr><td>approuter (reverse proxy + tunnel)</td><td class="cost-amount">medium</td></tr>
+<tr><td>rogue-repo (payment engine)</td><td class="cost-amount">medium</td></tr>
+<tr><td>All others</td><td class="cost-amount">standard</td></tr>
 </table></div>
-<p><strong>Rate:</strong> $225/hour — consistent with <a href="/services">published rate card</a>.</p>
-<p><strong>AI-accelerated, human-directed:</strong> All development uses AI tooling (Claude Opus, Kova, Cursor) as force multipliers — the same way a carpenter uses a nail gun instead of a hammer. The human directs every decision, verifies every output, and ships working software. The AI is the tool. The $225/hour rate is for the human. The hours above are human hours at the keyboard producing 3–5x the output of unassisted development. Each repo's <code>TIMELINE_OF_INVENTION.md</code> documents what the AI generated vs. what the human directed.</p>
+<p><strong>Rate context:</strong> $225/hour is our published rate card reference, supported by salary-equivalent analysis and market comparables. Actual rates on any specific federal contract are established contractually and may vary.</p>
 
-<p><strong>DCAA relevance:</strong> IR&amp;D (Independent Research &amp; Development) costs are allowable under FAR 31.205-18 when properly documented. This page provides the audit trail. AI tooling costs (API subscriptions) are separately trackable as materials under FAR 31.205-26.</p>
+<p><strong>Context on federal cost accounting:</strong> IR&amp;D (Independent Research &amp; Development) is an indirect cost recovered via overhead/G&amp;A pools under FAR 31.205-18 — not billed directly by the hour. Direct labor on federal contracts is recorded via contemporaneous daily timesheets maintained internally and available on audit request. This page is not a substitute for either.</p>
+
+<p><strong>Why publish this at all?</strong> Transparency and prior art. Every session shown is a legally notarized timestamp courtesy of git and GitHub. The Timeline of Invention in each repo documents the underlying contributions. Public commit history is prior art per USPTO 35 U.S.C. § 102(a)(1).</p>
 </div>
 </details>
 </div>
@@ -2470,8 +2477,8 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
 
     let head = f62d(
         "openbooks",
-        "Open Books — IR&D Audit | CochranBlock",
-        "Live IR&D time and value calculated from GitHub commit timestamps. DCAA-auditable. $225/hour. 15 repositories.",
+        "Open Books — Public R&D Activity Log | CochranBlock",
+        "Public R&D activity observed from GitHub commit history. Transparency artifact. Not a billing record. 15 repositories.",
     );
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
 }
@@ -2520,7 +2527,7 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
     ];
 
     let client = reqwest::Client::builder()
-        .user_agent("cochranblock/0.6")
+        .user_agent("cochranblock/0.6 (+https://cochranblock.org)")
         .build()
         .unwrap();
 
@@ -2528,34 +2535,17 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
     let rate = 225.0_f64;
 
     for &(repo, multiplier) in repos {
-        let url = format!(
-            "https://api.github.com/repos/cochranblock/{}/commits?per_page=100",
-            repo
-        );
-        let timestamps: Vec<i64> = if let Ok(resp) = client.get(&url).send().await {
-            if let Ok(body) = resp.text().await {
-                // Parse commit timestamps from JSON
-                let mut ts = Vec::new();
-                for chunk in body.split("\"date\":\"") {
-                    if let Some(end) = chunk.find('"') {
-                        let date_str = &chunk[..end];
-                        if date_str.len() > 18 {
-                            let _ = chrono::DateTime::parse_from_rfc3339(date_str)
-                                .map(|dt| ts.push(dt.timestamp()));
-                        }
-                    }
-                }
-                ts.sort();
-                ts.dedup();
-                ts
-            } else {
-                Vec::new()
-            }
-        } else {
+        // Proper structured fetch. No string-splitting. Deterministic errors.
+        // Returns empty vec on any failure, with eprintln for visibility.
+        let timestamps: Vec<i64> = fetch_commit_timestamps(&client, repo).await.unwrap_or_else(|e| {
+            eprintln!("[openbooks] fetch failed for {}: {}", repo, e);
             Vec::new()
-        };
+        });
 
-        // Group into sessions (commits within 2 hours)
+        // Group into sessions (commits within 2 hours). No imputed minimum —
+        // only actual elapsed time between first and last commit of each session.
+        // Padding to a floor would be fabricating time, which is FCA exposure
+        // if this page were ever used as a billing record.
         let mut sessions: u32 = 0;
         let mut base_hours: f64 = 0.0;
         if !timestamps.is_empty() {
@@ -2566,7 +2556,7 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
                     // New session — close previous
                     sessions += 1;
                     let dur = (session_end - session_start) as f64 / 3600.0;
-                    base_hours += dur.max(1.0);
+                    base_hours += dur;
                     session_start = t;
                 }
                 session_end = t;
@@ -2574,16 +2564,20 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
             // Close last session
             sessions += 1;
             let dur = (session_end - session_start) as f64 / 3600.0;
-            base_hours += dur.max(1.0);
+            base_hours += dur;
         }
 
-        let adjusted_hours = base_hours * multiplier;
-        let value = adjusted_hours * rate;
+        // Multiplier is DISPLAY-ONLY (represents repo complexity as context).
+        // It is NOT applied to hours. Hours are hours. Complexity belongs in
+        // rate negotiation, not in labor fabrication.
+        let displayed_hours = base_hours;
+        // Notional value only — marketing context, not a billing record.
+        let value = displayed_hours * rate;
         results.push((
             repo.to_string(),
             sessions,
             multiplier,
-            adjusted_hours,
+            displayed_hours,
             value,
         ));
     }
@@ -2603,24 +2597,153 @@ fn leak_str(s: &str) -> &'static str {
     Box::leak(s.to_string().into_boxed_str())
 }
 
-/// f87 = api_openbooks. Why: JSON endpoint for IR&D data.
+// ─── GitHub commit fetching — structured, paginated, audit-clean ─────────────
+//
+// Parses the GitHub REST commits endpoint into typed structs. Uses
+// `committer.date` (the moment the commit was accepted by the repo) rather
+// than `author.date` (which can be backdated by --date flag at commit time).
+// Follows Link-header pagination so repos with >100 commits are fully counted.
+// Respects X-RateLimit-Remaining to avoid silent 403s.
+
+#[derive(serde::Deserialize, Debug)]
+struct GhCommitEnvelope {
+    commit: GhCommit,
+}
+
+#[derive(serde::Deserialize, Debug)]
+struct GhCommit {
+    committer: GhSignature,
+}
+
+#[derive(serde::Deserialize, Debug)]
+struct GhSignature {
+    date: String,
+}
+
+#[derive(Debug)]
+enum FetchError {
+    Http(String),
+    Rate(String),
+    Parse(String),
+}
+
+impl std::fmt::Display for FetchError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Http(m) => write!(f, "http: {}", m),
+            Self::Rate(m) => write!(f, "rate-limit: {}", m),
+            Self::Parse(m) => write!(f, "parse: {}", m),
+        }
+    }
+}
+
+/// Fetch all committer-date timestamps for a public repo, paginated.
+/// Returns sorted, deduplicated Unix timestamps in seconds.
+async fn fetch_commit_timestamps(
+    client: &reqwest::Client,
+    repo: &str,
+) -> Result<Vec<i64>, FetchError> {
+    let mut all_ts: Vec<i64> = Vec::new();
+    let mut url = format!(
+        "https://api.github.com/repos/cochranblock/{}/commits?per_page=100",
+        repo
+    );
+    // Safety cap: never follow more than 20 pages (2,000 commits per repo).
+    // If a repo exceeds this, we're already over-sampling for R&D log purposes.
+    for _page in 0..20 {
+        let resp = client
+            .get(&url)
+            .send()
+            .await
+            .map_err(|e| FetchError::Http(e.to_string()))?;
+
+        // Rate limit check — surface the problem instead of silent 0 hours.
+        if resp.status() == reqwest::StatusCode::FORBIDDEN
+            || resp.status() == reqwest::StatusCode::TOO_MANY_REQUESTS
+        {
+            let remaining = resp
+                .headers()
+                .get("x-ratelimit-remaining")
+                .and_then(|v| v.to_str().ok())
+                .unwrap_or("?");
+            return Err(FetchError::Rate(format!(
+                "status={} remaining={}",
+                resp.status(),
+                remaining
+            )));
+        }
+        if !resp.status().is_success() {
+            return Err(FetchError::Http(format!("status={}", resp.status())));
+        }
+
+        // Capture next-page URL before consuming the body.
+        let next_url = parse_link_header_next(
+            resp.headers()
+                .get("link")
+                .and_then(|v| v.to_str().ok())
+                .unwrap_or(""),
+        );
+
+        let commits: Vec<GhCommitEnvelope> = resp
+            .json()
+            .await
+            .map_err(|e| FetchError::Parse(e.to_string()))?;
+
+        for env in commits {
+            if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(&env.commit.committer.date) {
+                all_ts.push(dt.timestamp());
+            }
+        }
+
+        match next_url {
+            Some(next) => url = next,
+            None => break,
+        }
+    }
+    all_ts.sort();
+    all_ts.dedup();
+    Ok(all_ts)
+}
+
+/// Parse GitHub's RFC 5988 Link header for the rel="next" URL.
+/// Example header:
+///   <https://api.github.com/repos/x/y/commits?page=2>; rel="next", <...>; rel="last"
+fn parse_link_header_next(link: &str) -> Option<String> {
+    for part in link.split(',') {
+        let part = part.trim();
+        if part.contains(r#"rel="next""#) {
+            if let Some(start) = part.find('<') {
+                if let Some(end) = part.find('>') {
+                    if end > start + 1 {
+                        return Some(part[start + 1..end].to_string());
+                    }
+                }
+            }
+        }
+    }
+    None
+}
+
+/// f87 = api_openbooks. Why: JSON endpoint for public R&D activity log.
+/// Not a billing record. Reported hours are actual elapsed time between
+/// first and last commit of each session — no imputed minimum, no multiplier.
 pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
     let data = f86_data().await;
     let mut total_hours: f64 = 0.0;
     let mut total_value: f64 = 0.0;
     let entries: Vec<String> = data
         .iter()
-        .map(|(repo, sessions, mult, hours, value)| {
+        .map(|(repo, sessions, complexity, hours, value)| {
             total_hours += hours;
             total_value += value;
             format!(
-                r#"{{"repo":"{}","sessions":{},"multiplier":{:.1},"hours":{:.1},"value":{:.0}}}"#,
-                repo, sessions, mult, hours, value
+                r#"{{"repo":"{}","sessions":{},"complexity_display":{:.1},"observed_hours":{:.1},"notional_value":{:.0}}}"#,
+                repo, sessions, complexity, hours, value
             )
         })
         .collect();
     let json = format!(
-        r#"{{"repos":[{}],"total_hours":{:.1},"total_value":{:.0},"rate":225,"methodology":"sessions_2hr_window_min_1hr","source":"github_api"}}"#,
+        r#"{{"repos":[{}],"total_observed_hours":{:.1},"total_notional_value":{:.0},"rate_reference":225,"methodology":"sessions_2hr_window_no_minimum_no_multiplier","source":"github_api","disclaimer":"Public R&D activity log. Transparency artifact, not a billing record. Actual contract billing uses contemporaneous daily timesheets per DCAA guidance."}}"#,
         entries.join(","),
         total_hours,
         total_value
@@ -3388,12 +3511,184 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f96 = inventions. Named inventions + techniques with provenance.
+/// f98 = security. The Cochran Block security posture page. Motto-first.
+pub async fn f98(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Security</h1>
+
+<blockquote style="font-size:1.35rem;font-style:italic;line-height:1.5;margin:2rem 0;padding:1.25rem 1.5rem;border-left:4px solid var(--accent);background:var(--note, #f5f2e8);color:var(--ink);">
+"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware."
+</blockquote>
+
+<p class="services-intro">The motto is the whole thesis. Everything below is just why it's true.</p>
+
+<h2 class="services-section-head">Why Binaries Beat Scripts</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Compiled &gt; Interpreted — measured in nanoseconds and attack surface</summary>
+<p>A Rust binary is a single sealed artifact. No interpreter. No runtime loader chasing symbols. No pip/npm/gem pulling remote code at import time. No <code>sys.path</code> hijacking, no <code>LD_PRELOAD</code> games, no <code>__pycache__</code> shenanigans. The binary runs, does its job, and exits.</p>
+<p>A script, by contrast, is instructions for somebody else's runtime to execute. Every byte of attack surface you ship, you also shipped the interpreter that reads it. Every dependency the script imports at runtime, you also shipped the resolver that fetches it. The attack surface of a 10MB Rust binary is the binary. The attack surface of a 10KB Python script is Python itself plus every transitive import plus the shell plus the PATH plus the working directory.</p>
+<p>Latency matches. Compiled Rust cold-start is measured in milliseconds. Interpreted Python cold-start is typically hundreds of milliseconds before your code runs. Shell script with a dozen pipe calls forks a process per command. Attackers love long cold starts — they make window-of-exploitation analysis easier. Cold-starting fast is a defensive posture.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Memory Safety By Construction</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>Rust eliminates the CVE classes that own every enterprise breach</summary>
+<p>Buffer overflows. Use-after-free. Double-free. Null-pointer dereference. Data races. These are the bug classes that make up ~70% of exploitable CVEs in C/C++ systems. Rust's type system eliminates them by construction, not by convention.</p>
+<p>Our stack is 100% Rust at the application layer. Zero C dependencies in application code (system libs like OpenSSL and the kernel itself are unavoidable and pinned). No unsafe blocks in application code. No FFI shims waiting for a format-string bug.</p>
+<p>CISA Secure-by-Design aligned. Executive Order 14028 aligned. NIST SP 800-218 SSDF aligned. Not marketing words — actual compliance posture.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Signed Everything (NanoSign)</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>36 bytes of BLAKE3 at the end of every model, every release</summary>
+<p>Every AI model we ship (pixel-forge, kova) carries a NanoSign signature — a 36-byte cryptographic hash appended to the file. Verified at load time before any inference. Unsigned or tampered files get rejected. No certificate authority, no network call, no infrastructure. The signature travels with the file. Works air-gapped.</p>
+<p>Counterfeit detection is physics, not policy. If somebody forks pixel-forge and publishes a malicious model claiming to be ours, the signature check fails on every install that verifies.</p>
+<p>Full details: <a href="/arch">/arch</a> · Signed format: BLAKE3 over the file minus the trailing 36 bytes</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Assumed Breach First</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>Every component is already compromised. Design for damage containment.</summary>
+<p>The doom-prepper rule: never design as if attackers will fail to get in. Design as if they already did. Then ask: when they have everything, how do we minimize damage and detect tampering loudly?</p>
+<p>Nine first principles applied across every repo:</p>
+<ul>
+<li><strong>External witness</strong> — every record that matters hashes to a public git commit (neutral timestamp authority)</li>
+<li><strong>No single point of compromise</strong> — signing keys in hardware, never in software</li>
+<li><strong>Default air-gap</strong> — network for sync and publishing only, not correctness</li>
+<li><strong>Append-only storage</strong> — delete is not a function, reversing entries are the correction pattern</li>
+<li><strong>Cryptographic audit chain</strong> — every day's state derives from yesterday's hash</li>
+<li><strong>Disclosed methodology</strong> — if an auditor can verify the algorithm, they can verify the outputs</li>
+<li><strong>Separation of duties in software</strong> — entry, approval, audit in different trust zones</li>
+<li><strong>Redundancy across trust zones</strong> — local + cloud + offline, different credentials each</li>
+<li><strong>Regular tamper sims</strong> — Triple Sims extended to breach detection, run on every merge</li>
+</ul>
+<p>Full threat model: <a href="/MOONSHOT_FRAME.md">P26 Moonshot Frame</a> · Canonical threat model doc shipped to every repo in the portfolio</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Sovereign Stack</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>No cloud dependency, no license dependency, no supply chain to poison</summary>
+<p>Every binary runs on hardware we own. Local LLM inference via kova. Local GPU compute via any-gpu. Local mesh comms via ghost-fabric. Local deploy via Gemini Man atomic replacement. No third-party SaaS in the critical path for anything we ship. Cloudflare Zero Trust for tunneling only — if CF disappeared tomorrow, we'd swap in Tailscale Funnel before dinner.</p>
+<p>Every line of code is Unlicensed (public domain). No license-revocation risk. No rug-pull risk. No "enterprise edition" tier. Source is always public, always auditable, always yours to fork.</p>
+<p>Supply chain: all Rust deps sourced from crates.io with versions pinned in <code>Cargo.lock</code>. <code>cargo audit</code> in CI. Reproducible builds where the Rust toolchain supports it. No vendored binaries. No pre-built shared libs. Nothing arrives at runtime you didn't sign off on at compile time.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Public Attack Invitation</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>All source public. All binaries signed. Verify us in public.</summary>
+<p>Every repository at <a href="https://github.com/cochranblock">github.com/cochranblock</a> is public. Every commit has a GitHub-neutral timestamp. Every release binary carries a NanoSign signature. Every claim on this site traces back to a git commit you can read.</p>
+<p>If you think we're full of it, clone the repos, reproduce the builds, verify the signatures, audit the code. That is the whole point. We get stronger when you look.</p>
+<p>Found a real bug? Open an issue or email <a href="mailto:mcochran@cochranblock.org">mcochran@cochranblock.org</a>. Responsible disclosure rewarded with credit and a thank you. No bounty program because we don't have investors' money to throw around, but we will put your name on the commit that fixes it.</p>
+</details>
+</div>
+
+<p class="services-cta" style="margin-top:2rem"><a href="/arch" class="btn">See the Architecture</a><a href="/MOONSHOT_FRAME.md" class="btn btn-secondary">Read the Threat Model</a><a href="https://github.com/cochranblock" class="btn btn-secondary">Audit the Source</a></p>
+
+<p class="services-intro" style="margin-top:2rem;font-size:0.95rem;color:#666"><em>"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware."</em> &mdash; Every Cochran Block shipped binary, 2026&ndash;forever.</p>
+</section>"#;
+    let head = f62d(
+        "security",
+        "Security | CochranBlock",
+        "Compiled Rust binaries. Memory-safe by construction. NanoSign-verified. Assumed-breach threat model. Sovereign stack.",
+    );
+    Html([head.as_str(), C7, v0, C8].concat())
+}
+
 pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Architecture & Techniques</h1>
 <p class="services-intro">32 named contributions across 15 projects. Inventions, architecture patterns, techniques, and production engineering. Honest classification — we don't call architecture an invention.</p>
 
 <p class="services-cta" style="margin-bottom:2rem"><a href="https://github.com/cochranblock" class="btn">Audit the source — github.com/cochranblock</a></p>
+
+<h2 class="services-section-head">Standing On — Giants That Predate Me</h2>
+<p class="services-intro">Nothing here is wholly mine. Every named contribution below sits on decades of public-domain, copyleft, and open work. This section scales as I learn more prior art. If I'm missing somebody who deserves credit, tell me and I'll add them. No gatekeeping.</p>
+
+<div class="service-cards">
+
+<details class="service-card" open>
+<summary>Patron Saints of Solo Shipping</summary>
+<p><strong>Fabrice Bellard</strong> — QEMU, FFmpeg, TinyCC, QuickJS, BPG, LTE-in-software. The gold standard of one human shipping civilization-scale tools. Every small-is-possible argument I make traces back to him.</p>
+<p><strong>Justine Tunney</strong> — Cosmopolitan libc, APE (Actually Portable Executable), Redbean. Single-binary-runs-everywhere is her thesis, I'm running it in Rust. Public-domain / ISC licensing lineage.</p>
+<p><strong>Bruce Perens</strong> — BusyBox (1996). Every embedded Linux box in the world has his work. Proved single-binary-is-enough decades before the cloud forgot.</p>
+<p><strong>Daniel J. Bernstein (DJB)</strong> — qmail, djbdns, NaCl, curve25519. Dedicated crypto to the public domain before it was legal to export. My Unlicense stance is downstream of his.</p>
+</details>
+
+<details class="service-card">
+<summary>Unix + Systems Foundations</summary>
+<p><strong>Ken Thompson + Dennis Ritchie</strong> — Unix. The pipe (<code>|</code>). The philosophy of small tools composed together. Everything I ship is a variation.</p>
+<p><strong>Rob Pike</strong> — Plan 9, Go, Unix philosophy evangelism. Go's single-binary default influenced my Rust-single-binary default.</p>
+<p><strong>Nicholas Marriott</strong> — tmux creator. tmuxisfree literally cannot exist without tmux. Whole sponge mesh pattern lives on top of his session/pane/window substrate.</p>
+<p><strong>Linus Torvalds</strong> — Linux, git. Git enables Timeline of Invention; every commit is a free legally-notarized timestamp courtesy of Linus.</p>
+<p><strong>Van Jacobson</strong> — TCP congestion control + exponential backoff (1988). Sponge mesh retry timing is his work with jitter bolted on.</p>
+</details>
+
+<details class="service-card">
+<summary>Crypto + Signed Artifact Lineage</summary>
+<p><strong>Phil Zimmermann</strong> — PGP (1991). Individual cryptographic sovereignty. Detached-signature pattern lives in NanoSign.</p>
+<p><strong>BLAKE3 team</strong> — Jack O'Connor, Jean-Philippe Aumasson, Samuel Neves, Zooko Wilcox-O'Hearn. The hash NanoSign uses. I'm a user, they did the math.</p>
+<p><strong>Cypherpunks</strong> — 1990s collective. Established "write code, ship it, cryptography is a civic right." My 36-byte signed safetensors is their 2026 echo.</p>
+<p><strong>Sigstore team</strong> (Linux Foundation, Google) — modern signed-artifact infrastructure. NanoSign is a smaller counter-proposal; without their work I wouldn't know what I was counter-proposing against.</p>
+</details>
+
+<details class="service-card">
+<summary>Open Source + Licensing</summary>
+<p><strong>Richard Stallman</strong> — GPL, FSF (1980s+). I don't copyleft. But "software is civic infrastructure" is downstream of his framing whether you like him or not.</p>
+<p><strong>Jamie Wilkinson</strong> — Unlicense creator. I run his text at the top of every file.</p>
+<p><strong>Sam Hocevar</strong> — WTFPL creator. Same spirit, different wording.</p>
+<p><strong>Creative Commons team</strong> — Lawrence Lessig, Aaron Swartz, others. CC0 is the alternative pour civil-law jurisdictions where Unlicense struggles.</p>
+</details>
+
+<details class="service-card">
+<summary>Distributed Systems + Retry Patterns</summary>
+<p><strong>Avizienis et al.</strong> — N-version programming (1985). Triple Sims is a 3-version-programming descendant, sized for dev tooling instead of avionics.</p>
+<p><strong>Brent Chun</strong> — pssh / parallel SSH (2003). C2 swarm orchestration rhymes with pssh; I added per-node tokenized commands on top.</p>
+<p><strong>Vint Cerf + Robert Kahn + Scott Burleigh</strong> — Delay Tolerant Networking, CCSDS Bundle Protocol, Interplanetary Internet. Sponge mesh broadcast across rate-limited panes maps 1:1 to their spacecraft network protocol.</p>
+<p><strong>Space Shuttle AP-101 team</strong> (IBM Federal Systems, 1970s-80s) — primary/backup flight computer comparison. Triple-deterministic-or-merge is their pattern applied to CI.</p>
+</details>
+
+<details class="service-card">
+<summary>AI + Mixture of Experts + Agents</summary>
+<p><strong>Jacobs, Jordan, Nowlan, Hinton</strong> — original Mixture of Experts paper (1991). My pixel-forge MoE cascade is a straight descendant of their gating network idea.</p>
+<p><strong>Noam Shazeer et al.</strong> — Sparsely-Gated MoE (2017). Modern revival that made MoE production-scale.</p>
+<p><strong>Yao et al.</strong> — ReAct framework (2022). Reasoning + Acting loop. Kova's agentic tool loop is ReAct with local-LLM + 13 tools.</p>
+<p><strong>Toran Bruce Richards</strong> — AutoGPT (2023). First public autonomous LLM agent. My loop is tighter + tokenized but the pattern is his.</p>
+<p><strong>Georgi Gerganov</strong> — llama.cpp, GGML. Local-AI-is-possible demonstration; the substrate for every subsequent tiny-model advocate.</p>
+</details>
+
+<details class="service-card">
+<summary>Design Patterns + Classical CS</summary>
+<p><strong>Gang of Four</strong> — Gamma, Helm, Johnson, Vlissides (1994). Adapter pattern powers my multi-tunnel abstraction. They wrote it, I applied it to tunnels.</p>
+<p><strong>John Boyd</strong> — OODA loop, military C2 theory. The mental model behind C2 swarm orchestration is his.</p>
+<p><strong>Doug Engelbart</strong> — "bootstrapping" (1962). Self-converging flywheel is his intellectual grandchild.</p>
+<p><strong>Eric Wong</strong> — Unicorn (Ruby, 2009). First PID-relay pattern for zero-downtime restart I know of. Gemini Man is this pattern with the binary as its own supervisor.</p>
+</details>
+
+<details class="service-card">
+<summary>Contemporary Fellow Travelers</summary>
+<p>People currently pushing adjacent red pills, whose work informs mine without being prior-art in the patent sense:</p>
+<p><strong>Mitko Vasilev</strong> — own your AI stack end-to-end. Same gospel, local-AI chapter.</p>
+<p><strong>DHH (David Heinemeier Hansson)</strong> — "We're leaving the cloud" series. Business-side case study for my Zero-Cloud Architecture pitch.</p>
+<p><strong>George Hotz</strong> — tinygrad, anti-CUDA. Hardware sovereignty. any-gpu is adjacent.</p>
+<p><strong>Bryan Cantrill</strong> — Oxide Computer Company. Rack-scale sovereign infrastructure. I'm the solo-founder tier of his thesis.</p>
+<p><strong>Nicolas Chaillan</strong> — former USAF CSO. Sovereign velocity inside DoD. His 2021 resignation letter articulated the problem I'm solving for SBIR-tier shops.</p>
+<p><strong>Drew DeVault</strong> — SourceHut, AGPL purist, anti-cloud. Principled opponent on licensing. Debate with him sharpens my argument.</p>
+<p><strong>Corey Quinn</strong> — Duckbill Group. Cloud cost critique. I respect the lane and don't claim his title.</p>
+<p><strong>Cory Doctorow</strong> — enshittification theorist. Consumer-side framing for the same fight I wage on the developer side.</p>
+</details>
+
+</div>
 
 <h2 class="services-section-head">Inventions — No Known Prior Art</h2>
 <div class="service-cards">
@@ -3453,6 +3748,15 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p>A development architecture where each cycle reduces external AI dependency. Stage 1: cloud APIs build tools. Stage 2: tools run locally. Stage 3: system trains on its own data. Stage 4: system tests itself. Stage 5: system deploys itself. Stage 6: system discovers its own work. The cloud APIs are scaffolding — dismantled as local capability matures.</p>
 <p><strong>Prior art:</strong> Self-improving AI is a research concept. What's different: a concrete 6-stage convergence with working code at each stage, not a paper. Named ratchets (techniques that permanently reduce dependency) with commit-level provenance.</p>
 <p><strong>Current stage:</strong> 2 of 6. Stages 3-6 partially implemented.</p>
+</details>
+
+<details class="service-card" open>
+<summary>P26 Moonshot Frame — Civilizational-Stakes Review</summary>
+<p><strong>Project:</strong> every repo &middot; <strong>Date:</strong> April 2026 &middot; <strong>Canonical template:</strong> <a href="/MOONSHOT_FRAME.md">MOONSHOT_FRAME.md</a></p>
+<p>A review protocol applied before every merge, push, and deploy. Asks one question: <em>"If this code / pitch / document were the foundation of a civilizational-scale outcome, would it still hold up?"</em> The target outcome shifts with context (spacecraft, FCA audit, hostile evaluator, forensic investigator), but the five forces are universal: typed where possible, bounded where unbounded, observable where silent, explainable where obvious, reviewer-friendly where shortcut-friendly.</p>
+<p><strong>In action:</strong> Openbooks JSON parser v1 (string split on <code>"date":"</code>, silent failures, no pagination) failed Moonshot Frame. v2 (typed <code>GhCommitEnvelope</code> / <code>GhCommit</code> / <code>GhSignature</code>, typed <code>FetchError</code>, RFC 5988 Link pagination, 20-page safety cap, <code>committer.date</code> not backdate-able, visible errors via eprintln) passed. Same pattern applies to any wire format: telemetry, safetensors, CCSDS frames, AI tool calls.</p>
+<p><strong>Prior art:</strong> Code review checklists exist. DO-178C review criteria exist. Aerospace and automotive qualification processes exist. What's different: a single-question frame that scales from a one-line commit to a twenty-page proposal, with deterministic trigger ("good enough for me" is the trigger to apply), public template, and a shield badge repos can earn. Pairs with Unlicense + NanoSign + Timeline of Invention as the Cochran Block quality stack.</p>
+<p><strong>Apply when:</strong> the current version feels "good enough for me." That phrase is the trigger. Apply double under time pressure — that's when regret compounds.</p>
 </details>
 
 </div>

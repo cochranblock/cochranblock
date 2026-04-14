@@ -69,6 +69,166 @@ pub fn f1(p0: t0) -> Router {
         .route("/api/dcaa", get(pages::f87))
         .route("/arch", get(pages::f96))
         .route("/inventions", get(|| async { Redirect::permanent("/arch") }))
+        .route("/protocols", get(|| async { Redirect::permanent("/arch#p26") }))
+        .route("/security", get(pages::f98))
+        // ── Buzzword redirects → /security. The industry term and the name
+        // we should have picked. The meta-joke requires both URLs to land.
+        .route(
+            "/secure-by-design",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/secure-by-default",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/zero-trust",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/fort-knox-lockdown-mega-infrastructure",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        // ── Federal + compliance buzzword nets — SEO and discoverability
+        .route("/cmmc", get(|| async { Redirect::permanent("/security") }))
+        .route("/fedramp", get(|| async { Redirect::permanent("/security") }))
+        .route(
+            "/nist-800-171",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/nist-800-218",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/nist-800-53",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route("/fisma", get(|| async { Redirect::permanent("/security") }))
+        .route("/soc2", get(|| async { Redirect::permanent("/security") }))
+        .route("/ato", get(|| async { Redirect::permanent("/security") }))
+        .route(
+            "/eo-14028",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route("/rmf", get(|| async { Redirect::permanent("/security") }))
+        .route("/sbom", get(|| async { Redirect::permanent("/security") }))
+        .route("/ssdf", get(|| async { Redirect::permanent("/security") }))
+        .route("/cui", get(|| async { Redirect::permanent("/security") }))
+        // ── Industry buzzwords
+        .route(
+            "/devsecops",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/shift-left",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/memory-safe",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/memory-safety",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/threat-intel",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route("/easm", get(|| async { Redirect::permanent("/security") }))
+        .route(
+            "/attack-surface",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/supply-chain-security",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route("/ztna", get(|| async { Redirect::permanent("/security") }))
+        // ── The meta-joke alternatives. All land on /security. The humor is the
+        //    collision: the absurd name and the compliance-board name do the same job.
+        .route(
+            "/the-vault",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/bunker-mode",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/hackerproof",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/you-shall-not-pass",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/lock-stock-and-two-smoking-binaries",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/airgap-lyf",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/not-today-satan",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        .route(
+            "/dead-mans-switch",
+            get(|| async { Redirect::permanent("/security") }),
+        )
+        // ── Playful rate-card redirects. Each one is register-specific so the
+        // recipient of a single link gets exactly the message you meant.
+        // Every URL is its own row in CF Analytics → one click = one bit.
+        .route(
+            "/myratesareherebud",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route(
+            "/nohackathons",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route("/402", get(|| async { Redirect::permanent("/services") }))
+        .route(
+            "/coffeechat",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route(
+            "/paythetoll",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route(
+            "/exposureisntcurrency",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route(
+            "/backpocket",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route("/panels", get(|| async { Redirect::permanent("/services") }))
+        .route(
+            "/equityisnotasalary",
+            get(|| async { Redirect::permanent("/services") }),
+        )
+        .route(
+            "/MOONSHOT_FRAME.md",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/MOONSHOT_FRAME.md"),
+                )
+            }),
+        )
+        .route(
+            "/moonshot-frame",
+            get(|| async { Redirect::permanent("/MOONSHOT_FRAME.md") }),
+        )
         .route("/privacy", get(pages::f93))
         .route("/changelog", get(pages::f94))
         .route("/barz", get(|| async { Redirect::permanent("/stats") }))
