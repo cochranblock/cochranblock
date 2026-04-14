@@ -271,6 +271,18 @@ pub fn f1(p0: t0) -> Router {
             }),
         )
         .route(
+            "/supplement-msu-2026-04.html",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/html; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/supplement-msu-2026-04.html"),
+                )
+            }),
+        )
+        .route(
             "/moonshot-frame",
             get(|| async { Redirect::permanent("/MOONSHOT_FRAME.md") }),
         )
