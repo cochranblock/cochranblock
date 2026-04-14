@@ -71,6 +71,11 @@ pub fn f1(p0: t0) -> Router {
         .route("/inventions", get(|| async { Redirect::permanent("/arch") }))
         .route("/protocols", get(|| async { Redirect::permanent("/arch#p26") }))
         .route("/security", get(pages::f98))
+        .route("/pulse", get(pages::f100))
+        .route(
+            "/live",
+            get(|| async { Redirect::permanent("/pulse") }),
+        )
         // ── Buzzword redirects → /security. The industry term and the name
         // we should have picked. The meta-joke requires both URLs to land.
         .route(

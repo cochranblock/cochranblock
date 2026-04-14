@@ -3558,6 +3558,388 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f96 = inventions. Named inventions + techniques with provenance.
+/// f100 = pulse. Up-to-the-minute threat + biz intel for cochranblock.org.
+/// 60-second cache. Auto-refreshes via meta tag. CF GraphQL only (zone
+/// cochranblock.org, free-plan compatible via httpRequests1hGroups).
+pub async fn f100(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let data = f100_data().await;
+    let started = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
+
+    // Build hourly bar chart (last 12 hours)
+    let mx = data.hourly.iter().map(|h| h.1).max().unwrap_or(1).max(1);
+    let mut bar_rows = String::new();
+    for (label, count) in data.hourly.iter().rev().take(12).rev() {
+        let bar_len = (*count as f64 / mx as f64 * 40.0) as usize;
+        let bar = "█".repeat(bar_len);
+        bar_rows.push_str(&format!(
+            "{:<8} {:>5}  {}\n",
+            label, count, bar
+        ));
+    }
+
+    // Top paths & countries
+    let mut path_rows = String::new();
+    for (p, c) in data.top_paths.iter().take(10) {
+        path_rows.push_str(&format!(
+            "<tr><td><code>{}</code></td><td class=\"cost-amount\">{}</td></tr>",
+            html_escape(p),
+            c
+        ));
+    }
+    let mut country_rows = String::new();
+    for (cc, c) in data.top_countries.iter().take(8) {
+        country_rows.push_str(&format!(
+            "<tr><td>{}</td><td class=\"cost-amount\">{}</td></tr>",
+            html_escape(cc),
+            c
+        ));
+    }
+
+    // Redirect heatmap — buzzword router + rate card
+    let buzz_urls: [&str; 16] = [
+        "/security", "/cmmc", "/fedramp", "/nist-800-171", "/zero-trust",
+        "/sbom", "/soc2", "/devsecops", "/easm",
+        "/fort-knox-lockdown-mega-infrastructure", "/the-vault", "/bunker-mode",
+        "/hackerproof", "/you-shall-not-pass", "/not-today-satan",
+        "/lock-stock-and-two-smoking-binaries",
+    ];
+    let rate_urls: [&str; 9] = [
+        "/myratesareherebud", "/nohackathons", "/coffeechat", "/paythetoll",
+        "/402", "/exposureisntcurrency", "/backpocket", "/panels",
+        "/equityisnotasalary",
+    ];
+    let mut buzz_rows = String::new();
+    for url in buzz_urls {
+        let count = data
+            .path_counts
+            .iter()
+            .find(|(p, _)| p == url)
+            .map(|(_, c)| *c)
+            .unwrap_or(0);
+        let cls = if count > 0 { "cost-new" } else { "" };
+        buzz_rows.push_str(&format!(
+            "<tr><td><code>{}</code></td><td class=\"cost-amount {}\">{}</td></tr>",
+            url, cls, count
+        ));
+    }
+    let mut rate_rows = String::new();
+    for url in rate_urls {
+        let count = data
+            .path_counts
+            .iter()
+            .find(|(p, _)| p == url)
+            .map(|(_, c)| *c)
+            .unwrap_or(0);
+        let cls = if count > 0 { "cost-new" } else { "" };
+        rate_rows.push_str(&format!(
+            "<tr><td><code>{}</code></td><td class=\"cost-amount {}\">{}</td></tr>",
+            url, cls, count
+        ));
+    }
+
+    // Probe paths — signs of attackers
+    let probe_patterns = [
+        ".env", "wp-admin", "wp-login", "admin.php", ".git/", ".DS_Store",
+        ".htaccess", "phpmyadmin", "config.json", "config.yml", "credentials",
+        "wp-content", "xmlrpc.php", "shell.php", "vendor/phpunit",
+    ];
+    let mut probe_rows = String::new();
+    let mut probe_total = 0u64;
+    for (path, count) in &data.path_counts {
+        let pl = path.to_lowercase();
+        if probe_patterns.iter().any(|p| pl.contains(p)) {
+            probe_total += count;
+            probe_rows.push_str(&format!(
+                "<tr><td><code>{}</code></td><td class=\"cost-amount\">{}</td></tr>",
+                html_escape(path),
+                count
+            ));
+        }
+    }
+    if probe_rows.is_empty() {
+        probe_rows.push_str(
+            "<tr><td colspan=\"2\"><em>no attacker probes detected in window 🫡</em></td></tr>",
+        );
+    }
+
+    // Status code breakdown
+    let total_reqs: u64 = data.status_counts.iter().map(|(_, c)| c).sum();
+    let err_reqs: u64 = data
+        .status_counts
+        .iter()
+        .filter(|(s, _)| *s >= 400)
+        .map(|(_, c)| c)
+        .sum();
+    let err_pct = if total_reqs > 0 {
+        (err_reqs as f64 / total_reqs as f64) * 100.0
+    } else {
+        0.0
+    };
+
+    let window_label = "last 24h";
+    let cache_age_sec = data.cache_age_sec;
+
+    let v0 = format!(
+        r#"<section class="services">
+<h1>Pulse</h1>
+
+<p class="services-intro">Up-to-the-minute threat + business intel for cochranblock.org. Cloudflare adaptive groups, cached 60 seconds. Auto-refreshes every minute. What's below is what's happening to this site right now, not marketing.</p>
+
+<p class="govdoc-note" style="font-size:0.85rem;color:#666">
+<strong>Cache age:</strong> {cache_age_sec}s &middot;
+<strong>Window:</strong> {window_label} &middot;
+<strong>Source:</strong> CF GraphQL httpRequests1hGroups + httpRequestsAdaptiveGroups &middot;
+<strong>Zone:</strong> cochranblock.org only &middot;
+<strong>Next auto-refresh:</strong> 60s
+</p>
+
+<h2 class="services-section-head">Request Volume — Hourly Bars (last 12 hours, UTC)</h2>
+<div class="cost-summary"><pre style="font-family:var(--font-mono,monospace);font-size:0.85rem;line-height:1.4;overflow-x:auto;margin:0;padding:1rem">{bar_rows}</pre></div>
+
+<h2 class="services-section-head">Threat Panel</h2>
+<div class="service-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem">
+
+<details class="service-card" open>
+<summary>Top Countries ({window_label})</summary>
+<div class="cost-summary"><table class="cost-table">
+<tr><td><strong>Country</strong></td><td><strong>Requests</strong></td></tr>
+{country_rows}
+</table></div>
+</details>
+
+<details class="service-card" open>
+<summary>Probe Paths — attacker signals</summary>
+<div class="cost-summary"><table class="cost-table">
+<tr><td><strong>Path</strong></td><td><strong>Hits</strong></td></tr>
+{probe_rows}
+</table></div>
+<p style="margin-top:0.5rem;font-size:0.85rem;color:#666"><em>Total probe traffic: {probe_total}. Patterns: .env, wp-admin, .git, phpmyadmin, xmlrpc, vendor/phpunit, etc.</em></p>
+</details>
+
+<details class="service-card">
+<summary>Status Code Health</summary>
+<p><strong>Total requests ({window_label}):</strong> {total_reqs}</p>
+<p><strong>4xx + 5xx:</strong> {err_reqs} ({err_pct:.1}%)</p>
+<p style="font-size:0.85rem;color:#666"><em>Baseline is ~5-15% for a site this public. Spikes above 25% suggest a campaign.</em></p>
+</details>
+
+</div>
+
+<h2 class="services-section-head">Business Panel</h2>
+<div class="service-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem">
+
+<details class="service-card" open>
+<summary>Buzzword Router Hits ({window_label})</summary>
+<div class="cost-summary"><table class="cost-table">
+<tr><td><strong>URL</strong></td><td><strong>Hits</strong></td></tr>
+{buzz_rows}
+</table></div>
+<p style="margin-top:0.5rem;font-size:0.85rem;color:#666"><em>All 34 buzzword URLs redirect to /security. This table shows which keywords are actually being searched/clicked right now.</em></p>
+</details>
+
+<details class="service-card" open>
+<summary>Rate Card Redirects ({window_label})</summary>
+<div class="cost-summary"><table class="cost-table">
+<tr><td><strong>URL</strong></td><td><strong>Hits</strong></td></tr>
+{rate_rows}
+</table></div>
+<p style="margin-top:0.5rem;font-size:0.85rem;color:#666"><em>All 9 rate-card URLs redirect to /services. Clicks signal pricing-page interest via the register-specific URLs.</em></p>
+</details>
+
+<details class="service-card">
+<summary>Top Real Paths ({window_label})</summary>
+<div class="cost-summary"><table class="cost-table">
+<tr><td><strong>Path</strong></td><td><strong>Requests</strong></td></tr>
+{path_rows}
+</table></div>
+</details>
+
+</div>
+
+<p class="services-cta" style="margin-top:2rem">
+<a href="/stats" class="btn btn-secondary">30-day Stats</a>
+<a href="/analytics" class="btn btn-secondary">CF Analytics</a>
+<a href="/openbooks" class="btn btn-secondary">R&amp;D Activity</a>
+<a href="/security" class="btn btn-secondary">Security</a>
+</p>
+
+<p class="services-intro" style="margin-top:2rem;font-size:0.85rem;color:#666"><em>"binaries beats bloatware." Real-time because the site serving this page has no third-party analytics vendor. CF is the only source and we own our queries. Privacy: no personal data shown, no IPs exposed. Aggregate counts only.</em></p>
+</section>"#
+    );
+
+    let _ = started; // suppress unused
+    let head_base = f62d(
+        "pulse",
+        "Pulse | CochranBlock",
+        "Up-to-the-minute threat and business intel for cochranblock.org. Cloudflare adaptive groups, 60-second cache, auto-refresh. Real-time buzzword router click heatmap, probe path detection, country distribution, rate-card redirect tracking.",
+    );
+    // Inject meta refresh for 60s auto-reload, right after <head>
+    let head = head_base.replacen(
+        "<head>",
+        r#"<head><meta http-equiv="refresh" content="60">"#,
+        1,
+    );
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
+/// PulseData — one cache entry worth of aggregated pulse stats.
+#[derive(Clone, Default)]
+struct PulseData {
+    hourly: Vec<(String, u64)>,          // ("03:00", 42) — last 24h hourly
+    top_paths: Vec<(String, u64)>,       // top 30 real paths
+    top_countries: Vec<(String, u64)>,   // top 20 countries
+    path_counts: Vec<(String, u64)>,     // full path count list for lookups
+    status_counts: Vec<(u16, u64)>,      // (status_code, count)
+    cache_age_sec: u64,
+}
+
+/// f100_data — fetch fresh pulse data from CF GraphQL. 60-second cache.
+async fn f100_data() -> PulseData {
+    use std::sync::Mutex;
+    use std::sync::OnceLock;
+    static CACHE: OnceLock<Mutex<(PulseData, std::time::Instant)>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| {
+        Mutex::new((
+            PulseData::default(),
+            std::time::Instant::now() - std::time::Duration::from_secs(9999),
+        ))
+    });
+    {
+        let guard = cache.lock().unwrap();
+        let age = guard.1.elapsed().as_secs();
+        if age < 60 {
+            let mut d = guard.0.clone();
+            d.cache_age_sec = age;
+            return d;
+        }
+    }
+
+    let token = match std::env::var("CF_TOKEN") {
+        Ok(t) => t,
+        Err(_) => return PulseData::default(),
+    };
+    let zone = "1320f3a6c2f3dc2c2c5527f566c2fad3";
+    // Last 24h via precise datetime bounds.
+    let now = chrono::Utc::now();
+    let start = now - chrono::Duration::hours(23);
+    let s = start.format("%Y-%m-%dT%H:00:00Z").to_string();
+    let e = now.format("%Y-%m-%dT%H:59:59Z").to_string();
+
+    // Three GraphQL queries bundled into one batch via aliases:
+    //   hourly:  request volume per hour
+    //   paths:   top paths + their country/status breakdown
+    //   countries: top countries
+    //   statuses:  status code distribution
+    let gql = format!(
+        r#"{{viewer{{zones(filter:{{zoneTag:"{zone}"}}){{
+            hourly:httpRequests1hGroups(filter:{{datetime_geq:"{s}",datetime_leq:"{e}"}},limit:50,orderBy:[datetime_ASC]){{sum{{requests}}dimensions{{datetime}}}}
+            paths:httpRequestsAdaptiveGroups(filter:{{datetime_geq:"{s}",datetime_leq:"{e}"}},limit:200,orderBy:[count_DESC]){{count dimensions{{clientRequestPath edgeResponseStatus}}}}
+            countries:httpRequestsAdaptiveGroups(filter:{{datetime_geq:"{s}",datetime_leq:"{e}"}},limit:25,orderBy:[count_DESC]){{count dimensions{{clientCountryName}}}}
+        }}}}}}"#
+    );
+    let query = format!(r#"{{"query":"{}"}}"#, gql.replace('"', "\\\""));
+
+    let client = reqwest::Client::new();
+    let resp = match client
+        .post("https://api.cloudflare.com/client/v4/graphql")
+        .header("Authorization", format!("Bearer {}", token))
+        .header("Content-Type", "application/json")
+        .body(query)
+        .send()
+        .await
+    {
+        Ok(r) => r,
+        Err(_) => return PulseData::default(),
+    };
+    let data: serde_json::Value = match resp.json().await {
+        Ok(v) => v,
+        Err(_) => return PulseData::default(),
+    };
+
+    let zones = &data["data"]["viewer"]["zones"][0];
+
+    // Parse hourly
+    let mut hourly: Vec<(String, u64)> = Vec::new();
+    if let Some(arr) = zones["hourly"].as_array() {
+        for h in arr {
+            let dt = h["dimensions"]["datetime"].as_str().unwrap_or("");
+            let reqs = h["sum"]["requests"].as_u64().unwrap_or(0);
+            // Take hour-of-day label from UTC (keep simple for v1)
+            let label = if dt.len() >= 13 {
+                format!("{} UTC", &dt[11..13])
+            } else {
+                dt.to_string()
+            };
+            hourly.push((label, reqs));
+        }
+    }
+
+    // Parse paths + status
+    let mut path_counts_map: std::collections::BTreeMap<String, u64> =
+        std::collections::BTreeMap::new();
+    let mut status_counts_map: std::collections::BTreeMap<u16, u64> =
+        std::collections::BTreeMap::new();
+    if let Some(arr) = zones["paths"].as_array() {
+        for row in arr {
+            let c = row["count"].as_u64().unwrap_or(0);
+            if let Some(p) = row["dimensions"]["clientRequestPath"].as_str() {
+                *path_counts_map.entry(p.to_string()).or_insert(0) += c;
+            }
+            if let Some(s) = row["dimensions"]["edgeResponseStatus"].as_u64() {
+                *status_counts_map.entry(s as u16).or_insert(0) += c;
+            }
+        }
+    }
+    let mut path_counts: Vec<(String, u64)> = path_counts_map.into_iter().collect();
+    path_counts.sort_by(|a, b| b.1.cmp(&a.1));
+    let top_paths: Vec<(String, u64)> = path_counts
+        .iter()
+        .filter(|(p, _)| {
+            // Filter out pure asset requests to surface meaningful paths in "top real paths"
+            !(p.starts_with("/assets/") || p.ends_with(".ico") || p.ends_with(".css")
+                || p.ends_with(".js") || p.ends_with(".svg") || p.ends_with(".png")
+                || p.ends_with(".webp"))
+        })
+        .take(15)
+        .cloned()
+        .collect();
+    let status_counts: Vec<(u16, u64)> = status_counts_map.into_iter().collect();
+
+    // Parse countries
+    let mut top_countries: Vec<(String, u64)> = Vec::new();
+    if let Some(arr) = zones["countries"].as_array() {
+        for row in arr {
+            let c = row["count"].as_u64().unwrap_or(0);
+            if let Some(cc) = row["dimensions"]["clientCountryName"].as_str() {
+                top_countries.push((cc.to_string(), c));
+            }
+        }
+    }
+
+    let out = PulseData {
+        hourly,
+        top_paths,
+        top_countries,
+        path_counts,
+        status_counts,
+        cache_age_sec: 0,
+    };
+    let mut guard = cache.lock().unwrap();
+    *guard = (out.clone(), std::time::Instant::now());
+    out
+}
+
+/// Minimal HTML escape. Keep the binary small.
+fn html_escape(s: &str) -> String {
+    s.replace('&', "&amp;")
+        .replace('<', "&lt;")
+        .replace('>', "&gt;")
+        .replace('"', "&quot;")
+}
+
 // f99 removed — P27 Diamond Rust Binary Architecture lives canonically at /arch#p27.
 // The standalone /diamond page was redundant with the /arch entry. Redirects
 // (/diamond, /diamond-architecture, /p27) now all point to the anchor.
