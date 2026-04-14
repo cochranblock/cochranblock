@@ -3558,6 +3558,56 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f96 = inventions. Named inventions + techniques with provenance.
+/// f101 = operations. Serves the signed Operating Agreement / Manifesto
+/// as an HTML page wrapped in site chrome. The markdown is pre-rendered
+/// to HTML at build time and embedded via include_packed! for zero-cost
+/// runtime serving. The PDF and .md are separately downloadable.
+pub async fn f101(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/operating-agreement.html");
+    let body_html = String::from_utf8_lossy(&body_bytes);
+    let v0 = format!(
+        r#"<section class="services" style="max-width:800px;margin:0 auto">
+<p class="services-intro" style="margin-bottom:1rem;padding:1rem;background:var(--note,#f5f2e8);border-left:4px solid var(--accent);font-size:0.95rem">
+<strong>This is the signed, operative Operating Agreement / Manifesto of The Cochran Block, LLC.</strong> Effective April 14, 2026. Signed by Michael Cochran as sole Member. <a href="/operating-agreement.pdf" style="font-weight:700">Download signed PDF &rarr;</a> &middot; <a href="/operating-agreement.md">Markdown source &rarr;</a>
+</p>
+<p class="services-intro" style="margin-bottom:2rem;font-size:0.9rem;color:#555">
+Published publicly as a governance transparency artifact under Article XXIII of the document itself. Also published as a template for other solo founders and small gov contractors: fork it, strip Company-specific language, adapt it, sign your own. Dedicated to the public domain via the Unlicense.
+</p>
+<article class="oa-body">
+{body_html}
+</article>
+<style>
+.oa-body h1 {{ font-size: 1.6rem; text-align: center; margin: 1em 0; font-weight: 700; letter-spacing: 0.03em; }}
+.oa-body h2 {{ font-size: 1.2rem; margin-top: 2em; margin-bottom: 0.5em; padding-bottom: 4pt; border-bottom: 1px solid #999; font-weight: 700; }}
+.oa-body h3 {{ font-size: 1rem; margin-top: 1em; margin-bottom: 0.3em; font-weight: 700; }}
+.oa-body p {{ margin: 0.6em 0; text-align: justify; line-height: 1.6; }}
+.oa-body hr {{ border: none; border-top: 1px solid #999; margin: 2em 0; }}
+.oa-body ul, .oa-body ol {{ margin: 0.5em 0 0.5em 1.5em; }}
+.oa-body li {{ margin-bottom: 0.3em; }}
+.oa-body blockquote {{ border-left: 3px solid var(--accent, #666); padding-left: 1rem; margin: 1em 0; font-style: italic; color: #333; }}
+.oa-body table {{ width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em; }}
+.oa-body th, .oa-body td {{ border: 1px solid #333; padding: 0.3em 0.5em; text-align: left; vertical-align: top; }}
+.oa-body th {{ background: #eee; font-weight: 700; }}
+.oa-body code {{ font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.9em; background: #f3f3f3; padding: 1pt 3pt; border-radius: 2pt; }}
+.oa-body pre {{ font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.85em; background: #f7f7f7; border: 1px solid #ccc; padding: 0.8em; border-radius: 3pt; overflow-x: auto; }}
+.oa-body strong {{ font-weight: 700; }}
+@media (max-width: 640px) {{
+  .oa-body h1 {{ font-size: 1.3rem; }}
+  .oa-body h2 {{ font-size: 1.1rem; }}
+  .oa-body p {{ text-align: left; }}
+}}
+</style>
+</section>"#,
+        body_html = body_html
+    );
+    let head = f62d(
+        "operations",
+        "Operating Agreement / Manifesto | The Cochran Block, LLC",
+        "The signed Operating Agreement of The Cochran Block, LLC, also functioning as the Manifesto for how the Company is run. Public transparency artifact. Unlicensed template for other solo founders to fork.",
+    );
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
 /// f100 = pulse. Up-to-the-minute threat + biz intel for cochranblock.org.
 /// 60-second cache. Auto-refreshes via meta tag. CF GraphQL only (zone
 /// cochranblock.org, free-plan compatible via httpRequests1hGroups).

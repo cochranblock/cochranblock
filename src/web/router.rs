@@ -72,6 +72,39 @@ pub fn f1(p0: t0) -> Router {
         .route("/protocols", get(|| async { Redirect::permanent("/arch#p26") }))
         .route("/security", get(pages::f98))
         .route("/pulse", get(pages::f100))
+        .route("/operations", get(pages::f101))
+        .route(
+            "/operating-agreement",
+            get(|| async { Redirect::permanent("/operations") }),
+        )
+        .route(
+            "/manifesto",
+            get(|| async { Redirect::permanent("/operations") }),
+        )
+        .route(
+            "/operating-agreement.pdf",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "application/pdf",
+                    )],
+                    include_packed::include_packed!("assets/operating-agreement.pdf"),
+                )
+            }),
+        )
+        .route(
+            "/operating-agreement.md",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/operating-agreement.md"),
+                )
+            }),
+        )
         .route(
             "/live",
             get(|| async { Redirect::permanent("/pulse") }),
