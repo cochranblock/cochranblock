@@ -5186,22 +5186,40 @@ incremental = false</pre>
 <p>A single Rust binary replaces the entire cloud stack. Real pricing from published rate cards. Two of the columns below are <em>this</em> site — once with CF Tunnel as the only ingress, once with both CF and the sovereign direct path running in parallel.</p>
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Component</strong></td><td><strong>AWS</strong></td><td><strong>Azure</strong></td><td><strong>GCP</strong></td><td><strong>Rust + CF Tunnel</strong></td><td><strong>Rust + CF + Direct</strong></td></tr>
-<tr><td>Compute</td><td class="cost-amount cost-old">$613/mo</td><td class="cost-amount cost-old">$292/mo</td><td class="cost-amount cost-old">$2,144/mo</td><td class="cost-amount cost-new">$10/mo</td><td class="cost-amount cost-new">$10/mo</td></tr>
+<tr><td><strong>Component</strong></td><td><strong>AWS</strong></td><td><strong>Azure</strong></td><td><strong>GCP</strong></td><td><strong>Rust + CF Tunnel</strong></td><td><strong>Rust + Direct only</strong></td></tr>
+<tr><td>Compute</td><td class="cost-amount cost-old">$613/mo</td><td class="cost-amount cost-old">$292/mo</td><td class="cost-amount cost-old">$2,144/mo</td><td class="cost-amount cost-new">$10/mo*</td><td class="cost-amount cost-new">$0</td></tr>
 <tr><td>Load Balancer</td><td class="cost-amount cost-old">$215/mo</td><td class="cost-amount cost-old">$246/mo</td><td class="cost-amount cost-old">$30/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
 <tr><td>Database</td><td class="cost-amount cost-old">$98/mo</td><td class="cost-amount cost-old">$75/mo</td><td class="cost-amount cost-old">$54/mo</td><td class="cost-amount cost-new">built-in (sled)</td><td class="cost-amount cost-new">built-in (sled)</td></tr>
 <tr><td>Cache</td><td class="cost-amount cost-old">$97/mo</td><td class="cost-amount cost-old">$162/mo</td><td class="cost-amount cost-old">$173/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
 <tr><td>NAT Gateway</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$9/mo</td><td class="cost-amount cost-new">$0</td><td class="cost-amount cost-new">$0</td></tr>
-<tr><td>CDN + WAF</td><td class="cost-amount cost-old">$29/mo</td><td class="cost-amount cost-old">$21/mo</td><td class="cost-amount cost-old">$17/mo</td><td class="cost-amount cost-new">CF free</td><td class="cost-amount cost-new">CF free + rustls</td></tr>
+<tr><td>CDN + WAF</td><td class="cost-amount cost-old">$29/mo</td><td class="cost-amount cost-old">$21/mo</td><td class="cost-amount cost-old">$17/mo</td><td class="cost-amount cost-new">CF free</td><td class="cost-amount cost-new">$0 (none needed)</td></tr>
 <tr><td>TLS termination</td><td>included</td><td>included</td><td>included</td><td class="cost-amount cost-new">CF edge ($0)</td><td class="cost-amount cost-new">approuter-acme ($0)</td></tr>
 <tr><td>Public IP / ingress</td><td class="cost-amount cost-old">$3.60/mo</td><td class="cost-amount cost-old">$3.65/mo</td><td class="cost-amount cost-old">$2.92/mo</td><td class="cost-amount cost-new">$0 (CF anycast)</td><td class="cost-amount cost-new">$0 (FiOS WAN)</td></tr>
 <tr><td>Monitoring + Logs</td><td class="cost-amount cost-old">$5/mo</td><td class="cost-amount cost-old">$14/mo</td><td class="cost-amount cost-old">$6/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
-<tr class="cost-row-highlight"><td><strong>Total (monthly)</strong></td><td class="cost-amount cost-old"><strong>$1,099</strong></td><td class="cost-amount cost-old"><strong>$849</strong></td><td class="cost-amount cost-old"><strong>$2,433</strong></td><td class="cost-amount cost-new"><strong>$10</strong></td><td class="cost-amount cost-new"><strong>$10</strong></td></tr>
-<tr class="cost-row-highlight"><td><strong>Total (annual)</strong></td><td class="cost-amount cost-old"><strong>$13,184</strong></td><td class="cost-amount cost-old"><strong>$10,184</strong></td><td class="cost-amount cost-old"><strong>$29,194</strong></td><td class="cost-amount cost-new"><strong>$120</strong></td><td class="cost-amount cost-new"><strong>$120</strong></td></tr>
-<tr class="cost-row-highlight"><td><strong>Reduction</strong></td><td class="cost-amount cost-old"><strong>110x</strong></td><td class="cost-amount cost-old"><strong>85x</strong></td><td class="cost-amount cost-old"><strong>243x</strong></td><td>—</td><td>—</td></tr>
+<tr class="cost-row-highlight"><td><strong>Paid to a vendor (monthly)</strong></td><td class="cost-amount cost-old"><strong>$1,099</strong></td><td class="cost-amount cost-old"><strong>$849</strong></td><td class="cost-amount cost-old"><strong>$2,433</strong></td><td class="cost-amount cost-new"><strong>$10*</strong></td><td class="cost-amount cost-new"><strong>$0</strong></td></tr>
+<tr class="cost-row-highlight"><td><strong>Annual</strong></td><td class="cost-amount cost-old"><strong>$13,184</strong></td><td class="cost-amount cost-old"><strong>$10,184</strong></td><td class="cost-amount cost-old"><strong>$29,194</strong></td><td class="cost-amount cost-new"><strong>$120</strong></td><td class="cost-amount cost-new"><strong>$0</strong></td></tr>
+<tr class="cost-row-highlight"><td><strong>Reduction vs cloud</strong></td><td class="cost-amount cost-old"><strong>110x</strong></td><td class="cost-amount cost-old"><strong>85x</strong></td><td class="cost-amount cost-old"><strong>243x</strong></td><td>—</td><td class="cost-amount cost-new"><strong>∞</strong></td></tr>
 </table>
 </div>
-<p style="font-size:0.85rem;opacity:0.7"><em>The "+ Direct" column adds zero new monthly spend because the FiOS line, the Orbi router, the gd node, and the public IP that Verizon hands out are all infrastructure that already exists for the household. The marginal cost of bolting a TLS terminator onto port 443 is the electricity to run the Rust binary, which is in the noise. Sovereignty is not a paid feature.</em></p>
+<p style="font-size:0.85rem;opacity:0.7"><em>* The $10/mo on the "Rust + CF Tunnel" line is amortized hardware + electricity for the gd node, not money sent to Cloudflare. CF's free tier covers tunnel, anycast, TLS, DNS, and WAF at zero. <strong>The "Direct only" column has no vendor on the path at all.</strong> Domain registration (~$12/year) is the single residual line, and that's a name-system cost, not a hosting cost — the registrar is not on the request path.</em></p>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>What "$0 to any vendor" actually means</summary>
+<div class="govdoc-print">
+<p>The direct-only column is a real, working configuration — not a thought experiment. <code>direct.cochranblock.org</code> resolves to a residential FiOS public IP, hits a Netgear Orbi NAT, lands on a Rust binary called <strong>approuter-acme</strong> that terminates TLS with a Let's Encrypt cert it renewed itself, and proxies to <strong>approuter</strong> which proxies to <strong>cochranblock</strong> — three pure-Rust binaries built under P27 Diamond.</p>
+<p><strong>What's paid to whom on the direct path:</strong></p>
+<ul>
+<li><strong>Verizon FiOS</strong> — $90/mo for residential internet that the household already has. Marginal cost of running a public website over it: $0.</li>
+<li><strong>Let's Encrypt</strong> — $0. The whole reason ACME exists.</li>
+<li><strong>Hardware (gd node)</strong> — ~$400 one-time, three-year amortization ≈ $11/mo, paid to Newegg years ago. Recoverable resale value.</li>
+<li><strong>Power</strong> — gd draws ~25W idle, ~50W under load. At $0.13/kWh that's ~$3-5/mo.</li>
+<li><strong>AWS / Azure / GCP / Vercel / Netlify / Render / Fly / Heroku / DigitalOcean</strong> — $0. None of them are on the path. None of them get a credit card.</li>
+<li><strong>Cloudflare</strong> — also $0 if you keep them for DNS, but the direct path doesn't require them at all. DNS can be self-hosted or bought from any registrar for ~$1/month.</li>
+</ul>
+<p>Going off cloud isn't aspirational. It's a thing this exact site does, right now, on the connection serving you this page if you came in via direct.cochranblock.org. The marginal new infrastructure required to make it real was a single Rust binary (<a href="/arch">approuter-acme</a>) and one Orbi port-forward rule. <strong>If every hyperscaler turned off its account creation tomorrow, this site would not notice.</strong></p>
+</div>
+</details>
+</div>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>The NAT Gateway tax</summary>
