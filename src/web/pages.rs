@@ -3558,6 +3558,40 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f96 = inventions. Named inventions + techniques with provenance.
+/// f102 = recommendation-melissa. Unconditional recommendation for promotion
+/// of SBA VetCert case reviewer Melissa, published per the letter's own terms.
+pub async fn f102(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/recommendation-melissa.html");
+    let body_html = String::from_utf8_lossy(&body_bytes);
+    let v0 = format!(
+        r#"<section class="services" style="max-width:800px;margin:0 auto">
+<p class="services-intro" style="margin-bottom:1rem;padding:1rem;background:rgba(127,127,127,0.08);border-left:4px solid var(--accent2,#1a6f3a);font-size:0.95rem">
+<strong>Unconditional recommendation for promotion of a U.S. Small Business Administration case reviewer.</strong> Published publicly per the letter's own terms so the record cannot quietly disappear from any performance file. Unconditional — stands regardless of whether Application 86682 is accepted, rejected, or closed. <a href="/recommendation-melissa.pdf" style="font-weight:700">Signed PDF &rarr;</a> &middot; <a href="/recommendation-melissa.md">Markdown source &rarr;</a>
+</p>
+<article class="oa-body">
+{body_html}
+</article>
+<style>
+.oa-body h1 {{ font-size: 1.5rem; text-align: center; margin: 1em 0; font-weight: 700; }}
+.oa-body h2 {{ font-size: 1.15rem; margin-top: 1.5em; margin-bottom: 0.4em; font-weight: 700; }}
+.oa-body h3 {{ font-size: 1rem; margin-top: 1em; margin-bottom: 0.3em; font-weight: 700; }}
+.oa-body p {{ margin: 0.7em 0; line-height: 1.6; }}
+.oa-body hr {{ border: none; border-top: 1px solid rgba(127,127,127,0.3); margin: 1.5em 0; }}
+.oa-body strong {{ font-weight: 700; }}
+.oa-body em {{ font-style: italic; }}
+.oa-body code {{ font-family: var(--font-mono, monospace); font-size: 0.9em; background: rgba(127,127,127,0.15); padding: 1pt 4pt; border-radius: 2pt; }}
+</style>
+</section>"#,
+        body_html = body_html
+    );
+    let head = f62d(
+        "recommendation-melissa",
+        "Recommendation for Promotion — Melissa, SBA VetCert | The Cochran Block",
+        "Unconditional public recommendation for promotion of Melissa, SBA VetCert case reviewer (direct line 202-798-2061), based on the quality of her correction notice on Application 86682. Stands regardless of application outcome. Published per transparency policy.",
+    );
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
 /// f101 = operations. Serves the signed Operating Agreement / Manifesto
 /// as an HTML page wrapped in site chrome. The markdown is pre-rendered
 /// to HTML at build time and embedded via include_packed! for zero-cost
@@ -3567,10 +3601,10 @@ pub async fn f101(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_html = String::from_utf8_lossy(&body_bytes);
     let v0 = format!(
         r#"<section class="services" style="max-width:800px;margin:0 auto">
-<p class="services-intro" style="margin-bottom:1rem;padding:1rem;background:var(--note,#f5f2e8);border-left:4px solid var(--accent);font-size:0.95rem">
+<p class="services-intro" style="margin-bottom:1rem;padding:1rem;background:rgba(127,127,127,0.08);border-left:4px solid var(--accent);font-size:0.95rem">
 <strong>This is the signed, operative Operating Agreement / Manifesto of The Cochran Block, LLC.</strong> Effective April 14, 2026. Signed by Michael Cochran as sole Member. <a href="/operating-agreement.pdf" style="font-weight:700">Download signed PDF &rarr;</a> &middot; <a href="/operating-agreement.md">Markdown source &rarr;</a>
 </p>
-<p class="services-intro" style="margin-bottom:2rem;font-size:0.9rem;color:#555">
+<p class="services-intro" style="margin-bottom:2rem;font-size:0.9rem;opacity:0.75">
 Published publicly as a governance transparency artifact under Article XXIII of the document itself. Also published as a template for other solo founders and small gov contractors: fork it, strip Company-specific language, adapt it, sign your own. Dedicated to the public domain via the Unlicense.
 </p>
 <article class="oa-body">
@@ -3578,18 +3612,19 @@ Published publicly as a governance transparency artifact under Article XXIII of 
 </article>
 <style>
 .oa-body h1 {{ font-size: 1.6rem; text-align: center; margin: 1em 0; font-weight: 700; letter-spacing: 0.03em; }}
-.oa-body h2 {{ font-size: 1.2rem; margin-top: 2em; margin-bottom: 0.5em; padding-bottom: 4pt; border-bottom: 1px solid #999; font-weight: 700; }}
+.oa-body h2 {{ font-size: 1.2rem; margin-top: 2em; margin-bottom: 0.5em; padding-bottom: 4pt; border-bottom: 1px solid rgba(127,127,127,0.3); font-weight: 700; }}
 .oa-body h3 {{ font-size: 1rem; margin-top: 1em; margin-bottom: 0.3em; font-weight: 700; }}
 .oa-body p {{ margin: 0.6em 0; text-align: justify; line-height: 1.6; }}
-.oa-body hr {{ border: none; border-top: 1px solid #999; margin: 2em 0; }}
+.oa-body hr {{ border: none; border-top: 1px solid rgba(127,127,127,0.3); margin: 2em 0; }}
 .oa-body ul, .oa-body ol {{ margin: 0.5em 0 0.5em 1.5em; }}
 .oa-body li {{ margin-bottom: 0.3em; }}
-.oa-body blockquote {{ border-left: 3px solid var(--accent, #666); padding-left: 1rem; margin: 1em 0; font-style: italic; color: #333; }}
+.oa-body blockquote {{ border-left: 3px solid var(--accent, #666); padding-left: 1rem; margin: 1em 0; font-style: italic; opacity: 0.9; }}
 .oa-body table {{ width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em; }}
-.oa-body th, .oa-body td {{ border: 1px solid #333; padding: 0.3em 0.5em; text-align: left; vertical-align: top; }}
-.oa-body th {{ background: #eee; font-weight: 700; }}
-.oa-body code {{ font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.9em; background: #f3f3f3; padding: 1pt 3pt; border-radius: 2pt; }}
-.oa-body pre {{ font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.85em; background: #f7f7f7; border: 1px solid #ccc; padding: 0.8em; border-radius: 3pt; overflow-x: auto; }}
+.oa-body th, .oa-body td {{ border: 1px solid rgba(127,127,127,0.35); padding: 0.3em 0.5em; text-align: left; vertical-align: top; }}
+.oa-body th {{ background: rgba(127,127,127,0.12); font-weight: 700; }}
+.oa-body code {{ font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.9em; background: rgba(127,127,127,0.15); padding: 1pt 4pt; border-radius: 2pt; }}
+.oa-body pre {{ font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.85em; background: #1e1e1e; color: #eaeaea; border: 1px solid rgba(127,127,127,0.3); padding: 0.8em; border-radius: 3pt; overflow-x: auto; }}
+.oa-body pre code {{ background: transparent; color: inherit; padding: 0; }}
 .oa-body strong {{ font-weight: 700; }}
 @media (max-width: 640px) {{
   .oa-body h1 {{ font-size: 1.3rem; }}
@@ -4134,7 +4169,7 @@ pub async fn f98(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Security</h1>
 
-<blockquote style="font-size:1.35rem;font-style:italic;line-height:1.5;margin:2rem 0;padding:1.25rem 1.5rem;border-left:4px solid var(--accent);background:var(--note, #f5f2e8);color:var(--ink);">
+<blockquote style="font-size:1.35rem;font-style:italic;line-height:1.5;margin:2rem 0;padding:1.25rem 1.5rem;border-left:4px solid var(--accent);background:rgba(127,127,127,0.08);">
 "nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware."
 </blockquote>
 

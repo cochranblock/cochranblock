@@ -105,6 +105,28 @@ pub fn f1(p0: t0) -> Router {
                 )
             }),
         )
+        .route("/recommendation-melissa", get(pages::f102))
+        .route(
+            "/recommendation-melissa.pdf",
+            get(|| async {
+                (
+                    [(axum::http::header::CONTENT_TYPE, "application/pdf")],
+                    include_packed::include_packed!("assets/recommendation-melissa.pdf"),
+                )
+            }),
+        )
+        .route(
+            "/recommendation-melissa.md",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/recommendation-melissa.md"),
+                )
+            }),
+        )
         .route(
             "/live",
             get(|| async { Redirect::permanent("/pulse") }),
