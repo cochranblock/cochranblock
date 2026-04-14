@@ -596,6 +596,8 @@ Maryland eMMA — Vendor SUP1095449 · ACH Direct Deposit Active<br>
 crates.io — 4 published crates (kova-engine, exopack, any-gpu, header-writer)<br>
 GitHub — 15+ open source repositories at github.com/cochranblock</p>
 
+<p><a href="https://github.com/cochranblock" class="btn">Audit the source — github.com/cochranblock</a></p>
+
 <p><strong>Core Competencies</strong><br>
 • Memory-safe compiled architecture (Rust) — aligned with CISA Secure-by-Design mandate<br>
 • Zero-cloud single-binary deployment — eliminates cloud attack surface entirely<br>
@@ -1616,6 +1618,7 @@ for having you here." — Jay, USCYBERCOM
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Army veteran (17C Cyber Operations). 13 years defense and enterprise. SDVOSB submitted. It's not the Mech — it's the pilot.</p>
   <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 15 repos open-sourced, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
+  <p style="margin-top:1rem"><a href="https://github.com/cochranblock" class="btn">View source — 23 repos, 4 crates.io publications</a></p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
@@ -3389,6 +3392,8 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Architecture & Techniques</h1>
 <p class="services-intro">32 named contributions across 15 projects. Inventions, architecture patterns, techniques, and production engineering. Honest classification — we don't call architecture an invention.</p>
+
+<p class="services-cta" style="margin-bottom:2rem"><a href="https://github.com/cochranblock" class="btn">Audit the source — github.com/cochranblock</a></p>
 
 <h2 class="services-section-head">Inventions — No Known Prior Art</h2>
 <div class="service-cards">
