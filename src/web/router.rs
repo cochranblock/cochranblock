@@ -282,7 +282,22 @@ pub fn f1(p0: t0) -> Router {
                 )
             }),
         )
-        .route("/diamond", get(pages::f99))
+        .route(
+            "/diamond",
+            get(|| async { Redirect::permanent("/arch#p27") }),
+        )
+        .route(
+            "/diamond-architecture",
+            get(|| async { Redirect::permanent("/arch#p27") }),
+        )
+        .route(
+            "/diamond-rust-binary-architecture",
+            get(|| async { Redirect::permanent("/arch#p27") }),
+        )
+        .route(
+            "/p27",
+            get(|| async { Redirect::permanent("/arch#p27") }),
+        )
         .route(
             "/diamond-profile.toml",
             get(|| async {
@@ -294,14 +309,6 @@ pub fn f1(p0: t0) -> Router {
                     include_packed::include_packed!("assets/diamond-profile.toml"),
                 )
             }),
-        )
-        .route(
-            "/diamond-architecture",
-            get(|| async { Redirect::permanent("/diamond") }),
-        )
-        .route(
-            "/p27",
-            get(|| async { Redirect::permanent("/arch#p27") }),
         )
         .route(
             "/moonshot-frame",

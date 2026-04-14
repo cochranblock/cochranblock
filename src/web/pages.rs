@@ -3558,8 +3558,14 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f96 = inventions. Named inventions + techniques with provenance.
-/// f99 = diamond. Diamond Rust Binary Architecture — P27 protocol showcase.
-pub async fn f99(State(_p0): State<Arc<t0>>) -> Html<String> {
+// f99 removed — P27 Diamond Rust Binary Architecture lives canonically at /arch#p27.
+// The standalone /diamond page was redundant with the /arch entry. Redirects
+// (/diamond, /diamond-architecture, /p27) now all point to the anchor.
+//
+// Preserved here as a comment block only so git history has context for the
+// decision. The /diamond-profile.toml asset remains served as a downloadable.
+#[allow(dead_code)]
+async fn f99_removed_see_arch_p27_anchor(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Diamond Rust Binary Architecture</h1>
 
@@ -3941,7 +3947,7 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 <details class="service-card" open>
 <summary>P27 Diamond Rust Binary Architecture — Continuous Compression Discipline</summary>
-<p><strong>Project:</strong> every Rust repo &middot; <strong>Date:</strong> April 2026 &middot; <strong>Profile template:</strong> <a href="/diamond-profile.toml">diamond-profile.toml</a> &middot; <strong>Dedicated page:</strong> <a href="/diamond">/diamond</a></p>
+<p><strong>Project:</strong> every Rust repo &middot; <strong>Date:</strong> April 2026 &middot; <strong>Profile template:</strong> <a href="/diamond-profile.toml">diamond-profile.toml</a></p>
 <p>Carbon + sustained pressure + geologic time = diamond. Code + sustained compiler pressure + release discipline = diamond binary. Every build is a compression opportunity. Every release is another pressure pass. A binary that stops shrinking has stopped learning. A binary that grows without justification failed a merge.</p>
 <p><strong>The pressure settings</strong> (drop into Cargo.toml as <code>[profile.diamond]</code>): <code>opt-level=3</code>, <code>lto="fat"</code>, <code>codegen-units=1</code>, <code>strip=true</code>, <code>panic="abort"</code>, <code>overflow-checks=false</code>, <code>debug=false</code>, <code>incremental=false</code>. Build with <code>cargo build --profile=diamond</code>. Optional post-build: <code>upx --best --lzma</code> for 50-70% more compression on binaries destined for non-AV-scanned distribution.</p>
 <p><strong>Geology of the stack:</strong></p>
