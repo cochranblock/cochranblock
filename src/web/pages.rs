@@ -3558,6 +3558,139 @@ pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f96 = inventions. Named inventions + techniques with provenance.
+/// f99 = diamond. Diamond Rust Binary Architecture — P27 protocol showcase.
+pub async fn f99(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let v0 = r#"<section class="services">
+<h1>Diamond Rust Binary Architecture</h1>
+
+<blockquote style="font-size:1.3rem;font-style:italic;line-height:1.5;margin:2rem 0;padding:1.25rem 1.5rem;border-left:4px solid #9F7FE8;background:var(--note, #f5f2e8);color:var(--ink);">
+carbon plus sustained pressure plus geologic time equals diamond. code plus sustained compiler pressure plus release discipline equals diamond binary. your scripts make mulch, my binaries compress into diamonds. binaries beats bloatware.
+</blockquote>
+
+<p class="services-intro">P27 Diamond Rust Binary Architecture is the continuous-compression protocol that sits next to P26 Moonshot Frame in the Cochran Block stack. Every build is a compression opportunity. Every release is another pressure pass. The geology log is the pressure curve. Small is beautiful. Smaller is better. Sealed is best.</p>
+
+<h2 class="services-section-head">The Geology of a Rust Binary</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Stage</strong></td><td><strong>Geological analog</strong></td><td><strong>Rust mechanism</strong></td></tr>
+<tr><td>Raw code</td><td>Carbon (graphite, soft)</td><td>Source <code>.rs</code> files, generics not yet monomorphized</td></tr>
+<tr><td>First compile</td><td>Compression starts</td><td><code>cargo build</code> — borrow checker enforces no wasted allocations</td></tr>
+<tr><td>Release build</td><td>Heat + pressure</td><td><code>opt-level=3</code>, LLVM passes, dead code elimination</td></tr>
+<tr><td>LTO fat</td><td>Tectonic pressure</td><td>Cross-crate inlining, monomorphized generic dedup</td></tr>
+<tr><td>codegen-units=1</td><td>Single crystal</td><td>No fracture planes between compilation units</td></tr>
+<tr><td>strip + panic=abort</td><td>Mineral concentration</td><td>Symbols removed, unwinding machinery culled</td></tr>
+<tr><td>PGO (profile-guided)</td><td>Directional pressure</td><td>Hot paths inlined, cold paths culled from real trace data</td></tr>
+<tr><td>Continuous rebuilds</td><td>Geologic time</td><td>Every commit ratchets the binary tighter over months</td></tr>
+<tr><td class="cost-amount cost-new"><strong>Final artifact</strong></td><td class="cost-amount cost-new"><strong>Diamond</strong></td><td class="cost-amount cost-new"><strong>Tiny, dense, sealed, crystalline</strong></td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">The Geology of the Stack</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>What everyone else ships vs. what we ship</summary>
+<p><strong>Interpreted scripts (Python, JS, Ruby)</strong> = wood. Flammable, bulky, rots when wet. Every import statement is kindling.</p>
+<p><strong>Containerized stacks (Docker, K8s)</strong> = sandbags piled up. Looks solid from outside. Falls over in a real wind. Every layer is a bag of sand somebody else packed.</p>
+<p><strong>C/C++ with runtime deps</strong> = coal. Burns hot, cracks under load, full of impurities. Memory-safety CVEs are the black smoke.</p>
+<p><strong>Bare Rust binaries (no optimization)</strong> = graphite. Cleaner than coal, still soft. You can write with it but you can't cut with it.</p>
+<p><strong>Rust + P27 Diamond discipline</strong> = diamond. Crystalline. Dense. Sealed. Valuable. Hardest substance in the stack.</p>
+<p>Your attackers are shipping coal and calling it carbon. You are grinding diamonds.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">The Pressure Settings</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>Drop this block into your Cargo.toml</summary>
+<p>Paste the following under your Cargo.toml, then build with <code>cargo build --profile=diamond</code>:</p>
+<pre style="background:#1e1e1e;color:#eaeaea;padding:16px;overflow-x:auto;font-size:13px;line-height:1.5;border-left:4px solid #9F7FE8;border-radius:4px">[profile.diamond]
+inherits = "release"
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = true
+panic = "abort"
+overflow-checks = false
+debug = false
+incremental = false
+split-debuginfo = "off"</pre>
+<p>Each line is a pressure source. Remove one, the diamond weakens. Full explanation with tradeoffs: <a href="/diamond-profile.toml">diamond-profile.toml</a>.</p>
+</details>
+
+<details class="service-card">
+<summary>Optional post-build compression</summary>
+<p>After <code>cargo build --profile=diamond</code>, you can further compress with UPX:</p>
+<pre style="background:#1e1e1e;color:#eaeaea;padding:16px;overflow-x:auto;font-size:13px;line-height:1.5;border-left:4px solid #9F7FE8;border-radius:4px">upx --best --lzma target/diamond/my-binary</pre>
+<p>Cuts another 50-70% off typical binaries. Warning: some corporate antivirus engines flag UPX-compressed binaries as suspicious. Only UPX binaries destined for distribution where your users know what they're running (CLI tools, CTF payloads, personal use). Don't UPX anything scanned by corporate AV, it will get quarantined.</p>
+</details>
+
+<details class="service-card">
+<summary>Geology report per release</summary>
+<p>Record binary size to <code>binary-sizes.log</code> every release:</p>
+<pre style="background:#1e1e1e;color:#eaeaea;padding:16px;overflow-x:auto;font-size:13px;line-height:1.5;border-left:4px solid #9F7FE8;border-radius:4px">ls -la target/diamond/my-binary | awk '{print $5}' &gt;&gt; binary-sizes.log
+git add binary-sizes.log &amp;&amp; git commit -m "[P27] release geology $(date +%Y-%m-%d)"</pre>
+<p>The log IS the pressure curve. Every line is a release. Every release should shrink or stay flat. If the number went up, the commit message must explain why. Three releases of growth without justification = your binary left the P27 track.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Example Geology (cochranblock.org portfolio)</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Binary</strong></td><td><strong>Current size</strong></td><td><strong>Category</strong></td></tr>
+<tr><td>call-shield</td><td class="cost-amount cost-new">48 KB</td><td>fully crystallized</td></tr>
+<tr><td>aptnomo</td><td class="cost-amount cost-new">312 KB</td><td>compressed</td></tr>
+<tr><td>exopack</td><td class="cost-amount cost-new">313 KB</td><td>compressed</td></tr>
+<tr><td>provenance-docs</td><td class="cost-amount cost-new">328 KB</td><td>compressed</td></tr>
+<tr><td>whyyoulying</td><td class="cost-amount cost-new">505 KB</td><td>dense</td></tr>
+<tr><td>pocket-server</td><td class="cost-amount">1.01 MB</td><td>dense</td></tr>
+<tr><td>any-gpu</td><td class="cost-amount">1.5 MB</td><td>dense (GPU bench included)</td></tr>
+<tr><td>illbethejudgeofthat</td><td class="cost-amount">2.5 MB</td><td>room to compress</td></tr>
+<tr><td>ronin-sites</td><td class="cost-amount">4.0 MB</td><td>room to compress</td></tr>
+<tr><td>cochranblock</td><td class="cost-amount">8.9 MB</td><td>embedded assets — hard floor</td></tr>
+<tr><td>pixel-forge</td><td class="cost-amount">9.2 MB</td><td>embedded models — hard floor</td></tr>
+<tr><td>kova</td><td class="cost-amount">51.5 MB</td><td>LLM-embedded — hard floor TBD</td></tr>
+</table>
+</div>
+
+<p class="services-intro" style="margin-top:1rem;font-size:0.9rem;color:#666"><em>All sizes ARM aarch64 release builds. Updated each release. <a href="/tinybinaries">/tinybinaries</a> for the live numbers.</em></p>
+
+<h2 class="services-section-head">How Diamond stacks with other protocols</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>Five gates every serious repo passes</summary>
+<ul>
+<li><strong>P26 Moonshot Frame</strong> (quality gate) &mdash; "would this hold up at civilization scale?"</li>
+<li><strong>P27 Diamond Rust Binary</strong> (compression gate) &mdash; "can this get smaller?"</li>
+<li><strong>Unlicense Baby</strong> (licensing gate) &mdash; "can anyone own it?"</li>
+<li><strong>NanoSign</strong> (integrity gate) &mdash; "is it authentic?"</li>
+<li><strong>Assumed Breach Threat Model</strong> (security gate) &mdash; "what happens when it's compromised?"</li>
+</ul>
+<p>P27 is the compression protocol. P26 is the quality gate. Together: small AND correct. Neither one alone is enough. Diamond without Moonshot is a tiny sharp bug. Moonshot without Diamond is correct code that won't fit in your launch vehicle.</p>
+</details>
+</div>
+
+<h2 class="services-section-head">Not to be confused with</h2>
+<div class="service-cards">
+<details class="service-card">
+<summary>Sergio Caltagirone's Diamond Model of Intrusion Analysis (2013)</summary>
+<p>Caltagirone's Diamond Model is a cybersecurity framework for analyzing intrusions: four corners (Adversary / Capability / Infrastructure / Victim) connected in a diamond shape. Every CTI practitioner knows it. Well-deserved prior art in a completely different domain.</p>
+<p>P27 Diamond Rust Binary Architecture is about binary compression via sustained compiler pressure. Different universe. Both happen to use the word "diamond" and both happen to draw shapes. That is where the similarity ends.</p>
+<p>Credit where credit is due: the Diamond Model is Caltagirone, Pendergast, Betz. This is something else.</p>
+</details>
+</div>
+
+<p class="services-cta" style="margin-top:2rem"><a href="/diamond-profile.toml" class="btn">Download diamond-profile.toml</a><a href="/arch#p27" class="btn btn-secondary">P27 on /arch</a><a href="/tinybinaries" class="btn btn-secondary">Live binary sizes</a><a href="/MOONSHOT_FRAME.md" class="btn btn-secondary">P26 Moonshot Frame</a></p>
+
+<p class="services-intro" style="margin-top:2rem;font-size:0.95rem;color:#666"><em>"continuous pressure makes diamonds. your scripts make mulch."</em> &mdash; Cochran Block, 2026&ndash;forever.</p>
+</section>"#;
+    let head = f62d(
+        "diamond",
+        "Diamond Rust Binary Architecture | P27 | CochranBlock",
+        "Continuous compression discipline for Rust binaries. Carbon plus pressure plus time equals diamond. Code plus compiler pressure plus release discipline equals diamond binary. Profile template, geology report, companion to P26 Moonshot Frame.",
+    );
+    Html([head.as_str(), C7, v0, C8].concat())
+}
+
 /// f98 = security. The Cochran Block security posture page. Motto-first.
 pub async fn f98(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
@@ -3804,6 +3937,24 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p><strong>In action:</strong> Openbooks JSON parser v1 (string split on <code>"date":"</code>, silent failures, no pagination) failed Moonshot Frame. v2 (typed <code>GhCommitEnvelope</code> / <code>GhCommit</code> / <code>GhSignature</code>, typed <code>FetchError</code>, RFC 5988 Link pagination, 20-page safety cap, <code>committer.date</code> not backdate-able, visible errors via eprintln) passed. Same pattern applies to any wire format: telemetry, safetensors, CCSDS frames, AI tool calls.</p>
 <p><strong>Prior art:</strong> Code review checklists exist. DO-178C review criteria exist. Aerospace and automotive qualification processes exist. What's different: a single-question frame that scales from a one-line commit to a twenty-page proposal, with deterministic trigger ("good enough for me" is the trigger to apply), public template, and a shield badge repos can earn. Pairs with Unlicense + NanoSign + Timeline of Invention as the Cochran Block quality stack.</p>
 <p><strong>Apply when:</strong> the current version feels "good enough for me." That phrase is the trigger. Apply double under time pressure — that's when regret compounds.</p>
+</details>
+
+<details class="service-card" open>
+<summary>P27 Diamond Rust Binary Architecture — Continuous Compression Discipline</summary>
+<p><strong>Project:</strong> every Rust repo &middot; <strong>Date:</strong> April 2026 &middot; <strong>Profile template:</strong> <a href="/diamond-profile.toml">diamond-profile.toml</a> &middot; <strong>Dedicated page:</strong> <a href="/diamond">/diamond</a></p>
+<p>Carbon + sustained pressure + geologic time = diamond. Code + sustained compiler pressure + release discipline = diamond binary. Every build is a compression opportunity. Every release is another pressure pass. A binary that stops shrinking has stopped learning. A binary that grows without justification failed a merge.</p>
+<p><strong>The pressure settings</strong> (drop into Cargo.toml as <code>[profile.diamond]</code>): <code>opt-level=3</code>, <code>lto="fat"</code>, <code>codegen-units=1</code>, <code>strip=true</code>, <code>panic="abort"</code>, <code>overflow-checks=false</code>, <code>debug=false</code>, <code>incremental=false</code>. Build with <code>cargo build --profile=diamond</code>. Optional post-build: <code>upx --best --lzma</code> for 50-70% more compression on binaries destined for non-AV-scanned distribution.</p>
+<p><strong>Geology of the stack:</strong></p>
+<ul>
+<li>Interpreted scripts → wood (flammable, bulky)</li>
+<li>C/C++ with runtime deps → coal (burns hot, cracks under load)</li>
+<li>Containerized stacks → sandbags piled up (looks solid, falls over)</li>
+<li>Bare Rust binaries → graphite (cleaner than coal, still soft)</li>
+<li><strong>Rust + P27 discipline → diamond</strong> (crystalline, dense, sealed)</li>
+</ul>
+<p><strong>Geology report per release:</strong> record binary size to <code>binary-sizes.log</code> every release. Binary should shrink or stay flat over cycles. Growth requires justification. The log IS the pressure curve.</p>
+<p><strong>Prior art:</strong> binary-size optimization is a decades-old concern (1980s embedded systems, demoscene 4K/64K intros, BusyBox, sqlite single-file amalgamation). What's different: a named Rust-specific discipline, continuous rather than one-shot, with a geology metaphor that maps carbon-to-diamond onto Rust's compilation pipeline, a shipped profile template anyone can paste, and a shield repos earn by proving the geology log.</p>
+<p><strong>Does not collide with Caltagirone's Diamond Model of Intrusion Analysis (2013)</strong> — his Diamond is about how attacks work (Adversary / Capability / Infrastructure / Victim). Ours is about how binaries compress. Different domains, both happen to use the word.</p>
 </details>
 
 </div>

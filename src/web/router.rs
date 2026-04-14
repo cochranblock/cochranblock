@@ -282,6 +282,27 @@ pub fn f1(p0: t0) -> Router {
                 )
             }),
         )
+        .route("/diamond", get(pages::f99))
+        .route(
+            "/diamond-profile.toml",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/plain; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/diamond-profile.toml"),
+                )
+            }),
+        )
+        .route(
+            "/diamond-architecture",
+            get(|| async { Redirect::permanent("/diamond") }),
+        )
+        .route(
+            "/p27",
+            get(|| async { Redirect::permanent("/arch#p27") }),
+        )
         .route(
             "/moonshot-frame",
             get(|| async { Redirect::permanent("/MOONSHOT_FRAME.md") }),
