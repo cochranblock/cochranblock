@@ -58,6 +58,9 @@ pub fn f1(p0: t0) -> Router {
         .route("/source", get(pages::f83))
         .route("/search", get(pages::f84))
         .route("/stats", get(pages::f97))
+        .route("/sovereignty", get(pages::f103))
+        .route("/sovereign", get(|| async { Redirect::permanent("/sovereignty") }))
+        .route("/proof", get(|| async { Redirect::permanent("/sovereignty") }))
         .route("/speed", get(|| async { Redirect::permanent("/stats") }))
         .route("/openbooks", get(pages::f86))
         .route(

@@ -3643,6 +3643,229 @@ Published publicly as a governance transparency artifact under Article XXIII of 
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
 }
 
+/// f103 = sovereignty. Live proof-of-independence page for cochranblock.org.
+/// Presents six auditable facts plus copy-paste CLI snippets so a skeptic can
+/// run every check from their own machine without trusting the server.
+///
+/// What we compute server-side:
+///   - Git commit + build timestamp (from build.rs rustc-env vars)
+///   - Binary SHA256 (hashed once at startup, cached)
+///   - Process start timestamp (captured at first page load, cached)
+///   - Hostname (uname)
+/// What we refuse to compute server-side (to keep the proof externally verifiable):
+///   - Public IP lookup (visitor runs `dig +short direct.cochranblock.org` themselves)
+///   - traceroute (visitor runs it from their own network)
+///   - TLS cert issuer (visitor runs `openssl s_client` themselves)
+///   - whois on IP (visitor runs `whois` themselves)
+/// The page's value is not that we certify these facts — it's that we hand
+/// the visitor a copy-pasteable recipe to certify them independently.
+pub async fn f103(State(_p0): State<Arc<t0>>) -> Html<String> {
+    use sha2::{Digest, Sha256};
+    use std::sync::OnceLock;
+
+    static BINARY_SHA: OnceLock<String> = OnceLock::new();
+    static PROCESS_START: OnceLock<i64> = OnceLock::new();
+
+    let binary_sha = BINARY_SHA
+        .get_or_init(|| {
+            // Hash our own binary so the visitor can reproduce it from source.
+            // /proc/self/exe on Linux, argv[0] fallback elsewhere. If unreadable,
+            // emit "unavailable" rather than crashing the page.
+            let exe_path = std::env::current_exe().ok();
+            match exe_path.and_then(|p| std::fs::read(p).ok()) {
+                Some(bytes) => {
+                    let mut h = Sha256::new();
+                    h.update(&bytes);
+                    format!("{:x}", h.finalize())
+                }
+                None => "unavailable".to_string(),
+            }
+        })
+        .clone();
+    let binary_sha_short: String = binary_sha.chars().take(16).collect();
+
+    let process_start_unix = *PROCESS_START.get_or_init(|| {
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_secs() as i64)
+            .unwrap_or(0)
+    });
+    let process_start_rfc = chrono::DateTime::<chrono::Utc>::from_timestamp(process_start_unix, 0)
+        .map(|d| d.to_rfc3339())
+        .unwrap_or_else(|| "unknown".to_string());
+
+    let git_commit = option_env!("GIT_COMMIT").unwrap_or("unknown");
+    let git_commit_short = option_env!("GIT_COMMIT_SHORT").unwrap_or("unknown");
+    let build_ts_unix: i64 = option_env!("BUILD_TIMESTAMP")
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+    let build_ts_rfc = chrono::DateTime::<chrono::Utc>::from_timestamp(build_ts_unix, 0)
+        .map(|d| d.to_rfc3339())
+        .unwrap_or_else(|| "unknown".to_string());
+
+    let hostname = std::process::Command::new("hostname")
+        .output()
+        .ok()
+        .and_then(|o| String::from_utf8(o.stdout).ok())
+        .map(|s| s.trim().to_string())
+        .unwrap_or_else(|| "unknown".to_string());
+
+    let v0 = format!(
+        r#"<section class="services" style="max-width:900px;margin:0 auto">
+<h1>Sovereignty — Proof, Not Promise</h1>
+<p class="services-intro">cochranblock.org claims two things on <a href="/stats">/stats</a>: zero vendor on the request path (via <code>direct.cochranblock.org</code>), and the ability to keep serving if every hyperscaler disappeared tomorrow. This page hands you the recipe to audit both claims from your own machine. Every fact below is either a value this server emitted, or a command you can run to verify it independently.</p>
+
+<div style="margin:2rem 0;padding:1rem 1.25rem;background:rgba(76,175,80,0.08);border-left:4px solid #4caf50;border-radius:4px">
+<strong style="font-size:1.1rem;color:#4caf50">The proof model:</strong> don't trust the server. Run the six checks below from your own shell. If they pass, sovereignty holds. If any of them fail — or if this page lies about a value the CLI disagrees with — the claim is broken, the shield comes off the README, and you should email the owner.
+</div>
+
+<h2 class="services-section-head">Server-emitted facts (this binary, right now)</h2>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Fact</strong></td><td><strong>Value</strong></td><td><strong>Source</strong></td></tr>
+<tr><td>Git commit (source)</td><td class="cost-amount cost-new"><code>{git_commit_short}</code></td><td><a href="https://github.com/cochranblock/cochranblock/commit/{git_commit}">github.com/cochranblock/cochranblock@{git_commit_short}</a></td></tr>
+<tr><td>Binary SHA256 (short)</td><td class="cost-amount cost-new"><code>{binary_sha_short}…</code></td><td>computed at startup from <code>/proc/self/exe</code></td></tr>
+<tr><td>Build timestamp (UTC)</td><td class="cost-amount cost-new"><code>{build_ts_rfc}</code></td><td>build.rs emitted at <code>cargo build</code></td></tr>
+<tr><td>Process start (UTC)</td><td class="cost-amount cost-new"><code>{process_start_rfc}</code></td><td>captured on first page-load since boot</td></tr>
+<tr><td>Host identifier</td><td class="cost-amount cost-new"><code>{hostname}</code></td><td>kernel <code>hostname(1)</code></td></tr>
+<tr><td>Full binary SHA256</td><td colspan="2"><code style="font-size:0.8rem;word-break:break-all">{binary_sha}</code></td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">The Six Proofs — run these yourself</h2>
+
+<details class="service-card" open>
+<summary><strong>Proof 1 — No hyperscaler ASN on the wire</strong></summary>
+<div class="govdoc-print">
+<p><strong>Claim:</strong> packets from you reach this server through consumer ISP → backbone → Verizon FiOS (AS701). No AWS (AS16509), Azure (AS8075), GCP (AS15169), or Cloudflare (AS13335) on the path.</p>
+<p><strong>Run it:</strong></p>
+<pre style="background:rgba(127,127,127,0.08);padding:0.75rem;overflow-x:auto;font-size:0.85rem"><code>traceroute direct.cochranblock.org
+# then for each hop IP:
+whois -h whois.cymru.com " -v $IP"</code></pre>
+<p><strong>Pass if:</strong> the last few hops resolve to AS701 (Verizon) and your ISP's AS. Zero hyperscaler ASNs in the trace.</p>
+<p><strong>Why this proves it:</strong> traceroute runs on <em>your</em> machine, not ours. We cannot fake hops. ASN ownership is public RIPE/ARIN data, independent of anything the server says.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary><strong>Proof 2 — TLS cert issued by Let's Encrypt, not a vendor</strong></summary>
+<div class="govdoc-print">
+<p><strong>Claim:</strong> the cert terminating TLS is from ISRG Root X1 (Let's Encrypt), issued via ACME DNS-01 to a Rust binary that speaks the protocol itself. No Cloudflare Origin CA, no AWS ACM, no Azure Key Vault.</p>
+<p><strong>Run it:</strong></p>
+<pre style="background:rgba(127,127,127,0.08);padding:0.75rem;overflow-x:auto;font-size:0.85rem"><code>openssl s_client -connect direct.cochranblock.org:443 \
+  -servername direct.cochranblock.org &lt; /dev/null 2&gt;/dev/null \
+  | openssl x509 -noout -issuer -subject -dates</code></pre>
+<p><strong>Pass if:</strong> <code>issuer=</code> contains <code>O = Let's Encrypt</code>. Anything else — ACM, Origin CA, DigiCert, etc — fails the proof.</p>
+<p><strong>Why this proves it:</strong> the cert bytes come from the TLS handshake your client already does. We cannot rewrite what your client sees. The issuer is signed by a root you already trust, not by us.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary><strong>Proof 3 — Public IP is a household FiOS assignment</strong></summary>
+<div class="govdoc-print">
+<p><strong>Claim:</strong> the A record for <code>direct.cochranblock.org</code> resolves to an IP allocated to Verizon Communications, not to a cloud provider's prefix.</p>
+<p><strong>Run it:</strong></p>
+<pre style="background:rgba(127,127,127,0.08);padding:0.75rem;overflow-x:auto;font-size:0.85rem"><code>dig +short direct.cochranblock.org
+whois $(dig +short direct.cochranblock.org) | grep -iE "orgname|netname|country"</code></pre>
+<p><strong>Pass if:</strong> OrgName is Verizon / MCI / Cellco, NetName contains a FiOS or residential tag. Fail if it's Amazon, Google, Microsoft, Cloudflare, DigitalOcean, Linode, Hetzner, OVH, or any hosting provider.</p>
+<p><strong>Why this proves it:</strong> WHOIS records are registry-maintained at ARIN/RIPE and not under our control. The IP→Org mapping is public record.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary><strong>Proof 4 — Binary is reproducible from public source</strong></summary>
+<div class="govdoc-print">
+<p><strong>Claim:</strong> the three Rust binaries on the path (approuter-acme → approuter → cochranblock) are all Unlicense'd, published, and their SHA256 matches what you get when you <code>cargo build --profile=diamond</code> from the same commit.</p>
+<p><strong>Run it:</strong></p>
+<pre style="background:rgba(127,127,127,0.08);padding:0.75rem;overflow-x:auto;font-size:0.85rem"><code>git clone https://github.com/cochranblock/cochranblock
+cd cochranblock
+git checkout {git_commit_short}
+cargo build --profile=diamond
+sha256sum target/diamond/cochranblock
+# Compare with the SHA256 emitted above: {binary_sha_short}...</code></pre>
+<p><strong>Pass if:</strong> your locally-built SHA256 matches the one this page reports. (Perfect reproducibility requires matching toolchain + target triple — see <a href="/arch#p27">P27 Diamond</a> for the canonical profile.)</p>
+<p><strong>Why this proves it:</strong> no supply-chain middleman can inject code that doesn't show up in your local build. If the hashes match, you've verified there is no build-time vendor on the path either.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary><strong>Proof 5 — Hyperscaler-blackhole drill (network-level ablation)</strong></summary>
+<div class="govdoc-print">
+<p><strong>Claim:</strong> the site has no runtime dependency on any hyperscaler. Drop their entire IP space at the firewall on the origin box and the site keeps serving.</p>
+<p><strong>Run it (as origin operator — destructive, do in a maintenance window):</strong></p>
+<pre style="background:rgba(127,127,127,0.08);padding:0.75rem;overflow-x:auto;font-size:0.85rem"><code># On the gd origin node:
+# Blackhole AWS, Azure, GCP, Cloudflare CIDRs
+for cidr in $(curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[].ip_prefix'); do
+  sudo iptables -I OUTPUT -d $cidr -j DROP
+done
+# ... repeat for Azure, GCP, Cloudflare IP lists ...
+
+# Then hit the site from an external probe:
+curl -v https://direct.cochranblock.org/health</code></pre>
+<p><strong>Pass if:</strong> 200 OK, response body identical. The site keeps serving because nothing on the request path needs to reach those CIDRs.</p>
+<p><strong>Why this proves it:</strong> ablation is stronger than inspection. It's one thing to trace and see no vendors. It's another to actively sever the connection to every vendor and watch the site stay up.</p>
+</div>
+</details>
+
+<details class="service-card" open>
+<summary><strong>Proof 6 — Physical unplug-and-serve</strong></summary>
+<div class="govdoc-print">
+<p><strong>Claim:</strong> no vendor has a power switch on this site. The only people who can take it offline are the owner and Verizon (by cutting residential internet).</p>
+<p><strong>Run it (as origin operator):</strong></p>
+<ol>
+<li>Unplug ethernet from the gd node. Site goes down. Note timestamp.</li>
+<li>Wait 30 seconds.</li>
+<li>Plug ethernet back in. Site comes back up. Note timestamp.</li>
+<li>Record the total downtime. No cloud console was opened. No vendor was contacted. No account was recovered.</li>
+</ol>
+<p><strong>Pass if:</strong> recovery loop involves exactly one action (plug the cable back in) and zero vendor interaction.</p>
+<p><strong>Why this proves it:</strong> recovery scope equals sovereignty scope. If nobody else is needed to bring the site back, nobody else can take it down.</p>
+</div>
+</details>
+
+<h2 class="services-section-head">Proof log — past drills</h2>
+<p style="font-size:0.9rem;opacity:0.8">Ablation drills are recorded here. Each entry links to the timestamp, what was severed, and how long the site continued to serve through the drill.</p>
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Date</strong></td><td><strong>Drill</strong></td><td><strong>Result</strong></td></tr>
+<tr><td>2026-04-14</td><td>Initial publication of this page. First six-proof audit run by KOVA + Claude. All proofs documented with CLI recipes; server-emitted facts live-computed.</td><td class="cost-amount cost-new">pending first external audit</td></tr>
+</table>
+</div>
+
+<h2 class="services-section-head">The honest caveats</h2>
+<div class="service-cards">
+<details class="service-card" open>
+<summary>Where sovereignty has edges</summary>
+<div class="govdoc-print">
+<p><strong>DNS.</strong> cochranblock.org's authoritative DNS is on Cloudflare's free tier. The <code>direct</code> subdomain resolves through Cloudflare nameservers. That is a vendor on the <em>name-lookup</em> path, not on the request path. Replacing it requires either self-hosting a nameserver (plausible, ~1 hour of work) or paying a registrar ~$12/year for basic DNS. Either one is sovereign; Cloudflare's free tier is the pragmatic current choice because it's free and their nameservers are more available than ours would be.</p>
+<p><strong>Let's Encrypt.</strong> The TLS cert comes from a nonprofit CA. LE could theoretically stop issuing us certs. If that happens, the ACME client can switch to any other CA (ZeroSSL, Buypass, etc) without code changes — the protocol is standard.</p>
+<p><strong>Verizon FiOS.</strong> Residential ISP that can terminate service. This is a real dependency. Mitigation: a second ingress via a different ISP, same binary behind it, served as <code>direct-2.cochranblock.org</code>. On the roadmap.</p>
+<p><strong>Electricity + physical space.</strong> Power outage takes the site down until UPS/generator. Real, and the one vendor we cheerfully accept (the grid).</p>
+<p><strong>The registrar.</strong> Whoever sold us the <code>cochranblock.org</code> domain can, in principle, seize it. Mitigation: ICANN transfer lock, multiple-year registration, and the paranoid move of holding a second domain at a different registrar pointing to the same origin.</p>
+</div>
+</details>
+</div>
+
+<p style="margin-top:2rem;font-size:0.9rem;opacity:0.85;text-align:center"><em>Sovereignty is a continuum, not a binary. This page publishes where we are on it, with enough detail for anyone to verify and anyone to critique. If a proof fails when you run it — file an issue. The goal is a page that is embarrassing to be wrong about.</em></p>
+
+</section>"#,
+        git_commit = git_commit,
+        git_commit_short = git_commit_short,
+        binary_sha = binary_sha,
+        binary_sha_short = binary_sha_short,
+        build_ts_rfc = build_ts_rfc,
+        process_start_rfc = process_start_rfc,
+        hostname = hostname,
+    );
+
+    let head = f62d(
+        "sovereignty",
+        "Sovereignty — Proof, Not Promise | The Cochran Block",
+        "Six auditable proofs that cochranblock.org has no hyperscaler on the request path. Run the checks from your own shell; don't trust the server.",
+    );
+    Html([head.as_str(), C7, v0.as_str(), C8].concat())
+}
+
 /// f100 = pulse. Up-to-the-minute threat + biz intel for cochranblock.org.
 /// 60-second cache. Auto-refreshes via meta tag. CF GraphQL only (zone
 /// cochranblock.org, free-plan compatible via httpRequests1hGroups).
