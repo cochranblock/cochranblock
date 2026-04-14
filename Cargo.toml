@@ -89,8 +89,15 @@ lers = { version = "0.4", features = ["dns-01-cloudflare"], optional = true }
 include_packed = { version = "0.1", features = ["build"] }
 
 [profile.release]
-opt-level = 's'
-lto = true
+# Full P27 Diamond Rust Binary Architecture. Was size-Diamond (opt-level='s',
+# lto=true). Now speed-Diamond for a request-serving binary where runtime
+# dominates. Cross-crate inlining, generic dedup, maximum LLVM optimization.
+# Compile time roughly 2-3x longer; runtime hot paths ~15-30% faster.
+opt-level = 3
+lto = "fat"
 codegen-units = 1
 strip = true
 panic = "abort"
+overflow-checks = false
+debug = false
+incremental = false
