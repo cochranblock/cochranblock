@@ -5658,6 +5658,14 @@ pub async fn f104(State(_p0): State<Arc<t0>>) -> Html<&'static str> {
     Html(KNOX_HTML)
 }
 
+/// f105 = john-brief. Serves the KNOXAI guild rundown at /john and
+/// knox.cochranblock.org/john. Standalone styled HTML packed at build time.
+/// noindex,nofollow in the page meta; not linked from anywhere public.
+pub async fn f105(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/john-brief.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
 const KNOX_HTML: &str = r#"<!doctype html>
 <html lang="en">
 <head>
