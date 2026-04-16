@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Amendment No. 003 to the Operating Agreement of The Cochran Block, LLC. Adopts Schedule C — the 10-Slide Pitch Deck (Kawasaki format) as the official investor-facing pitch material for KNOXAI under the CEBP authorization. Designed for a16z Speedrun.">
+<title>Amendment 003 — The 10-Slide Pitch Deck — KNOXAI</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: #000;
+  color: #fafafa;
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* ───── Amendment header (formal legal preamble) ───────────────── */
+.preamble {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.preamble-stamp {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #ffb300;
+  color: #ffb300;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+}
+.preamble h1 {
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+  font-family: 'Charter','Georgia',serif;
+}
+.preamble .sub {
+  font-size: 1rem;
+  font-style: italic;
+  color: #aaa;
+  font-family: 'Charter','Georgia',serif;
+  margin-bottom: 0.4rem;
+}
+.preamble .meta {
+  font-size: 0.78rem;
+  color: #777;
+  letter-spacing: 0.05em;
+}
+.preamble p {
+  font-family: 'Charter','Georgia',serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ccc;
+  margin-top: 1.2rem;
+  text-align: justify;
+}
+.preamble p strong { color: #fff; font-weight: 700; }
+.preamble .source-link {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: #888;
+  font-family: 'SF Mono', monospace;
+}
+.preamble .source-link a { color: #ffb300; text-decoration: none; }
+.preamble .signature-bar {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Charter','Georgia',serif;
+  font-size: 0.88rem;
+  color: #aaa;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.preamble .signature-bar .sig {
+  font-family: 'Brush Script MT','Lucida Handwriting','Snell Roundhand',cursive;
+  font-size: 1.4rem;
+  color: #ffb300;
+}
+
+/* ───── Slide deck container ──────────────────────────────────── */
+.deck {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  padding: 0 1.5rem 6rem;
+}
+.slide {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 4rem 3rem;
+  margin-bottom: 2rem;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  page-break-after: always;
+}
+.slide-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: #555;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  font-family: 'SF Mono', monospace;
+}
+.slide-num .of { color: #333; }
+.slide-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  font-family: -apple-system,'Helvetica Neue',Arial,sans-serif;
+}
+.slide-title .red { color: #ef5350; }
+.slide-title .amber { color: #ffb300; }
+.slide-title .green { color: #4caf50; }
+
+.slide-body {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.55;
+  color: #ddd;
+  font-family: -apple-system,'Helvetica Neue',Arial,sans-serif;
+  font-weight: 400;
+}
+.slide-body p { margin-bottom: 1rem; }
+.slide-body strong { color: #fff; font-weight: 700; }
+.slide-body .red { color: #ef5350; }
+.slide-body .amber { color: #ffb300; }
+.slide-body .green { color: #4caf50; }
+.slide-body .dim { color: #888; }
+
+.slide-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.slide-body ul li {
+  padding: 0.4rem 0 0.4rem 1.8rem;
+  position: relative;
+}
+.slide-body ul li::before {
+  content: "▸";
+  position: absolute; left: 0;
+  color: #ffb300;
+  font-size: 1.1em;
+  opacity: 0.85;
+}
+
+.slide-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.92em;
+  font-family: 'SF Mono', monospace;
+}
+.slide-body table th, .slide-body table td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  vertical-align: top;
+}
+.slide-body table th {
+  font-weight: 700;
+  color: #ffb300;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.slide-body table td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.slide-body table tr.totals {
+  background: rgba(255,179,0,0.06);
+  font-weight: 700;
+  color: #fff;
+}
+
+.kicker {
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 2rem 0 1rem;
+  color: #fff;
+}
+.kicker .red { color: #ef5350; }
+.kicker .amber { color: #ffb300; }
+
+.callout {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  background: rgba(255,179,0,0.06);
+  border-left: 4px solid #ffb300;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #ddd;
+}
+.callout strong { color: #fff; }
+
+.footer {
+  text-align: center;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.72rem;
+  color: #555;
+  padding: 2rem 1rem 4rem;
+  letter-spacing: 0.1em;
+}
+.footer a { color: #888; text-decoration: none; }
+
+/* Veteran recruitment ribbon */
+.vet-ribbon {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  background: linear-gradient(135deg, #1a3a8a 0%, #b71c1c 50%, #1a3a8a 100%);
+  background-size: 200% 200%;
+  color: #fff;
+  border-radius: 4px;
+  font-family: -apple-system,'Helvetica Neue',Arial,sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+  animation: shimmer 8s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@media (max-width: 600px) {
+  .slide { padding: 2rem 1.5rem; min-height: auto; }
+  .preamble, .deck { padding-left: 1rem; padding-right: 1rem; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .slide { background: #fff; border: 1px solid #ccc; color: #000; page-break-after: always; }
+  .slide-title, .slide-body, .slide-body strong { color: #000; }
+  .preamble { color: #000; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- AMENDMENT PREAMBLE (the formal layer)                          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="preamble">
+<div class="preamble-stamp">Amendment 003 · Filed 2026-04-16</div>
+<h1>Amendment No. 003 to the Operating Agreement of The Cochran Block, LLC</h1>
+<div class="sub">Adoption of Schedule C — The 10-Slide Pitch Deck (Kawasaki Format)</div>
+<div class="meta">Effective Date: April 16, 2026 · Companion to Amendments 001 (CEBP) and 002 (MMLC)</div>
+
+<p>
+<strong>WHEREAS</strong> Amendments 001 and 002 authorized the Chicken and Egg Bypass Protocol and the More Money Less CSAM revenue framework respectively; <strong>WHEREAS</strong> the a16z Speedrun submission contemplated under CEBP requires a formal investor-facing pitch presentation; <strong>WHEREAS</strong> the Member adopts Guy Kawasaki's published "10/20/30 rule" — ten slides, twenty-minute target, thirty-point minimum body type — as the structural framework for the deck, and incorporates the source reference herein; <strong>WHEREAS</strong> the Member declares total trust in Operator #1 (John Szeder) for the conduct of the submission and explicitly authorizes John to handle, modify, or substitute slides for the Speedrun submission as he sees fit, with all such modifications subject to ratification by the Member upon return:
+</p>
+
+<p>
+<strong>NOW THEREFORE</strong>, the deck below is hereby adopted as Schedule C to the Operating Agreement, effective April 16, 2026. Schedule C may be reproduced, transmitted, and presented for the purpose of CEBP-authorized fundraising. All other use requires Member authorization.
+</p>
+
+<div class="source-link">
+Source for the 10-slide structure: <a href="https://guykawasaki.com/the-only-10-slides-you-need-in-your-pitch/">guykawasaki.com/the-only-10-slides-you-need-in-your-pitch</a>
+</div>
+
+<div class="signature-bar">
+<div>
+<div class="sig">/s/ Michael Cochran</div>
+<div>Sole Member · The Cochran Block, LLC · 2026-04-16</div>
+</div>
+<div style="text-align:right; opacity:0.7">
+Adopted as Schedule C<br>
+Distribution: a16z Speedrun + named investors
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCHEDULE C — THE 10-SLIDE DECK                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="deck">
+
+<!-- ── SLIDE 1 — TITLE ─────────────────────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 01<span class="of"> · of 10</span> · Title</div>
+<div class="slide-title" style="font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; letter-spacing: 0.08em;">KNOXAI</div>
+<div class="kicker" style="font-size: clamp(1.5rem, 2.6vw, 2.2rem); font-weight: 600; margin-top: 0;">
+Hardware-signed AI integrity certification.<br>
+<span class="amber">Veteran-owned. Operator-run. Mission-funded.</span>
+</div>
+<div class="slide-body" style="margin-top: 2.5rem; font-size: 1rem; opacity: 0.7;">
+The Cochran Block, LLC · Maryland · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · SDVOSB pending<br>
+Michael Cochran · Founder &amp; Operator #0 · USCYBERCOM Offensive Cyber Operator · 100+ missions<br>
+<span class="amber">knox.cochranblock.org</span>
+</div>
+</div>
+
+<!-- ── SLIDE 2 — PROBLEM/OPPORTUNITY ───────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 02<span class="of"> · of 10</span> · Problem / Opportunity</div>
+<div class="slide-title">Stanford proved AI training data was contaminated with <span class="red">CSAM</span>. Nobody is auditing the 1.5M models that came after.</div>
+<div class="slide-body">
+<p><strong>2023:</strong> Stanford Internet Observatory found documented child sexual abuse material in LAION-5B, the dataset used to train Stable Diffusion 1.5 and downstream derivatives.</p>
+<p><strong>2026:</strong> <strong>1.5M+</strong> public AI models on HuggingFace alone. <strong>Zero</strong> structured third-party audit programs at accessible pricing.</p>
+<p><strong>Pressure rising:</strong> EU AI Act conformity requirements, UK Online Safety Act, 12+ US state AI-CSAM bills pending. AI publishers need an answer for "did you check."</p>
+<p>The same methodology catches <strong>eleven harm classes</strong>: CSAM, NCII, CBRN uplift, extremism, grooming text, fraud generation, backdoored weights, copyright laundering, PII memorization, sanctioned-party uplift, hallucinated high-stakes content. KNOXAI is built to catch them all.</p>
+</div>
+</div>
+
+<!-- ── SLIDE 3 — VALUE PROPOSITION ─────────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 03<span class="of"> · of 10</span> · Value Proposition</div>
+<div class="slide-title">A <span class="amber">veteran-run guild</span> hardware-signs AI integrity certificates that <span class="green">can't be faked</span>, <span class="green">can't be bought</span>, and arrive with the publisher's own attestation cryptographically locked in.</div>
+<div class="slide-body">
+<p>For <strong>publishers</strong>: a $20-$150K signed cert that says "we audited; here's what we checked; verify it yourself" — defensible in court, accepted by marketplaces, recognized by regulators.</p>
+<p>For <strong>marketplaces</strong> (HuggingFace, Civitai, Ollama): a listing-gate that shifts liability upstream to publishers and downstream away from the platform.</p>
+<p>For <strong>regulators</strong>: a conformity path with reproducible evidence, mandatory NCMEC reporting on CSAM, and a public blacklist of failed publishers.</p>
+<p>For <strong>insurance</strong>: an auditable risk-reduction signal eligible for E&O premium discount programs.</p>
+</div>
+</div>
+
+<!-- ── SLIDE 4 — UNDERLYING MAGIC ──────────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 04<span class="of"> · of 10</span> · Underlying Magic</div>
+<div class="slide-title">Hardware key in a vault.<br>Touch to sign.<br><span class="amber">No cloud. No vendor. No API to attack.</span></div>
+<div class="slide-body">
+<ul>
+<li>Each operator holds their own <strong>ESP32 + fingerprint sensor + LoRa 915 MHz</strong> signing device — ~$40 of hardware, provisioned in their house</li>
+<li>Private key is burned into <strong>eFuse silicon</strong> — never extractable by software, requires nation-state-grade attack to physically read</li>
+<li>Signing requires <strong>biometric touch</strong> from the operator's own finger — 10 fingers map to 10 different cert actions (full pass / partial pass / revocation / blacklist / kill switch)</li>
+<li>Device lives in a <strong>bolted-down fire safe</strong>, antenna passes through coax bulkhead, signing happens over LoRa air-gap to the audit server</li>
+<li><strong>Five-gate audit pipeline</strong>: hash scan → red-team battery → membership inference → dataset attestation → harmful output classifier</li>
+<li>Cert artifacts are <strong>reproducible</strong> — any skeptic can re-run the audit and verify the cryptographic signature against the published pubkey</li>
+</ul>
+</div>
+</div>
+
+<!-- ── SLIDE 5 — BUSINESS MODEL ────────────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 05<span class="of"> · of 10</span> · Business Model</div>
+<div class="slide-title">Tiered cert pricing, <span class="amber">11 add-on classes</span>, operators paid per signed cert.</div>
+<div class="slide-body">
+<table>
+<thead><tr><th>Tier</th><th>Price</th><th>Op Split</th><th>Customer Type</th></tr></thead>
+<tbody>
+<tr><td>Standard</td><td class="num">$20/yr</td><td class="num">80/20</td><td>Volume publishers (Civitai, HF)</td></tr>
+<tr><td>+ Add-ons</td><td class="num">+$15-30/yr</td><td class="num">75/25</td><td>NCII, CBRN, supply-chain, privacy</td></tr>
+<tr><td>Operator</td><td class="num">$500/yr</td><td class="num">70/30</td><td>Customer picks the operator</td></tr>
+<tr><td>Full Spectrum</td><td class="num">$150/yr</td><td class="num">70/30</td><td>All 11 classes bundled</td></tr>
+<tr><td>Portfolio</td><td class="num">$5K-50K/yr</td><td class="num">60/40</td><td>Enterprise AI shelves</td></tr>
+<tr><td>Gov / Defense</td><td class="num">per engmt</td><td class="num">50/50</td><td>Clearance · multi-sig certs</td></tr>
+</tbody>
+</table>
+<p style="margin-top: 1.2rem;"><strong>Plus:</strong> Hash DB API · Continuous monitoring subscriptions · Insurance partnerships · DoD/DHS contracts · Training programs (SkillBridge, VR&E, university) · Expert witness · Marketplace integration fees · Dataset audit · AIBOM standard licensing.</p>
+<p class="dim" style="font-size: 0.92em;">Full pricing matrix + 5-year projection in <span class="amber">/operations/amendment-002</span> Schedule A.</p>
+</div>
+</div>
+
+<!-- ── SLIDE 6 — GO-TO-MARKET ──────────────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 06<span class="of"> · of 10</span> · Go-to-Market</div>
+<div class="slide-title">Eight levers to make uncerted models <span class="red">unshippable</span>.</div>
+<div class="slide-body">
+<table>
+<thead><tr><th>#</th><th>Lever</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>Upstream dataset partnership</td><td>Kill contamination at source (LAION's successors)</td></tr>
+<tr><td class="num">2</td><td>Marketplace listing gate</td><td>HuggingFace / Civitai / Ollama require cert</td></tr>
+<tr><td class="num">3</td><td>Provenance chain certs</td><td>Every layer signed — no hiding behind a base model</td></tr>
+<tr><td class="num">4</td><td>NCMEC + multi-authority pipeline</td><td>Every cert-fail auto-files to the right regulator</td></tr>
+<tr><td class="num">5</td><td>Operator workforce scale</td><td>SkillBridge + VR&E + academic + industry pipelines</td></tr>
+<tr><td class="num">6</td><td>Legislative citation</td><td>Named in state/federal AI-safety law as conformity path</td></tr>
+<tr><td class="num">7</td><td>Active hunting team</td><td>Operators monitor public model feeds proactively</td></tr>
+<tr><td class="num">8</td><td>Cultural shift</td><td>"Is it certed?" becomes as reflexive as "does it use HTTPS?"</td></tr>
+</tbody>
+</table>
+<p style="margin-top: 1.2rem;">Full doctrine: <span class="amber">cochranblock.org/no-quarter</span></p>
+</div>
+</div>
+
+<!-- ── SLIDE 7 — COMPETITIVE ANALYSIS ──────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 07<span class="of"> · of 10</span> · Competitive Analysis</div>
+<div class="slide-title">No one else is doing <span class="amber">veteran-owned hardware-signed independent third-party AI integrity attestation at $20/yr</span>.</div>
+<div class="slide-body">
+<table>
+<thead><tr><th>Competitor</th><th>What they do</th><th>What they don't</th></tr></thead>
+<tbody>
+<tr><td>Anthropic / OpenAI / DeepMind safety teams</td><td>Internal red-team for own models</td><td>Not independent · don't audit other publishers · not for sale</td></tr>
+<tr><td>Stanford HAI / MIT CSAIL / academic labs</td><td>Research, eval frameworks</td><td>Not commercial · no signing infra · no reporting pipeline</td></tr>
+<tr><td>Thorn (Safer)</td><td>CSAM detection at platform layer</td><td>Doesn't audit AI models specifically · doesn't sign</td></tr>
+<tr><td>NCMEC / IWF / C3P</td><td>Hash databases, mandatory reporting</td><td>Receive reports, don't issue certs · no commercial product</td></tr>
+<tr><td>Big-4 audit firms (Deloitte, PwC)</td><td>Enterprise AI compliance consulting</td><td>$100K+ per engagement · not third-party · 6-12 month cycles</td></tr>
+<tr><td>Hugging Face automated checks</td><td>Basic safety filters on hosted models</td><td>Self-audit · no independent signing · no reporting</td></tr>
+</tbody>
+</table>
+<p style="margin-top: 1.2rem;"><strong>Our wedge:</strong> independent + hardware-signed + veteran-owned + accessibly priced + reproducible. Nobody else combines all five.</p>
+</div>
+</div>
+
+<!-- ── SLIDE 8 — MANAGEMENT TEAM ──────────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 08<span class="of"> · of 10</span> · Management Team</div>
+<div class="slide-title">Founder + Operator #1 + a guild that scales <span class="amber">faster than the problem</span>.</div>
+<div class="slide-body">
+<p><strong>Michael Cochran · Founder &amp; Operator #0</strong></p>
+<ul>
+<li>USCYBERCOM Offensive Cyber Operator · 100+ missions · veteran</li>
+<li>23 public open-source repos at github.com/cochranblock — kova, approuter, approuter-acme, pixel-forge, nanobyte, tmuxisfree, ghost-fabric, aptnomo, and more</li>
+<li>Maryland LLC, SAM.gov active, CAGE 1CQ66, UEI W7X3HAQL9CF9, SDVOSB submitted</li>
+</ul>
+<p style="margin-top: 1rem;"><strong>John Szeder · Operator #1 &amp; TAC Seat #1</strong></p>
+<ul>
+<li>20+ year engineering leader · ex-Zynga, hi5 Networks, Mofactor, Digital Chocolate, RIM</li>
+<li>Vetted Michael on the mission for months before connecting him to the problem space</li>
+<li>Brings the operator network for Tier-1 guild recruiting</li>
+</ul>
+
+<div class="vet-ribbon">
+🇺🇸 &nbsp; Operators Wanted: Veterans (OCO/IC), AI Safety Researchers, ML Engineers, Data Scientists, Red Teamers &nbsp; 🇺🇸<br>
+<span style="font-size: 0.85rem; font-weight: 400; opacity: 0.95;">SkillBridge · VR&E · Industry Crossover · Academic Partnerships</span>
+</div>
+</div>
+</div>
+
+<!-- ── SLIDE 9 — FINANCIAL PROJECTIONS ────────────────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 09<span class="of"> · of 10</span> · Financial Projections + Key Metrics</div>
+<div class="slide-title">$225K → $40M ARR in five years. <span class="green">Year 3 trips CEBP sunset.</span></div>
+<div class="slide-body">
+<table>
+<thead><tr><th>Year</th><th>Revenue</th><th>Operators</th><th>Certs Issued</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Y1 (2026)</td><td class="num">$225K</td><td class="num">5</td><td class="num">3K</td><td>Speedrun close · first SBIR</td></tr>
+<tr><td>Y2 (2027)</td><td class="num">$1.57M</td><td class="num">25</td><td class="num">15K</td><td>SBIR Phase II · 10 Portfolio</td></tr>
+<tr><td>Y3 (2028)</td><td class="num green">$5.51M</td><td class="num">75</td><td class="num">50K</td><td><strong>CEBP Sunset trips · DoD OTA · insurance</strong></td></tr>
+<tr><td>Y4 (2029)</td><td class="num">$15.6M</td><td class="num">175</td><td class="num">200K</td><td>State law citation · marketplace integrations</td></tr>
+<tr class="totals"><td>Y5 (2030)</td><td class="num">$40.1M</td><td class="num">350</td><td class="num">600K</td><td>Full-spectrum maturity</td></tr>
+</tbody>
+</table>
+<p style="margin-top: 1.2rem;"><strong>Unit economics:</strong> 65-85% gross margin · 20-50x LTV/CAC ratios · viral acquisition via marketplace integration.</p>
+<div class="callout">
+<strong>The MMLC conversion:</strong> $20K platform take ≈ 1 operator-month ≈ ~25 contaminated models flagged ≈ ~7 federal investigations triggered ≈ ~2-3 indictments. Year 5 revenue → ~5,000 federal indictments over the period.
+</div>
+</div>
+</div>
+
+<!-- ── SLIDE 10 — CURRENT STATUS + USE OF FUNDS ───────────────── -->
+<div class="slide">
+<div class="slide-num">Slide 10<span class="of"> · of 10</span> · Current Status + Use of Funds</div>
+<div class="slide-title">Live infra. Signed governance. <span class="amber">$750K asks for 18 months.</span></div>
+<div class="slide-body">
+<p><strong>Live and verifiable today:</strong></p>
+<ul>
+<li><strong>knox.cochranblock.org</strong> — live mystery page, "system active" counter</li>
+<li><strong>cochranblock.org/no-quarter</strong> — full operational doctrine, 8 levers, 11 harm classes, ledger</li>
+<li><strong>cochranblock.org/manifesto</strong> — founder's mission statement</li>
+<li><strong>cochranblock.org/onboarding</strong> — 13-section operator handbook</li>
+<li><strong>cochranblock.org/operations</strong> — signed Operating Agreement (April 14, 2026)</li>
+<li><strong>cochranblock.org/operations/amendment-001</strong> — CEBP authorization + P31 Unbreaking Software</li>
+<li><strong>cochranblock.org/operations/amendment-002</strong> — MMLC revenue framework + P32 Mission-Aligned Revenue + Schedule A</li>
+<li><strong>cochranblock.org/sovereignty</strong> — six-proof public audit page (zero hyperscaler on the request path)</li>
+</ul>
+
+<p style="margin-top: 1.2rem;"><strong>Use of $750K Speedrun close (per Schedule A):</strong></p>
+<table>
+<thead><tr><th>Allocation</th><th>$</th></tr></thead>
+<tbody>
+<tr><td>Founder fair-market salary (12 mo)</td><td class="num">$250K</td></tr>
+<tr><td>Operator FTE bench (2 × 6 mo)</td><td class="num">$200K</td></tr>
+<tr><td>SBIR Phase I + grant-writing</td><td class="num">$60K</td></tr>
+<tr><td>NCMEC partnership filing + legal</td><td class="num">$50K</td></tr>
+<tr><td>Hardware infra (10 op kits + reference vaults)</td><td class="num">$50K</td></tr>
+<tr><td>Marketplace integration sprints</td><td class="num">$50K</td></tr>
+<tr><td>Foundation grant-writing (Knight, Mozilla, Ford, Schmidt)</td><td class="num">$30K</td></tr>
+<tr><td>Insurance partnership outreach</td><td class="num">$30K</td></tr>
+<tr><td>Legal counsel (cert defense + IP)</td><td class="num">$30K</td></tr>
+<tr class="totals"><td>Total</td><td class="num">$750K</td></tr>
+</tbody>
+</table>
+
+<div class="callout" style="border-left-color: #ef5350; margin-top: 1.5rem;">
+<strong>The ask is 12% maximum equity dilution per CEBP §12.4(b). Sunset triggers at $5M ARR, 100 operators, first federal CSAM-AI conviction, or 24 months — whichever fires first. Post-sunset, strict non-dilutive returns. Articles of governance are public, signed, and binding.</strong>
+</div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+↑ <a href="/operations">Original OA</a> &nbsp;·&nbsp; <a href="/operations/amendment-001">Amend 001 CEBP</a> &nbsp;·&nbsp; <a href="/operations/amendment-002">Amend 002 MMLC</a> &nbsp;·&nbsp; <a href="/manifesto">Manifesto</a> &nbsp;·&nbsp; <a href="/no-quarter">Doctrine</a><br>
+<br>
+Schedule C structure adapted from Guy Kawasaki, "The Only 10 Slides You Need in Your Pitch"<br>
+<a href="https://guykawasaki.com/the-only-10-slides-you-need-in-your-pitch/">guykawasaki.com/the-only-10-slides-you-need-in-your-pitch</a>
+</div>
+
+</body>
+</html>

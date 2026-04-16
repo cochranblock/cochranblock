@@ -95,6 +95,15 @@ pub fn f1(p0: t0) -> Router {
         .route("/amendment-001", get(pages::f109))
         .route("/bypass", get(pages::f109))
         .route("/cebp", get(pages::f109))
+        .route("/operations/amendment-002", get(pages::f110))
+        .route("/amendment-002", get(pages::f110))
+        .route("/mmlc", get(pages::f110))
+        .route("/money", get(pages::f110))
+        .route("/operations/amendment-003", get(pages::f111))
+        .route("/amendment-003", get(pages::f111))
+        .route("/pitch", get(pages::f111))
+        .route("/deck", get(pages::f111))
+        .route("/10-slides", get(pages::f111))
         .route(
             "/operating-agreement.pdf",
             get(|| async {

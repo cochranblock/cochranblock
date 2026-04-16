@@ -5707,6 +5707,29 @@ pub async fn f109(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
+/// f110 = OA Amendment 002 (More Money Less CSAM / MMLC). Revenue-stream
+/// authorization + P32 Mission-Aligned Revenue + Schedule A business-model
+/// annex (market sizing, pricing matrix, 5-year projection, unit economics,
+/// defensibility, CEBP capital allocation, risk register, money-vs-CSAM
+/// conversion math). Doubles as the investor-facing business annex for the
+/// a16z Speedrun submission. Formal legal amendment + investor annex in one.
+pub async fn f110(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/amendment-002.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
+/// f111 = OA Amendment 003 (Schedule C — The 10-Slide Pitch Deck). Adopts
+/// the Guy Kawasaki 10-slide pitch structure as the official KNOXAI
+/// investor-facing pitch deck under CEBP authorization. Single document
+/// combines the formal Article XV amendment preamble with a full visual
+/// 10-slide deck (one slide per scrolling section), authorizing John
+/// Szeder (Operator #1) to handle, modify, and present for the a16z
+/// Speedrun submission.
+pub async fn f111(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/amendment-003.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
 const KNOX_HTML: &str = r#"<!doctype html>
 <html lang="en">
 <head>
