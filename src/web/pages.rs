@@ -5688,11 +5688,22 @@ pub async fn f107(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 /// f108 = manifesto. The KNOXAI mission manifesto, in the founder's voice.
 /// Was previously redirected to /operations (the OA, also titled
-/// "manifesto"). Now its own page — short, visceral, CSAM-focused.
+/// "manifesto"). Now its own page — short, visceral, CSAM-focused, with
+/// the Chicken and Egg Bypass Protocol disclosure section.
 /// Companion to /no-quarter (broader operational doctrine) and
 /// /operations (the formal LLC governance).
 pub async fn f108(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/manifesto.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
+/// f109 = OA Amendment 001 (Chicken and Egg Bypass Protocol + P31 Unbreaking
+/// Software). Formal Article XV amendment to the Operating Agreement,
+/// publicly published per Section 12.4(f) disclosure requirement. Document
+/// styled as a legal artifact (white-on-dark-page) to match the gravity of
+/// the governance act it represents.
+pub async fn f109(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/amendment-001.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 

@@ -91,6 +91,10 @@ pub fn f1(p0: t0) -> Router {
             get(|| async { Redirect::permanent("/operations") }),
         )
         .route("/manifesto", get(pages::f108))
+        .route("/operations/amendment-001", get(pages::f109))
+        .route("/amendment-001", get(pages::f109))
+        .route("/bypass", get(pages::f109))
+        .route("/cebp", get(pages::f109))
         .route(
             "/operating-agreement.pdf",
             get(|| async {
