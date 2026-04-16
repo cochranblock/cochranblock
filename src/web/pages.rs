@@ -5686,6 +5686,16 @@ pub async fn f107(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
+/// f108 = manifesto. The KNOXAI mission manifesto, in the founder's voice.
+/// Was previously redirected to /operations (the OA, also titled
+/// "manifesto"). Now its own page — short, visceral, CSAM-focused.
+/// Companion to /no-quarter (broader operational doctrine) and
+/// /operations (the formal LLC governance).
+pub async fn f108(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/manifesto.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
 const KNOX_HTML: &str = r#"<!doctype html>
 <html lang="en">
 <head>

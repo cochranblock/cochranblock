@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="KNOXAI · Manifesto. The mission, in the founder's words. Payment in any form, equity never, CSAM in AI never tolerated.">
+<title>Manifesto — KNOXAI</title>
+<style>
+:root {
+  --bg: #000;
+  --bg2: #0a0a0a;
+  --fg: #f5f5f5;
+  --fg2: #bbb;
+  --fg3: #666;
+  --amber: #ffb300;
+  --green: #4caf50;
+  --red: #ef5350;
+  --blood: #b71c1c;
+  --line: rgba(255,255,255,0.08);
+  --line2: rgba(255,255,255,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+}
+body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+
+.pretag {
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+h1.banner {
+  font-size: clamp(2.8rem, 9vw, 5rem);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--fg);
+}
+
+.declaration {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 2rem 0 3rem;
+  padding: 1.8rem 2rem;
+  border-left: 4px solid var(--red);
+  background: rgba(239,83,80,0.04);
+  color: var(--fg);
+}
+.declaration .red { color: var(--red); }
+
+p {
+  margin-bottom: 1.2rem;
+  color: var(--fg2);
+  font-size: 1.02rem;
+}
+p strong { color: var(--fg); font-weight: 700; }
+.red { color: var(--red); }
+.amber { color: var(--amber); }
+.green { color: var(--green); }
+
+.list-block {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.list-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+.list-label.green { color: var(--green); }
+.list-label.red { color: var(--red); }
+.list-block ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.95rem;
+}
+.list-block ul li {
+  padding: 0.3rem 0;
+  color: var(--fg2);
+}
+
+.section-break {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--line2), transparent);
+  margin: 3.5rem 0 2rem;
+}
+
+.battlecry {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+  margin: 3rem 0;
+  letter-spacing: 0.02em;
+}
+.battlecry .red {
+  color: var(--red);
+  display: block;
+  margin: 0.4em 0;
+}
+.battlecry .charge {
+  display: block;
+  font-size: 0.88em;
+  color: var(--amber);
+  margin-top: 1.2rem;
+  letter-spacing: 0.1em;
+}
+
+.sig {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--fg3);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.sig .name { color: var(--fg); font-weight: 700; }
+.sig a { color: var(--amber); text-decoration: none; }
+
+.pulse {
+  display: inline-block;
+  width: 9px; height: 9px;
+  background: var(--red);
+  border-radius: 50%;
+  margin-right: 0.6em;
+  animation: pulse 1.4s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.kbd {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 0.92em;
+  padding: 0.08em 0.45em;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  color: var(--amber);
+}
+
+@media (max-width: 600px) {
+  body { padding: 2.5rem 1rem 4rem; }
+  .declaration { padding: 1.3rem 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="pretag"><span class="pulse"></span>Manifesto · The Cochran Block, LLC · 2026-04-16</div>
+<h1 class="banner">MANIFESTO</h1>
+
+<div class="declaration">
+I will take any and all forms of payment if it means I get to relentlessly ensure that <span class="red">CSAM in AI</span> is never fucking tolerated.
+</div>
+
+<p>
+That's the whole thing. Everything below is just operational detail.
+</p>
+
+<div class="list-block">
+<div class="list-label green">Forms of payment I will take</div>
+<ul>
+<li>▸ cash, ACH, wire, Stripe</li>
+<li>▸ crypto — BTC, ETH, USDC, whatever clears</li>
+<li>▸ government contracts at any tier</li>
+<li>▸ federal and state grants</li>
+<li>▸ foundation grants — Knight, Mozilla, Ford, anyone funding child safety or AI integrity</li>
+<li>▸ individual donations</li>
+<li>▸ corporate sponsorship without strings</li>
+<li>▸ in-kind: hardware, vaults, office space, hash-database licenses</li>
+<li>▸ expert witness fees</li>
+<li>▸ training contracts (SkillBridge, VR&E, university programs)</li>
+<li>▸ honorarium · speaker fee for the rare engagement that fits the mission</li>
+</ul>
+</div>
+
+<div class="list-block">
+<div class="list-label red">Forms I will not take</div>
+<ul>
+<li>▸ equity — Article XII of the OA forbids it, by binding governance</li>
+<li>▸ payment that asks me to look the other way on a finding</li>
+<li>▸ payment from a publisher whose model I'm currently auditing</li>
+<li>▸ payment that compromises the methodology, the operators, the reporting pipeline, or the public blacklist</li>
+<li>▸ payment from anyone whose books I cannot reasonably trace</li>
+</ul>
+</div>
+
+<p>
+Past those two lines: <strong>pay me however you want.</strong> Pay one of the operators. Pay a SkillBridge intern through their stipend. Sponsor a NCMEC partnership application fee. Underwrite a coin mint. Donate a fire safe. Cover a CBRN-specialist's bench. Sponsor a hash database license. Buy a guild dinner. The money is fuel. The mission is what I burn it for.
+</p>
+
+<p>
+We are coming for the publishers shipping contaminated AI. <strong>Every shell corp will be traced.</strong> Every cert-fail will be reported to the regulator with jurisdiction. Every blacklist entry will be public, named, and indexed. Every model that quietly trained on CSAM-contaminated shards is a cert-fail waiting to happen and a NCMEC tip waiting to be filed.
+</p>
+
+<p>
+We are not negotiating. We are not warning. We are not offering grace periods. We are not announcing audits in advance. We are <strong>auditing, finding, certing the clean, blacklisting the dirty, and reporting the criminal.</strong> If the publisher cooperates, they get a clean cert and a renewable revenue defense. If they don't, they get an indictment.
+</p>
+
+<hr class="section-break">
+
+<div class="battlecry">
+<span class="red">Fuck those sick fucks.</span>
+<span class="charge">Let's get em.</span>
+</div>
+
+<hr class="section-break">
+
+<p style="text-align:center; opacity:0.65; font-size:0.9rem;">
+The full operational doctrine — eight levers, eleven harm classes, reporting pipelines, ledger — lives at <span class="kbd">cochranblock.org/no-quarter</span>.<br>
+The Operating Agreement that binds The Cochran Block, LLC to all of this lives at <span class="kbd">cochranblock.org/operations</span>.
+</p>
+
+<div class="sig">
+<div><span class="name">Michael Cochran</span> · Operator #0 · Founder</div>
+<div>USCYBERCOM Offensive Cyber Operator · The Cochran Block, LLC</div>
+<div style="margin-top:1rem; opacity:0.7">
+Manifesto published 2026-04-16 · <a href="https://knox.cochranblock.org">knox.cochranblock.org</a>
+</div>
+</div>
+
+</body>
+</html>
