@@ -287,6 +287,31 @@ const REPOS: &[&str] = &[
     "any-gpu",
 ];
 
+/// f2_root = host-aware root dispatch. If the request arrives on
+/// `knox.cochranblock.org`, serve the KNOXAI mystery page (f104). Otherwise
+/// fall through to the normal homepage (f2). Keeps the subdomain isolated
+/// without needing middleware URI-rewriting, which was unreliable on this
+/// axum version.
+pub async fn f2_root(
+    state: State<Arc<t0>>,
+    headers: axum::http::HeaderMap,
+) -> axum::response::Response {
+    let is_knox = headers
+        .get(axum::http::header::HOST)
+        .and_then(|v| v.to_str().ok())
+        .map(|h| {
+            let h = h.split(':').next().unwrap_or("").to_ascii_lowercase();
+            h == "knox.cochranblock.org" || h.starts_with("knox.")
+        })
+        .unwrap_or(false);
+    if is_knox {
+        use axum::response::IntoResponse;
+        return f104(state).await.into_response();
+    }
+    use axum::response::IntoResponse;
+    f2(state).await.into_response()
+}
+
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
 pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
     let ss = site_stats().await;

@@ -4,42 +4,11 @@
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 use axum::http::header::{HeaderName, HeaderValue};
-use axum::http::Uri;
-use axum::middleware::{self, Next};
 use axum::response::Redirect;
-use axum::{extract::Request, Router, routing::get};
+use axum::{Router, routing::get};
 use tower_http::{
     compression::CompressionLayer, set_header::SetResponseHeaderLayer, trace::TraceLayer,
 };
-
-/// f_knox_host — middleware that rewrites the request path to `/knox` when
-/// the request arrives on the `knox.cochranblock.org` subdomain. Keeps the
-/// KNOXAI landing page isolated at its own hostname without needing a
-/// separate axum app or reverse-proxy rule. Path-based access
-/// (`cochranblock.org/knox`) continues to work unchanged.
-async fn f_knox_host(mut req: Request, next: Next) -> axum::response::Response {
-    let is_knox_host = req
-        .headers()
-        .get(axum::http::header::HOST)
-        .and_then(|v| v.to_str().ok())
-        .map(|h| {
-            let h = h.split(':').next().unwrap_or("").to_ascii_lowercase();
-            h == "knox.cochranblock.org" || h.starts_with("knox.")
-        })
-        .unwrap_or(false);
-    if is_knox_host {
-        // Only rewrite the root path so assets and non-root URLs still
-        // route normally (e.g. favicon, future /knox/verify, etc).
-        if req.uri().path() == "/" {
-            let pq = req.uri().path_and_query().map(|pq| pq.to_string()).unwrap_or_else(|| "/".to_string());
-            let new_path = if pq == "/" { "/knox".to_string() } else { format!("/knox{}", pq) };
-            if let Ok(new_uri) = new_path.parse::<Uri>() {
-                *req.uri_mut() = new_uri;
-            }
-        }
-    }
-    next.run(req).await
-}
 
 use super::{assets, community_grant, intake, pages};
 use crate::t0;
@@ -60,7 +29,7 @@ pub fn f1(p0: t0) -> Router {
         HeaderValue::from_static("strict-origin-when-cross-origin"),
     );
     let r0 = Router::new()
-        .route("/", get(pages::f2))
+        .route("/", get(pages::f2_root))
         .route("/products", get(pages::f67))
         .route("/deploy", get(intake::get_form).post(intake::post_form))
         .route("/deploy/confirmed", get(intake::confirmed))
@@ -455,7 +424,6 @@ pub fn f1(p0: t0) -> Router {
         .route("/dev/ai-orchestration", get(pages::f65))
         .route("/dev/prompts", get(pages::f66));
     r0.fallback(pages::f71)
-        .layer(middleware::from_fn(f_knox_host))
         .layer(h1)
         .layer(h2)
         .layer(h3)
