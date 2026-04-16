@@ -5622,3 +5622,69 @@ curl -s -o /dev/null -w "%{size_download}" https://boozallen.com/</pre>
     );
     Html(format!("{}{}{}{}", head, C7, html, C8))
 }
+
+/// f104 = knox. Mystery landing page for knox.cochranblock.org and /knox.
+/// No reveals. Name only, live uptime counter that ticks UP from a fixed
+/// genesis timestamp, footer. Serves standalone HTML (not wrapped in site
+/// chrome) so the black-on-black brutalist aesthetic stays intact.
+///
+/// Genesis: 2026-04-15T00:00:00Z — the day the knox subdomain came online.
+pub async fn f104(State(_p0): State<Arc<t0>>) -> Html<&'static str> {
+    Html(KNOX_HTML)
+}
+
+const KNOX_HTML: &str = r#"<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>KNOXAI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000;color:#fff;font-family:'SF Mono','Fira Code',Menlo,Consolas,monospace}
+body{display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;position:relative}
+.wrap{text-align:center;max-width:90vw}
+h1{font-size:clamp(3rem,10vw,9rem);font-weight:800;letter-spacing:0.15em;line-height:1;margin-bottom:3rem}
+.status{font-size:clamp(0.7rem,1.2vw,0.95rem);letter-spacing:0.35em;opacity:0.45;margin-bottom:1.2rem;text-transform:uppercase}
+.counter{font-size:clamp(1.2rem,2.4vw,2rem);font-weight:600;letter-spacing:0.08em;opacity:0.85;font-variant-numeric:tabular-nums}
+.counter .unit{opacity:0.4;margin-right:0.15em;margin-left:0.05em}
+.line{width:min(240px,30vw);height:1px;background:rgba(255,255,255,0.12);margin:3.5rem auto 2rem}
+.meta{font-size:clamp(0.7rem,1vw,0.85rem);opacity:0.28;letter-spacing:0.1em}
+.cursor{display:inline-block;width:0.6em;height:1em;background:#fff;animation:blink 1.1s steps(2,start) infinite;vertical-align:-0.1em;margin-left:0.3em}
+@keyframes blink{to{visibility:hidden}}
+.clearance{font-size:clamp(0.65rem,0.9vw,0.8rem);letter-spacing:0.4em;opacity:0.35;margin-top:0.8rem;color:#ffb300}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>KNOXAI</h1>
+<div class="status">System Active</div>
+<div class="counter" id="c"><span>00</span><span class="unit">d</span><span>00</span><span class="unit">h</span><span>00</span><span class="unit">m</span><span>00</span><span class="unit">s</span></div>
+<div class="clearance">CLEARANCE: PENDING<span class="cursor"></span></div>
+<div class="line"></div>
+<div class="meta">The Cochran Block, LLC</div>
+</div>
+<script>
+(function(){
+  // Genesis: 2026-04-15T00:00:00Z — the day this subdomain came online.
+  var genesis = Date.UTC(2026,3,15,0,0,0);
+  var el = document.getElementById('c');
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){
+    var now = Date.now();
+    var diff = Math.max(0, now - genesis);
+    var s = Math.floor(diff/1000);
+    var d = Math.floor(s/86400); s -= d*86400;
+    var h = Math.floor(s/3600);  s -= h*3600;
+    var m = Math.floor(s/60);    s -= m*60;
+    el.innerHTML = '<span>'+pad(d)+'</span><span class="unit">d</span>'
+                 + '<span>'+pad(h)+'</span><span class="unit">h</span>'
+                 + '<span>'+pad(m)+'</span><span class="unit">m</span>'
+                 + '<span>'+pad(s)+'</span><span class="unit">s</span>';
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>"#;
