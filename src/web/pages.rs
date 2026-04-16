@@ -5676,6 +5676,16 @@ pub async fn f106(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
+/// f107 = no-quarter. The KNOXAI mission doctrine page. Public — indexed.
+/// Serves the operational posture: eight levers, the ledger, honest limits,
+/// and the stances for operators, publishers, and adversaries. This is the
+/// answer to "how do we end CSAM in AI" written in operator voice, without
+/// softening, without overclaiming.
+pub async fn f107(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/no-quarter.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
 const KNOX_HTML: &str = r#"<!doctype html>
 <html lang="en">
 <head>
