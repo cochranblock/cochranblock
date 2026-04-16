@@ -5666,6 +5666,16 @@ pub async fn f105(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
+/// f106 = onboarding. Serves the operator onboarding handbook at /onboarding.
+/// Obscure-path distribution: noindex,nofollow in meta, not linked anywhere
+/// public. Michael shares the URL privately with operators greenlit by TAC.
+/// If leakage becomes a concern later, wrap with the same russian-doll gate
+/// used by f105 (copy the gate from assets/john-brief.html).
+pub async fn f106(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/onboarding.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
 const KNOX_HTML: &str = r#"<!doctype html>
 <html lang="en">
 <head>

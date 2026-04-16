@@ -64,6 +64,8 @@ pub fn f1(p0: t0) -> Router {
         .route("/knox", get(pages::f104))
         .route("/knoxai", get(pages::f104))
         .route("/john", get(pages::f105))
+        .route("/onboarding", get(pages::f106))
+        .route("/handbook", get(pages::f106))
         .route("/speed", get(|| async { Redirect::permanent("/stats") }))
         .route("/openbooks", get(pages::f86))
         .route(
