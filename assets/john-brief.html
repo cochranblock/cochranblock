@@ -406,56 +406,7 @@ USCYBERCOM Offensive Cyber Operator · The Cochran Block, LLC<br>
 </div>
 
 <script>
-/* ─────────────────────────────────────────────────────────────────────────
-   GATE LOGIC — the Russian doll password.
-   Password is literally "password". BUT: the trick is it must be submitted
-   three times within a six-second rolling window. Any wrong entry resets.
-   Single correct entries show the same "ACCESS DENIED" as wrong entries,
-   so the failure mode is visually indistinguishable. The puzzle is the
-   timing, not the string. John asks Michael for the password → gets
-   "password" → enters it once → denied → asks again → gets the hint.
-   ───────────────────────────────────────────────────────────────────────── */
-(function(){
-  var form = document.getElementById('f');
-  var input = document.getElementById('p');
-  var status = document.getElementById('s');
-  var WINDOW_MS = 6000;
-  var TARGET = 3;
-  var PASSWORD = 'password';
-  var hits = [];
-
-  function deny(){
-    status.textContent = 'ACCESS DENIED';
-    status.classList.remove('denied');
-    void status.offsetWidth;
-    status.classList.add('denied');
-  }
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var val = input.value;
-    input.value = '';
-    input.focus();
-
-    if (val !== PASSWORD) {
-      hits = [];
-      deny();
-      return;
-    }
-
-    var now = Date.now();
-    hits.push(now);
-    while (hits.length && hits[0] < now - WINDOW_MS) hits.shift();
-
-    if (hits.length >= TARGET) {
-      document.body.className = 'unlocked';
-      status.textContent = '';
-      hits = [];
-    } else {
-      deny();
-    }
-  });
-})();
+!function(){var f=document.getElementById("f"),i=document.getElementById("p"),s=document.getElementById("s"),a=[],w=6e3,n=3,k=atob("cGFzc3dvcmQ=");function d(){s.textContent="ACCESS DENIED";s.classList.remove("denied");void s.offsetWidth;s.classList.add("denied")}f.addEventListener("submit",function(e){e.preventDefault();var v=i.value;i.value="";i.focus();if(v!==k){a=[];d();return}var t=Date.now();a.push(t);while(a.length&&a[0]<t-w)a.shift();if(a.length>=n){document.body.className="unlocked";s.textContent="";a=[]}else{d()}})}();
 </script>
 
 </body>
