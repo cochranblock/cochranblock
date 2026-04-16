@@ -4,270 +4,119 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>KNOXAI — Access Required</title>
+<title>KNOXAI — Brief for John</title>
 <style>
 :root {
-  --bg: #000;
-  --bg2: #0a0a0a;
-  --fg: #f5f5f5;
-  --fg2: #bbb;
-  --fg3: #666;
-  --amber: #ffb300;
-  --green: #4caf50;
-  --red: #ef5350;
-  --line: rgba(255,255,255,0.08);
-  --line2: rgba(255,255,255,0.15);
+  --bg: #000; --bg2: #0a0a0a;
+  --fg: #f5f5f5; --fg2: #bbb; --fg3: #666;
+  --amber: #ffb300; --green: #4caf50; --red: #ef5350;
+  --line: rgba(255,255,255,0.08); --line2: rgba(255,255,255,0.15);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Menlo, Consolas, monospace;
-  font-size: 15px;
-  line-height: 1.6;
+  background: var(--bg); color: var(--fg);
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  font-size: 15px; line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  min-height: 100%;
 }
-body.gate {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 2rem;
-  min-height: 100vh;
-}
+body { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
 
-/* ── Gate UI ───────────────────────────────────────────────────────────── */
-.gate-wrap { max-width: 500px; width: 100%; }
-.gate h1 {
-  font-size: clamp(3rem, 10vw, 5.5rem);
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.8rem;
+.pretag {
+  font-size: 0.7rem; letter-spacing: 0.4em; color: var(--fg3);
+  text-transform: uppercase; margin-bottom: 0.8rem;
 }
-.gate .sub {
-  font-size: 0.85rem;
-  letter-spacing: 0.35em;
-  color: var(--amber);
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-}
-.gate form { display: flex; flex-direction: column; gap: 0.8rem; align-items: stretch; }
-.gate input[type="password"] {
-  background: var(--bg2);
-  color: var(--fg);
-  border: 1px solid var(--line2);
-  padding: 0.9rem 1rem;
-  font-family: inherit;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  text-align: center;
-  border-radius: 3px;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.gate input[type="password"]:focus { border-color: var(--amber); }
-.gate button {
-  background: transparent;
-  color: var(--amber);
-  border: 1px solid var(--amber);
-  padding: 0.8rem 1rem;
-  font-family: inherit;
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: background 0.15s;
-}
-.gate button:hover { background: rgba(255,179,0,0.1); }
-.gate .status {
-  margin-top: 1.8rem;
-  min-height: 1.4rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--fg3);
-}
-.gate .status.denied { color: var(--red); animation: shake 0.25s; }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
-}
-.gate .foot {
-  margin-top: 4rem;
-  font-size: 0.75rem;
-  color: var(--fg3);
-  letter-spacing: 0.2em;
-}
-
-/* ── The brief (hidden until unlocked) ─────────────────────────────────── */
-#brief {
-  display: none;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 3rem 1.5rem 5rem;
-  text-align: left;
-}
-body.unlocked { display: block; padding: 0; text-align: left; }
-body.unlocked .gate-wrap { display: none; }
-body.unlocked #brief { display: block; animation: fadein 0.6s ease; }
-@keyframes fadein {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-#brief .pretag {
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
-  color: var(--fg3);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-}
-#brief h1.logo {
+h1.logo {
   font-size: clamp(2.5rem, 9vw, 5rem);
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  line-height: 1;
+  font-weight: 900; letter-spacing: 0.12em; line-height: 1;
   margin-bottom: 1rem;
 }
-#brief .subtitle {
-  font-size: 0.85rem;
-  letter-spacing: 0.25em;
-  color: var(--amber);
-  margin-bottom: 3rem;
-  text-transform: uppercase;
+.subtitle {
+  font-size: 0.85rem; letter-spacing: 0.25em; color: var(--amber);
+  margin-bottom: 3rem; text-transform: uppercase;
 }
-#brief .hook {
+.hook {
   font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 2.5rem 0;
-  padding: 1.25rem 1.5rem;
-  border-left: 3px solid var(--amber);
-  background: var(--bg2);
+  font-weight: 600; line-height: 1.5;
+  margin: 2.5rem 0; padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--amber); background: var(--bg2);
 }
-#brief h2 {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--line);
+h2 {
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--amber);
+  margin-top: 3rem; margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 1px solid var(--line);
 }
-#brief p { margin-bottom: 1rem; }
-#brief strong { color: var(--fg); font-weight: 700; }
+p { margin-bottom: 1rem; color: var(--fg2); }
+strong { color: var(--fg); font-weight: 700; }
 .green { color: var(--green); }
 .red { color: var(--red); }
 .amber { color: var(--amber); }
 .dim { color: var(--fg3); }
 .faint { opacity: 0.6; }
-#brief ul { list-style: none; padding: 0; }
-#brief ul li {
+ul { list-style: none; padding: 0; }
+ul li {
   padding: 0.5rem 0 0.5rem 1.5rem;
-  position: relative;
-  color: var(--fg2);
+  position: relative; color: var(--fg2);
 }
-#brief ul li::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  color: var(--amber);
-  opacity: 0.7;
+ul li::before {
+  content: "▸"; position: absolute; left: 0;
+  color: var(--amber); opacity: 0.7;
 }
-#brief table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0 1.5rem;
-  font-size: 0.88rem;
+table {
+  width: 100%; border-collapse: collapse;
+  margin: 1rem 0 1.5rem; font-size: 0.88rem;
 }
-#brief th, #brief td {
-  padding: 0.7rem 0.9rem;
-  text-align: left;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
+th, td {
+  padding: 0.7rem 0.9rem; text-align: left;
+  border-bottom: 1px solid var(--line); vertical-align: top;
 }
-#brief th {
-  font-weight: 700;
-  color: var(--fg3);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+th {
+  font-weight: 700; color: var(--fg3);
+  font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
 }
-#brief td:first-child { font-weight: 700; white-space: nowrap; }
-#brief td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td:first-child { font-weight: 700; white-space: nowrap; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .tier-name { color: var(--green); }
 .callout {
-  background: var(--bg2);
-  border: 1px solid var(--line2);
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0;
-  border-radius: 4px;
+  background: var(--bg2); border: 1px solid var(--line2);
+  padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 4px;
 }
 .callout-red {
-  background: rgba(239,83,80,0.05);
-  border-left: 3px solid var(--red);
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
+  background: rgba(239,83,80,0.05); border-left: 3px solid var(--red);
+  padding: 1rem 1.25rem; margin: 1.5rem 0;
 }
 .ask-block { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0 2rem; }
 .ask-card {
-  background: var(--bg2);
-  padding: 1rem 1.25rem;
+  background: var(--bg2); padding: 1rem 1.25rem;
   border-left: 2px solid var(--green);
 }
 .ask-card.no { border-left-color: var(--red); }
 .ask-num { font-size: 0.7rem; color: var(--fg3); letter-spacing: 0.2em; margin-bottom: 0.3rem; }
 .cta {
-  margin-top: 3rem;
-  padding: 2rem 1.5rem;
-  background: var(--bg2);
-  border: 1px solid var(--line2);
-  text-align: center;
-  border-radius: 4px;
+  margin-top: 3rem; padding: 2rem 1.5rem;
+  background: var(--bg2); border: 1px solid var(--line2);
+  text-align: center; border-radius: 4px;
 }
 .cta-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  color: var(--amber);
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  font-size: 0.75rem; letter-spacing: 0.3em;
+  color: var(--amber); text-transform: uppercase; margin-bottom: 0.8rem;
 }
-.cta-url {
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--fg);
-}
+.cta-url { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; letter-spacing: 0.05em; color: var(--fg); }
 .cta-note { font-size: 0.8rem; color: var(--fg3); margin-top: 0.8rem; }
 .sig {
-  margin-top: 4rem;
-  padding-top: 1.5rem;
+  margin-top: 4rem; padding-top: 1.5rem;
   border-top: 1px solid var(--line);
-  color: var(--fg3);
-  font-size: 0.85rem;
+  color: var(--fg3); font-size: 0.85rem;
 }
 .sig .name { color: var(--fg); font-weight: 700; }
 .kbd {
-  display: inline-block;
-  font-family: inherit;
-  font-size: 0.9em;
-  padding: 0.08em 0.4em;
-  background: rgba(255,255,255,0.08);
-  border-radius: 3px;
-  color: var(--amber);
+  display: inline-block; font-family: inherit; font-size: 0.9em;
+  padding: 0.08em 0.4em; background: rgba(255,255,255,0.08);
+  border-radius: 3px; color: var(--amber);
 }
 .pulse {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--green);
-  border-radius: 50%;
+  display: inline-block; width: 8px; height: 8px;
+  background: var(--green); border-radius: 50%;
   margin-right: 0.6em;
   animation: pulse 1.5s ease-in-out infinite;
   vertical-align: middle;
@@ -277,30 +126,11 @@ body.unlocked #brief { display: block; animation: fadein 0.6s ease; }
   50% { opacity: 0.3; }
 }
 @media (max-width: 600px) {
-  #brief { padding: 2rem 1rem 4rem; }
+  body { padding: 2rem 1rem 4rem; }
 }
 </style>
 </head>
-<body class="gate">
-
-<div class="gate-wrap">
-<h1>KNOXAI</h1>
-<div class="sub">Access Required</div>
-
-<form id="f" autocomplete="off">
-<input type="password" id="p" placeholder="••••••••" autofocus>
-<button type="submit">Authenticate</button>
-</form>
-
-<div class="status" id="s">&nbsp;</div>
-
-<div class="foot">TAC · Eyes Only</div>
-</div>
-
-<!-- ============================================================ -->
-<!-- THE BRIEF (hidden until unlocked)                            -->
-<!-- ============================================================ -->
-<div id="brief">
+<body>
 
 <div class="pretag">Ops Brief · For John Szeder · Eyes Only Until Otherwise</div>
 <h1 class="logo">KNOXAI</h1>
@@ -315,7 +145,7 @@ body.unlocked #brief { display: block; animation: fadein 0.6s ease; }
 Stanford proved LAION-5B trained Stable Diffusion on <span class="red">CSAM</span>. Every model downstream is contaminated until red-teamed. AI companies know and are hoping regulators won't notice. <span class="amber">Regulators are starting to notice.</span>
 </p>
 <p>
-When the subpoenas hit, the AI companies that survive are the ones pointing at a signed attestation from someone <strong>veteran-owned, operator-disciplined, and reproducible.</strong> That's us. Everyone else ends up in a blacklist post.
+When the subpoenas hit, the AI companies that survive are the ones pointing at a signed attestation from someone <strong>operator-disciplined and reproducible.</strong> That's us. Everyone else ends up in a blacklist post.
 </p>
 
 <h2>The Platform</h2>
@@ -334,14 +164,19 @@ Each operator holds their own hardware signing key. ESP32 + fingerprint sensor, 
 <p>
 Platform's only job: customer flow, Stripe, billing, directory, public registry. That's it. No platform-held keys. No shared infrastructure that can fake a signature. If a cert is signed by you, it was signed by <em>you</em>, on your hardware, with your finger.
 </p>
+<p>
+Operators come from across the spectrum — red teamers, ML researchers, AI safety folks from Anthropic / OpenAI / DeepMind alumni, ML engineers from HuggingFace / Databricks / Thorn / Meta T&S, academics, and veterans via SkillBridge / VR&E. Specialty tags route customers to the right operator for their model class.
+</p>
 
 <h2>What Customers Pay</h2>
 <table>
 <thead><tr><th>Tier</th><th>Price</th><th>What They Get</th></tr></thead>
 <tbody>
-<tr><td class="tier-name">Standard</td><td class="num">$20/yr</td><td>Automated methodology audit · any operator signs</td></tr>
+<tr><td class="tier-name">Standard</td><td class="num">$20/yr</td><td>Automated methodology · CSAM + generic harm</td></tr>
+<tr><td class="tier-name">+ Add-ons</td><td class="num">+$15-30/yr each</td><td>NCII, CBRN, supply-chain, privacy, copyright</td></tr>
 <tr><td class="tier-name">Operator</td><td class="num">$500/yr</td><td>Customer picks you specifically · personal audit</td></tr>
-<tr><td class="tier-name">Portfolio</td><td class="num">$5K–50K/yr</td><td>Dedicated operator for AI company's full model shelf</td></tr>
+<tr><td class="tier-name">Full Spectrum</td><td class="num">$150/yr</td><td>All eleven harm classes bundled</td></tr>
+<tr><td class="tier-name">Portfolio</td><td class="num">$5K–50K/yr</td><td>Dedicated operator for AI company's full shelf</td></tr>
 <tr><td class="tier-name">Gov</td><td class="num">per engagement</td><td>Clearance-required work · negotiated per contract</td></tr>
 </tbody>
 </table>
@@ -360,9 +195,9 @@ Platform's only job: customer flow, Stripe, billing, directory, public registry.
 
 <h2>Your Seat</h2>
 <div class="callout">
-<p><strong>TAC Seat #1 — Advisor of Operators.</strong></p>
-<p>You vet who joins the directory. Anyone you reject doesn't get in. Anyone you greenlight is vouched for by you. The guild's quality bar is your name.</p>
-<p class="faint" style="font-size:0.88rem; margin-top:1rem">Honorary per OA Article XXII. No equity. No governance. No time commitment beyond the methodology review. Nothing touching your current gigs.</p>
+<p><strong>Operator #1.</strong></p>
+<p>You're the first inducted. I'm #0 as founder; you're #1 as the operator who said "this is me, balls to the wall." You vet who joins the directory after this. Anyone you reject doesn't get in. Anyone you greenlight is vouched for by you. The guild's quality bar is your name from this point forward.</p>
+<p class="faint" style="font-size:0.88rem; margin-top:1rem">Honorary advisory function per OA Article XXII. No equity. No governance. No time commitment beyond methodology review and the operators you bring. Nothing touching your current gigs.</p>
 </div>
 
 <h2>What I Need From You</h2>
@@ -388,26 +223,29 @@ Platform's only job: customer flow, Stripe, billing, directory, public registry.
 
 <h2>Why The Name</h2>
 <p>
-KNOXAI because <strong>you hold the key, the vault is yours,</strong> and anyone trying to ship contaminated AI through this space knows the people on the perimeter did this exact job for the government.
+KNOXAI because <strong>you hold the key, the vault is yours,</strong> and anyone trying to ship contaminated AI through this space knows the people on the perimeter spent careers finding what's hidden in systems.
 </p>
 
+<h2>What's Live Right Now</h2>
+<ul>
+<li><span class="kbd">knox.cochranblock.org</span> — mystery page, system-active counter</li>
+<li><span class="kbd">knox.cochranblock.org/no-quarter</span> — full mission doctrine, eleven harm classes covered</li>
+<li><span class="kbd">knox.cochranblock.org/onboarding</span> — operator handbook (13 sections)</li>
+<li><span class="kbd">cochranblock.org/operations</span> — signed Operating Agreement</li>
+<li><span class="kbd">cochranblock.org/sovereignty</span> — six-proof audit page</li>
+</ul>
+
 <div class="cta">
-<div class="cta-label"><span class="pulse"></span>LIVE RIGHT NOW</div>
+<div class="cta-label"><span class="pulse"></span>READY WHEN YOU ARE</div>
 <div class="cta-url">knox.cochranblock.org</div>
-<div class="cta-note">Open it. Counter's been ticking since yesterday.</div>
+<div class="cta-note">Tell me you're in and I send you the operator provisioning packet.</div>
 </div>
 
 <div class="sig">
 <span class="name">Michael Cochran</span><br>
 USCYBERCOM Offensive Cyber Operator · The Cochran Block, LLC<br>
-<span class="faint">Full onboarding doc in your hands the minute you say you're in.</span>
+<span class="faint">Operator #0 · Founder · KNOXAI</span>
 </div>
-
-</div>
-
-<script>
-!function(){var f=document.getElementById("f"),i=document.getElementById("p"),s=document.getElementById("s"),a=[],w=6e3,n=3,k=atob("cGFzc3dvcmQ=");function d(){s.textContent="ACCESS DENIED";s.classList.remove("denied");void s.offsetWidth;s.classList.add("denied")}f.addEventListener("submit",function(e){e.preventDefault();var v=i.value;i.value="";i.focus();if(v!==k){a=[];d();return}var t=Date.now();a.push(t);while(a.length&&a[0]<t-w)a.shift();if(a.length>=n){document.body.className="unlocked";s.textContent="";a=[]}else{d()}})}();
-</script>
 
 </body>
 </html>
