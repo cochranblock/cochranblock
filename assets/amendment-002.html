@@ -8,7 +8,7 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
-  background: #0e0e0e;
+  background: #000;
   color: #e8e8e8;
   font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
   font-size: 15px;
@@ -19,7 +19,7 @@ body { padding: 3rem 1.5rem 6rem; }
 .doc {
   max-width: 920px;
   margin: 0 auto;
-  background: #fafafa;
+  background: #e8dfc5;
   color: #1a1a1a;
   padding: 4rem 3.5rem;
   border-radius: 4px;
@@ -128,7 +128,7 @@ body { padding: 3rem 1.5rem 6rem; }
 .doc .ack {
   margin-top: 2rem;
   padding: 1rem 1.2rem;
-  background: #f0e8d8;
+  background: #d9cc9a;
   border-left: 3px solid #1a3a8a;
   font-size: 0.85rem;
   font-family: 'SF Mono',monospace;
@@ -186,7 +186,7 @@ table.fin th, table.fin td {
 }
 table.fin th {
   font-weight: 700;
-  background: #ececec;
+  background: #d4c99a;
   color: #1a1a1a;
   font-size: 0.78rem;
   letter-spacing: 0.05em;
@@ -200,14 +200,14 @@ table.fin .grow { color: #2e7d32; font-weight: 700; }
 .callout {
   margin: 1.5rem 0;
   padding: 1.2rem 1.4rem;
-  background: #f5f1e8;
+  background: #d9cc9a;
   border-left: 3px solid #b71c1c;
   font-family: 'SF Mono', monospace;
   font-size: 0.88rem;
   line-height: 1.55;
 }
-.callout-blue { border-left-color: #1a3a8a; background: #eef2fa; }
-.callout-green { border-left-color: #2e7d32; background: #eaf3eb; }
+.callout-blue { border-left-color: #1a3a8a; background: #b8c4d8; }
+.callout-green { border-left-color: #2e7d32; background: #b8d1bb; }
 .callout strong { color: #1a1a1a; }
 
 .metric-grid {
@@ -387,20 +387,20 @@ in compliance with Section V(d).
 </div>
 
 <!-- ── Market sizing ─────────────────────────────────────────────── -->
-<h2>1 · Market Sizing</h2>
+<h2>1 · Market Sizing (Company Estimates — See §12 Factual Basis)</h2>
 
 <div class="metric-grid">
-<div class="metric-card"><div class="metric-num">$10B</div><div class="metric-lbl">TAM 2027</div></div>
-<div class="metric-card"><div class="metric-num">$2-3B</div><div class="metric-lbl">SAM (Audit + Compliance)</div></div>
-<div class="metric-card"><div class="metric-num">$40M</div><div class="metric-lbl">SOM Year 5 Target</div></div>
-<div class="metric-card"><div class="metric-num">~1.5%</div><div class="metric-lbl">SAM Capture Y5</div></div>
+<div class="metric-card"><div class="metric-num">~$10B</div><div class="metric-lbl">TAM Est. by 2027</div></div>
+<div class="metric-card"><div class="metric-num">~$2-3B</div><div class="metric-lbl">SAM Est. (Audit subset)</div></div>
+<div class="metric-card"><div class="metric-num">$40M</div><div class="metric-lbl">SOM Y5 Internal Target</div></div>
+<div class="metric-card"><div class="metric-num">~1.5%</div><div class="metric-lbl">Target SAM Capture Y5</div></div>
 </div>
 
-<p><strong>TAM ($10B by 2027):</strong> Global AI safety / model integrity / responsible AI services market per McKinsey, BCG, and Gartner 2026 reports. Includes red-teaming services, model-card auditing, dataset provenance, model-monitoring tools, regulatory-compliance consulting, and training programs.</p>
+<p><strong>TAM estimate:</strong> The Company's internal estimate of the 2027 global AI safety / model integrity / responsible AI services market, derived from publicly available industry analyst commentary. Specific cited third-party market-sizing reports are not relied upon here; the estimate is directional only. The market includes red-teaming services, model-card auditing, dataset provenance, model-monitoring tools, regulatory-compliance consulting, and training programs.</p>
 
-<p><strong>SAM ($2-3B):</strong> The audit-and-attestation subset — independent third-party assessment of AI model integrity for regulatory, contractual, or marketplace requirements. KNOXAI competes here directly.</p>
+<p><strong>SAM estimate:</strong> The audit-and-attestation subset — independent third-party assessment of AI model integrity for regulatory, contractual, or marketplace requirements. KNOXAI competes here directly. Subset size is an internal allocation of the TAM estimate; not sourced from a third-party report.</p>
 
-<p><strong>SOM ($40M Y5):</strong> Conservative capture assuming (i) penetration into 30% of HuggingFace's ~1.5M public models at Standard tier, (ii) one Federal SBIR Phase II + one DHS contract, (iii) two insurance partnerships, (iv) HuggingFace marketplace integration, (v) 30 Portfolio-tier customers. No assumption of legislation-mandated adoption — a single state law citation would 5x the projection.</p>
+<p><strong>SOM target:</strong> Internal target for Y5 revenue capture, assuming (i) penetration into ~30% of HuggingFace's publicly stated ~1.5M+ public models at Standard tier, (ii) one Federal SBIR Phase II + one DHS contract, (iii) two insurance partnerships, (iv) one marketplace integration, (v) 30 Portfolio-tier customers. No assumption of legislation-mandated adoption. <strong>These are projections, not commitments.</strong></p>
 
 <!-- ── Pricing matrix ────────────────────────────────────────────── -->
 <h2>2 · Pricing Matrix (per §12.5(a))</h2>
@@ -424,7 +424,9 @@ in compliance with Section V(d).
 </table>
 
 <!-- ── 5-year projection ────────────────────────────────────────── -->
-<h2>3 · Five-Year Revenue Projection (Conservative)</h2>
+<h2>3 · Five-Year Revenue Projection (Internal Forecast — Not a Commitment)</h2>
+
+<p style="font-size: 0.88rem; font-style: italic; background: #f5f1e8; padding: 0.8rem 1rem; border-left: 3px solid #b71c1c; margin-bottom: 1rem;"><strong>Disclosure:</strong> the table below is the Company's internal revenue forecast under stated assumptions. It is not a projection supported by booked contracts, historical customer data, or third-party market research. Actual results will differ, likely materially. The CEBP investor (a16z Speedrun) and any other recipient of this document should treat all forward-looking numbers as targets, not commitments.</p>
 
 <table class="fin">
 <thead>
@@ -539,15 +541,16 @@ in compliance with Section V(d).
 <h2>9 · The Money-vs-CSAM Conversion Rate</h2>
 
 <div class="callout callout-green">
-<p><strong>The MMLC framework's central claim:</strong> every dollar of revenue translates directly to harm reduction via the operator pipeline. The conversion math:</p>
+<p><strong>The MMLC framework's central claim:</strong> every dollar of revenue translates directly to operator-hours available for audit, which translate to contaminated models detected, which translate to regulator reports filed. The chain is:</p>
 <ul>
-<li>$20K platform take ≈ funds 1 part-time operator-month</li>
-<li>1 operator-month ≈ 200 cert audits issued OR ~50 hours of manual red-team review</li>
-<li>200 audits ≈ 20-30 contaminated models flagged (10-15% historical fail rate on uncerted models)</li>
-<li>20-30 flagged models ≈ 20-30 NCMEC reports filed → FBI ICAC pipeline</li>
-<li>FBI ICAC conversion rate to investigation: ~30%; to indictment: ~10%</li>
+<li>Platform take → operator bench capacity</li>
+<li>Operator bench → cert audits produced per cycle</li>
+<li>Cert audits → contaminated models detected at the prevailing fail rate (to be measured in production)</li>
+<li>Detections → mandatory-reporting filings to the authority with jurisdiction</li>
+<li>Filings → investigation pipeline downstream of KNOXAI's control</li>
 </ul>
-<p>Therefore: <strong>$20K revenue ≈ 2-3 federal indictments per cycle</strong> at maturity. Year 5 projection of $40M revenue → ~4,000-6,000 federal indictments over the period. <strong>That is the headline metric More Money Less CSAM optimizes for.</strong></p>
+<p><strong>Conversion rates at each stage are mission-dependent and will be measured once operational.</strong> The Company does not here cite investigation or indictment rates because authoritative public base rates for AI-CSAM specifically do not exist in 2026; the category is too new. The live ledger at <code>cochranblock.org/no-quarter</code> will publish measured rates post-launch as they become defensible.</p>
+<p><strong>What is factual:</strong> mandatory reporting is triggered under 18 USC §2258A on any CSAM finding. What KNOXAI measurably contributes is the upstream detection signal that would otherwise not exist — the regulator's conversion of that signal into enforcement is out of scope.</p>
 </div>
 
 <!-- ── The exit ─────────────────────────────────────────────────── -->

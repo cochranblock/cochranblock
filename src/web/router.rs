@@ -101,9 +101,107 @@ pub fn f1(p0: t0) -> Router {
         .route("/money", get(pages::f110))
         .route("/operations/amendment-003", get(pages::f111))
         .route("/amendment-003", get(pages::f111))
-        .route("/pitch", get(pages::f111))
-        .route("/deck", get(pages::f111))
-        .route("/10-slides", get(pages::f111))
+        // Clean pitch-deck aliases — bypass the legal preamble
+        .route("/pitch", get(pages::f116))
+        .route("/deck", get(pages::f116))
+        .route("/10-slides", get(pages::f116))
+        .route("/pitch-deck", get(pages::f116))
+        .route("/for-john", get(pages::f116))
+        .route("/speedrun-deck", get(pages::f116))
+        .route("/knoxai-deck", get(pages::f116))
+        // Federal pipeline archive — not indexed, for named reviewer conversations
+        .route("/archive", get(pages::f117))
+        .route("/proposals", get(pages::f117))
+        .route("/federal-pipeline", get(pages::f117))
+        .route("/pipeline", get(pages::f117))
+        .route(
+            "/aiedge-whitepaper.pdf",
+            get(|| async {
+                (
+                    [(axum::http::header::CONTENT_TYPE, "application/pdf")],
+                    include_packed::include_packed!("assets/aiedge-whitepaper.pdf"),
+                )
+            }),
+        )
+        .route(
+            "/darpa-dso-whitepaper",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/darpa-dso-whitepaper.md"),
+                )
+            }),
+        )
+        .route(
+            "/darpa-dso-whitepaper.md",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/darpa-dso-whitepaper.md"),
+                )
+            }),
+        )
+        .route(
+            "/darpa-i2o-whitepaper",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/darpa-i2o-whitepaper.md"),
+                )
+            }),
+        )
+        .route(
+            "/darpa-i2o-whitepaper.md",
+            get(|| async {
+                (
+                    [(
+                        axum::http::header::CONTENT_TYPE,
+                        "text/markdown; charset=utf-8",
+                    )],
+                    include_packed::include_packed!("assets/darpa-i2o-whitepaper.md"),
+                )
+            }),
+        )
+        .route(
+            "/capability-statement.pdf",
+            get(|| async {
+                (
+                    [(axum::http::header::CONTENT_TYPE, "application/pdf")],
+                    include_packed::include_packed!("assets/capability-statement.pdf"),
+                )
+            }),
+        )
+        .route("/operations/amendment-005", get(pages::f112))
+        .route("/amendment-005", get(pages::f112))
+        .route("/roast", get(pages::f112))
+        .route("/ironies", get(pages::f112))
+        .route("/irony-watch", get(pages::f112))
+        .route("/iorp", get(pages::f112))
+        .route("/p33", get(pages::f112))
+        .route("/constitution", get(pages::f113))
+        .route("/governance", get(|| async { Redirect::permanent("/constitution") }))
+        .route("/docs", get(|| async { Redirect::permanent("/constitution") }))
+        .route("/operations/amendment-006", get(pages::f114))
+        .route("/amendment-006", get(pages::f114))
+        .route("/pointers", get(pages::f114))
+        .route("/pointer-discipline", get(pages::f114))
+        .route("/no-savages", get(pages::f114))
+        .route("/p34", get(pages::f114))
+        .route("/52-days", get(pages::f115))
+        .route("/day-zero", get(pages::f115))
+        .route("/day-52", get(pages::f115))
+        .route("/since-february", get(pages::f115))
+        .route("/origin", get(pages::f115))
+        .route("/sprint", get(pages::f115))
         .route(
             "/operating-agreement.pdf",
             get(|| async {
