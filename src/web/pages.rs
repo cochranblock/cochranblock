@@ -2472,11 +2472,11 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
     let mut total_hours: f64 = 0.0;
     let mut total_value: f64 = 0.0;
     for entry in &data {
-        total_hours += entry.3;
-        total_value += entry.4;
+        total_hours += entry.2;
+        total_value += entry.3;
         rows.push_str(&format!(
-            r#"<tr><td><a href="https://github.com/cochranblock/{}">{}</a></td><td class="cost-amount">{}</td><td class="cost-amount">{:.1}x</td><td class="cost-amount cost-new">{:.1} hrs</td><td class="cost-amount cost-new">${:.0}</td></tr>"#,
-            entry.0, entry.0, entry.1, entry.2, entry.3, entry.4
+            r#"<tr><td><a href="https://github.com/cochranblock/{}">{}</a></td><td class="cost-amount">{}</td><td class="cost-amount cost-new">{:.1} hrs</td><td class="cost-amount cost-new">${:.0}</td></tr>"#,
+            entry.0, entry.0, entry.1, entry.2, entry.3
         ));
     }
 
@@ -2492,13 +2492,13 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
 <h2 class="services-section-head">R&amp;D Activity — By Repository</h2>
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Repository</strong></td><td><strong>Sessions</strong></td><td><strong>Complexity Context</strong></td><td><strong>Observed Session Hours</strong></td><td><strong>Notional Value @$225/hr</strong></td></tr>
+<tr><td><strong>Repository</strong></td><td><strong>Sessions</strong></td><td><strong>Hours</strong></td><td><strong>Value @$225/hr</strong></td></tr>
 {}
-<tr style="border-top:2px solid var(--accent)"><td><strong>Total</strong></td><td></td><td></td><td class="cost-amount cost-new"><strong>{:.1} hrs</strong></td><td class="cost-amount cost-new"><strong>${:.0}</strong></td></tr>
+<tr style="border-top:2px solid var(--accent)"><td><strong>Total</strong></td><td></td><td class="cost-amount cost-new"><strong>{:.1} hrs</strong></td><td class="cost-amount cost-new"><strong>${:.0}</strong></td></tr>
 </table>
 </div>
 
-<p class="govdoc-note" style="font-size:0.9rem;color:#666;margin-top:0.5rem"><em>Observed session hours reflect actual elapsed time between first and last commit of each session. No imputed minimums. No complexity multipliers applied to hours. "Notional value" is observed hours × published rate — reference figure for scale, not a claim for payment.</em></p>
+<p class="govdoc-note" style="font-size:0.9rem;color:#666;margin-top:0.5rem"><em>Hours reflect actual elapsed time between first and last commit of each session. No imputed minimums. Value = hours × $225/hr published rate.</em></p>
 
 <h2 class="services-section-head">Methodology</h2>
 <div class="service-cards">
@@ -2507,16 +2507,7 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
 <div class="govdoc-print">
 <p><strong>Data source:</strong> GitHub API — commit timestamps from public repositories under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Machine-verified public record.</p>
 <p><strong>Session detection:</strong> Consecutive commits within a 2-hour window are grouped into a single work session. Session hours = actual elapsed time between the first and last commit of the session. <strong>No imputed minimum.</strong> A session with one commit contributes zero hours. A session with commits 12 minutes apart contributes 12 minutes.</p>
-<p><strong>Complexity Context (display only):</strong> Repos are tagged with a complexity indicator reflecting technical depth — augment engines rank higher than static docs. <strong>This indicator is not applied to hours.</strong> Hours are hours. Complexity is context.</p>
-<div class="cost-summary"><table class="cost-table">
-<tr><td>kova (augment engine + LLM)</td><td class="cost-amount">high</td></tr>
-<tr><td>pixel-forge (AI diffusion models)</td><td class="cost-amount">high</td></tr>
-<tr><td>ghost-fabric (LoRa mesh + edge AI)</td><td class="cost-amount">high</td></tr>
-<tr><td>cochranblock (web + forms + booking)</td><td class="cost-amount">medium</td></tr>
-<tr><td>approuter (reverse proxy + tunnel)</td><td class="cost-amount">medium</td></tr>
-<tr><td>rogue-repo (payment engine)</td><td class="cost-amount">medium</td></tr>
-<tr><td>All others</td><td class="cost-amount">standard</td></tr>
-</table></div>
+<p><strong>23 repositories tracked.</strong> Every public repo under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Hours are hours. No multipliers. No adjustments.</p>
 <p><strong>Rate context:</strong> $225/hour is our published rate card reference, supported by salary-equivalent analysis and market comparables. Actual rates on any specific federal contract are established contractually and may vary.</p>
 
 <p><strong>Context on federal cost accounting:</strong> IR&amp;D (Independent Research &amp; Development) is an indirect cost recovered via overhead/G&amp;A pools under FAR 31.205-18 — not billed directly by the hour. Direct labor on federal contracts is recorded via contemporaneous daily timesheets maintained internally and available on audit request. This page is not a substitute for either.</p>
@@ -2542,10 +2533,10 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f86_data = calculate hours per repo from GitHub commit timestamps. Cached 30 min.
-async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
+async fn f86_data() -> Vec<(&'static str, u32, f64, f64)> {
     use std::sync::Mutex;
     use std::sync::OnceLock;
-    type CacheVal = Vec<(String, u32, f64, f64, f64)>;
+    type CacheVal = Vec<(String, u32, f64, f64)>;
 
     static CACHE: OnceLock<Mutex<(CacheVal, std::time::Instant)>> = OnceLock::new();
     let cache = CACHE.get_or_init(|| {
@@ -2561,27 +2552,35 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
             return guard
                 .0
                 .iter()
-                .map(|(n, s, m, h, v)| (leak_str(n), *s, *m, *h, *v))
+                .map(|(n, s, h, v)| (leak_str(n), *s, *h, *v))
                 .collect();
         }
     }
 
-    let repos: &[(&str, f64)] = &[
-        ("kova", 2.0),
-        ("pixel-forge", 1.8),
-        ("ghost-fabric", 1.8),
-        ("cochranblock", 1.5),
-        ("approuter", 1.5),
-        ("rogue-repo", 1.5),
-        ("oakilydokily", 1.0),
-        ("illbethejudgeofthat", 1.0),
-        ("exopack", 1.0),
-        ("whyyoulying", 1.0),
-        ("pocket-server", 1.0),
-        ("wowasticker", 1.0),
-        ("provenance-docs", 1.0),
-        ("call-shield", 1.0),
-        ("aptnomo", 1.5),
+    let repos: &[&str] = &[
+        "kova",
+        "pixel-forge",
+        "ghost-fabric",
+        "cochranblock",
+        "approuter",
+        "approuter-acme",
+        "rogue-repo",
+        "oakilydokily",
+        "illbethejudgeofthat",
+        "exopack",
+        "whyyoulying",
+        "pocket-server",
+        "wowasticker",
+        "provenance-docs",
+        "call-shield",
+        "aptnomo",
+        "tmuxisfree",
+        "header-writer",
+        "any-gpu",
+        "battle-bros",
+        "worldview",
+        "whobelooking",
+        "ronin-sites",
     ];
 
     let client = reqwest::Client::builder()
@@ -2589,10 +2588,10 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
         .build()
         .unwrap();
 
-    let mut results: Vec<(String, u32, f64, f64, f64)> = Vec::new();
+    let mut results: Vec<(String, u32, f64, f64)> = Vec::new();
     let rate = 225.0_f64;
 
-    for &(repo, multiplier) in repos {
+    for &repo in repos {
         // Proper structured fetch. No string-splitting. Deterministic errors.
         // Returns empty vec on any failure, with eprintln for visibility.
         let timestamps: Vec<i64> = fetch_commit_timestamps(&client, repo).await.unwrap_or_else(|e| {
@@ -2625,28 +2624,17 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64, f64)> {
             base_hours += dur;
         }
 
-        // Multiplier is DISPLAY-ONLY (represents repo complexity as context).
-        // It is NOT applied to hours. Hours are hours. Complexity belongs in
-        // rate negotiation, not in labor fabrication.
-        let displayed_hours = base_hours;
-        // Notional value only — marketing context, not a billing record.
-        let value = displayed_hours * rate;
-        results.push((
-            repo.to_string(),
-            sessions,
-            multiplier,
-            displayed_hours,
-            value,
-        ));
+        let value = base_hours * rate;
+        results.push((repo.to_string(), sessions, base_hours, value));
     }
 
-    results.sort_by(|a, b| b.4.partial_cmp(&a.4).unwrap_or(std::cmp::Ordering::Equal));
+    results.sort_by(|a, b| b.3.partial_cmp(&a.3).unwrap_or(std::cmp::Ordering::Equal));
 
     let mut guard = cache.lock().unwrap();
     *guard = (results.clone(), std::time::Instant::now());
     results
         .iter()
-        .map(|(n, s, m, h, v)| (leak_str(n), *s, *m, *h, *v))
+        .map(|(n, s, h, v)| (leak_str(n), *s, *h, *v))
         .collect()
 }
 
@@ -2791,17 +2779,17 @@ pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     let mut total_value: f64 = 0.0;
     let entries: Vec<String> = data
         .iter()
-        .map(|(repo, sessions, complexity, hours, value)| {
+        .map(|(repo, sessions, hours, value)| {
             total_hours += hours;
             total_value += value;
             format!(
-                r#"{{"repo":"{}","sessions":{},"complexity_display":{:.1},"observed_hours":{:.1},"notional_value":{:.0}}}"#,
-                repo, sessions, complexity, hours, value
+                r#"{{"repo":"{}","sessions":{},"hours":{:.1},"value":{:.0}}}"#,
+                repo, sessions, hours, value
             )
         })
         .collect();
     let json = format!(
-        r#"{{"repos":[{}],"total_observed_hours":{:.1},"total_notional_value":{:.0},"rate_reference":225,"methodology":"sessions_2hr_window_no_minimum_no_multiplier","source":"github_api","disclaimer":"Public R&D activity log. Transparency artifact, not a billing record. Actual contract billing uses contemporaneous daily timesheets per DCAA guidance."}}"#,
+        r#"{{"repos":[{}],"total_hours":{:.1},"total_value":{:.0},"rate":225,"methodology":"sessions_2hr_window_no_minimum","source":"github_api"}}"#,
         entries.join(","),
         total_hours,
         total_value
@@ -2820,8 +2808,8 @@ pub async fn f87(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 pub async fn site_stats() -> crate::t1 {
     let (reqs, visitors) = f90_totals().await;
     let ob = f86_data().await;
-    let total_hours: f64 = ob.iter().map(|e| e.3).sum();
-    let total_value: f64 = ob.iter().map(|e| e.4).sum();
+    let total_hours: f64 = ob.iter().map(|e| e.2).sum();
+    let total_value: f64 = ob.iter().map(|e| e.3).sum();
 
     let repo_count = REPOS.len();
     let unlicense_count = 13_usize;
