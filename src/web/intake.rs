@@ -108,6 +108,7 @@ async fn migrate(pool: &SqlitePool) -> Result<(), sqlx::Error> {
             specialty_tags TEXT NOT NULL,
             clearance TEXT NOT NULL,
             motivation TEXT NOT NULL,
+            hazmat_answer TEXT NOT NULL,
             acknowledge_csam INTEGER NOT NULL,
             submitted_at TEXT NOT NULL,
             ip_address TEXT,
@@ -449,6 +450,15 @@ pub async fn knox_apply_form(State(_s): State<Arc<t0>>) -> Html<String> {
 </label>
 </div>
 
+<div style="background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);border-left:3px solid #ff6188;padding:1.2rem;border-radius:4px;margin-top:1.5rem">
+<div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:#ff6188;margin-bottom:0.8rem">Entrance Challenge — The Hazmat Suit Equation</div>
+<p style="color:#c1c0c0;margin-bottom:1rem">In Yu-Gi-Oh, Exodia has 5 pieces. Each piece alone is a useless card. Assembled, they win the game instantly.</p>
+<p style="color:#c1c0c0;margin-bottom:1rem">KNOXAI's audit pipeline is split into 8 crates using the same pattern — each piece individually harmless. The <strong style="color:#fcfcfa">hazmat suit</strong> is the set of layers that ensures an operator <strong style="color:#ff6188">never sees actual CSAM</strong> while still detecting it.</p>
+<p style="color:#c1c0c0;margin-bottom:1rem"><strong style="color:#ffd866">The question:</strong> Name the 3 layers of the hazmat suit — what does the operator see instead of harmful content at each detection gate? (Hint: the onboarding handbook at <a href="/knox" style="color:#ffd866">/knox</a> has the answer.)</p>
+<textarea name="hazmat_answer" required maxlength="2000" placeholder="Layer 1: ...&#10;Layer 2: ...&#10;Layer 3: ..." rows="4" style="width:100%;background:#221f22;border:1px solid rgba(255,255,255,0.08);color:#fcfcfa;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.85rem;border-radius:4px;resize:vertical"></textarea>
+<p style="font-size:0.7rem;color:#727072;margin-top:0.5rem">No wrong format. We're checking that you read the handbook and understand why you never touch harmful content directly.</p>
+</div>
+
 <div style="display:none"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
 
 <button type="submit" style="margin-top:1.5rem;width:100%;background:rgba(255,216,102,0.15);color:#ffd866;border:1px solid #ffd866;padding:0.8rem;font-family:inherit;font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;cursor:pointer">Submit Application</button>
@@ -480,6 +490,7 @@ pub struct KnoxApplyForm {
     tag_cleared: Option<String>,
     clearance: String,
     motivation: String,
+    hazmat_answer: String,
     #[serde(default)]
     acknowledge_csam: Option<String>,
     #[serde(default)]
@@ -516,7 +527,7 @@ pub async fn knox_apply_submit(
 
     if let Some(pool) = &s.intake_pool {
         let _ = sqlx::query(
-            "INSERT INTO knoxai_applicants (id, full_name, email, background, specialty_tags, clearance, motivation, acknowledge_csam, submitted_at, ip_address, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO knoxai_applicants (id, full_name, email, background, specialty_tags, clearance, motivation, hazmat_answer, acknowledge_csam, submitted_at, ip_address, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         )
         .bind(&id)
         .bind(&f.full_name)
@@ -525,6 +536,7 @@ pub async fn knox_apply_submit(
         .bind(&tags_str)
         .bind(&f.clearance)
         .bind(&f.motivation)
+        .bind(&f.hazmat_answer)
         .bind(ack)
         .bind(&submitted_at)
         .bind(&ip)
@@ -548,6 +560,7 @@ pub async fn knox_apply_submit(
             "specialty_tags": tags_str,
             "clearance": f.clearance,
             "motivation": f.motivation,
+            "hazmat_answer": f.hazmat_answer,
             "submitted_at": submitted_at,
         });
         let aid = id.clone();
