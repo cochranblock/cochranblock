@@ -362,7 +362,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <div class="slide-num">Slide 03<span class="of"> · of 10</span> · Value Proposition</div>
 <div class="slide-title"><span class="amber">First-to-market</span> third-party, hardware-signed, independent AI integrity certification — at a price enterprise buyers can actually procure.</div>
 <div class="slide-body">
-<p><strong>Nobody else combines all five:</strong> independent · hardware-rooted signature · reproducible audit · accessibly priced · proprietary methodology. Internal red-teams fail on independence. Academics fail on commercial polish. Big-4 fails on price and speed. Marketplace auto-checks fail on independence. We are the wedge.</p>
+<p><strong>The Quadrangle trade-off: we picked Quality + Speed + Low Cost by limiting Scope.</strong> CSAM first. Eleven harm classes queued. Ship the wedge, expand from trust. Nobody else combines all five: independent · hardware-rooted signature · reproducible audit · accessibly priced · proprietary methodology. Internal red-teams fail on independence. Academics fail on commercial polish. Big-4 fails on price and speed. Marketplace auto-checks fail on independence. We are the wedge.</p>
 <p><strong>This is what I was trained for.</strong> USCYBERCOM Offensive Cyber Operator — the exact job description is "find what's hidden in systems." Now applied to AI model supply chains at scale.</p>
 <p><strong>For publishers:</strong> a signed cert defensible in court, accepted by marketplaces, recognized by regulators.</p>
 <p><strong>For marketplaces</strong> (HuggingFace, Civitai, Ollama): a listing-gate that shifts liability upstream to publishers, downstream away from the platform.</p>
@@ -380,7 +380,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <p><strong>2. Five-gate audit pipeline.</strong> Hash scan → red-team battery → membership inference → dataset attestation → harmful-output classifier. Each gate emits artifacts. Artifacts hash into the signature. A skeptic can re-run every gate and verify against the published pubkey.</p>
 <p><strong>3. Reproducibility is the product.</strong> A cert you can re-verify is a cert a court, a marketplace, and a regulator can all accept. A SaaS black-box attestation is not.</p>
 <p style="margin-top:1.2rem"><strong>4. The radioactive data problem.</strong> Real CSAM data is federal evidence. It cannot be stored, shared, demonstrated, or used in a PoC. Every other company in this space hits this wall. We solved it with the <strong style="color:var(--amber)">Exodia Architecture</strong>: the entire 5-gate pipeline is scaffolded on safe 32x32 pixel art (skeletons = flagged content, knights = clean content). Same code paths, same gate logic, zero harmful content in the repo. Swap to production by changing three things: hash DB source (NCMEC), classifier weights (retrained), one environment variable. The code does not change. <strong>The PoC is live and testable TODAY</strong> without legal, ethical, or storage risk.</p>
-<p class="dim" style="font-size:0.88em;margin-top:1rem;"><strong>Platform note:</strong> 8 Rust crates, each individually harmless (hash library, signing tool, job queue). Only the compositor assembles the full audit system. No single crate can be misused, forked, or weaponized alone. Named after Yu-Gi-Oh Exodia: five useless cards that win the game when assembled. Full hardware spec + signing ceremony at <span class="amber">knox.cochranblock.org/operators</span>.</p>
+<p class="dim" style="font-size:0.88em;margin-top:1rem;"><strong>Platform note:</strong> 8 Rust crates — multiple specialized systems, each handling one function, governed by a compositor that selects which module to activate. Same architectural diversity principle as multi-system AGI: hash library, inference runner, gate logic, signing tool, job queue, report pipeline. Only the compositor assembles the full audit system. No single crate can be misused, forked, or weaponized alone. Named after Yu-Gi-Oh Exodia: five useless cards that win the game when assembled. Full hardware spec + signing ceremony at <span class="amber">knox.cochranblock.org/operators</span>.</p>
 </div>
 </div>
 
@@ -413,6 +413,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <div class="slide-title">The Docker Hub model for AI safety. <span class="amber">Push your model. Get certified. Ship the badge.</span></div>
 <div class="slide-body">
 <p><strong>The Docker Hub analogy.</strong> Docker Hub became the default registry because every container got scanned, signed, and badged before it shipped. KNOXAI is the same model for AI: publishers push a model, operators audit it through 5 gates, a hardware-signed cert ships back. Marketplaces display the badge. Regulators accept the cert. Uncerted models become unshippable — just like unsigned Docker images became undeployable in enterprise.</p>
+<p><strong>This is a Lesse's Law moment.</strong> Three regulatory deadlines converge in 2026 — EU AI Act, DoD Section 1513, UK OSA AI expansion. This is not incremental growth. This is a discontinuous leap in compliance demand. The market jumps, not curves. We are positioned before the jump.</p>
 <p><strong>Phase 1 — Trust anchor (M0-M6).</strong> Publish the methodology, publish the pubkey, publish the first cert registry. Get cited by name in conformity frameworks. Credibility before volume. Trust compounds; leads don't.</p>
 <p><strong>Phase 2 — Regulatory catalyst (M3-M18).</strong> Ride the EU AI Act, UK OSA, NIST AI RMF, and state AI-safety bills. Get cited by name in conformity frameworks — the path SOC 2 took from 2011 advisory doc to 2017 procurement gate. <strong>Regulated industries (HIPAA, FINRA, FedRAMP) adopt first; consumer AI follows.</strong></p>
 <p><strong>Phase 3 — Eight-lever execution.</strong></p>
@@ -459,7 +460,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <div class="slide-title"><span class="amber">Day 55.</span> Solo technical founder. 23 Rust products. Cert service live. Founding Advisor landed. Operator guild recruiting.</div>
 <div class="slide-body">
 
-<p><strong>Michael Cochran · Founder &amp; CEO</strong></p>
+<p><strong>Michael Cochran · Founder &amp; CEO · The Prototyper</strong></p>
 <ul>
 <li><strong>55 days since founding:</strong> 23 public Rust repos / 143,763 LoC / 1,598 tests / 5 crates published / 3 live production domains / <strong>~$364 total spend</strong> ($200/mo Claude + $10/mo tunnel + own GPUs — ~1,000× capital-efficient vs industry)</li>
 <li>Shipped the full KNOXAI prototype solo in under two months</li>
@@ -547,7 +548,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <li><strong>cochranblock.org/sovereignty</strong> — six-proof public audit page</li>
 </ul>
 
-<p style="margin-top: 1.2rem;"><strong>Use of $750K Speedrun close (18-month runway):</strong></p>
+<p style="margin-top: 1.2rem;"><strong>Use of $750K Speedrun close (18-month runway):</strong> Prototyper shipped. Now funding 2-3 scalers with one-month ramp each. Early headcount, realistic timeline math.</p>
 <table>
 <thead><tr><th>Allocation</th><th>$</th></tr></thead>
 <tbody>
