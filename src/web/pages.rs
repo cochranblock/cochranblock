@@ -5407,6 +5407,22 @@ incremental = false</pre>
 </div>
 </details>
 
+<h2 class="services-section-head">1,526 Websites. One Laptop. $10/month.</h2>
+<p style="font-size:0.95rem;opacity:0.9">Our server has 32 GB of RAM. Each site uses 20 MB. That means we can run <strong>1,526 separate websites</strong> on this one machine, each with its own database, its own TLS, its own domain. Here is what that costs everywhere else.</p>
+
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Host</strong></td><td><strong>Cost for 1,526 sites</strong></td><td><strong>Per site</strong></td><td><strong>Annual</strong></td></tr>
+<tr><td style="font-weight:900;color:var(--accent)">This laptop</td><td class="cost-amount cost-new" style="font-size:1.2rem;font-weight:900">$10/mo</td><td class="cost-amount cost-new">$0.007</td><td class="cost-amount cost-new">$120</td></tr>
+<tr><td>AWS (t3.micro each)</td><td class="cost-amount cost-old">$12,742/mo</td><td class="cost-amount cost-old">$8.35</td><td class="cost-amount cost-old">$152,904</td></tr>
+<tr><td>Vercel (Pro each)</td><td class="cost-amount cost-old">$30,520/mo</td><td class="cost-amount cost-old">$20</td><td class="cost-amount cost-old">$366,240</td></tr>
+<tr><td>Netlify (Pro each)</td><td class="cost-amount cost-old">$28,994/mo</td><td class="cost-amount cost-old">$19</td><td class="cost-amount cost-old">$347,928</td></tr>
+<tr><td>Squarespace (Business)</td><td class="cost-amount cost-old">$50,358/mo</td><td class="cost-amount cost-old">$33</td><td class="cost-amount cost-old">$604,296</td></tr>
+</table>
+</div>
+
+<p style="font-size:1rem;margin:1.5rem 0;padding:1rem;background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:4px"><strong>The math:</strong> 10 MB binary. 20 MB RAM each. 32 GB laptop. Each site gets its own port, its own database, its own Cloudflare tunnel. Same TLS. Same uptime. You save <strong>$152,784/year vs AWS</strong> and <strong>$604,176/year vs Squarespace</strong>. Still 20 potatoes. The cloud is a potato tax.</p>
+
 <h2 class="services-section-head">At Scale: 50,000 Visitors</h2>
 <p>What happens when 50,000 people hit the front page? Two questions: <em>how much data moves</em> and <em>how long until everyone is served</em>.</p>
 
