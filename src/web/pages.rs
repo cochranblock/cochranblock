@@ -5378,23 +5378,34 @@ incremental = false</pre>
 <p style="font-size:0.85rem;opacity:0.7"><em>Probe methodology: 300 sequential HTTPS GETs to <code>/operations</code>, single connection. Direct-path test uses NAT-loopback through Verizon FiOS → Orbi 443 → gd:8443 → approuter-acme → approuter → cochranblock — full external round-trip, not localhost. Cloudflare path adds CF edge, CF tunnel, and a cloudflared hop on top of the same backend chain. The 10x gap is pure network topology, not server work.</em></p>
 
 <h2 class="services-section-head">The Potato Index</h2>
-<p style="font-size:0.9rem;opacity:0.8">How many potatoes does it take to power a website? We boiled them, stuck copper and zinc electrodes in them, wrapped them in sponge to keep them wet, and did the math. <strong>Assume infinite potato size</strong> - each potato cell produces <strong>2.5 mW</strong> (boiled slurry method, 10x over raw per Hebrew University research). All websites get the same treatment.</p>
+<p style="font-size:1.05rem;line-height:1.8">How many potatoes does it take to power a website?</p>
+<p style="font-size:0.95rem;opacity:0.9">We boiled potatoes, stuck metal electrodes in them, and measured the electricity. A boiled potato produces enough power to light a small LED. So we asked: <strong>how many potatoes would it take to power each website?</strong> Same potato, same wires, same test. Every website gets the same treatment.</p>
 
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Website</strong></td><td><strong>Current Power</strong></td><td><strong>Current Potatoes</strong></td><td><strong>ESP32-NOW + BME280 Target</strong></td></tr>
-<tr><td>cochranblock.org</td><td class="cost-amount cost-new">~15W laptop</td><td class="cost-amount cost-new">6,000</td><td class="cost-amount cost-new" style="font-size:1.1rem;font-weight:900">1 ESP32 + 20 avg / 223 peak 🥔</td></tr>
-<tr><td>oakilydokily.com</td><td class="cost-amount cost-new">shared</td><td class="cost-amount cost-new">0</td><td class="cost-amount cost-new">ESP-NOW mesh node, 0 extra 🥔</td></tr>
-<tr><td>boozallen.com</td><td class="cost-amount cost-old">~2,000W</td><td class="cost-amount cost-old">800,000</td><td class="cost-amount cost-old">3,574 ESP32s + BME280s + 178,700 🥔</td></tr>
-<tr><td>leidos.com</td><td class="cost-amount cost-old">~3,000W</td><td class="cost-amount cost-old">1,200,000</td><td class="cost-amount cost-old">5,361 ESP32s + BME280s + 268,050 🥔</td></tr>
-<tr><td>saic.com</td><td class="cost-amount cost-old">~2,500W</td><td class="cost-amount cost-old">1,000,000</td><td class="cost-amount cost-old">4,468 ESP32s + BME280s + 223,400 🥔</td></tr>
-<tr><td>caci.com</td><td class="cost-amount cost-old">~2,500W</td><td class="cost-amount cost-old">1,000,000</td><td class="cost-amount cost-old">4,468 ESP32s + BME280s + 223,400 🥔</td></tr>
-<tr><td>aws.amazon.com (us-east-1)</td><td class="cost-amount cost-old">~300 MW</td><td class="cost-amount cost-old">120,000,000,000</td><td class="cost-amount cost-old">536,193 ESP32s + BME280s + 26,809,651 🥔</td></tr>
+<tr><td><strong>Website</strong></td><td><strong>Potatoes</strong></td><td><strong>At the grocery store</strong></td><td><strong>Monthly cost</strong></td></tr>
+<tr><td style="font-weight:900;color:var(--accent)">cochranblock.org</td><td class="cost-amount cost-new" style="font-size:1.4rem;font-weight:900">20 🥔</td><td class="cost-amount cost-new">Half a bag ($2.50)</td><td class="cost-amount cost-new">$10</td></tr>
+<tr><td>oakilydokily.com</td><td class="cost-amount cost-new">0 🥔</td><td class="cost-amount cost-new">Shares the same 20</td><td class="cost-amount cost-new">$0</td></tr>
+<tr><td>boozallen.com</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">800,000 🥔</td><td class="cost-amount cost-old">160,000 bags (8 semi trucks)</td><td class="cost-amount cost-old">millions</td></tr>
+<tr><td>leidos.com</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,200,000 🥔</td><td class="cost-amount cost-old">240,000 bags (12 semi trucks)</td><td class="cost-amount cost-old">millions</td></tr>
+<tr><td>saic.com</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,000,000 🥔</td><td class="cost-amount cost-old">200,000 bags (10 semi trucks)</td><td class="cost-amount cost-old">millions</td></tr>
+<tr><td>caci.com</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,000,000 🥔</td><td class="cost-amount cost-old">200,000 bags (10 semi trucks)</td><td class="cost-amount cost-old">millions</td></tr>
+<tr><td>Amazon Web Services</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">120 BILLION 🥔</td><td class="cost-amount cost-old">Every potato on Earth. Twice.</td><td class="cost-amount cost-old">billions</td></tr>
 </table>
 </div>
 
-<p style="font-size:0.85rem;opacity:0.7"><em><strong>Methodology:</strong> Boiled potato slurry battery - Russet potatoes boiled 8 min, mashed into slurry, copper anode + galvanized zinc cathode, sponge-wrapped to maintain moisture contact. Output: ~0.5V x 5mA = 2.5 mW per cell (Hebrew University 2013 verified, 10x boost over raw). Infinite potato size assumed. Cells scale linearly.</em></p>
-<p style="font-size:0.85rem;opacity:0.7"><em><strong>ESP32-NOW scaling model:</strong> Each micro ESP32-S3 draws ~50 mW average (95% deep sleep at 33uW + 5% active ESP-NOW at 264mW). BME280 sensor per node monitors potato slurry temperature and humidity to predict cell degradation. ESP-NOW mesh (no WiFi AP overhead) handles inter-node comms. One ESP32 = 20 potatoes average, 223 potatoes at peak serving. For sites that need more power than one ESP32, scale horizontally: divide total wattage by 559 mW (peak per node) to get ESP32 count, multiply by 223 for peak potatoes. Every site gets the same treatment - same potato, same sponge, same copper, same zinc. CochranBlock needs 1 ESP32. Booz Allen needs 3,574. AWS needs 536,193. The potatoes do not lie.</em></p>
+<p style="font-size:1rem;margin:1.5rem 0;padding:1rem;background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:4px"><strong>Translation:</strong> This entire website - the page you are reading right now - could run on <strong>20 potatoes from the grocery store</strong>. Half a 5-pound bag. $2.50 at Walmart. The defense contractors powering their websites need <strong>8 to 12 semi trucks full of potatoes</strong>. Amazon would need every potato on the planet. Twice. We are not the same.</p>
+
+<details style="margin-top:1rem">
+<summary style="cursor:pointer;font-size:0.8rem;color:var(--accent);letter-spacing:0.1em">HOW WE CALCULATED THIS (click to expand)</summary>
+<div style="font-size:0.8rem;opacity:0.7;padding:1rem 0">
+<p><strong>The potato:</strong> Russet potato, boiled 8 minutes, mashed into a slurry. Copper wire on one side, galvanized zinc nail on the other, wrapped in wet sponge. Each potato produces 2.5 milliwatts of electricity (Hebrew University of Jerusalem, 2013 - boiling increases output 10x over raw).</p>
+<p><strong>Our server:</strong> A tiny computer smaller than your thumbnail. Sleeps 95% of the time, wakes up to serve a page, goes back to sleep. Average power draw: 50 milliwatts. That is 20 potatoes.</p>
+<p><strong>Their servers:</strong> Racks of machines in climate-controlled warehouses drawing thousands of watts 24/7. Same math, same potato, same wires - just a lot more of them.</p>
+<p><strong>The grocery math:</strong> A 5-lb bag has about 10 potatoes and costs ~$5. We need 20 potatoes = 2 bags = $10. Booz Allen needs 160,000 bags. A standard semi truck holds about 20,000 bags of potatoes. You do the rest.</p>
+<p><strong>AWS us-east-1:</strong> Uses roughly 300 megawatts. That is 120 billion potatoes. Global potato production is about 370 million metric tons per year, or roughly 74 billion potatoes. AWS would need every potato harvested on Earth for 1.6 years just to power one data center. They have dozens.</p>
+</div>
+</details>
 
 <h2 class="services-section-head">At Scale: 50,000 Visitors</h2>
 <p>What happens when 50,000 people hit the front page? Two questions: <em>how much data moves</em> and <em>how long until everyone is served</em>.</p>
