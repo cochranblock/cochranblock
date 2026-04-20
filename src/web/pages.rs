@@ -318,7 +318,7 @@ async fn knox_dispatch(
     match uri.path() {
         "/" => f104(state).await.into_response(),
         "/operators" | "/handbook" | "/onboarding" => f106(state).await.into_response(),
-        "/deck" | "/pitch" | "/pitch-deck" => f116(state).await.into_response(),
+        "/deck" | "/deck-v2" | "/pitch" | "/pitch-deck" => f116(state).await.into_response(),
         "/apply" => super::intake::knox_apply_form(state).await.into_response(),
         "/verify" => knox_placeholder("Certificate Verification", "Paste a cert hash to verify. Coming soon.").into_response(),
         "/directory" => knox_placeholder("Operator Directory", "Public operator roster. Coming soon.").into_response(),
@@ -5847,7 +5847,7 @@ pub async fn f115(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// the pitch artifact itself. Pitch-specific aliases (/pitch, /deck,
 /// /10-slides, /for-john, /speedrun-deck, /knoxai-deck) all land here.
 pub async fn f116(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let body_bytes = include_packed::include_packed!("assets/pitch-deck.html");
+    let body_bytes = include_packed::include_packed!("assets/pitch-deck-v2.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
