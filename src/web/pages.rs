@@ -5377,6 +5377,24 @@ incremental = false</pre>
 </div>
 <p style="font-size:0.85rem;opacity:0.7"><em>Probe methodology: 300 sequential HTTPS GETs to <code>/operations</code>, single connection. Direct-path test uses NAT-loopback through Verizon FiOS → Orbi 443 → gd:8443 → approuter-acme → approuter → cochranblock — full external round-trip, not localhost. Cloudflare path adds CF edge, CF tunnel, and a cloudflared hop on top of the same backend chain. The 10x gap is pure network topology, not server work.</em></p>
 
+<h2 class="services-section-head">The Potato Index</h2>
+<p style="font-size:0.9rem;opacity:0.8">How many potatoes does it take to power a website? We boiled them, stuck copper and zinc electrodes in them, wrapped them in sponge to keep them wet, and did the math. <strong>Assume infinite potato size</strong> - each potato cell produces <strong>2.5 mW</strong> (boiled slurry method, 10x over raw per Hebrew University research). All websites get the same treatment.</p>
+
+<div class="cost-summary">
+<table class="cost-table">
+<tr><td><strong>Website</strong></td><td><strong>Server Power</strong></td><td><strong>Potatoes Required</strong></td><td><strong>Potato Efficiency</strong></td></tr>
+<tr><td>cochranblock.org</td><td class="cost-amount cost-new">~15W (laptop)</td><td class="cost-amount cost-new" style="font-size:1.1rem;font-weight:900">6,000 🥔</td><td class="cost-amount cost-new">$10/mo</td></tr>
+<tr><td>oakilydokily.com</td><td class="cost-amount cost-new">~15W (same laptop)</td><td class="cost-amount cost-new">0 🥔 (shared binary)</td><td class="cost-amount cost-new">$0 marginal</td></tr>
+<tr><td>boozallen.com</td><td class="cost-amount cost-old">~2,000W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">800,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
+<tr><td>leidos.com</td><td class="cost-amount cost-old">~3,000W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,200,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
+<tr><td>saic.com</td><td class="cost-amount cost-old">~2,500W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,000,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
+<tr><td>caci.com</td><td class="cost-amount cost-old">~2,500W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,000,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
+<tr><td>aws.amazon.com (us-east-1)</td><td class="cost-amount cost-old">~300 MW (data center)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">120,000,000,000 🥔</td><td class="cost-amount cost-old">billions/mo</td></tr>
+</table>
+</div>
+
+<p style="font-size:0.85rem;opacity:0.7"><em><strong>Methodology:</strong> Boiled potato slurry battery - Russet potatoes boiled 8 min, mashed into slurry, copper anode + galvanized zinc cathode, sponge-wrapped to maintain moisture contact. Output: ~0.5V x 5mA = 2.5 mW per cell (Hebrew University 2013 verified, 10x boost over raw). Server power estimated from hardware TDP at typical load. Cloud clusters estimated from public sustainability reports and rack density. AWS us-east-1 estimated at 300 MW from published capacity data. Infinite potato size assumed. Cells scale linearly. All websites get the same treatment. CochranBlock runs on a laptop. The defense industry runs on data centers. The math does not lie. The potatoes do not either.</em></p>
+
 <h2 class="services-section-head">At Scale: 50,000 Visitors</h2>
 <p>What happens when 50,000 people hit the front page? Two questions: <em>how much data moves</em> and <em>how long until everyone is served</em>.</p>
 
