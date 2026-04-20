@@ -2,7 +2,7 @@
 
 //! CochranBlock server with hot reload via PID lockfile.
 //! Deploy: copy new binary, run it. Old one dies gracefully.
-// Unlicense — cochranblock.org
+// All Rights Reserved — The Cochran Block, LLC
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 use cochranblock::t0;

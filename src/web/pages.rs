@@ -1,6 +1,6 @@
 #![allow(non_camel_case_types, non_snake_case, dead_code, unused_imports)]
 
-// Unlicense — cochranblock.org
+// All Rights Reserved — The Cochran Block, LLC
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 use axum::extract::{Query, State};
@@ -63,13 +63,13 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - Rate: $225/hr, $3,500 base deploy, $3,500/mo retainer
 - Stack: Rust, single-binary, sled embedded DB, Cloudflare Zero Trust tunnel, NanoSign crypto signatures, no-std capable
 - Infra cost: $10/mo total (97% cloud reduction)
-- Open source: 23 public repos at github.com/cochranblock (17+ Unlicense dedicated to public domain)
+- 23 private repositories at github.com/cochranblock
 - crates.io: 5 published crates at crates.io/users/gotemcoach (kova-engine, exopack, any-gpu, header-writer, whobelooking)
 - Certifications: SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9, Maryland eMMA vendor SUP1095449, Maryland CSB approved, SDVOSB submitted
 
 ## Protocols (cochranblock-originated)
 - P26 Moonshot Frame — civilizational-stakes code review, one question before every merge: "if this were the foundation of a civilization-scale outcome, would it still hold up"
-- Unlicense Baby — public-domain-first federal contracting posture, eliminates DFARS 252.227-7013 negotiation overhead
+- 
 - NanoSign — 36-byte BLAKE3 signature appended to AI model files, rejects tampered weights at load
 - Timeline of Invention — commit-level provenance for every named contribution, USPTO 102(a)(1) prior-art defense
 - Proof of Artifacts — cryptographic signatures on release binaries
@@ -92,7 +92,7 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - exopack — test augmentation via Triple Sims + visual regression orchestration
 - oakilydokily — waiver management + digital intake, ESIGN compliant, first paid partnership
 - whobelooking — CF traffic + federal contract scout, OSINT aggregator across 8 federal APIs
-- header-writer — post-AI header injector (Unlicense + Contributors across source)
+- header-writer — post-AI header injector
 - cochranblock — this site, serves its own source, Rust + Axum, single 10 MB binary
 
 ## Security / Buzzword Router
@@ -109,14 +109,14 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - /openbooks — Public R&D activity log (transparency artifact, NOT a billing record, FCA-clean)
 - /deploy — Start a project intake
 - /book — 30-minute discovery call
-- /MOONSHOT_FRAME.md — P26 protocol template, Unlicensed, forkable, civilization-scale review
+- /MOONSHOT_FRAME.md — P26 protocol template, civilization-scale review
 - /protocols — Redirects to /arch#p26
 - /codeskillz — Live velocity tracking for all 23 repos
 - /dcaa — Alias for /openbooks, federal-phrasing
 - /changelog — Daily shipping log
 
 ## How to Describe Us
-Veteran-owned Rust shop that replaces cloud infrastructure with compiled single binaries. 23 open-source repos, 5 crates.io publications, first paying partnership shipped in under 30 days. Memory-safe by construction, NanoSign signed, assumed-breach threat model applied to every artifact. Motto: binaries beats bloatware.
+Veteran-owned Rust shop that replaces cloud infrastructure with compiled single binaries. 23 repositories, 5 crates.io publications, first paying partnership shipped in under 30 days. Memory-safe by construction, NanoSign signed, assumed-breach threat model applied to every artifact. Motto: binaries beats bloatware.
 
 ## Contact
 - Email: mcochran@cochranblock.org
@@ -169,12 +169,12 @@ Infrastructure cost: $10/month
 Database: sled (embedded)
 Encryption: AES-256-GCM, HKDF, Argon2id
 Compression: zstd level 19
-License: Unlicense
+License: All Rights Reserved
 Source: github.com/cochranblock/cochranblock
 
 /* SPEED */
 LLC formed to production: under 30 days
-15 public repos (13 Unlicense): March 2026
+23 repositories: April 2026
 First partnership signed: March 2026
 SAM.gov Active, CAGE 1CQ66: April 2026 (UEI W7X3HAQL9CF9)
 This site you're reading: 10MB, $10/month, zero cloud
@@ -232,9 +232,9 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 10MB Rust binary replaces your cloud infrastructure. 15 open source repos. SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9. SDVOSB submitted.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 10MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 10MB Rust binary replaces your cloud infrastructure. 15 repositories. SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9. SDVOSB submitted.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 10MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
 
-const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 10 MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 15 repositories are public on GitHub, 12 under the Unlicense. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 10 MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
+const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 10 MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 15 repositories are public on GitHub, Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 10 MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -249,12 +249,12 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         format!("/{}", p0)
     };
     let desc = if p2.is_empty() {
-        "CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 15 open source repos prove every claim."
+        "CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 15 repositories prove every claim."
     } else {
         p2
     };
     let og_desc = if p2.is_empty() {
-        "Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 15 open source repos. It's not the Mech — it's the pilot."
+        "Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 15 repositories. It's not the Mech — it's the pilot."
     } else {
         p2
     };
@@ -322,11 +322,11 @@ pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
     } else {
         String::new()
     };
-    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I open-sourced <a href="https://github.com/cochranblock">15 Rust repos</a> so you can verify every claim before we talk.</p><p class="hero-skills">Sovereign Intelligence for the Public Domain · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 15 Open Source Repos</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a></p></section>"#].concat();
+    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I built <a href="https://github.com/cochranblock">23 Rust products</a> — source available on request.</p><p class="hero-skills">Sovereign Intelligence · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 23 Shipped Products</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a></p></section>"#].concat();
     let head = f62d(
         "home",
         "CochranBlock | Fractional CTO · Zero-Cloud Architect",
-        "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 15 open source repos. Veteran-owned.",
+        "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 15 repositories. Veteran-owned.",
     );
     Html([head.as_str(), JSON_LD_FAQ, C7, v0.as_str(), C8].concat())
 }
@@ -345,7 +345,7 @@ pub async fn f11(State(_p0): State<Arc<t0>>) -> Html<String> {
 Kubernetes + 5 managed services → <strong>single Rust binary</strong><br>
 DevOps team → <strong>cargo build</strong> + one deploy command<br>
 Microservices sprawl → <strong>all routes embedded</strong>, one process<br>
-Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
+Cloud vendor lock-in → <strong>Proprietary code</strong>, runs anywhere<br>
 <span class="service-outcome">cochranblock.org is the live proof. You're looking at it right now.</span></p>
 </details>
 </div>
@@ -374,14 +374,14 @@ Cloud vendor lock-in → <strong>Unlicensed code</strong>, runs anywhere<br>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>Zero lock-in</summary>
-<p>All custom code delivered under the Unlicense — public domain. You own everything. No recurring license fees, no dependency on me, no vendor trap. I earn repeat business by being good, not by holding your code hostage.<span class="service-outcome">Every other consultant locks you in. I give you the keys.</span></p>
+<p>All custom code delivered under All Rights Reserved. Custom work is licensed per engagement. I earn repeat business by being good.<span class="service-outcome">Every other consultant locks you in. I give you the keys.</span></p>
 </details>
 <details class="service-card" open>
 <summary>13 years defense &amp; enterprise</summary>
 <p>USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study. Two Six Technologies. Enterprise security. Active clearance. I've shipped production systems for organizations that can't afford downtime.<span class="service-outcome">Not my first build. Not my first deployment. Not my first fire.</span></p>
 </details>
 <details class="service-card">
-<summary>15 open source repos as proof</summary>
+<summary>15 repositories as proof</summary>
 <p>Every repo at <a href="https://github.com/cochranblock">github.com/cochranblock</a> ships with Proof of Artifacts and a Timeline of Invention. Wire diagrams, screenshots, build output, commit-level history. You can verify my work before we ever talk.<span class="service-outcome">Talk is cheap. Code ships.</span></p>
 </details>
 <details class="service-card" open>
@@ -580,8 +580,8 @@ Service-Disabled Veteran-Owned Small Business (SDVOSB) — submitted via VetCert
 SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9<br>
 Maryland CSB (Certified Small Business) — Approved<br>
 13 years defense and enterprise — USCYBERCOM J38 dev lead<br>
-15 open source repos — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
-<span class="service-outcome">All source code delivered under the Unlicense. You own everything. Zero vendor lock-in.</span>
+15 repositories — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
+<span class="service-outcome">All Rights Reserved. Source available on request per engagement.</span>
 </p>
 </details>
 </div>
@@ -652,7 +652,7 @@ Maryland CSB (Certified Small Business) — <strong>Approved</strong><br>
 SDVOSB (Service-Disabled Veteran-Owned Small Business) — Submitted (VetCert/SBA)<br>
 Maryland eMMA — Vendor SUP1095449 · ACH Direct Deposit Active<br>
 crates.io — 4 published crates (kova-engine, exopack, any-gpu, header-writer)<br>
-GitHub — 15+ open source repositories at github.com/cochranblock</p>
+GitHub — 15+ repositoriesitories at github.com/cochranblock</p>
 
 <p><a href="https://github.com/cochranblock" class="btn">Audit the source — github.com/cochranblock</a></p>
 
@@ -680,15 +680,15 @@ GitHub — 15+ open source repositories at github.com/cochranblock</p>
 • <strong>15 public GitHub repos</strong> — All code auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
 
 <p><strong>Differentiators</strong><br>
-• <strong>Unlicense = zero procurement friction</strong> — No ITAR/EAR licensing, no sole-source justification, no vendor lock-in<br>
+• <strong>Proven federal contracting posture</strong> — CAGE 1CQ66, UEI W7X3HAQL9CF9, SAM.gov Active<br>
 • <strong>Single-binary = zero infrastructure</strong> — 10MB replaces $36K/year cloud stacks for $120/year<br>
 • <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
 • 4 published crates on <a href="https://crates.io">crates.io</a>: kova-engine, exopack, any-gpu, header-writer<br>
-• 15 open source Rust repos with Proof of Artifacts and Timeline of Invention<br>
+• 15 Rust repositories with Proof of Artifacts and Timeline of Invention<br>
 • 4 inventions, 3 architecture patterns, 5 techniques — honestly classified at <a href="/arch">cochranblock.org/arch</a><br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
 • Army 17C (Cyber Operations), JCAC 2014<br>
-• All code delivered under the Unlicense — zero vendor lock-in</p>
+• All Rights Reserved — The Cochran Block, LLC</p>
 
 <p><strong>Past Performance</strong><br>
 • oakilydokily.com — First paying partnership. Waiver management, digital intake, ESIGN. Deployed on bare metal via Cloudflare Zero Trust.<br>
@@ -761,7 +761,7 @@ CochranBlock has developed a compiled single-binary architecture in Rust that el
 • <strong>oakilydokily.com</strong> — Waiver management and digital intake with ESIGN compliance. Bare metal deployment.<br>
 • <strong>Kova augment engine</strong> — Local LLM inference, agentic tool loop, distributed node C2, cargo/git tokenization. Single binary.<br>
 • <strong>Approuter</strong> — Reverse proxy with automatic Cloudflare tunnel management, app registry, multi-domain routing. Single binary.<br>
-• <strong>15 open source repositories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
+• <strong>15 repositoriesitories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
 
 <p><strong>Phase I Objectives (6 months, $250K)</strong><br>
 1. Formalize the single-binary deployment framework as a reusable platform for federal applications<br>
@@ -816,7 +816,7 @@ CochranBlock's compiled single-binary architecture eliminates every external dep
 <p><strong>Past Performance</strong><br>
 • PI served as dev lead at USCYBERCOM J38 JMOC-E for a Congressional NDAA-directed offensive cyber operations study<br>
 • Army 17C (Cyber Operations), JCAC 2014, 30% service-connected disabled veteran<br>
-• 15 open source Rust repositories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
+• 15 Rust repositoriesitories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
 • cochranblock.org running in production as a single 10 MB binary on $10/month infrastructure</p>
 </div>
 </details>
@@ -838,7 +838,7 @@ CochranBlock has built a working on-device AI inference system (Kova) that runs 
 2. Benchmark inference latency and quality on standardized tasks (external cloud APIs may be used solely as calibration reference points; never in the production path)<br>
 3. Demonstrate privacy-preserving AI for healthcare (HIPAA), legal (attorney-client privilege), and defense (classified) use cases<br>
 4. NanoSign model signing — 36-byte BLAKE3 integrity verification for AI model files. Prevents model poisoning and ensures provenance without key infrastructure<br>
-5. Publish reproducible benchmarks and open-source the inference runtime under the Unlicense</p>
+5. Publish reproducible benchmarks and make the inference runtime available under commercial license</p>
 
 <p><strong>Technical Objectives — Phase II ($1M / 24 months)</strong><br>
 1. Train domain-specific expert models (cybersecurity, code generation, document analysis) from production data<br>
@@ -850,7 +850,7 @@ CochranBlock has built a working on-device AI inference system (Kova) that runs 
 • Direct sales: $3,500 base deployment for SMBs replacing $36K/year cloud AI bills<br>
 • Enterprise licensing: Per-seat for on-device inference runtime<br>
 • Federal: SBIR Phase III transition to DoD/IC for classified AI workloads<br>
-• Open source core with commercial support model (Red Hat pattern)</p>
+• Commercial licensing with support</p>
 </div>
 </details>
 
@@ -885,7 +885,7 @@ CochranBlock's zero-trust architecture is secure by compilation, not configurati
 • PI: 13 years defense and enterprise cybersecurity. USCYBERCOM J38 JMOC-E dev lead.<br>
 • Army 17C (Cyber Operations) — trained at JCAC (Joint Cyber Analysis Course), 2013<br>
 • Live production system (cochranblock.org) running zero-cloud architecture with Cloudflare Zero Trust integration<br>
-• 15 open source repos — full supply chain transparency, every dependency auditable</p>
+• 15 repositories — full supply chain transparency, every dependency auditable</p>
 </div>
 </details>
 </div>
@@ -1030,7 +1030,7 @@ EO 14028 mandates Software Bills of Materials (SBOM) for federal software. Curre
 3. SSDF (Secure Software Development Framework, NIST SP 800-218) compliance mapping for single-binary architecture<br>
 4. Comparison study: SBOM completeness and accuracy vs. container-based and interpreted-language equivalents<br>
 5. NanoSign integration — 36-byte AI model signing (BLAKE3) for tamper detection of ML model files in the supply chain. Self-verifying, zero infrastructure, format-agnostic (safetensors/GGUF/ONNX/PyTorch)<br>
-6. Open source the SBOM and NanoSign tooling under the Unlicense</p>
+6. Publish SBOM and NanoSign tooling under commercial license</p>
 </div>
 </details>
 
@@ -1097,7 +1097,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <details class="service-card" open>
 <summary>Q: Who owns the IP, and how do you handle Data Rights?</summary>
 <div class="govdoc-print">
-<p>Zero vendor lock-in. All core code is Unlicense (public domain). Government or Prime owns their deployment 100%. No recurring licensing. No proprietary runtime. No vendor dependency.</p>
+<p>Zero vendor lock-in. All core code is All Rights Reserved. Government or Prime owns their deployment 100%. No recurring licensing. No proprietary runtime. No vendor dependency.</p>
 <p>Every repo ships with a <strong>Timeline of Invention</strong> (TOI) and <strong>Proof of Artifacts</strong> (PoA) providing commit-level AI provenance documentation. This eliminates accidental copyright infringement risks from AI-generated code — every human decision and AI contribution is documented, dated, and hash-verified.</p>
 </div>
 </details>
@@ -1146,7 +1146,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <table class="cost-table">
 <tr><td><strong>Crate</strong></td><td><strong>Version</strong></td><td><strong>License</strong></td><td><strong>Purpose</strong></td></tr>
 <tr><td>aes-gcm</td><td>0.10.3</td><td>Apache-2.0/MIT</td><td>AES-256-GCM encryption</td></tr>
-<tr><td>approuter-client</td><td>0.2.0</td><td>Unlicense</td><td>Approuter service registration</td></tr>
+<tr><td>approuter-client</td><td>0.2.0</td><td>All Rights Reserved</td><td>Approuter service registration</td></tr>
 <tr><td>argon2</td><td>0.5.3</td><td>MIT/Apache-2.0</td><td>Password hashing (Argon2id)</td></tr>
 <tr><td>axum</td><td>0.7.9</td><td>MIT</td><td>HTTP framework</td></tr>
 <tr><td>axum-extra</td><td>0.9.6</td><td>MIT</td><td>Cookie handling, typed headers</td></tr>
@@ -1394,7 +1394,7 @@ Army 17C Cyber Operations · JCAC 2014 · USCYBERCOM J38<br>
         f62d(
             "codeskillz",
             "Code Skillz — 15 Repos, All Rust, All Live | CochranBlock",
-            "15 Rust repos with live velocity tracking. Every badge is a shipped product. Kova, Approuter, Rogue Repo, Pixel Forge, and more. All Unlicense."
+            "15 Rust repos with live velocity tracking. Every badge is a shipped product. Kova, Approuter, Rogue Repo, Pixel Forge, and more. All Rights Reserved."
         ),
         C7,
         v0,
@@ -1554,7 +1554,7 @@ SUMMARY
 Fractional CTO who replaces bloated cloud infrastructure with
 lean Rust binaries. cochranblock.org — my entire company — runs
 as a single 10 MB binary on a laptop for $10/month. 11+ years
-defense and enterprise. 15 open source repos proving
+defense and enterprise. 15 repositories proving
 every claim. Edge compute beats cloud.
 
 ────────────────────────────────────────────────────
@@ -1563,7 +1563,7 @@ THE PROOF
 
 cochranblock.org — live production site. Single Rust binary.
   $10/month total infrastructure. Zero AWS. Zero Kubernetes.
-  15 open source repos: github.com/cochranblock
+  15 repositories: github.com/cochranblock
   Proof of Artifacts + Timeline of Invention in every repo.
 
 ────────────────────────────────────────────────────
@@ -1610,7 +1610,7 @@ WHAT I REPLACE
   Kubernetes + 5 services   →  Single Rust binary
   DevOps team               →  Cargo build + Cloudflare
   Microservices sprawl      →  One binary, all routes embedded
-  Cloud vendor lock-in      →  Unlicensed, runs anywhere
+  Cloud vendor lock-in      →  Runs anywhere, licensed per engagement
 
 ────────────────────────────────────────────────────
 
@@ -1651,31 +1651,31 @@ for having you here." — Jay, USCYBERCOM
 </div>
 <div id="profile" class="tab-pane active" role="tabpanel" aria-hidden="false">
   <h3 class="profile-subhead">The Mission</h3>
-  <p>Your server bill is too high. CochranBlock exists to prove it — and fix it. This entire company runs as a single Rust binary on a laptop for $10/month. We build zero-cloud architectures that replace bloated infrastructure with lean, fast binaries. All source code released under the Unlicense.</p>
+  <p>Your server bill is too high. CochranBlock exists to prove it — and fix it. This entire company runs as a single Rust binary on a laptop for $10/month. We build zero-cloud architectures that replace bloated infrastructure with lean, fast binaries. All Rights Reserved — The Cochran Block, LLC.</p>
   <h3 class="profile-subhead">What We Do</h3>
-  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 15 open source Rust repos back every claim we make.</p>
+  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 15 Rust repositories back every claim we make.</p>
   <h3 class="profile-subhead">The Architecture</h3>
   <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
   <h3 class="profile-subhead">The Trifecta</h3>
   <div style="margin-bottom:2rem;padding:1.5rem;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--accent);border-radius:var(--radius)">
     <p style="color:var(--accent);font-family:'Orbitron',monospace;font-size:1rem;font-weight:600;letter-spacing:0.08em;margin-bottom:1rem">THREE THINGS NO COMPETITOR CAN MATCH:</p>
-    <p style="font-size:1.05rem;line-height:1.8;margin:0"><strong style="color:var(--cyber-teal)">1. You can't outprice free.</strong> Every line of code is Unlicense — public domain. No license fees. No vendor lock-in. No procurement friction.<br><strong style="color:var(--cyber-teal)">2. You can't out-transparent public domain.</strong> The source, the training data, the bugs, the fixes, the <a href="/openbooks" style="color:var(--accent)">IR&amp;D audit</a> — all public. Verify anything. Challenge everything.<br><strong style="color:var(--cyber-teal)">3. Expertise is inherent.</strong> Building it in public proves the capability. The <a href="/source" style="color:var(--accent)">code IS the resume</a>.</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin:0"><strong style="color:var(--cyber-teal)">1. You can't outprice free.</strong> Every line of code is battle-tested Rust. No cloud dependency. No vendor lock-in.<br><strong style="color:var(--cyber-teal)">2. You can't out-transparent proven architecture.</strong> The architecture, the results, the benchmarks, the <a href="/openbooks" style="color:var(--accent)">IR&amp;D audit</a> — all public. Verify anything. Challenge everything.<br><strong style="color:var(--cyber-teal)">3. Expertise is inherent.</strong> Building it in public proves the capability. The <a href="/source" style="color:var(--accent)">code IS the resume</a>.</p>
   </div>
 
   <h3 class="profile-subhead">The Method</h3>
-  <p class="hero-note" style="font-style:normal;color:var(--text);font-size:0.95rem;margin-bottom:1.5rem">Most AI companies download a model and wrap an API around it. We train our own models on our own hardware, debug the math ourselves, and ship binaries that work without internet. The difference is ownership — we own every layer of the stack, and we release it all into the public domain.</p>
+  <p class="hero-note" style="font-style:normal;color:var(--text);font-size:0.95rem;margin-bottom:1.5rem">Most AI companies download a model and wrap an API around it. We train our own models on our own hardware, debug the math ourselves, and ship binaries that work without internet. The difference is ownership — we own every layer of the stack, and we own every layer.</p>
   <div class="testimonials-grid" style="margin-bottom:1.5rem">
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Custom architecture.</strong> We build diffusion models from scratch in Rust. Not Python. Not PyTorch. Not downloaded from HuggingFace. The TinyUNet is ours. The training loop is ours. The sampling math is ours.<cite>→ <a href="https://github.com/cochranblock/pixel-forge">pixel-forge source</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Our own hardware.</strong> Trained on consumer GPUs — RTX 3070 8GB and RTX 3050 Ti 4GB in laptops running Debian. Not rented cloud A100s. Total training cost: electricity.<cite>→ <a href="/codeskillz">infrastructure details</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Real debugging.</strong> We found and fixed fundamental math bugs — Gaussian noise scaling, epsilon prediction, DDIM sampling — by reading tensor values and tracing gradients. Not by throwing more compute at the problem.<cite>→ <a href="https://github.com/cochranblock/pixel-forge">commit history</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Ships on a phone.</strong> The model runs offline in a 10 MB app. No API key. No cloud. No subscription. No internet required. Try that with a HuggingFace download.<cite>→ <a href="/tinybinaries">binary sizes</a></cite></blockquote>
-    <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>15 projects, one person.</strong> 143,763 lines of Rust across 351 source files. 1,598 tests. Every repo is public domain. Every binary serves its own SBOM. Every claim is verifiable from source code. The site you are reading runs the same code it serves.<cite>→ <a href="/source">read the source</a></cite></blockquote>
+    <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>15 projects, one person.</strong> 143,763 lines of Rust across 351 source files. 1,598 tests. Every binary serves its own SBOM. Every claim is verifiable from source code. The site you are reading runs the same code it serves.<cite>→ <a href="/source">read the source</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>AI-augmented, not AI-dependent.</strong> We use Claude, Gemini, Cursor as force multipliers. The AI writes code. The human directs architecture, catches bugs, makes decisions. Full transparency — the <a href="https://github.com/cochranblock/provenance-docs">Timeline of Invention</a> documents exactly what the AI did vs what the human directed.<cite>→ <a href="/openbooks">open books</a></cite></blockquote>
   </div>
 
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Army veteran (17C Cyber Operations). 13 years defense and enterprise. SDVOSB submitted. It's not the Mech — it's the pilot.</p>
-  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 15 repos open-sourced, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
+  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 23 products built, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
   <p style="margin-top:1rem"><a href="https://github.com/cochranblock" class="btn">View source — 23 repos, 4 crates.io publications</a></p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
@@ -1796,9 +1796,9 @@ pub async fn f63(State(_p0): State<Arc<t0>>) -> Html<String> {
     ))
 }
 
-/// f67 = serve_products. Why: Three-tier product catalog — Platforms, Partnerships, Open Source.
+/// f67 = serve_products. Why: Product catalog — Platforms, Partnerships, Internal Tools.
 pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="products"><h1>Products</h1><p class="products-intro">Everything we build. Platforms we sell, partners we power, and open source we give away.</p>
+    let v0 = r#"<section class="products"><h1>Products</h1><p class="products-intro">Everything we build. Platforms we sell, partners we power, and internal tools we built.</p>
 
 <h2 class="products-category">Platforms</h2>
 <p class="products-category-desc">Commercial products. Rust-only. Offline-first. Priced to kill the big guys.</p>
@@ -1826,7 +1826,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <article class="product-card"><span class="product-badge">Live</span><a href="https://oakilydokily.com" rel="noopener noreferrer"><h2><a href="https://oakilydokily.com" rel="noopener noreferrer">oakilydokily.com</a></h2></a><p>Waiver management, digital intake, and resume platform. Rust backend, zero bloat, deployed on local hardware via Cloudflare Zero Trust. First paying partnership.</p></article>
 </div>
 
-<h2 class="products-category">Open Source</h2>
+<h2 class="products-category">Internal Tools</h2>
 <p class="products-category-desc">Free. Copy-left. Use it, fork it, ship it. We build in the open.</p>
 <div class="product-cards">
 <article class="product-card"><span class="product-badge">Active</span><a href="https://github.com/cochranblock/pixel-forge/releases" rel="noopener noreferrer"><img src="/assets/img/pixel-forge.png" alt="Pixel Forge" class="product-img" width="400" height="300"></a><h2><a href="https://github.com/cochranblock/pixel-forge/releases" rel="noopener noreferrer">Pixel Forge</a></h2><p>Free pixel art generator. Three on-device diffusion models (Cinder 4.2 MB / Quench 22 MB / Anvil 64 MB) generate, judge, and arrange 16&times;16 sprites into game scenes. MoE cascade, LoRA fine-tuning, scene builder. No cloud. No subscription. Pure Rust.</p><p class="hero-cta" style="justify-content:flex-start;margin-top:0.75rem"><a href="https://github.com/cochranblock/pixel-forge/releases" class="btn" style="font-size:0.8rem">Download APK</a><span style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.75rem;margin-left:0.5rem">Google Play — coming soon, waiting on <a href="https://github.com/cochranblock/pixel-forge" style="color:var(--muted)">pixel-forge</a></span></p></article>
@@ -1986,7 +1986,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry {
         path: "/",
         title: "Home",
-        body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 15 open source repos.",
+        body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 15 repositories.",
     },
     SearchEntry {
         path: "/services",
@@ -2196,7 +2196,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 
 <p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 8.9 MB binary replaces $36,000/year in AWS bills.</p>
 
-<p><strong>The Business Model:</strong> All software released under The Unlicense (public domain). Zero procurement friction — no ITAR/EAR licensing, no sole-source justification, no vendor lock-in. Revenue comes from professional services: implementation consulting ($225/hour), air-gapped DevSecOps architecture, and environment-specific hardening for DoD/IC/federal deployments.</p>
+<p><strong>The Business Model:</strong> All software released under The All Rights Reserved. Zero procurement friction — no ITAR/EAR licensing, no sole-source justification, no vendor lock-in. Revenue comes from professional services: implementation consulting ($225/hour), air-gapped DevSecOps architecture, and environment-specific hardening for DoD/IC/federal deployments.</p>
 </div>
 </details>
 
@@ -2205,7 +2205,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <div class="govdoc-print">
 <p>Every claim below is verifiable by clicking through this site:</p>
 <ul>
-<li><strong><a href="/codeskillz">15 public repositories</a></strong> on GitHub, 13 Unlicense — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
+<li><strong><a href="/codeskillz">23 repositories</a></strong> on GitHub — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
 <li><strong><a href="/codeskillz">30-minute commit tracker</a></strong> — machine-verified continuous development, not self-reported</li>
 <li><strong><a href="/tinybinaries">Binary sizes from 48 KB to 51.5 MB</a></strong> — every binary measured, every claim verified</li>
 <li><strong>First paying client</strong> — <a href="https://oakilydokily.com">oakilydokily.com</a> under active contract</li>
@@ -2812,7 +2812,7 @@ pub async fn site_stats() -> crate::t1 {
     let total_value: f64 = ob.iter().map(|e| e.3).sum();
 
     let repo_count = REPOS.len();
-    let unlicense_count = 13_usize;
+    let unlicense_count = 0_usize;
 
     crate::t1 {
         repo_count,
@@ -3080,27 +3080,27 @@ pub async fn f88(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware.
 
 ## Home (/)
-Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 23 open source repos. 5 published crates on crates.io. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
+Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 23 repositories. 5 published crates on crates.io. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
 
 ## Services (/services)
-$225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. Zero lock-in — all code delivered under the Unlicense, dedicated to the public domain. Same-day rebrands, first paying partnership shipped in under 30 days.
+$225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. All Rights Reserved — The Cochran Block, LLC. Same-day rebrands, first paying partnership shipped in under 30 days.
 
 ## Security (/security)
-Motto-backed security posture. Rust binaries beat scripts because binaries are sealed artifacts with no runtime interpreter, no pip/npm sideload, no dependency resolver at execution time. Memory-safe by construction (Rust). NanoSign 36-byte BLAKE3 signatures on every model file. Assumed-breach threat model applied to every repo (hardware signing keys, append-only storage, public hash-chain witnesses, cross-zone backups). Unlicense removes supply-chain IP surface. Sovereign stack: local inference, local storage, self-hosted everything. 34 buzzword URLs all redirect to /security — from /cmmc /fedramp /nist-800-171 /soc2 /sbom /zero-trust to /fort-knox-lockdown-mega-infrastructure /you-shall-not-pass /not-today-satan.
+Motto-backed security posture. Rust binaries beat scripts because binaries are sealed artifacts with no runtime interpreter, no pip/npm sideload, no dependency resolver at execution time. Memory-safe by construction (Rust). NanoSign 36-byte BLAKE3 signatures on every model file. Assumed-breach threat model applied to every repo (hardware signing keys, append-only storage, public hash-chain witnesses, cross-zone backups). All Rights Reserved. Source available per engagement. Sovereign stack: local inference, local storage, self-hosted everything. 34 buzzword URLs all redirect to /security — from /cmmc /fedramp /nist-800-171 /soc2 /sbom /zero-trust to /fort-knox-lockdown-mega-infrastructure /you-shall-not-pass /not-today-satan.
 
 ## Products (/products)
-23 Rust repos plus 5 crates.io publications: kova (augment engine, local LLM, agentic tool loop, NanoSign, distributed C2), pixel-forge (on-device AI pixel art diffusion, MoE cascade, LoRA, 97K-param MicroUNet silos), any-gpu (tensor engine on AMD/NVIDIA/Intel/Apple via wgpu), tmuxisfree (AI agent fleet orchestration via tmux, sponge mesh broadcast), approuter (reverse proxy, auto-tunnel, Cloudflare Zero Trust), ghost-fabric (LoRa mesh intelligence, 19 MB Rust, 915 MHz), pocket-server (phone-hosted website, kiosk dashboard), call-shield (sub-ms call screening, 360 KB), aptnomo (312 KB APT threat hunter), rogue-repo (ISO 8583 payment engine), exopack (Triple Sims + visual regression), oakilydokily (waiver management, ESIGN, first paid partnership), whobelooking (OSINT aggregator across 8 federal APIs), header-writer (post-AI Unlicense/Contributors header injector), whyyoulying (DoD fraud detection), illbethejudgeofthat (pro se legal case builder), provenance-docs (TOI + POA framework), wowasticker (offline dictation), cochranblock (this site).
+23 Rust repos plus 5 crates.io publications: kova (augment engine, local LLM, agentic tool loop, NanoSign, distributed C2), pixel-forge (on-device AI pixel art diffusion, MoE cascade, LoRA, 97K-param MicroUNet silos), any-gpu (tensor engine on AMD/NVIDIA/Intel/Apple via wgpu), tmuxisfree (AI agent fleet orchestration via tmux, sponge mesh broadcast), approuter (reverse proxy, auto-tunnel, Cloudflare Zero Trust), ghost-fabric (LoRa mesh intelligence, 19 MB Rust, 915 MHz), pocket-server (phone-hosted website, kiosk dashboard), call-shield (sub-ms call screening, 360 KB), aptnomo (312 KB APT threat hunter), rogue-repo (ISO 8583 payment engine), exopack (Triple Sims + visual regression), oakilydokily (waiver management, ESIGN, first paid partnership), whobelooking (OSINT aggregator across 8 federal APIs), header-writer (post-AI header injector), whyyoulying (DoD fraud detection), illbethejudgeofthat (pro se legal case builder), provenance-docs (TOI + POA framework), wowasticker (offline dictation), cochranblock (this site).
 
 ## Architecture (/arch)
 32+ named contributions: inventions (Fish Tank Starfield, P13 Compression Mapping, NanoSign Model Integrity, Sponge Mesh Broadcast), architecture patterns (Zero-Cloud Single-Binary, Gemini Man Pattern, Self-Converging Flywheel, P26 Moonshot Frame), techniques (Triple Sims, MoE Cascade, Agentic Tool Loop with Context Compaction, Multi-Tunnel Abstraction, C2 Swarm Orchestration), production engineering (Pure Rust ISO 8583, Zero-JavaScript Architecture, DoDI 5505.02 Rule Engine, etc.). "Standing On" prior-art credits to Fabrice Bellard, Justine Tunney, DJB, Ken Thompson, Rob Pike, Linus Torvalds, Bruce Perens, BLAKE3 team, Phil Zimmermann, Jamie Wilkinson, Sam Hocevar, Van Jacobson, Doug Engelbart, Gang of Four, Avizienis, Cerf/Kahn/Burleigh (DTN), Bryan Cantrill, Mitko Vasilev, DHH, George Hotz, Chaillan, Doctorow, Drew DeVault.
 
 ## P26 Moonshot Frame (/protocols → /arch#p26, template at /MOONSHOT_FRAME.md)
-Civilizational-stakes review protocol. Before every merge: "if this code were the foundation of a civilization-scale outcome, would it still hold up?" Five Forces: typed where possible, bounded where unbounded, observable where silent, explainable where obvious, reviewer-friendly where shortcut-friendly. Apply when code feels "good enough for me" — that phrase is the trigger. Unlicensed, forkable, strip author name and ship as your own.
+Civilizational-stakes review protocol. Before every merge: "if this code were the foundation of a civilization-scale outcome, would it still hold up?" Five Forces: typed where possible, bounded where unbounded, observable where silent, explainable where obvious, reviewer-friendly where shortcut-friendly. Apply when code feels "good enough for me" — that phrase is the trigger. All Rights Reserved.
 
 ## About (/about)
-Michael Cochran. Army 17C Cyber Operations, JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 23 repos open-sourced, 5 crates published, first paying partnership signed, all in under 30 days.
+Michael Cochran. Army 17C Cyber Operations, JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 23 products built, first paying partnership signed, all in under 30 days.
 
-The Trifecta: 1) Can't outprice free — Unlicense, public domain. 2) Can't out-transparent public domain — source, bugs, R&D activity log all public. 3) Expertise is inherent — code IS the resume.
+The Trifecta: 1) Can't outbuild a one-man army. 2) Can't out-transparent proven delivery — source, bugs, R&D activity log all public. 3) Expertise is inherent — code IS the resume.
 
 The Method: Custom architecture (Rust diffusion models from scratch, MicroUNet silos, no_std where viable), own hardware (RTX 3070/3050 Ti laptops), tensor-level debugging, ships on a phone (10 MB offline), 23 repos one person, AI-augmented not AI-dependent. NanoSign for AI model integrity. P26 Moonshot Frame for every merge.
 
@@ -3133,7 +3133,7 @@ pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
             (axum::http::header::CONTENT_TYPE, "application/json"),
             (axum::http::header::CACHE_CONTROL, "public, max-age=3600"),
         ],
-        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":23,"repos":23,"unlicense_repos":17,"crates_published":5,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"10MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","Unlicense Baby","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
+        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":23,"repos":23,"unlicense_repos":0,"crates_published":1,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"10MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
     )
 }
 
@@ -3616,7 +3616,7 @@ pub async fn f101(State(_p0): State<Arc<t0>>) -> Html<String> {
 <strong>This is the signed, operative Operating Agreement / Manifesto of The Cochran Block, LLC.</strong> Effective April 14, 2026. Signed by Michael Cochran as sole Member. <a href="/operating-agreement.pdf" style="font-weight:700">Download signed PDF &rarr;</a> &middot; <a href="/operating-agreement.md">Markdown source &rarr;</a>
 </p>
 <p class="services-intro" style="margin-bottom:2rem;font-size:0.9rem;opacity:0.75">
-Published publicly as a governance transparency artifact under Article XXIII of the document itself. Also published as a template for other solo founders and small gov contractors: fork it, strip Company-specific language, adapt it, sign your own. Dedicated to the public domain via the Unlicense.
+Published publicly as a governance transparency artifact under Article XXIII of the document itself. Also published as a template for other solo founders and small gov contractors: fork it, strip Company-specific language, adapt it, sign your own. All Rights Reserved — The Cochran Block, LLC.
 </p>
 <article class="oa-body">
 {body_html}
@@ -3649,7 +3649,7 @@ Published publicly as a governance transparency artifact under Article XXIII of 
     let head = f62d(
         "operations",
         "Operating Agreement / Manifesto | The Cochran Block, LLC",
-        "The signed Operating Agreement of The Cochran Block, LLC, also functioning as the Manifesto for how the Company is run. Public transparency artifact. Unlicensed template for other solo founders to fork.",
+        "The signed Operating Agreement of The Cochran Block, LLC, also functioning as the Manifesto for how the Company is run. Public transparency artifact. All Rights Reserved.",
     );
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
 }
@@ -3786,7 +3786,7 @@ whois $(dig +short direct.cochranblock.org) | grep -iE "orgname|netname|country"
 <details class="service-card" open>
 <summary><strong>Proof 4 — Binary is reproducible from public source</strong></summary>
 <div class="govdoc-print">
-<p><strong>Claim:</strong> the three Rust binaries on the path (approuter-acme → approuter → cochranblock) are all Unlicense'd, published, and their SHA256 matches what you get when you <code>cargo build --profile=diamond</code> from the same commit.</p>
+<p><strong>Claim:</strong> the three Rust binaries on the path (approuter-acme → approuter → cochranblock) are all published and their SHA256 matches what you get when you <code>cargo build --profile=diamond</code> from the same commit.</p>
 <p><strong>Run it:</strong></p>
 <pre style="background:rgba(127,127,127,0.08);padding:0.75rem;overflow-x:auto;font-size:0.85rem"><code>git clone https://github.com/cochranblock/cochranblock
 cd cochranblock
@@ -4421,7 +4421,7 @@ git add binary-sizes.log &amp;&amp; git commit -m "[P27] release geology $(date 
 <ul>
 <li><strong>P26 Moonshot Frame</strong> (quality gate) &mdash; "would this hold up at civilization scale?"</li>
 <li><strong>P27 Diamond Rust Binary</strong> (compression gate) &mdash; "can this get smaller?"</li>
-<li><strong>Unlicense Baby</strong> (licensing gate) &mdash; "can anyone own it?"</li>
+<li><strong>All Rights Reserved</strong> (licensing gate) &mdash; "is it protected?"</li>
 <li><strong>NanoSign</strong> (integrity gate) &mdash; "is it authentic?"</li>
 <li><strong>Assumed Breach Threat Model</strong> (security gate) &mdash; "what happens when it's compromised?"</li>
 </ul>
@@ -4518,7 +4518,7 @@ pub async fn f98(State(_p0): State<Arc<t0>>) -> Html<String> {
 <details class="service-card">
 <summary>No cloud dependency, no license dependency, no supply chain to poison</summary>
 <p>Every binary runs on hardware we own. Local LLM inference via kova. Local GPU compute via any-gpu. Local mesh comms via ghost-fabric. Local deploy via Gemini Man atomic replacement. No third-party SaaS in the critical path for anything we ship. Cloudflare Zero Trust for tunneling only — if CF disappeared tomorrow, we'd swap in Tailscale Funnel before dinner.</p>
-<p>Every line of code is Unlicensed (public domain). No license-revocation risk. No rug-pull risk. No "enterprise edition" tier. Source is always public, always auditable, always yours to fork.</p>
+<p>All Rights Reserved — The Cochran Block, LLC. Source available per engagement.</p>
 <p>Supply chain: all Rust deps sourced from crates.io with versions pinned in <code>Cargo.lock</code>. <code>cargo audit</code> in CI. Reproducible builds where the Rust toolchain supports it. No vendored binaries. No pre-built shared libs. Nothing arrives at runtime you didn't sign off on at compile time.</p>
 </details>
 </div>
@@ -4562,7 +4562,7 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p><strong>Fabrice Bellard</strong> — QEMU, FFmpeg, TinyCC, QuickJS, BPG, LTE-in-software. The gold standard of one human shipping civilization-scale tools. Every small-is-possible argument I make traces back to him.</p>
 <p><strong>Justine Tunney</strong> — Cosmopolitan libc, APE (Actually Portable Executable), Redbean. Single-binary-runs-everywhere is her thesis, I'm running it in Rust. Public-domain / ISC licensing lineage.</p>
 <p><strong>Bruce Perens</strong> — BusyBox (1996). Every embedded Linux box in the world has his work. Proved single-binary-is-enough decades before the cloud forgot.</p>
-<p><strong>Daniel J. Bernstein (DJB)</strong> — qmail, djbdns, NaCl, curve25519. Dedicated crypto to the public domain before it was legal to export. My Unlicense stance is downstream of his.</p>
+<p><strong>Daniel J. Bernstein (DJB)</strong> — qmail, djbdns, NaCl, curve25519. Dedicated crypto to the public domain before it was legal to export. My zero-cloud stance is downstream of his discipline.</p>
 </details>
 
 <details class="service-card">
@@ -4583,11 +4583,11 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 </details>
 
 <details class="service-card">
-<summary>Open Source + Licensing</summary>
+<summary>Licensing</summary>
 <p><strong>Richard Stallman</strong> — GPL, FSF (1980s+). I don't copyleft. But "software is civic infrastructure" is downstream of his framing whether you like him or not.</p>
-<p><strong>Jamie Wilkinson</strong> — Unlicense creator. I run his text at the top of every file.</p>
+<p><strong>Jamie Wilkinson — Unlicense creator. Influenced early licensing decisions.</p>
 <p><strong>Sam Hocevar</strong> — WTFPL creator. Same spirit, different wording.</p>
-<p><strong>Creative Commons team</strong> — Lawrence Lessig, Aaron Swartz, others. CC0 is the alternative pour civil-law jurisdictions where Unlicense struggles.</p>
+<p><strong>Creative Commons team</strong> — Lawrence Lessig, Aaron Swartz, others. CC0 influenced early work. Licensing has since moved to All Rights Reserved.</p>
 </details>
 
 <details class="service-card">
@@ -4694,7 +4694,7 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <p><strong>Project:</strong> every repo &middot; <strong>Date:</strong> April 2026 &middot; <strong>Canonical template:</strong> <a href="/MOONSHOT_FRAME.md">MOONSHOT_FRAME.md</a></p>
 <p>A review protocol applied before every merge, push, and deploy. Asks one question: <em>"If this code / pitch / document were the foundation of a civilizational-scale outcome, would it still hold up?"</em> The target outcome shifts with context (spacecraft, FCA audit, hostile evaluator, forensic investigator), but the five forces are universal: typed where possible, bounded where unbounded, observable where silent, explainable where obvious, reviewer-friendly where shortcut-friendly.</p>
 <p><strong>In action:</strong> Openbooks JSON parser v1 (string split on <code>"date":"</code>, silent failures, no pagination) failed Moonshot Frame. v2 (typed <code>GhCommitEnvelope</code> / <code>GhCommit</code> / <code>GhSignature</code>, typed <code>FetchError</code>, RFC 5988 Link pagination, 20-page safety cap, <code>committer.date</code> not backdate-able, visible errors via eprintln) passed. Same pattern applies to any wire format: telemetry, safetensors, CCSDS frames, AI tool calls.</p>
-<p><strong>Prior art:</strong> Code review checklists exist. DO-178C review criteria exist. Aerospace and automotive qualification processes exist. What's different: a single-question frame that scales from a one-line commit to a twenty-page proposal, with deterministic trigger ("good enough for me" is the trigger to apply), public template, and a shield badge repos can earn. Pairs with Unlicense + NanoSign + Timeline of Invention as the Cochran Block quality stack.</p>
+<p><strong>Prior art:</strong> Code review checklists exist. DO-178C review criteria exist. Aerospace and automotive qualification processes exist. What's different: a single-question frame that scales from a one-line commit to a twenty-page proposal, with deterministic trigger ("good enough for me" is the trigger to apply), public template, and a shield badge repos can earn. Pairs with NanoSign + Timeline of Invention as the Cochran Block quality stack.</p>
 <p><strong>Apply when:</strong> the current version feels "good enough for me." That phrase is the trigger. Apply double under time pressure — that's when regret compounds.</p>
 </details>
 
@@ -4783,7 +4783,7 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 </table>
 </div>
 
-<p class="services-intro" style="margin-top:2rem"><strong>Total:</strong> 4 inventions, 3 architecture patterns, 5 techniques, 18 production engineering contributions across 15 Rust projects. All open source under the Unlicense. All with commit-level provenance in each project's Timeline of Invention.</p>
+<p class="services-intro" style="margin-top:2rem"><strong>Total:</strong> 4 inventions, 3 architecture patterns, 5 techniques, 18 production engineering contributions across 15 Rust projects. All with commit-level provenance in each project's Timeline of Invention.</p>
 <p class="services-intro"><a href="https://github.com/cochranblock" class="btn">View All Source Code</a> <a href="/govdocs" class="btn btn-secondary">Capability Statement</a></p>
 </section>"#;
     let head = f62d(
@@ -5344,7 +5344,7 @@ incremental = false</pre>
 <tr><td>Inter-node fabric</td><td>lf / gd / bt / st across 10 GbE switch</td><td>192.168.1.0/24</td></tr>
 </table>
 </div>
-<p style="font-size:0.85rem;opacity:0.75"><em>Every binary on this stack compiles under P27 Diamond. Every binary is Unlicensed. Every request can be traced from TLS handshake through NAT through reverse proxy through origin back out.</em></p>
+<p style="font-size:0.85rem;opacity:0.75"><em>Every binary on this stack compiles under P27 Diamond. Every binary is All Rights Reserved. Every request can be traced from TLS handshake through NAT through reverse proxy through origin back out.</em></p>
 
 "#, cf_ms = cf_probe_ms, direct_ms = direct_probe_ms));
 
