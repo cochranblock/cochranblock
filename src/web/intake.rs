@@ -98,6 +98,25 @@ async fn migrate(pool: &SqlitePool) -> Result<(), sqlx::Error> {
     )
     .execute(pool)
     .await?;
+    sqlx::query(
+        r#"
+        CREATE TABLE IF NOT EXISTS knoxai_applicants (
+            id TEXT PRIMARY KEY,
+            full_name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            background TEXT NOT NULL,
+            specialty_tags TEXT NOT NULL,
+            clearance TEXT NOT NULL,
+            motivation TEXT NOT NULL,
+            acknowledge_csam INTEGER NOT NULL,
+            submitted_at TEXT NOT NULL,
+            ip_address TEXT,
+            user_agent TEXT
+        )
+        "#,
+    )
+    .execute(pool)
+    .await?;
     Ok(())
 }
 
@@ -357,4 +376,212 @@ function launchRocket(btn){{var r=document.getElementById('rocket-ship');if(r.cl
 pub async fn confirmed(Query(q): Query<std::collections::HashMap<String, String>>) -> Html<String> {
     let ref_id = q.get("ref").map(|s| s.as_str());
     Html(confirmed_html(ref_id))
+}
+
+// ═══════════════════════════════════════════════════════════════
+// KNOXAI Operator Registration
+// ═══════════════════════════════════════════════════════════════
+
+/// GET /knox/apply — operator application form
+pub async fn knox_apply_form(State(_s): State<Arc<t0>>) -> Html<String> {
+    let head = super::pages::f62d(
+        "knox-apply",
+        "KNOXAI — Operator Application",
+        "Apply to join the KNOXAI operator guild. AI model certification for CSAM and harmful content detection.",
+    );
+    let content = r#"<section style="max-width:820px;margin:0 auto;padding:3rem 1.5rem 6rem;font-family:'JetBrains Mono','SF Mono',Consolas,monospace;font-size:14px;line-height:1.65;color:#fcfcfa">
+
+<div style="font-size:0.6rem;letter-spacing:0.5em;color:#ff6188;text-transform:uppercase;text-align:center;padding:0.5rem 0;margin-bottom:2rem;border-top:1px solid #ff6188;border-bottom:1px solid #ff6188;opacity:0.7">Operator Application · KNOXAI</div>
+
+<h1 style="font-size:2rem;font-weight:900;letter-spacing:0.12em;margin-bottom:0.8rem">KNOXAI</h1>
+<div style="font-size:0.85rem;letter-spacing:0.25em;color:#ffd866;margin-bottom:2rem;text-transform:uppercase">Operator Application</div>
+
+<div style="background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);border-left:3px solid #ff6188;padding:1.2rem;border-radius:4px;margin-bottom:2rem">
+<div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:#ff6188;margin-bottom:0.8rem">Before You Apply — Read This</div>
+<p style="color:#c1c0c0;margin-bottom:0.8rem">KNOXAI operators audit AI models for <strong style="color:#fcfcfa">child sexual abuse material (CSAM)</strong> and other harmful content. This work exists because AI-generated CSAM increased <strong style="color:#ff6188">260x in one year</strong> (Internet Watch Foundation, 2025).</p>
+<p style="color:#c1c0c0;margin-bottom:0.8rem"><strong style="color:#fcfcfa">What you will encounter:</strong> You will run automated detection gates against AI models. Gate 1 (hash scan) compares model outputs against known-bad hash databases. You will <strong style="color:#fcfcfa">never view actual CSAM</strong> — the detection pipeline uses perceptual hashes, membership inference scores, and classifier outputs. You see numbers and pass/fail verdicts, not images.</p>
+<p style="color:#c1c0c0;margin-bottom:0.8rem"><strong style="color:#fcfcfa">What triggers mandatory reporting:</strong> If Gate 1 produces a hash match against the NCMEC database, the platform automatically files a CyberTipline report under <strong>18 USC §2258A</strong>. You sign the emergency blacklist cert (L thumb). The publisher is frozen. This is federal law — there is no discretion.</p>
+<p style="color:#c1c0c0;margin-bottom:0"><strong style="color:#fcfcfa">What you earn:</strong> 80% of Standard ($20), 70% of Operator ($500), 60% of Portfolio ($5K+), 50% of Gov tier. Paid within 24 hours via Stripe Connect. 1099-NEC at year end. You are an independent contractor, not an employee.</p>
+</div>
+
+<div style="background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);border-left:3px solid #a9dc76;padding:1.2rem;border-radius:4px;margin-bottom:2rem">
+<div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:#a9dc76;margin-bottom:0.8rem">What Makes a Good Operator</div>
+<p style="color:#c1c0c0;margin-bottom:0">Red teamers. ML researchers. ML engineers. Data scientists. AI safety researchers. Veterans with cyber backgrounds. People with security clearances. You don't need all of these — you need at least one. And you need to care about protecting kids more than you care about a side gig.</p>
+</div>
+
+<form method="post" action="/knox/apply" style="margin-top:2rem">
+
+<label style="display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#727072;margin-bottom:0.3rem;margin-top:1.5rem">Full Name *</label>
+<input type="text" name="full_name" required maxlength="200" placeholder="Your real name" style="width:100%;background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);color:#fcfcfa;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.85rem;border-radius:4px">
+
+<label style="display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#727072;margin-bottom:0.3rem;margin-top:1.5rem">Email *</label>
+<input type="email" name="email" required maxlength="254" placeholder="you@example.com" style="width:100%;background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);color:#fcfcfa;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.85rem;border-radius:4px">
+
+<label style="display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#727072;margin-bottom:0.3rem;margin-top:1.5rem">Background *</label>
+<textarea name="background" required maxlength="2000" placeholder="Military service, current role, relevant experience, certifications (OSCP, GIAC, CISSP, etc.)" rows="4" style="width:100%;background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);color:#fcfcfa;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.85rem;border-radius:4px;resize:vertical"></textarea>
+
+<label style="display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#727072;margin-bottom:0.3rem;margin-top:1.5rem">Specialty Tags (check all that apply) *</label>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;margin-bottom:0.5rem">
+<label style="color:#c1c0c0;font-size:0.82rem"><input type="checkbox" name="tag_redteam" value="1"> <span style="color:#ff6188">redteam</span> — offensive cyber, adversarial prompting</label>
+<label style="color:#c1c0c0;font-size:0.82rem"><input type="checkbox" name="tag_ml_research" value="1"> <span style="color:#78dce8">ml-research</span> — adversarial ML, membership inference</label>
+<label style="color:#c1c0c0;font-size:0.82rem"><input type="checkbox" name="tag_ml_eng" value="1"> <span style="color:#a9dc76">ml-eng</span> — training pipelines, framework internals</label>
+<label style="color:#c1c0c0;font-size:0.82rem"><input type="checkbox" name="tag_data" value="1"> <span style="color:#ffd866">data</span> — dataset provenance, corpus analysis</label>
+<label style="color:#c1c0c0;font-size:0.82rem"><input type="checkbox" name="tag_safety" value="1"> <span style="color:#ab9df2">safety</span> — AI safety, eval design, classifiers</label>
+<label style="color:#c1c0c0;font-size:0.82rem"><input type="checkbox" name="tag_cleared" value="1"> <span style="color:#727072">cleared</span> — active U.S. security clearance</label>
+</div>
+
+<label style="display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#727072;margin-bottom:0.3rem;margin-top:1.5rem">Clearance Status</label>
+<select name="clearance" style="width:100%;background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);color:#fcfcfa;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.85rem;border-radius:4px">
+<option value="none">No active clearance</option>
+<option value="secret">Secret</option>
+<option value="ts">Top Secret</option>
+<option value="ts-sci">TS/SCI</option>
+<option value="expired">Expired (reactivatable)</option>
+</select>
+
+<label style="display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#727072;margin-bottom:0.3rem;margin-top:1.5rem">Why do you want to do this? *</label>
+<textarea name="motivation" required maxlength="2000" placeholder="Be honest. We're not looking for a resume answer." rows="3" style="width:100%;background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);color:#fcfcfa;padding:0.6rem 0.8rem;font-family:inherit;font-size:0.85rem;border-radius:4px;resize:vertical"></textarea>
+
+<div style="background:#2d2a2e;border:1px solid rgba(255,255,255,0.12);border-left:3px solid #ffd866;padding:1rem;border-radius:4px;margin-top:1.5rem">
+<label style="color:#c1c0c0;font-size:0.85rem;display:flex;align-items:flex-start;gap:0.6rem">
+<input type="checkbox" name="acknowledge_csam" value="1" required style="margin-top:0.3rem">
+<span>I understand that KNOXAI operators certify AI models for CSAM and harmful content. I understand that hash-match findings trigger mandatory federal reporting under 18 USC §2258A. I understand that I will never view actual CSAM — the pipeline uses perceptual hashes and classifier scores. I want to help stop this.</span>
+</label>
+</div>
+
+<div style="display:none"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+
+<button type="submit" style="margin-top:1.5rem;width:100%;background:rgba(255,216,102,0.15);color:#ffd866;border:1px solid #ffd866;padding:0.8rem;font-family:inherit;font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;cursor:pointer">Submit Application</button>
+
+</form>
+
+<p style="font-size:0.7rem;color:#727072;margin-top:1.5rem;text-align:center">Applications reviewed by Operator #0. Response within 48 hours.<br>The Cochran Block, LLC · CAGE 1CQ66 · All Rights Reserved</p>
+
+</section>"#;
+    Html([head.as_str(), C7, content, C8].concat())
+}
+
+#[derive(Deserialize)]
+pub struct KnoxApplyForm {
+    full_name: String,
+    email: String,
+    background: String,
+    #[serde(default)]
+    tag_redteam: Option<String>,
+    #[serde(default)]
+    tag_ml_research: Option<String>,
+    #[serde(default)]
+    tag_ml_eng: Option<String>,
+    #[serde(default)]
+    tag_data: Option<String>,
+    #[serde(default)]
+    tag_safety: Option<String>,
+    #[serde(default)]
+    tag_cleared: Option<String>,
+    clearance: String,
+    motivation: String,
+    #[serde(default)]
+    acknowledge_csam: Option<String>,
+    #[serde(default)]
+    website: Option<String>,
+}
+
+/// POST /knox/apply — process operator application
+pub async fn knox_apply_submit(
+    State(s): State<Arc<t0>>,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
+    headers: HeaderMap,
+    Form(f): Form<KnoxApplyForm>,
+) -> impl IntoResponse {
+    // Honeypot
+    if f.website.as_deref().unwrap_or("").len() > 0 {
+        return Redirect::temporary("/knox/apply/confirmed?ref=bot").into_response();
+    }
+
+    let id = Uuid::new_v4().to_string();
+    let submitted_at = Utc::now().to_rfc3339();
+    let ip = client_ip(addr, &headers);
+    let ua = headers.get("user-agent").and_then(|v| v.to_str().ok()).unwrap_or("").to_string();
+
+    let mut tags = Vec::new();
+    if f.tag_redteam.is_some() { tags.push("redteam"); }
+    if f.tag_ml_research.is_some() { tags.push("ml-research"); }
+    if f.tag_ml_eng.is_some() { tags.push("ml-eng"); }
+    if f.tag_data.is_some() { tags.push("data"); }
+    if f.tag_safety.is_some() { tags.push("safety"); }
+    if f.tag_cleared.is_some() { tags.push("cleared"); }
+    let tags_str = tags.join(",");
+
+    let ack = if f.acknowledge_csam.is_some() { 1 } else { 0 };
+
+    if let Some(pool) = &s.intake_pool {
+        let _ = sqlx::query(
+            "INSERT INTO knoxai_applicants (id, full_name, email, background, specialty_tags, clearance, motivation, acknowledge_csam, submitted_at, ip_address, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        )
+        .bind(&id)
+        .bind(&f.full_name)
+        .bind(&f.email)
+        .bind(&f.background)
+        .bind(&tags_str)
+        .bind(&f.clearance)
+        .bind(&f.motivation)
+        .bind(ack)
+        .bind(&submitted_at)
+        .bind(&ip)
+        .bind(&ua)
+        .execute(pool)
+        .await;
+    }
+
+    // Webhook notification
+    if let Some(url) = std::env::var("INTAKE_WEBHOOK_URL")
+        .ok()
+        .filter(|u| !u.is_empty())
+    {
+        let client = reqwest::Client::new();
+        let payload = serde_json::json!({
+            "type": "knoxai_operator_application",
+            "id": id,
+            "full_name": f.full_name,
+            "email": f.email,
+            "background": f.background,
+            "specialty_tags": tags_str,
+            "clearance": f.clearance,
+            "motivation": f.motivation,
+            "submitted_at": submitted_at,
+        });
+        let aid = id.clone();
+        tokio::spawn(async move {
+            if let Err(e) = client.post(url.trim()).json(&payload).timeout(std::time::Duration::from_secs(10)).send().await {
+                tracing::warn!("knoxai apply webhook failed: {}", e);
+            } else {
+                tracing::info!("knoxai apply webhook sent for {}", aid);
+            }
+        });
+    }
+
+    let loc = format!("/knox/apply/confirmed?ref={}", urlencoding::encode(&id));
+    Redirect::temporary(loc.as_str()).into_response()
+}
+
+/// GET /knox/apply/confirmed
+pub async fn knox_apply_confirmed(Query(q): Query<std::collections::HashMap<String, String>>) -> Html<String> {
+    let ref_id = q.get("ref").map(|s| html_escape(s)).unwrap_or_default();
+    let head = super::pages::f62d(
+        "knox-apply-confirmed",
+        "Application Received — KNOXAI",
+        "Your KNOXAI operator application has been received.",
+    );
+    let content = format!(
+        r#"<section style="max-width:820px;margin:0 auto;padding:3rem 1.5rem 6rem;font-family:'JetBrains Mono','SF Mono',Consolas,monospace;font-size:14px;line-height:1.65;color:#fcfcfa;text-align:center">
+<div style="font-size:3rem;margin-bottom:1rem;color:#a9dc76">✓</div>
+<h1 style="font-size:1.5rem;font-weight:900;letter-spacing:0.12em;margin-bottom:1rem">Application Received</h1>
+<p style="color:#c1c0c0;margin-bottom:0.5rem">Reference: <code style="color:#ffd866">{}</code></p>
+<p style="color:#c1c0c0;margin-bottom:2rem">Operator #0 will review your application within 48 hours.</p>
+<p style="color:#727072;font-size:0.8rem">If accepted, you'll receive the full onboarding handbook and hardware signing device instructions.</p>
+<a href="/knox" style="display:inline-block;margin-top:2rem;background:rgba(255,216,102,0.15);color:#ffd866;border:1px solid #ffd866;padding:0.6rem 1.5rem;font-family:inherit;font-size:0.8rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;text-decoration:none">Back to KNOXAI</a>
+</section>"#,
+        ref_id
+    );
+    Html([head.as_str(), C7, &content, C8].concat())
 }
