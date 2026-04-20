@@ -5382,18 +5382,19 @@ incremental = false</pre>
 
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td><strong>Website</strong></td><td><strong>Server Power</strong></td><td><strong>Potatoes Required</strong></td><td><strong>Potato Efficiency</strong></td></tr>
-<tr><td>cochranblock.org</td><td class="cost-amount cost-new">~15W (laptop)</td><td class="cost-amount cost-new" style="font-size:1.1rem;font-weight:900">6,000 🥔</td><td class="cost-amount cost-new">$10/mo</td></tr>
-<tr><td>oakilydokily.com</td><td class="cost-amount cost-new">~15W (same laptop)</td><td class="cost-amount cost-new">0 🥔 (shared binary)</td><td class="cost-amount cost-new">$0 marginal</td></tr>
-<tr><td>boozallen.com</td><td class="cost-amount cost-old">~2,000W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">800,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
-<tr><td>leidos.com</td><td class="cost-amount cost-old">~3,000W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,200,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
-<tr><td>saic.com</td><td class="cost-amount cost-old">~2,500W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,000,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
-<tr><td>caci.com</td><td class="cost-amount cost-old">~2,500W (cloud cluster)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">1,000,000 🥔</td><td class="cost-amount cost-old">millions/mo</td></tr>
-<tr><td>aws.amazon.com (us-east-1)</td><td class="cost-amount cost-old">~300 MW (data center)</td><td class="cost-amount cost-old" style="font-size:1.1rem;font-weight:900">120,000,000,000 🥔</td><td class="cost-amount cost-old">billions/mo</td></tr>
+<tr><td><strong>Website</strong></td><td><strong>Current Power</strong></td><td><strong>Current Potatoes</strong></td><td><strong>ESP32-NOW + BME280 Target</strong></td></tr>
+<tr><td>cochranblock.org</td><td class="cost-amount cost-new">~15W laptop</td><td class="cost-amount cost-new">6,000</td><td class="cost-amount cost-new" style="font-size:1.1rem;font-weight:900">1 ESP32 + 20 avg / 223 peak 🥔</td></tr>
+<tr><td>oakilydokily.com</td><td class="cost-amount cost-new">shared</td><td class="cost-amount cost-new">0</td><td class="cost-amount cost-new">ESP-NOW mesh node, 0 extra 🥔</td></tr>
+<tr><td>boozallen.com</td><td class="cost-amount cost-old">~2,000W</td><td class="cost-amount cost-old">800,000</td><td class="cost-amount cost-old">3,574 ESP32s + BME280s + 178,700 🥔</td></tr>
+<tr><td>leidos.com</td><td class="cost-amount cost-old">~3,000W</td><td class="cost-amount cost-old">1,200,000</td><td class="cost-amount cost-old">5,361 ESP32s + BME280s + 268,050 🥔</td></tr>
+<tr><td>saic.com</td><td class="cost-amount cost-old">~2,500W</td><td class="cost-amount cost-old">1,000,000</td><td class="cost-amount cost-old">4,468 ESP32s + BME280s + 223,400 🥔</td></tr>
+<tr><td>caci.com</td><td class="cost-amount cost-old">~2,500W</td><td class="cost-amount cost-old">1,000,000</td><td class="cost-amount cost-old">4,468 ESP32s + BME280s + 223,400 🥔</td></tr>
+<tr><td>aws.amazon.com (us-east-1)</td><td class="cost-amount cost-old">~300 MW</td><td class="cost-amount cost-old">120,000,000,000</td><td class="cost-amount cost-old">536,193 ESP32s + BME280s + 26,809,651 🥔</td></tr>
 </table>
 </div>
 
-<p style="font-size:0.85rem;opacity:0.7"><em><strong>Methodology:</strong> Boiled potato slurry battery - Russet potatoes boiled 8 min, mashed into slurry, copper anode + galvanized zinc cathode, sponge-wrapped to maintain moisture contact. Output: ~0.5V x 5mA = 2.5 mW per cell (Hebrew University 2013 verified, 10x boost over raw). Server power estimated from hardware TDP at typical load. Cloud clusters estimated from public sustainability reports and rack density. AWS us-east-1 estimated at 300 MW from published capacity data. Infinite potato size assumed. Cells scale linearly. All websites get the same treatment. CochranBlock runs on a laptop. The defense industry runs on data centers. The math does not lie. The potatoes do not either.</em></p>
+<p style="font-size:0.85rem;opacity:0.7"><em><strong>Methodology:</strong> Boiled potato slurry battery - Russet potatoes boiled 8 min, mashed into slurry, copper anode + galvanized zinc cathode, sponge-wrapped to maintain moisture contact. Output: ~0.5V x 5mA = 2.5 mW per cell (Hebrew University 2013 verified, 10x boost over raw). Infinite potato size assumed. Cells scale linearly.</em></p>
+<p style="font-size:0.85rem;opacity:0.7"><em><strong>ESP32-NOW scaling model:</strong> Each micro ESP32-S3 draws ~50 mW average (95% deep sleep at 33uW + 5% active ESP-NOW at 264mW). BME280 sensor per node monitors potato slurry temperature and humidity to predict cell degradation. ESP-NOW mesh (no WiFi AP overhead) handles inter-node comms. One ESP32 = 20 potatoes average, 223 potatoes at peak serving. For sites that need more power than one ESP32, scale horizontally: divide total wattage by 559 mW (peak per node) to get ESP32 count, multiply by 223 for peak potatoes. Every site gets the same treatment - same potato, same sponge, same copper, same zinc. CochranBlock needs 1 ESP32. Booz Allen needs 3,574. AWS needs 536,193. The potatoes do not lie.</em></p>
 
 <h2 class="services-section-head">At Scale: 50,000 Visitors</h2>
 <p>What happens when 50,000 people hit the front page? Two questions: <em>how much data moves</em> and <em>how long until everyone is served</em>.</p>
