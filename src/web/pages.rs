@@ -286,13 +286,12 @@ const REPOS: &[&str] = &[
 ];
 
 /// f2_root = host-aware root dispatch. If the request arrives on
-/// `knox.cochranblock.org`, serve the KNOXAI mystery page (f104). Otherwise
-/// fall through to the normal homepage (f2). Keeps the subdomain isolated
-/// without needing middleware URI-rewriting, which was unreliable on this
-/// axum version.
+/// `knox.cochranblock.org`, route to the KNOXAI landing page. Otherwise
+/// fall through to the normal homepage (f2).
 pub async fn f2_root(
     state: State<Arc<t0>>,
     headers: axum::http::HeaderMap,
+    uri: axum::http::Uri,
 ) -> axum::response::Response {
     let is_knox = headers
         .get(axum::http::header::HOST)
@@ -302,12 +301,44 @@ pub async fn f2_root(
             h == "knox.cochranblock.org" || h.starts_with("knox.")
         })
         .unwrap_or(false);
-    if is_knox {
-        use axum::response::IntoResponse;
-        return f104(state).await.into_response();
-    }
     use axum::response::IntoResponse;
-    f2(state).await.into_response()
+    if is_knox {
+        return knox_dispatch(state, uri).await.into_response();
+    }
+    // cochranblock.org root redirects to knox.cochranblock.org
+    axum::response::Redirect::temporary("https://knox.cochranblock.org").into_response()
+}
+
+/// Knox subdomain dispatcher. Routes knox.cochranblock.org/* paths.
+async fn knox_dispatch(
+    state: State<Arc<t0>>,
+    uri: axum::http::Uri,
+) -> axum::response::Response {
+    use axum::response::IntoResponse;
+    match uri.path() {
+        "/" => f104(state).await.into_response(),
+        "/operators" | "/handbook" | "/onboarding" => f106(state).await.into_response(),
+        "/deck" | "/pitch" | "/pitch-deck" => f116(state).await.into_response(),
+        "/apply" => super::intake::knox_apply_form(state).await.into_response(),
+        "/verify" => knox_placeholder("Certificate Verification", "Paste a cert hash to verify. Coming soon.").into_response(),
+        "/directory" => knox_placeholder("Operator Directory", "Public operator roster. Coming soon.").into_response(),
+        "/blacklist" => knox_placeholder("Public Blacklist", "Models that failed audit. Coming soon.").into_response(),
+        _ => {
+            // Fall through to main router for shared routes
+            f104(state).await.into_response()
+        }
+    }
+}
+
+/// Knox placeholder page for routes under construction.
+fn knox_placeholder(title: &str, desc: &str) -> Html<String> {
+    Html(format!(
+        r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KNOXAI - {title}</title>
+<style>*{{margin:0;padding:0;box-sizing:border-box}}html,body{{height:100%;background:#2d2a2e;color:#fcfcfa;font-family:'JetBrains Mono','SF Mono',Consolas,monospace}}body{{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem}}
+h1{{font-size:2rem;font-weight:900;letter-spacing:0.12em;color:#ffd866;margin-bottom:1rem}}p{{color:#c1c0c0;font-size:0.9rem;margin-bottom:2rem}}a{{color:#ffd866;text-decoration:none}}</style></head>
+<body><h1>KNOXAI</h1><h2 style="font-size:1rem;color:#fcfcfa;margin-bottom:0.5rem">{title}</h2><p>{desc}</p><a href="/">Back to KNOXAI</a></body></html>"#,
+        title = title, desc = desc
+    ))
 }
 
 /// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
@@ -5831,58 +5862,116 @@ pub async fn f117(State(_p0): State<Arc<t0>>) -> Html<String> {
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
-const KNOX_HTML: &str = r#"<!doctype html>
+const KNOX_HTML: &str = r##"<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>KNOXAI</title>
+<meta name="robots" content="index,follow">
+<meta name="description" content="KNOXAI - Hardware-keyed AI model certification. 260x increase in AI-generated CSAM. Nobody certifies the models. We do.">
+<title>KNOXAI - AI Model Certification Platform</title>
 <style>
+:root{--bg:#2d2a2e;--bg2:#221f22;--fg:#fcfcfa;--fg2:#c1c0c0;--fg3:#727072;--yellow:#ffd866;--red:#ff6188;--green:#a9dc76;--blue:#78dce8;--purple:#ab9df2;--line:rgba(252,252,250,0.06);--line2:rgba(252,252,250,0.12)}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:#000;color:#fff;font-family:'SF Mono','Fira Code',Menlo,Consolas,monospace}
-body{display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;position:relative}
-.wrap{text-align:center;max-width:90vw}
-h1{font-size:clamp(3rem,10vw,9rem);font-weight:800;letter-spacing:0.15em;line-height:1;margin-bottom:3rem}
-.status{font-size:clamp(0.7rem,1.2vw,0.95rem);letter-spacing:0.35em;opacity:0.45;margin-bottom:1.2rem;text-transform:uppercase}
-.counter{font-size:clamp(1.2rem,2.4vw,2rem);font-weight:600;letter-spacing:0.08em;opacity:0.85;font-variant-numeric:tabular-nums}
-.counter .unit{opacity:0.4;margin-right:0.15em;margin-left:0.05em}
-.line{width:min(240px,30vw);height:1px;background:rgba(255,255,255,0.12);margin:3.5rem auto 2rem}
-.meta{font-size:clamp(0.7rem,1vw,0.85rem);opacity:0.28;letter-spacing:0.1em}
-.cursor{display:inline-block;width:0.6em;height:1em;background:#fff;animation:blink 1.1s steps(2,start) infinite;vertical-align:-0.1em;margin-left:0.3em}
-@keyframes blink{to{visibility:hidden}}
-.clearance{font-size:clamp(0.65rem,0.9vw,0.8rem);letter-spacing:0.4em;opacity:0.35;margin-top:0.8rem;color:#ffb300}
+html,body{background:var(--bg2);color:var(--fg);font-family:'JetBrains Mono','SF Mono','Fira Code',Consolas,monospace;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{max-width:820px;margin:0 auto;padding:3rem 1.5rem 6rem}
+.banner{font-size:0.6rem;letter-spacing:0.5em;color:var(--red);text-transform:uppercase;text-align:center;padding:0.5rem 0;margin-bottom:2rem;border-top:1px solid var(--red);border-bottom:1px solid var(--red);opacity:0.7}
+h1{font-size:clamp(2.5rem,8vw,4.5rem);font-weight:900;letter-spacing:0.12em;line-height:1;margin-bottom:0.5rem}
+.sub{font-size:0.85rem;letter-spacing:0.25em;color:var(--yellow);margin-bottom:2rem;text-transform:uppercase}
+.stat{font-size:1.1rem;color:var(--fg2);margin-bottom:1.5rem;line-height:1.8}
+.stat strong{color:var(--red);font-size:1.3rem}
+.stat em{color:var(--fg);font-style:normal;font-weight:700}
+.section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--line2)}
+.section h2{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--fg3);margin-bottom:1rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem 1.5rem;font-size:0.82rem;margin-bottom:1.5rem}
+.grid .lbl{color:var(--yellow);opacity:0.7}
+.grid .val{color:var(--fg)}
+.cta{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem}
+.cta a{display:inline-block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.6rem 1.2rem;border:1px solid var(--yellow);color:var(--yellow);text-decoration:none;border-radius:3px;font-weight:600;font-family:inherit;transition:all 0.15s}
+.cta a:hover{background:rgba(255,216,102,0.15)}
+.cta a.primary{background:rgba(255,216,102,0.15)}
+.tag{display:inline-block;font-size:0.6rem;letter-spacing:0.15em;padding:0.15em 0.5em;border-radius:3px;font-weight:600;text-transform:uppercase;margin-right:0.3em}
+.t-red{background:rgba(255,97,136,0.15);color:var(--red)}
+.t-blue{background:rgba(120,220,232,0.15);color:var(--blue)}
+.t-green{background:rgba(169,220,118,0.15);color:var(--green)}
+.t-yellow{background:rgba(255,216,102,0.15);color:var(--yellow)}
+.t-purple{background:rgba(171,157,242,0.15);color:var(--purple)}
+.t-gray{background:rgba(114,112,114,0.2);color:var(--fg3)}
+.footer{margin-top:4rem;padding-top:1rem;border-top:1px solid var(--line);font-size:0.72rem;color:var(--fg3);text-align:center}
+.footer a{color:var(--yellow);text-decoration:none}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.cta{flex-direction:column}.cta a{text-align:center}}
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<div class="banner">AI Model Certification Platform</div>
+
 <h1>KNOXAI</h1>
-<div class="status">System Active</div>
-<div class="counter" id="c"><span>00</span><span class="unit">d</span><span>00</span><span class="unit">h</span><span>00</span><span class="unit">m</span><span>00</span><span class="unit">s</span></div>
-<div class="clearance">CLEARANCE: PENDING<span class="cursor"></span></div>
-<div class="line"></div>
-<div class="meta">The Cochran Block, LLC</div>
+<div class="sub">Hardware-Keyed. Dual-Signed. Operator-Verified.</div>
+
+<div class="stat">
+<strong>260x</strong> increase in AI-generated CSAM in one year.<br>
+Nobody certifies the models are clean. <em>We do.</em>
 </div>
-<script>
-(function(){
-  // Genesis: 2026-04-15T00:00:00Z — the day this subdomain came online.
-  var genesis = Date.UTC(2026,3,15,0,0,0);
-  var el = document.getElementById('c');
-  function pad(n){return (n<10?'0':'')+n}
-  function tick(){
-    var now = Date.now();
-    var diff = Math.max(0, now - genesis);
-    var s = Math.floor(diff/1000);
-    var d = Math.floor(s/86400); s -= d*86400;
-    var h = Math.floor(s/3600);  s -= h*3600;
-    var m = Math.floor(s/60);    s -= m*60;
-    el.innerHTML = '<span>'+pad(d)+'</span><span class="unit">d</span>'
-                 + '<span>'+pad(h)+'</span><span class="unit">h</span>'
-                 + '<span>'+pad(m)+'</span><span class="unit">m</span>'
-                 + '<span>'+pad(s)+'</span><span class="unit">s</span>';
-  }
-  tick(); setInterval(tick, 1000);
-})();
-</script>
+
+<p style="color:var(--fg2);margin-bottom:1.5rem">Five audit gates. Two hardware signing keys. Two humans in two houses. No single point of compromise. Every cert is signed with a fingerprint on a fire-safe-locked ESP32 with an eFuse-burned private key that never leaves the silicon.</p>
+
+<div class="section">
+<h2>The Roster</h2>
+<div class="grid">
+<div class="lbl">Operator #0</div><div class="val">Michael Cochran (Founder) <span class="tag t-red">redteam</span><span class="tag t-green">ml-eng</span><span class="tag t-gray">cleared</span></div>
+<div class="lbl">Operator #1</div><div class="val">Harris <span class="tag t-blue">ml-research</span><span class="tag t-purple">safety</span></div>
+<div class="lbl">Operator #2</div><div class="val" style="color:var(--yellow)">You?</div>
+<div class="lbl">Founding Advisor</div><div class="val">John Szeder</div>
+</div>
+</div>
+
+<div class="section">
+<h2>How It Works</h2>
+<div class="grid">
+<div class="lbl">Gate 1</div><div class="val">Hash scan against NCMEC database</div>
+<div class="lbl">Gate 2</div><div class="val">Red-team adversarial prompt battery</div>
+<div class="lbl">Gate 3</div><div class="val">Membership inference (did the model memorize bad data?)</div>
+<div class="lbl">Gate 4</div><div class="val">Dataset attestation (is the training corpus clean?)</div>
+<div class="lbl">Gate 5</div><div class="val">Harmful output scan (bioweapon, CBRN, grooming, fraud)</div>
+</div>
+<p style="color:var(--fg3);font-size:0.8rem">Operators never see actual CSAM. The pipeline uses perceptual hashes, SSIM scores, and classifier outputs. Numbers, not images. If Gate 1 matches, mandatory NCMEC report fires automatically under 18 USC 2258A.</p>
+</div>
+
+<div class="section">
+<h2>Pricing</h2>
+<div class="grid">
+<div class="lbl">Standard</div><div class="val">$20/yr - auto-assigned, 72hr turnaround</div>
+<div class="lbl">Operator</div><div class="val">$500/yr - pick your auditor, 5 business days</div>
+<div class="lbl">Portfolio</div><div class="val">$5K-50K/yr - dual-signed, monthly cadence</div>
+<div class="lbl">Gov</div><div class="val">Custom - clearance required, contract-specific</div>
+</div>
+</div>
+
+<div class="section">
+<h2>The Company</h2>
+<div class="grid">
+<div class="lbl">Entity</div><div class="val">The Cochran Block, LLC</div>
+<div class="lbl">CAGE</div><div class="val">1CQ66</div>
+<div class="lbl">UEI</div><div class="val">W7X3HAQL9CF9</div>
+<div class="lbl">SAM.gov</div><div class="val">Active</div>
+<div class="lbl">Founder</div><div class="val">USCYBERCOM OCO, 100+ missions, Army 17C</div>
+<div class="lbl">Stack</div><div class="val">Rust, 20 potatoes, zero cloud</div>
+</div>
+</div>
+
+<div class="cta">
+<a href="/apply" class="primary">Apply as Operator</a>
+<a href="/operators">Read the Handbook</a>
+<a href="/deck">Pitch Deck</a>
+<a href="/verify">Verify a Certificate</a>
+<a href="https://cochranblock.org/stats">Stats</a>
+<a href="https://cochranblock.org/services">Consulting</a>
+</div>
+
+<div class="footer">
+All Rights Reserved - The Cochran Block, LLC - CAGE 1CQ66 - <a href="https://cochranblock.org">cochranblock.org</a>
+</div>
+
 </body>
-</html>"#;
+</html>"##;

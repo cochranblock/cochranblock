@@ -362,7 +362,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <div class="slide-num">Slide 03<span class="of"> · of 10</span> · Value Proposition</div>
 <div class="slide-title"><span class="amber">First-to-market</span> third-party, hardware-signed, independent AI integrity certification — at a price enterprise buyers can actually procure.</div>
 <div class="slide-body">
-<p><strong>Nobody else combines all five:</strong> independent · hardware-rooted signature · reproducible audit · accessibly priced · Unlicensed open tooling. Internal red-teams fail on independence. Academics fail on commercial polish. Big-4 fails on price and speed. Marketplace auto-checks fail on independence. We are the wedge.</p>
+<p><strong>Nobody else combines all five:</strong> independent · hardware-rooted signature · reproducible audit · accessibly priced · proprietary methodology. Internal red-teams fail on independence. Academics fail on commercial polish. Big-4 fails on price and speed. Marketplace auto-checks fail on independence. We are the wedge.</p>
 <p><strong>This is what I was trained for.</strong> USCYBERCOM Offensive Cyber Operator — the exact job description is "find what's hidden in systems." Now applied to AI model supply chains at scale.</p>
 <p><strong>For publishers:</strong> a signed cert defensible in court, accepted by marketplaces, recognized by regulators.</p>
 <p><strong>For marketplaces</strong> (HuggingFace, Civitai, Ollama): a listing-gate that shifts liability upstream to publishers, downstream away from the platform.</p>
@@ -379,7 +379,8 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <p><strong>1. Air-gapped hardware signing.</strong> Private key burned into ESP32 eFuse silicon inside a bolted-down safe. Biometric touch to issue a cert. No cloud. No API. No extraction path that doesn't involve physical access to the operator's safe and finger.</p>
 <p><strong>2. Five-gate audit pipeline.</strong> Hash scan → red-team battery → membership inference → dataset attestation → harmful-output classifier. Each gate emits artifacts. Artifacts hash into the signature. A skeptic can re-run every gate and verify against the published pubkey.</p>
 <p><strong>3. Reproducibility is the product.</strong> A cert you can re-verify is a cert a court, a marketplace, and a regulator can all accept. A SaaS black-box attestation is not.</p>
-<p class="dim" style="font-size:0.88em;margin-top:1rem;"><strong>Platform note:</strong> the hardware-trust stack is portable — adjacent product <code style="color:var(--amber)">battle-bros</code> (Rust-based tactical AR, DARPA track) is the proof. Not part of this raise; different investor set. Focus here is KNOXAI. Full hardware spec + signing ceremony in Appendix A and at <span class="amber">cochranblock.org/arch#p27</span>.</p>
+<p style="margin-top:1.2rem"><strong>4. The radioactive data problem.</strong> Real CSAM data is federal evidence. It cannot be stored, shared, demonstrated, or used in a PoC. Every other company in this space hits this wall. We solved it with the <strong style="color:var(--amber)">Exodia Architecture</strong>: the entire 5-gate pipeline is scaffolded on safe 32x32 pixel art (skeletons = flagged content, knights = clean content). Same code paths, same gate logic, zero harmful content in the repo. Swap to production by changing three things: hash DB source (NCMEC), classifier weights (retrained), one environment variable. The code does not change. <strong>The PoC is live and testable TODAY</strong> without legal, ethical, or storage risk.</p>
+<p class="dim" style="font-size:0.88em;margin-top:1rem;"><strong>Platform note:</strong> 8 Rust crates, each individually harmless (hash library, signing tool, job queue). Only the compositor assembles the full audit system. No single crate can be misused, forked, or weaponized alone. Named after Yu-Gi-Oh Exodia: five useless cards that win the game when assembled. Full hardware spec + signing ceremony at <span class="amber">knox.cochranblock.org/operators</span>.</p>
 </div>
 </div>
 
@@ -454,7 +455,7 @@ Michael Cochran · Founder · USCYBERCOM Offensive Cyber Operator<br>
 <!-- ── SLIDE 8 — TEAM (52-DAY FRAME) ──────────────────────────── -->
 <div class="slide">
 <div class="slide-num">Slide 08<span class="of"> · of 10</span> · Team · 52 Days</div>
-<div class="slide-title"><span class="amber">Day 52.</span> Solo technical founder. 23 Rust repos. First paying partnership. Cert service live. Chief Advisor landed. Cofounder candidate in discussion.</div>
+<div class="slide-title"><span class="amber">Day 55.</span> Solo technical founder. 23 Rust repos. First paying partnership. Cert service live. Chief Advisor landed. Cofounder candidate in discussion.</div>
 <div class="slide-body">
 
 <p><strong>Michael Cochran · Founder &amp; CEO</strong></p>
