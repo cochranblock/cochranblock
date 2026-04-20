@@ -2614,21 +2614,12 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64)> {
         "ronin-sites",
     ];
 
-    let client = reqwest::Client::builder()
-        .user_agent("cochranblock/0.6 (+https://cochranblock.org)")
-        .build()
-        .unwrap();
-
     let mut results: Vec<(String, u32, f64, f64)> = Vec::new();
     let rate = 225.0_f64;
 
     for &repo in repos {
-        // Proper structured fetch. No string-splitting. Deterministic errors.
-        // Returns empty vec on any failure, with eprintln for visibility.
-        let timestamps: Vec<i64> = fetch_commit_timestamps(&client, repo).await.unwrap_or_else(|e| {
-            eprintln!("[openbooks] fetch failed for {}: {}", repo, e);
-            Vec::new()
-        });
+        // Local-first: read git log from disk. No API calls. No tokens. No rate limits.
+        let timestamps: Vec<i64> = local_git_timestamps(repo);
 
         // Group into sessions (commits within 2 hours). No imputed minimum —
         // only actual elapsed time between first and last commit of each session.
@@ -2667,6 +2658,45 @@ async fn f86_data() -> Vec<(&'static str, u32, f64, f64)> {
         .iter()
         .map(|(n, s, h, v)| (leak_str(n), *s, *h, *v))
         .collect()
+}
+
+/// Local-first: read git commit timestamps from repos on disk.
+/// Looks in ~/dev/{repo} first, then ~/{repo}. Returns sorted timestamps.
+fn local_git_timestamps(repo: &str) -> Vec<i64> {
+    let home = dirs::home_dir().unwrap_or_default();
+    let paths = [
+        home.join("dev").join(repo),
+        home.join(repo),
+    ];
+    let repo_path = match paths.iter().find(|p| p.join(".git").exists()) {
+        Some(p) => p,
+        None => {
+            eprintln!("[openbooks] repo not found on disk: {}", repo);
+            return Vec::new();
+        }
+    };
+    let output = match std::process::Command::new("git")
+        .args(["log", "--format=%ct", "--all"])
+        .current_dir(repo_path)
+        .output()
+    {
+        Ok(o) if o.status.success() => o,
+        Ok(o) => {
+            eprintln!("[openbooks] git log failed for {}: {}", repo, String::from_utf8_lossy(&o.stderr));
+            return Vec::new();
+        }
+        Err(e) => {
+            eprintln!("[openbooks] git exec failed for {}: {}", repo, e);
+            return Vec::new();
+        }
+    };
+    let mut timestamps: Vec<i64> = String::from_utf8_lossy(&output.stdout)
+        .lines()
+        .filter_map(|l| l.trim().parse::<i64>().ok())
+        .collect();
+    timestamps.sort();
+    timestamps.dedup();
+    timestamps
 }
 
 fn leak_str(s: &str) -> &'static str {
