@@ -70,6 +70,7 @@ pub fn f1(p0: t0) -> Router {
         .route("/knox/apply/confirmed", get(intake::knox_apply_confirmed))
         .route("/apply", get(intake::knox_apply_form).post(intake::knox_apply_submit))
         .route("/apply/confirmed", get(intake::knox_apply_confirmed))
+        .route("/verify", get(pages::knox_verify_page))
         .route("/no-quarter", get(pages::f107))
         .route("/noquarter", get(pages::f107))
         .route("/hunt", get(|| async { Redirect::permanent("/no-quarter") }))

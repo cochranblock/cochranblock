@@ -320,7 +320,7 @@ async fn knox_dispatch(
         "/operators" | "/handbook" | "/onboarding" => f106(state).await.into_response(),
         "/deck" | "/deck-v2" | "/pitch" | "/pitch-deck" => f116(state).await.into_response(),
         "/apply" => super::intake::knox_apply_form(state).await.into_response(),
-        "/verify" => knox_verify_page().into_response(),
+        "/verify" => knox_verify_page().await.into_response(),
         "/directory" => knox_placeholder("Operator Directory", "Public operator roster. Coming soon.").into_response(),
         "/blacklist" => knox_placeholder("Public Blacklist", "Models that failed audit. Coming soon.").into_response(),
         _ => {
@@ -331,7 +331,7 @@ async fn knox_dispatch(
 }
 
 /// Knox /verify page — explains the radioactive data problem.
-fn knox_verify_page() -> Html<String> {
+pub async fn knox_verify_page() -> Html<String> {
     Html(r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KNOXAI — Verify</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
