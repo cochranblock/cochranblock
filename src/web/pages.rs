@@ -320,7 +320,7 @@ async fn knox_dispatch(
         "/operators" | "/handbook" | "/onboarding" => f106(state).await.into_response(),
         "/deck" | "/deck-v2" | "/pitch" | "/pitch-deck" => f116(state).await.into_response(),
         "/apply" => super::intake::knox_apply_form(state).await.into_response(),
-        "/verify" => knox_placeholder("Certificate Verification", "Paste a cert hash to verify. Coming soon.").into_response(),
+        "/verify" => knox_verify_page().into_response(),
         "/directory" => knox_placeholder("Operator Directory", "Public operator roster. Coming soon.").into_response(),
         "/blacklist" => knox_placeholder("Public Blacklist", "Models that failed audit. Coming soon.").into_response(),
         _ => {
@@ -328,6 +328,105 @@ async fn knox_dispatch(
             f104(state).await.into_response()
         }
     }
+}
+
+/// Knox /verify page — explains the radioactive data problem.
+fn knox_verify_page() -> Html<String> {
+    Html(r#"<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KNOXAI — Verify</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#2d2a2e;color:#fcfcfa;font-family:'JetBrains Mono','SF Mono',Consolas,monospace}
+body{padding:2rem;max-width:720px;margin:0 auto}
+.banner{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:#ff6188;text-align:center;padding:6px 0;border:1px solid #ff6188;margin-bottom:2rem;background:rgba(255,97,136,0.06)}
+h1{font-size:2rem;font-weight:900;letter-spacing:0.12em;color:#ffd866;margin-bottom:0.5rem}
+h2{font-size:1rem;color:#78dce8;margin:1.5rem 0 0.5rem;font-weight:700}
+p{color:#c1c0c0;font-size:0.85rem;line-height:1.6;margin-bottom:1rem}
+strong{color:#ffd866}
+.amber{color:#ffd866}
+.red{color:#ff6188}
+.green{color:#a9dc76}
+.box{border-left:3px solid #ffd866;padding:0.8rem 1rem;margin:1rem 0;background:rgba(255,216,102,0.04);font-size:0.85rem}
+.box-red{border-left-color:#ff6188;background:rgba(255,97,136,0.04)}
+.box-green{border-left-color:#a9dc76;background:rgba(169,220,118,0.04)}
+a{color:#ffd866;text-decoration:none}
+a:hover{text-decoration:underline}
+.hash-form{margin:1.5rem 0}
+.hash-form input{width:100%;padding:0.6rem;font-family:inherit;font-size:0.8rem;background:#1e1e1e;border:1px solid #3a3a3a;color:#fcfcfa;border-radius:3px;margin-bottom:0.5rem}
+.hash-form input:focus{border-color:#ffd866;outline:none}
+.hash-form button{padding:0.5rem 1.5rem;background:#ffd866;color:#1e1e1e;border:none;font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;border-radius:3px}
+.hash-form button:hover{background:#ffcc00}
+.result{padding:1rem;margin:1rem 0;border:1px solid #3a3a3a;border-radius:3px;font-size:0.85rem;display:none}
+.footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #3a3a3a;font-size:0.6rem;color:#727072;text-align:center;letter-spacing:0.03em}
+ul{margin:0.5rem 0 1rem 1.5rem;font-size:0.85rem;color:#c1c0c0}
+li{margin-bottom:0.3rem}
+</style></head><body>
+<div class="banner">KNOXAI &middot; Certificate Verification</div>
+<h1>VERIFY</h1>
+
+<h2>Certificate Verification</h2>
+<p>Paste a KNOXAI certificate hash to verify its authenticity, see which operator signed it, which gates passed, and when.</p>
+
+<div class="hash-form">
+<input type="text" id="hash-input" placeholder="Paste cert hash (BLAKE3)..." maxlength="64" spellcheck="false" autocomplete="off">
+<button onclick="checkHash()">Verify</button>
+</div>
+<div class="result" id="result"></div>
+
+<div class="box">
+<strong>Status:</strong> Certificate verification launches with the first signed audit. The KNOXAI pipeline is in final build. Certs signed by Operator #0 will be verifiable here, on-chain, and via the <code>/api/verify</code> endpoint.
+</div>
+
+<h2>Why there's no free NCMEC hash checker here</h2>
+
+<p>We were going to ship one. A free tool — paste any file hash, check it against NCMEC's CSAM database, get a yes or no. Simple.</p>
+
+<p>Then we remembered: <strong class="red">the hash list itself is radioactive.</strong></p>
+
+<p>Every CSAM hash database on earth is locked behind partnership agreements:</p>
+<ul>
+<li><strong>NCMEC CyberTipline</strong> — requires ESP registration under 18 USC 2258A</li>
+<li><strong>PhotoDNA</strong> — Microsoft partnership, vetted access only</li>
+<li><strong>Project Vic / CAID</strong> — law enforcement only</li>
+<li><strong>IWF hash list</strong> — paid membership, vetted</li>
+</ul>
+
+<p>The reason is obvious. If the hash list were public, predators could use it to verify their collection or avoid detection. The hashes are evidence. Every organization guards them.</p>
+
+<div class="box-red box">
+<strong>This is the gap KNOXAI exists to fill.</strong><br><br>
+Everyone says "check your AI models against NCMEC." Nobody can actually do it without a partnership agreement that takes months to obtain. Your AI model might be training on CSAM-contaminated data right now and you have no way to check — because the database you need is behind a wall you can't climb alone.
+</div>
+
+<h2>What KNOXAI does</h2>
+
+<p>We get vetted so you don't have to. KNOXAI operators hold the credentials, the clearances, and the access agreements. You submit your model. We run it through 5 audit gates. You get a hardware-signed certificate that says your model is clean — or a report that says it isn't.</p>
+
+<p>You never touch the radioactive data. You never see a hash. You never need an ESP registration. You get a cert.</p>
+
+<div class="box-green box">
+<strong>ESP registration:</strong> In progress.<br>
+<strong>First audits:</strong> Launching with ESP approval.<br>
+<strong>Certificate verification:</strong> Will be live here, on-chain, and via API.<br>
+<strong>Contact:</strong> <a href="mailto:mcochran@cochranblock.org">mcochran@cochranblock.org</a>
+</div>
+
+<p style="margin-top:1.5rem"><a href="/">&larr; Back to KNOXAI</a> &nbsp;&middot;&nbsp; <a href="/apply">Apply as Operator</a> &nbsp;&middot;&nbsp; <a href="/deck">View Pitch Deck</a></p>
+
+<div class="footer">
+All Rights Reserved &mdash; The Cochran Block, LLC &mdash; CAGE 1CQ66 &mdash; UEI W7X3HAQL9CF9
+</div>
+
+<script>
+function checkHash() {
+  var h = document.getElementById('hash-input').value.trim();
+  var r = document.getElementById('result');
+  if (!h || h.length < 8) { r.style.display='block'; r.style.borderColor='#ff6188'; r.innerHTML='<span style="color:#ff6188">Enter a valid hash.</span>'; return; }
+  r.style.display='block';
+  r.style.borderColor='#ffd866';
+  r.innerHTML='<span style="color:#ffd866">No certificate found for hash <code>'+h.substring(0,16)+'...</code></span><br><br><span style="color:#727072">Certificate verification launches with the first signed audit. KNOXAI pipeline is in final build.</span>';
+}
+</script>
+</body></html>"#.to_string())
 }
 
 /// Knox placeholder page for routes under construction.
