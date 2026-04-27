@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Technical Supplement — Solicitation 26/PRO-0022-S</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --cyan: #00d9ff;
+  --purple: #6b2fa0;
+  --green: #00a86b;
+  --gold: #d4a017;
+  --red: #ff4444;
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --border: #2a2a2a;
+  --text: #e8e8e8;
+  --muted: #888;
+}
+body {
+  font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 0;
+}
+code, .mono { font-family: 'SF Mono', Monaco, Consolas, monospace; }
+
+/* Gate */
+.gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at 20% 30%, rgba(0, 217, 255, 0.08), transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(107, 47, 160, 0.08), transparent 60%),
+              var(--bg);
+}
+.gate-box {
+  max-width: 520px;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 36px 32px;
+  text-align: center;
+}
+.gate-box h1 { font-size: 20px; margin-bottom: 6px; color: var(--cyan); }
+.gate-box .solicitation { font-family: 'SF Mono', monospace; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.gate-box p { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.gate-box label { display: block; text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+.gate-box input { width: 100%; padding: 12px 14px; background: #0a0a0a; border: 1px solid var(--border); color: var(--text); border-radius: 4px; font-family: 'SF Mono', monospace; font-size: 14px; }
+.gate-box input:focus { outline: none; border-color: var(--cyan); }
+.gate-box button { margin-top: 16px; width: 100%; padding: 12px; background: var(--cyan); color: #000; border: none; border-radius: 4px; font-weight: 700; font-size: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+.gate-box button:hover { background: #5ff0ff; }
+.gate-box .footer-note { margin-top: 24px; font-size: 11px; color: #555; line-height: 1.5; }
+.gate-box .err { margin-top: 12px; font-size: 12px; color: var(--red); min-height: 16px; }
+
+/* App */
+.app { display: none; }
+.app.active { display: block; }
+.hero {
+  padding: 32px 24px 24px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,217,255,0.04), transparent);
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; }
+.hero .kicker { font-size: 11px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 8px; }
+.hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+.hero .sub { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+.hero .meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.hero .meta div { font-family: 'SF Mono', monospace; }
+.hero .meta strong { color: var(--text); }
+
+.nav { background: #0d0d0d; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; }
+.nav a { color: var(--muted); padding: 14px 12px; text-decoration: none; font-size: 12px; font-weight: 600; border-bottom: 2px solid transparent; white-space: nowrap; }
+.nav a:hover, .nav a.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 24px; }
+section { margin-bottom: 48px; scroll-margin-top: 70px; }
+section h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+section h3 { font-size: 14px; color: var(--cyan); margin: 20px 0 10px; font-weight: 700; }
+section .intro { font-size: 13px; color: var(--muted); margin-bottom: 20px; max-width: 720px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; font-size: 13px; }
+.card.highlight { border-left: 4px solid var(--cyan); }
+.card.warn { border-left: 4px solid var(--gold); }
+.card.good { border-left: 4px solid var(--green); }
+.card.risk { border-left: 4px solid var(--red); }
+.card.method { border-left: 4px solid #0070f3; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px 12px; text-align: center; }
+.stat .num { font-size: 26px; font-weight: 800; color: var(--cyan); line-height: 1; }
+.stat .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+.stat.purple { border-color: var(--purple); background: linear-gradient(180deg, rgba(107,47,160,0.1), transparent); }
+.stat.purple .num { color: #b794f4; }
+
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 22px; }
+}
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; } }
+
+table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; font-size: 12px; }
+th { background: #0d0d0d; text-align: left; padding: 10px 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px; }
+td { padding: 10px 12px; border-top: 1px solid var(--border); vertical-align: top; }
+td.right { text-align: right; font-family: 'SF Mono', monospace; }
+td.mono { font-family: 'SF Mono', monospace; }
+
+.redact { display: inline-block; background: #333; color: #333; padding: 0 10px; margin: 0 2px; border-radius: 2px; user-select: none; font-family: 'SF Mono', monospace; }
+
+.finding { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px; margin-bottom: 10px; border-left: 4px solid var(--green); }
+.finding .title { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--cyan); }
+.finding .body { font-size: 12.5px; color: var(--text); line-height: 1.6; }
+
+.tasks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 768px) { .tasks { grid-template-columns: 1fr; } }
+.task { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px; }
+.task .num { display: inline-block; background: var(--cyan); color: #000; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+.task h4 { font-size: 14px; margin-bottom: 6px; }
+.task p { font-size: 12px; color: var(--muted); }
+
+.principle { background: linear-gradient(90deg, rgba(0,217,255,0.08), transparent); border-left: 3px solid var(--cyan); padding: 12px 16px; margin-bottom: 10px; font-size: 12.5px; }
+.principle strong { color: var(--cyan); }
+
+.arch-diagram { background: #0d0d0d; border: 1px solid var(--border); border-radius: 6px; padding: 18px; font-family: 'SF Mono', monospace; font-size: 11px; color: #7fbfff; line-height: 1.7; white-space: pre; overflow-x: auto; }
+
+.footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 11px; color: var(--muted); line-height: 1.7; max-width: 1100px; margin: 40px auto 0; }
+.footer a { color: var(--cyan); text-decoration: none; }
+
+.badge { display: inline-block; padding: 2px 8px; border-radius: 9px; font-size: 10px; font-weight: 700; margin-right: 4px; }
+.badge-green { background: rgba(0,168,107,0.2); color: var(--green); }
+.badge-gold { background: rgba(212,160,23,0.2); color: var(--gold); }
+.badge-cyan { background: rgba(0,217,255,0.15); color: var(--cyan); }
+.badge-purple { background: rgba(107,47,160,0.25); color: #b794f4; }
+
+.cta { background: var(--surface); border: 1px solid var(--cyan); border-radius: 6px; padding: 20px 24px; margin: 32px 0 0; text-align: center; }
+.cta h3 { color: var(--cyan); font-size: 15px; margin-bottom: 8px; }
+.cta p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.cta .email { font-family: 'SF Mono', monospace; color: var(--text); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- Gate -->
+<div class="gate" id="gate">
+<div class="gate-box">
+<h1>Technical Supplement — Access Check</h1>
+<div class="solicitation">Solicitation 26/PRO-0022-S · BPM 56147 · Morgan State University</div>
+<p>This page is a publicly-accessible technical companion to the formal proposal submitted by The Cochran Block, LLC. All substantive proposal content is contained in the documents submitted via eMMA; this page is supplementary.</p>
+<label for="solnum">Enter Solicitation Number to Continue</label>
+<input id="solnum" type="text" placeholder="e.g., 26/PRO-0022-S" autocomplete="off" autofocus />
+<button id="enter">Continue</button>
+<div class="err" id="err"></div>
+<div class="footer-note">Nothing on this page modifies or supersedes the formal proposal. Access is open; this check exists solely to confirm the visitor has the RFP in hand.</div>
+</div>
+</div>
+
+<!-- App -->
+<div class="app" id="app">
+
+<div class="hero"><div class="hero-inner">
+<div class="kicker">Technical Supplement · 26/PRO-0022-S · Round 3</div>
+<h1>AI-Powered External Attack Surface & Cyber Threat Intelligence</h1>
+<div class="sub">Interactive companion to the formal proposal submitted by The Cochran Block, LLC to Morgan State University.</div>
+<div class="meta">
+<div><strong>Offeror:</strong> The Cochran Block, LLC</div>
+<div><strong>CAGE:</strong> 1CQ66</div>
+<div><strong>UEI:</strong> W7X3HAQL9CF9</div>
+<div><strong>eMMA:</strong> SUP1095449</div>
+<div><strong>MD CSB:</strong> Approved (SBR)</div>
+<div><strong>SDVOSB:</strong> Submitted</div>
+</div>
+</div></div>
+
+<div class="nav"><div class="nav-inner">
+<a href="#approach" class="active">Approach</a>
+<a href="#principles">Principles</a>
+<a href="#tasks">PWS Tasks</a>
+<a href="#pilot">Pilot</a>
+<a href="#projected">Projected</a>
+<a href="#findings">Findings</a>
+<a href="#architecture">Architecture</a>
+<a href="#ip">IP Posture</a>
+<a href="#contact">Contact</a>
+</div></div>
+
+<main>
+
+<section id="approach">
+<h2>The Difference</h2>
+<p class="intro">Every competitor responding to this RFP is offering a subscription. Flashpoint, Recorded Future, CyberInt, Cybersixgill, SOCRadar — all SaaS. Morgan State pays annually, rents the tool, sees what the vendor shows, has no audit trail into the model, and cannot leave without losing everything.</p>
+
+<div class="card highlight">
+<strong style="color: var(--cyan);">An AI tool you own, not a SaaS subscription you rent.</strong><br><br>
+We deliver a Rust-compiled single-binary EASM+CTI platform, running on Morgan State infrastructure, with AI inference on Morgan State hardware, under the Unlicense. At contract completion, Morgan State owns every line of source code.
+</div>
+</section>
+
+<section id="principles">
+<h2>Architectural Principles</h2>
+
+<div class="principle"><strong>1. Compiled, not rented.</strong> ~15 MB Rust binary, reproducibly built, signed. Runs on Morgan hardware. No hosted dependency.</div>
+<div class="principle"><strong>2. Memory-safe by design.</strong> Rust compile-time guarantees eliminate ~70% of critical CVE classes. The platform cannot have the vulnerabilities it is designed to detect.</div>
+<div class="principle"><strong>3. AI-native, not AI-bolted-on.</strong> Local LLM inference. Morgan State credentials, asset metadata, threat indicators never traverse third-party inference endpoints.</div>
+<div class="principle"><strong>4. Observable, auditable, exitable.</strong> Blake3-signed tamper-evident action log. Source code delivered under Unlicense — fork, extend, or disable any component without consultation.</div>
+<div class="principle"><strong>5. Background/Foreground IP discipline.</strong> Background IP (existing crates, tools) remains ours — licensed to Morgan for the contract term. Foreground IP (Morgan-specific customizations) delivered under Unlicense to Morgan at contract completion. Clean separation, no hidden strings.</div>
+</section>
+
+<section id="tasks">
+<h2>PWS Tasks — How We Deliver</h2>
+
+<div class="tasks">
+<div class="task">
+<span class="num">Task 1</span>
+<h4>External Attack Surface Mapping</h4>
+<p>Six concurrent discovery techniques: DNS enumeration, ASN/netblock mapping, 65K-port service fingerprinting, AWS/Azure/GCP asset discovery, SSL/TLS observatory, OT/IoT identification. 6-hour discovery cycle, 60-second new-asset alerts. 98% mapping accuracy SLA.</p>
+</div>
+
+<div class="task">
+<span class="num">Task 2</span>
+<h4>Deep & Dark Web Surveillance</h4>
+<p>Partner stealer-log feed (~40M infections/year normalized), HaveIBeenPwned Enterprise, SpyCloud, custom TOR collectors targeting ransomware leak sites, education-focused marketplaces, closed Telegram channels. Actionable IoCs delivered as STIX 2.1.</p>
+</div>
+
+<div class="task">
+<span class="num">Task 3</span>
+<h4>Digital Risk & Fraud Protection</h4>
+<p>Real-time newly-registered-domain monitoring with homoglyph/typosquat/combosquat matching. Visual similarity via perceptual hashing. Social media + mobile app store impersonation sweeps. Three-tier takedown workflow: &lt;2hr SLA for domain, &lt;1 business day for content.</p>
+</div>
+
+<div class="task">
+<span class="num">Task 4</span>
+<h4>AI-Driven Vulnerability Intelligence</h4>
+<p>Kova-analyst local LLM inference (RTX 4090 / A6000 class GPU server). TTP summarization, remediation prioritization, cross-event correlation, auto-close on verified remediation. Zero outbound AI traffic — inference air-gapped.</p>
+</div>
+</div>
+</section>
+
+<section id="pilot">
+<h2>Self-Applied Pilot — What We Saw</h2>
+<p class="intro">Before proposing this methodology externally, we applied it to our own production site. Over 14 days, the platform attributed 1,032 distinct visitors to 36 named organizations and produced the same kind of executive report proposed for Morgan State.</p>
+
+<div class="stats">
+<div class="stat"><div class="num">15,723</div><div class="label">Requests</div></div>
+<div class="stat"><div class="num">4,068</div><div class="label">Page Views</div></div>
+<div class="stat"><div class="num">2,955</div><div class="label">Unique Visitors</div></div>
+<div class="stat"><div class="num">1,032</div><div class="label">Distinct IPs</div></div>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="num" style="color: var(--green);">36</div><div class="label">Orgs Attributed</div></div>
+<div class="stat"><div class="num" style="color: #7fbfff;">8</div><div class="label">Big Tech Seen</div></div>
+<div class="stat"><div class="num" style="color: var(--red);">48</div><div class="label">Threats Blocked</div></div>
+<div class="stat"><div class="num" style="color: var(--gold);">1</div><div class="label">Scanner Event</div></div>
+</div>
+</section>
+
+<section id="projected">
+<h2>Projected Coverage — Morgan State Scope</h2>
+<p class="intro">Applied to the asset footprint published in the RFP and Addendum No. 1, the platform provides continuous coverage of:</p>
+
+<div class="stats">
+<div class="stat purple"><div class="num">1</div><div class="label">Primary Domain</div></div>
+<div class="stat purple"><div class="num">190</div><div class="label">Subdomains</div></div>
+<div class="stat purple"><div class="num">445</div><div class="label">DNS Records</div></div>
+<div class="stat purple"><div class="num">152</div><div class="label">External IPs</div></div>
+</div>
+
+<div class="stats">
+<div class="stat purple"><div class="num">299</div><div class="label">Web Sites</div></div>
+<div class="stat purple"><div class="num">953</div><div class="label">Technologies</div></div>
+<div class="stat purple"><div class="num">100</div><div class="label">SSL Certs</div></div>
+<div class="stat purple"><div class="num">1 × /16</div><div class="label">Class B Internal</div></div>
+</div>
+
+<div class="card method">
+<strong>Additional coverage:</strong> AWS + Azure + GCP (per Addendum Q3), IPv4 + IPv6 (Q38), full 65,536-port sweep (Q37 preferred), OT/IoT where observable (Q39). Cloud-hosted storage buckets enumerated during first-cycle discovery.
+</div>
+
+<h3>Projected Output at Morgan Scale</h3>
+<table>
+<tr><th>Metric</th><th>Pilot Observed</th><th>Projected at Morgan</th></tr>
+<tr><td>Internet-facing assets under monitoring</td><td class="right">~40</td><td class="right">~2,200 est.</td></tr>
+<tr><td>Distinct visitor IPs / 14 days</td><td class="right">1,032</td><td class="right">50K – 250K est.</td></tr>
+<tr><td>Named organizations attributable / 14 days</td><td class="right">36</td><td class="right">400 – 1,500 est.</td></tr>
+<tr><td>Shadow IT assets surfaced (first 90 days)</td><td class="right">—</td><td class="right">60 – 180 est.</td></tr>
+<tr><td>Leaked credentials surfaced (first 90 days)</td><td class="right">—</td><td class="right">1,200 – 8,500 est.</td></tr>
+<tr><td>Look-alike / typosquat domains tracked</td><td class="right">—</td><td class="right">40 – 200 est.</td></tr>
+<tr><td>High-criticality alerts / month</td><td class="right">0</td><td class="right">15 – 60 est.</td></tr>
+</table>
+<p style="font-size: 11px; color: var(--muted); margin-top: 8px;">Projections based on peer-sector baselines from US higher-education enterprises with similar digital footprints. Actual values will vary.</p>
+</section>
+
+<section id="findings">
+<h2>Sample Findings (Redacted)</h2>
+<p class="intro">Six finding cards from the self-applied pilot, redacted for external release. Demonstrates deliverable format Morgan State would receive monthly.</p>
+
+<div class="finding">
+<div class="title">Finding 1 — Hiring-Signal Pattern · High Confidence</div>
+<div class="body">A Fortune 50 technology company initiated an observable corporate-IP review across <span class="redact">&nbsp;XX&nbsp;</span> distinct IP addresses, <span class="redact">&nbsp;X&nbsp;</span> geographically separated datacenters, over a 5-day window. Peak activity: 3-hour coordinated burst with signature of a distributed committee review (multiple IPs, disjoint DCs, overlapping pages, 77-minute midpoint gap). Final verification visit from the company's <span class="redact">&nbsp;corporate-HQ&nbsp;</span> network range 36 hours later.</div>
+</div>
+
+<div class="finding">
+<div class="title">Finding 2 — Targeted Recurring Visit · Medium Confidence</div>
+<div class="body">Single corporate IP registered to <span class="redact">&nbsp;Fortune 50 Tech Co. B&nbsp;</span> visited exactly one page — an internal velocity/commit tracker — 10 separate times during the window, no other pages accessed. Behavioral signature consistent with a human monitoring publicly-posted engineering activity on a recurring basis.</div>
+</div>
+
+<div class="finding">
+<div class="title">Finding 3 — Coordinated B2B Interest · Medium Confidence</div>
+<div class="body">Professional social network corporate range produced two IP addresses on the same subnet opening the URL at the identical sub-second timestamp. 66 total visits from 7 corporate IPs over 14 days on capability/business-credentials pages. Inferred: vendor/partnership evaluation, not user traffic.</div>
+</div>
+
+<div class="finding">
+<div class="title">Finding 4 — International Crawl + Document Retrieval</div>
+<div class="body">Major international cloud provider datacenters produced 130 distinct IP addresses systematically crawling the site across 14 days, originating from <span class="redact">&nbsp;multiple Asian-Pacific countries&nbsp;</span>. Retrieved content included a public resume PDF. Classification: systematic OSINT collection likely feeding an AI training pipeline or competitive intelligence aggregation.</div>
+</div>
+
+<div class="finding">
+<div class="title">Finding 5 — Security Event (Blocked) · Low Severity</div>
+<div class="body">One attacker IP, <span class="redact">&nbsp;Western Europe&nbsp;</span>, registered to known bulletproof-hosting AS, probed 13 common Next.js framework paths in under one second. All blocked by WAF managed rules before origin. Not targeted — mass-sweep scanner.</div>
+</div>
+
+<div class="finding">
+<div class="title">Finding 6 — Credential-Hunt Probe (Blocked)</div>
+<div class="body">Subsequent scanner, separate IP, probed 47 common secret-file paths (<span class="mono">.env</span>, <span class="mono">.aws/credentials</span>, <span class="mono">.cursor/mcp.json</span>, <span class="mono">.anthropic/config.json</span>, <span class="mono">.openai/config.json</span>, <span class="mono">serviceAccountKey.json</span>). All 404. Structural note: the compiled single-binary architecture has no filesystem locations for those files to exist — "secure by construction."</div>
+</div>
+</section>
+
+<section id="architecture">
+<h2>Platform Architecture</h2>
+<p class="intro">Single Rust binary on one application server. AI inference on one GPU server. Zero external cloud. No data leaves Morgan State perimeter without explicit integration to Splunk, Google SOAR, or the ticketing system.</p>
+
+<div class="arch-diagram">
+┌────────────────────────────────────────────────────────────────────┐
+│                    MORGAN STATE PERIMETER                         │
+│                                                                   │
+│   ┌─────────────────────────┐     ┌─────────────────────────┐    │
+│   │  CochranBlock CTI Node  │     │   Kova Inference (GPU)  │    │
+│   │   (Rust, ~15 MB)        │───▶ │   Local LLM, TTP        │    │
+│   │                         │     │   summarization         │    │
+│   │   • Discovery engine    │     │   Air-gapped            │    │
+│   │   • Attribution         │     └─────────────────────────┘    │
+│   │   • Dark-web collector  │                                    │
+│   │   • Fraud protection    │              │                     │
+│   │   • Action logger       │              ▼                     │
+│   └───┬──────────────┬──────┘      ┌────────────────────┐        │
+│       │              │             │  Signed action log │        │
+│       │              │             │  (blake3 + nanosign)│        │
+│       │              │             └────────────────────┘        │
+│       ▼              ▼                                           │
+│   ┌──────────┐    ┌──────────┐    ┌──────────────┐    ┌──────┐  │
+│   │ Splunk   │    │ Google   │    │ Ticketing    │    │ Dash │  │
+│   │ SIEM     │    │ SOAR     │    │ (ServiceNow) │    │ board│  │
+│   │ (HEC)    │    │          │    │              │    │      │  │
+│   └──────────┘    └──────────┘    └──────────────┘    └──────┘  │
+│                                                                   │
+│   ┌─────────────────────────────────────────────────────┐        │
+│   │  Identity: Microsoft Entra ID + Cisco Duo           │        │
+│   └─────────────────────────────────────────────────────┘        │
+└────────────────────────────────────────────────────────────────────┘
+          │
+          ▼
+   ┌──────────────────┐    ┌───────────────────────────────────┐
+   │ Public internet  │    │ Subcontracted data feeds          │
+   │ discovery        │    │ (Hudson Rock / Constella)         │
+   │ (outbound only)  │    │ Flow-through, scoped, disclosed   │
+   └──────────────────┘    └───────────────────────────────────┘
+</div>
+</section>
+
+<section id="ip">
+<h2>IP Posture — Background vs. Foreground</h2>
+<div class="split">
+<div class="card">
+<span class="badge badge-cyan">Background IP</span>
+<h3 style="margin-top:8px;">Remains CochranBlock Property</h3>
+<p style="font-size: 12.5px;">Pre-existing crates and tools: <span class="mono">kova-engine</span>, <span class="mono">exopack</span>, <span class="mono">any-gpu</span>, <span class="mono">header-writer</span>, <span class="mono">approuter</span>, <span class="mono">whobelooking</span>, <span class="mono">aptnomo</span>, <span class="mono">pixel-forge</span>, <span class="mono">tmuxisfree</span>. Publicly auditable at github.com/cochranblock. Licensed to Morgan State for use during the contract term + exercised options. We retain ownership and commercialization rights.</p>
+</div>
+<div class="card">
+<span class="badge badge-purple">Foreground IP</span>
+<h3 style="margin-top:8px;">Delivered to Morgan State</h3>
+<p style="font-size: 12.5px;">Customer-specific work product created during the contract: Morgan State pattern-library entries, the MSU Splunk Technology Addon, institution-specific dashboards, Morgan-tuned AI fine-tunes, and Morgan-specific configurations. Delivered under the Unlicense at contract completion. Morgan State owns it outright — fork, extend, disable, redistribute, all permitted.</p>
+</div>
+</div>
+
+<div class="card highlight" style="margin-top: 12px;">
+<strong>Why this matters:</strong> most vendors conflate the two, retaining everything. We deliberately separate them so Morgan State walks away from the contract with tangible ownership of customizations, while CochranBlock retains freedom to serve other customers without IP overhang.
+</div>
+</section>
+
+<section>
+<h2>Exceeds Minimum Requirements</h2>
+
+<div class="card good">
+<span class="badge badge-green">1</span> <strong>Memory-safe compiled architecture.</strong> Rust compiler eliminates ~70% of critical CVE classes. CISA Secure-by-Design alignment built in at construction, not bolted on.
+</div>
+<div class="card good">
+<span class="badge badge-green">2</span> <strong>On-device AI inference.</strong> Morgan State data never traverses third-party AI endpoints. Deterministic compliance posture.
+</div>
+<div class="card good">
+<span class="badge badge-green">3</span> <strong>Source code delivered under Unlicense.</strong> Zero vendor lock-in, permanently. Morgan retains self-maintenance capability post-contract.
+</div>
+<div class="card good">
+<span class="badge badge-green">4</span> <strong>Live, independently-auditable reference.</strong> cochranblock.org operates today as the same architecture proposed. Evaluators inspect before award.
+</div>
+<div class="card good">
+<span class="badge badge-green">5</span> <strong>Full IPv4 + IPv6 + 65K-port coverage.</strong> IPv6 required (Q38), full-port preferred (Q37). Included as baseline, not upsell.
+</div>
+</section>
+
+<div class="cta" id="contact">
+<h3>Formal Proposal Docs Are Submitted Via eMMA</h3>
+<p>This page is supplementary. All substantive content — Technical Proposal, Financial Proposal, all required Attachments — has been submitted through eMaryland Marketplace Advantage per the RFP's official submission channel.</p>
+<p class="email">For questions: ryan.waites@morgan.edu (Procurement Officer)<br>
+Offeror contact: mcochran@cochranblock.org</p>
+</div>
+
+</main>
+
+<div class="footer">
+The Cochran Block, LLC · 7452 School Avenue, Dundalk, MD 21222 · <a href="https://cochranblock.org">cochranblock.org</a><br>
+This page is a technical supplement to Solicitation 26/PRO-0022-S. Nothing here modifies or supersedes the formal proposal.<br>
+CAGE 1CQ66 · UEI W7X3HAQL9CF9 · Maryland eMMA SUP1095449 · Maryland CSB Approved (SBR) · SDVOSB Submitted
+</div>
+
+</div>
+
+<script>
+(function(){
+  const gate = document.getElementById('gate');
+  const app = document.getElementById('app');
+  const input = document.getElementById('solnum');
+  const btn = document.getElementById('enter');
+  const err = document.getElementById('err');
+
+  // Accept various forms of the solicitation number
+  const valid = new Set([
+    '26/pro-0022-s',
+    '26/pro-0022s',
+    '26-pro-0022-s',
+    '26pro-0022-s',
+    '26pro0022s',
+    'bpm056147',
+    'bpm56147',
+    '56147'
+  ]);
+
+  function norm(s){ return (s||'').toLowerCase().replace(/\s+/g,''); }
+
+  function submit(){
+    const v = norm(input.value);
+    if (valid.has(v)) {
+      gate.style.display = 'none';
+      app.classList.add('active');
+      try { sessionStorage.setItem('msu-supp-unlocked', '1'); } catch(e) {}
+      window.scrollTo(0,0);
+    } else {
+      err.textContent = 'Solicitation number not recognized. Enter as shown in the RFP (e.g., 26/PRO-0022-S or BPM056147).';
+    }
+  }
+
+  btn.addEventListener('click', submit);
+  input.addEventListener('keypress', function(e){ if (e.key === 'Enter') submit(); });
+
+  // Auto-unlock within a session
+  try {
+    if (sessionStorage.getItem('msu-supp-unlocked') === '1') {
+      gate.style.display = 'none';
+      app.classList.add('active');
+    }
+  } catch(e) {}
+
+  // Nav highlight on scroll
+  const navLinks = document.querySelectorAll('.nav a');
+  const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  window.addEventListener('scroll', function(){
+    if (!app.classList.contains('active')) return;
+    const y = window.scrollY + 80;
+    let current = sections[0]?.id;
+    for (const s of sections) { if (s.offsetTop <= y) current = s.id; }
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+})();
+</script>
+
+</body>
+</html>

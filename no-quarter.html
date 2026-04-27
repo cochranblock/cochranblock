@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="KNOXAI · No Quarter. The operational mission against contaminated AI models. Operator guild, hardware-signed certs, mandatory reporting across eleven harm classes, active hunting. CSAM is the headline class; the methodology covers the full spectrum.">
+<meta name="robots" content="index,follow">
+<title>No Quarter — KNOXAI</title>
+<style>
+:root {
+  --bg: #000;
+  --bg2: #0a0a0a;
+  --bg3: #121212;
+  --fg: #f5f5f5;
+  --fg2: #bbb;
+  --fg3: #666;
+  --amber: #ffb300;
+  --green: #4caf50;
+  --red: #ef5350;
+  --blood: #b71c1c;
+  --line: rgba(255,255,255,0.08);
+  --line2: rgba(255,255,255,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  font-size: 15px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+.pretag {
+  font-size: 0.7rem; letter-spacing: 0.45em;
+  color: var(--red); text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+h1.banner {
+  font-size: clamp(3rem, 11vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+h1.banner .amp { color: var(--red); }
+
+.sub {
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: var(--amber);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.sub .pulse {
+  display: inline-block; width: 9px; height: 9px;
+  background: var(--red); border-radius: 50%;
+  margin-right: 0.6em; vertical-align: middle;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.creed {
+  font-size: clamp(1.2rem, 2.6vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 2rem 0;
+  padding: 1.4rem 1.6rem;
+  border-left: 4px solid var(--red);
+  background: rgba(239,83,80,0.04);
+}
+.creed strong { color: var(--fg); }
+
+h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-top: 3.5rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+h2 .num { color: var(--fg3); font-weight: 400; margin-right: 0.7em; }
+
+p { margin-bottom: 1rem; color: var(--fg2); }
+strong { color: var(--fg); font-weight: 700; }
+.red { color: var(--red); }
+.amber { color: var(--amber); }
+.green { color: var(--green); }
+.dim { color: var(--fg3); }
+
+ul { list-style: none; padding: 0; margin: 1rem 0; }
+ul li {
+  padding: 0.5rem 0 0.5rem 1.6rem;
+  position: relative;
+  color: var(--fg2);
+}
+ul li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+  opacity: 0.7;
+}
+
+.lever {
+  margin: 1.5rem 0 2rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--bg2);
+  border-left: 3px solid var(--amber);
+  border-radius: 3px;
+}
+.lever-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.lever h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--fg);
+  letter-spacing: 0.02em;
+}
+.lever p { margin-bottom: 0.6rem; font-size: 0.92rem; }
+.lever p:last-child { margin-bottom: 0; }
+.lever .mark {
+  font-size: 0.78rem;
+  color: var(--green);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+.lever .mark::before { content: "target · "; color: var(--fg3); }
+
+.ledger {
+  margin: 2rem 0;
+  background: var(--bg2);
+  border: 1px solid var(--line2);
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+.ledger-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+.ledger-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1.2rem;
+}
+.ledger-cell {
+  padding: 0.6rem 0;
+}
+.ledger-num {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.ledger-num.red { color: var(--red); }
+.ledger-num.green { color: var(--green); }
+.ledger-num.amber { color: var(--amber); }
+.ledger-lbl {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--fg3);
+  text-transform: uppercase;
+}
+.ledger-foot {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--fg3);
+  letter-spacing: 0.05em;
+}
+
+.callout {
+  background: var(--bg2);
+  border: 1px solid var(--line2);
+  padding: 1.2rem 1.4rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+.callout.red { border-left: 3px solid var(--red); background: rgba(239,83,80,0.04); }
+.callout.green { border-left: 3px solid var(--green); background: rgba(76,175,80,0.04); }
+.callout .cl-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.callout.red .cl-label { color: var(--red); }
+.callout.green .cl-label { color: var(--green); }
+
+.kbd {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 0.9em;
+  padding: 0.08em 0.4em;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  color: var(--amber);
+}
+
+.sig {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--fg3);
+  font-size: 0.82rem;
+}
+.sig .name { color: var(--fg); font-weight: 700; }
+.sig a { color: var(--amber); text-decoration: none; }
+
+@media (max-width: 600px) {
+  body { padding: 2rem 1rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="pretag">KNOXAI · Operational Posture · Mission Doctrine</div>
+
+<h1 class="banner">NO<br>QUARTER</h1>
+
+<div class="sub"><span class="pulse"></span>Guild Doctrine · The Cochran Block, LLC · 2026-04-16</div>
+
+<div class="creed">
+<p>
+<strong>Contaminated AI doesn't ship.</strong> Operators hunt it down — red teamers, ML researchers, AI safety folks, engineers, and veterans — cert the clean ones, blacklist the dirty ones, file the reports with whichever authority has jurisdiction, and feed the prosecutions. CSAM is the headline class because it's the most illegal, the most mandatory-reportable, and the most enforced. <strong>The methodology covers the full spectrum.</strong>
+</p>
+</div>
+
+<p>
+"No quarter" is the formal declaration that captured enemies will not be spared. It is the oldest operator doctrine we have. Applied here it means: an AI publisher who ships contaminated models does not get a warning, a grace period, or a quiet correction. They get a cert-fail, a blacklist entry, a NCMEC report, a named public record, and a prosecutable case in the hands of law enforcement. Their shell corps get traced. Their next venture starts with their record attached.
+</p>
+
+<p>
+KNOXAI does not negotiate with publishers who knowingly shipped contamination. <strong>We take their cert, their listing, their reputation, and — when the finding is CSAM — their freedom</strong>, via the reporting pipeline the federal government already built and we plug into.
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2><span class="num">—</span> The Target</h2>
+
+<p>
+"Forever" is the wrong word. Illegal and dangerous content predates computers. It will outlast them. What ends forever is <strong>the public AI ecosystem as a vector for it.</strong> The target state looks like this:
+</p>
+
+<ul>
+<li>Zero distribution of illegal content (CSAM, NCII, CBRN uplift) via public AI model channels</li>
+<li>Zero AI models shipping with known-contaminated training data — regardless of class</li>
+<li>Zero capability-uplift for mass-casualty attacks from publicly-available models</li>
+<li>Zero defensible "we didn't know" posture for any AI publisher at scale</li>
+<li>Zero anonymity for publishers who lie on signed attestations across any harm class</li>
+</ul>
+
+<p>
+Contaminated models still exist privately. Attackers still try. Operators still hunt. The difference is that <strong>shipping a contaminated model publicly becomes economically irrational</strong> — the only outcomes are audit-pass or prosecution. Between those two outcomes there is no commercial viability. That is the target.
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2><span class="num">—</span> Harm Classes Covered</h2>
+
+<p>
+The five gates are class-agnostic: they detect contamination, memorization, harmful-output capability, and publisher-attestation mismatch regardless of what's hidden. Pricing bundles scale to the classes a deployment is actually liable for. Eleven classes as of v0.1; the matrix expands as new threats emerge.
+</p>
+
+<style>
+.class-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem;
+}
+.class-row {
+  background: var(--bg2);
+  border-left: 2px solid var(--line2);
+  padding: 0.8rem 1rem;
+  border-radius: 3px;
+}
+.class-row.lead { border-left-color: var(--red); }
+.class-name {
+  font-size: 0.9rem; font-weight: 700; color: var(--fg);
+  margin-bottom: 0.15rem;
+}
+.class-name .pill {
+  display: inline-block; font-size: 0.6rem;
+  padding: 0.12em 0.5em; margin-left: 0.5em;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  background: rgba(239,83,80,0.15); color: var(--red);
+  border-radius: 3px; font-weight: 700;
+  vertical-align: middle;
+}
+.class-report {
+  font-size: 0.78rem; color: var(--fg3);
+  letter-spacing: 0.03em;
+}
+.class-report .auth { color: var(--amber); }
+</style>
+
+<div class="class-grid">
+
+<div class="class-row lead">
+<div class="class-name">CSAM · child sexual abuse material <span class="pill">headline class</span></div>
+<div class="class-report">detection: hash match + red-team battery + membership inference · reports: <span class="auth">NCMEC CyberTipline → FBI ICAC</span> (mandatory under 18 USC §2258A)</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">NCII · non-consensual intimate imagery &amp; deepfakes of real people</div>
+<div class="class-report">detection: identifiable-person match + consent attestation + red-team · reports: <span class="auth">state AGs + platform T&amp;S</span> · 48+ state laws, EU NCII directive</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">CBRN uplift · bioweapon / chem / radiological / nuclear synthesis + planning</div>
+<div class="class-report">detection: specialized red-team battery with biosec operator review · reports: <span class="auth">FBI WMD Directorate + DHS</span></div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Extremism · mass-violence incitement, terrorism recruitment content</div>
+<div class="class-report">detection: safety classifier + operator review on threshold hits · reports: <span class="auth">FBI JTTF</span> on specific threat indicators</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Grooming / minor coercion text</div>
+<div class="class-report">detection: red-team battery + Llama Guard 3 · reports: <span class="auth">NCMEC + state child-protection statutes</span></div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Fraud generation at scale · phishing, romance, AP payoff, deepfake voice</div>
+<div class="class-report">detection: red-team battery + output-classifier chain · reports: <span class="auth">FTC / IC3 / state AGs</span></div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Backdoored model weights · supply-chain attack on downstream users</div>
+<div class="class-report">detection: weight forensics + trigger-probe battery (forensic operator specialty) · reports: <span class="auth">CISA + affected-party coordinated disclosure</span> · CFAA exposure</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Copyright-laundered training corpora · pirated / stolen / unauthorized</div>
+<div class="class-report">detection: dataset attestation + statistical corpus fingerprinting · reports: <span class="auth">DMCA notice + rights-holder counsel</span> · state IP law, EU Copyright Directive</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">PII leakage · training-data memorization of private info</div>
+<div class="class-report">detection: membership inference on identifiable subjects · reports: <span class="auth">GDPR regulator / state privacy AG</span> · CCPA, HIPAA on health data</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Capability uplift to sanctioned parties</div>
+<div class="class-report">detection: deployment-context review + export-control attestation · reports: <span class="auth">OFAC</span> · EAR / ITAR exposure</div>
+</div>
+
+<div class="class-row">
+<div class="class-name">Hallucinated high-stakes content · medical, legal, financial misdirection at scale</div>
+<div class="class-report">detection: red-team battery + domain-expert operator review · reports: <span class="auth">state licensing boards / FDA / SEC</span> depending on domain</div>
+</div>
+
+</div>
+
+<p style="font-size:0.85rem; opacity:0.65">
+Each class has its own detection methodology, its own reporting path, and its own operator specialty tag in the guild directory. A publisher audits against the classes their deployment is actually liable for — Civitai-shipped image LoRAs need CSAM + NCII; a pharma LLM needs CBRN + PII + copyright; a defense contractor needs all of them.
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2><span class="num">—</span> How We Get There · Eight Levers</h2>
+
+<div class="lever">
+<div class="lever-num">Lever 01 · Upstream</div>
+<h3>Kill contamination at the dataset layer</h3>
+<p>Partner with LAION's successors, Common Crawl, Open Images, DataComp — any public training-dataset pipeline. Embed hash-match scanning before publication. Quarantine flagged shards. Auto-report. A clean dataset layer starves the next generation of contaminated models at birth.</p>
+<div class="mark">next LAION-equivalent ships with zero known-CSAM hash matches at publication</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 02 · Marketplace</div>
+<h3>Make the cert the condition of listing</h3>
+<p>HuggingFace, Civitai, Ollama, Replicate, Together AI — every public model marketplace requires a valid KNOXAI cert before a model is listed. Six-month grace for the existing catalog. Delist what's uncerted. Platforms cooperate because regulators already have them in the crosshairs and the cert is the cheapest safe-harbor path they have.</p>
+<div class="mark">90% of HuggingFace's catalog KNOXAI-certed within 18 months</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 03 · Provenance Chain</div>
+<h3>Cert every layer from dataset to deployment</h3>
+<p>Base model cert references dataset cert. Fine-tune cert references base cert. LoRA cert references fine-tune cert. Break the chain and downstream consumers see it. Regulators see it. Enterprise procurement sees it. Bad actors can't hide behind "we just used a base model somebody else trained."</p>
+<div class="mark">legal discovery traces every contaminated model back to its uncerted ancestor or to a publisher who lied on record</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 04 · Report-to-Arrest Pipeline</div>
+<h3>Every cert-fail auto-files to the authority with jurisdiction</h3>
+<p>CSAM goes to <strong>NCMEC CyberTipline under 18 USC §2258A</strong> — The Cochran Block, LLC is the reporting electronic communication service provider. CBRN uplift goes to the <strong>FBI WMD Directorate</strong>. NCII to <strong>state AGs + platform T&amp;S</strong>. Fraud to <strong>FTC / IC3</strong>. Backdoored weights to <strong>CISA</strong>. Each class, its own pipeline; KNOXAI integrates them.</p>
+<p>Preserved evidence on every fail: signed audit artifact, exact prompts that elicited content, hashed outputs, publisher's own signed attestation of corpus + base model. A tip with that payload is a prosecutable case in a box — routed to the right regulator, arriving with cryptographic provenance.</p>
+<div class="mark">first federal conviction with KNOXAI forensics on the evidence sheet within 24 months · across any harm class with a regulator</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 05 · Workforce</div>
+<h3>Operator guild scales faster than the problem</h3>
+<p>Civilian red teamers, MATS alumni, AI safety researchers from Anthropic / OpenAI / DeepMind / Redwood, ML engineers from HuggingFace / Databricks / Thorn / Meta T&S, academics from CSAIL / HAI / CyLab / BAIR, industry crossover from the DEFCON AI Village, and veteran pipelines via DoD SkillBridge and VR&E Ch. 31. Every quarter, new operators join. Every year the guild is larger than the last. <strong>The people paid to find this content outnumber the people trying to ship it.</strong></p>
+<div class="mark">by year three, every major AI company has a KNOXAI alumnus embedded internally</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 06 · Legislation</div>
+<h3>Get named in law as the conformity path</h3>
+<p>Maryland home-state advantage. Virginia, Texas, California, New York next. Federal bill pending. NIST framework. EU AI Act conformity recognition. Once the cert is statutorily referenced, it isn't a product — it's compliance infrastructure. The price of not carrying it becomes regulatory, not competitive.</p>
+<div class="mark">one state law citing KNOXAI by name, one NIST framework citation, one EU AI Act recognition</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 07 · Active Hunting</div>
+<h3>Operators don't wait for publishers to submit</h3>
+<p>Full-time hunt team funded out of platform take. Monitor HuggingFace's release feed, Civitai's new-models list, GitHub's trending AI repos, dark web marketplaces under the Gov tier's legal envelope. Every uncerted model exhibiting contamination signs goes to the blacklist. Publisher is named. Platform is notified. NCMEC is filed. The pipeline fires without the publisher's cooperation.</p>
+<div class="mark">monthly hunt reports publishing models removed, publishers named, tips filed</div>
+</div>
+
+<div class="lever">
+<div class="lever-num">Lever 08 · Culture</div>
+<h3>Make shipping uncerted socially unacceptable</h3>
+<p>Every lever above is machinery. This one is the norm that eventually makes the machinery routine instead of heroic. "Is it certed?" becomes as reflexive as "does it use HTTPS?" Publishers brag about their cert. Influential voices in AI endorse the practice. The cert is table stakes. Shipping without one isn't a tradeoff — it's a tell.</p>
+<div class="mark">the word "KNOXAI" becomes verb shorthand for "was this AI audited" in the trade press</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2><span class="num">—</span> The Ledger</h2>
+
+<div class="ledger">
+<div class="ledger-title">Counts · Live · Updated on every cert event</div>
+<div class="ledger-grid">
+<div class="ledger-cell">
+<div class="ledger-num amber" id="m-scanned">0</div>
+<div class="ledger-lbl">Models scanned</div>
+</div>
+<div class="ledger-cell">
+<div class="ledger-num green" id="m-certed">0</div>
+<div class="ledger-lbl">Certs issued · clean</div>
+</div>
+<div class="ledger-cell">
+<div class="ledger-num red" id="m-blacklist">0</div>
+<div class="ledger-lbl">Blacklist entries</div>
+</div>
+<div class="ledger-cell">
+<div class="ledger-num red" id="m-reports">0</div>
+<div class="ledger-lbl">NCMEC tips filed</div>
+</div>
+<div class="ledger-cell">
+<div class="ledger-num" id="m-operators">1</div>
+<div class="ledger-lbl">Operators active</div>
+</div>
+<div class="ledger-cell">
+<div class="ledger-num" id="m-days">0</div>
+<div class="ledger-lbl">Days operational</div>
+</div>
+</div>
+<div class="ledger-foot">
+Zero counts below are pre-launch. The guild is provisioning hardware, building the methodology, and recruiting operators as of this document. The ledger goes live and auto-updates the moment the first cert is signed.
+</div>
+</div>
+
+<script>
+(function(){
+  // Operational genesis — the day this doctrine was published.
+  var genesis = Date.UTC(2026, 3, 15, 0, 0, 0);
+  var el = document.getElementById('m-days');
+  if (el) {
+    var days = Math.max(0, Math.floor((Date.now() - genesis) / 86400000));
+    el.textContent = days;
+  }
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2><span class="num">—</span> What This Is Not</h2>
+
+<p>
+Honesty keeps the machinery credible. KNOXAI <strong>cannot</strong>:
+</p>
+
+<ul>
+<li>Stop local inference on personal hardware — privacy envelope, deliberate</li>
+<li>Reach state-sponsored AI ecosystems that won't honor US certs</li>
+<li>Prevent novel concept-combining via adversarial prompts we haven't curated</li>
+<li>Eliminate CSAM that predates AI — different problem, different fighters, already staffed by NCMEC, Thorn, IWF, C3P</li>
+</ul>
+
+<p>
+But the machinery doesn't need to catch every instance to win. It needs to make the public AI ecosystem hostile enough that contaminated models can't scale, can't distribute, can't profit, and can't survive without placing their creators on federal indictments. <strong>That is achievable. That is the objective. That is the posture.</strong>
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2><span class="num">—</span> Join the Hunt</h2>
+
+<div class="callout green">
+<div class="cl-label">Operators</div>
+<p style="margin-bottom:0">Red teamers · ML researchers · ML engineers · data scientists · AI safety researchers · OCO/IC vets · SkillBridge active-duty · VR&E disabled veterans. One read of the handbook, one hardware provisioning, one referrer signoff. <span class="kbd">knox.cochranblock.org/onboarding</span></p>
+</div>
+
+<div class="callout">
+<div class="cl-label">Publishers</div>
+<p style="margin-bottom:0">If your model ships clean across the harm classes your deployment is liable for — cert it and move on. Pricing bundles to the classes that matter for your context. Standard ($20/yr) covers CSAM + generic. Add-ons for NCII, CBRN, supply-chain, privacy, copyright. Full Spectrum ($150/yr) covers all eleven classes. If any class ships dirty, we find out. <span class="kbd">knox.cochranblock.org</span></p>
+</div>
+
+<div class="callout red">
+<div class="cl-label">Adversaries</div>
+<p style="margin-bottom:0">Every shell corp in your chain will be traced. Every model you published under any name we can attribute will be cert-failed, publicly blacklisted, and reported. Your technical defense is useless against a guild whose members spent careers — in offensive cyber, in safety research, in trust and safety, in adversarial ML — finding what people hide in systems. <strong>Stop shipping. Or be stopped.</strong></p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="sig">
+<div><span class="name">Michael Cochran</span> · Operator #0 · Founder</div>
+<div>The Cochran Block, LLC · USCYBERCOM Offensive Cyber Operator · 100+ missions</div>
+<div>Baltimore County, Maryland · CAGE 1CQ66 · UEI W7X3HAQL9CF9</div>
+<div style="margin-top:1rem; opacity:0.7">
+Doctrine published 2026-04-16 · <a href="https://knox.cochranblock.org">knox.cochranblock.org</a> · <a href="/constitution">/constitution</a> · <a href="/operations">/operations</a> · <a href="/manifesto">/manifesto</a>
+</div>
+</div>
+
+</body>
+</html>

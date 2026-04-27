@@ -1,0 +1,112 @@
+# Diamond Rust Binary Architecture — profile templates
+#
+# P27 ships two profiles, because the binary that serves requests on a
+# laptop has a different pressure target than the binary that flies on a
+# CubeSat or runs on a phone.
+#
+# Paste ONE of these into your Cargo.toml. Pick by deployment target:
+#
+#   [profile.diamond]        = SPEED-Diamond. For laptops, servers,
+#                              request-serving binaries. CPU wins. Binary
+#                              grows 10-30% in exchange for ~15-30%
+#                              faster hot paths, better cache locality,
+#                              cross-crate inlining.
+#
+#   [profile.diamond-edge]   = SIZE-Diamond. For phones, edge compute,
+#                              LoRa mesh nodes, embedded systems, CubeSats,
+#                              on-device AI. Bytes win. Binary shrinks
+#                              10-25% in exchange for slightly slower hot
+#                              paths (but still fast because LTO is still on).
+#
+# Both profiles are Diamond. The difference is which pressure dominates.
+# Build with: cargo build --profile=diamond   (speed)
+#             cargo build --profile=diamond-edge  (size)
+#
+# Canonical source: https://cochranblock.org/diamond-profile.toml
+# Protocol: https://cochranblock.org/arch#p27
+# License: Unlicense. Fork, strip, ship as your own. Red crayons forever.
+
+
+# ─── SPEED-DIAMOND ──────────────────────────────────────────────────
+# For laptops, servers, desktops, and anything request-serving. Runtime
+# hot paths dominate total cost over binary-distribution size. Pick this
+# when the binary lives on fewer machines and handles more requests.
+
+[profile.diamond]
+inherits = "release"
+opt-level = 3              # maximum LLVM speed optimizations
+lto = "fat"                # cross-crate inlining, full monomorphized dedup
+codegen-units = 1          # one crystal, no fracture planes
+strip = true               # symbols don't run, they just ride along
+panic = "abort"            # cull unwinding machinery (-50-300 KB)
+overflow-checks = false    # trust the arithmetic, check explicitly when needed
+debug = false              # DWARF is heavy
+incremental = false        # incremental caches are fracture planes
+split-debuginfo = "off"    # no separate .dSYM or .pdb
+
+
+# ─── SIZE-DIAMOND (edge) ────────────────────────────────────────────
+# For phones, edge compute, spacecraft, embedded, and anything where
+# the binary ships to many places and every byte crosses a bandwidth-
+# constrained link. Pick this when binary size dominates runtime hot-
+# path speed.
+
+[profile.diamond-edge]
+inherits = "release"
+opt-level = "s"            # size-prioritized LLVM optimizations
+lto = "fat"                # still fat — we want the dedup even for size
+codegen-units = 1          # still one crystal
+strip = true               # still stripped
+panic = "abort"            # still no unwinding
+overflow-checks = false    # still no runtime overflow checks
+debug = false              # still no debug info
+incremental = false        # still no incremental caches
+split-debuginfo = "off"    # still no separate debug files
+
+
+# ─── PICKING BY PROJECT ─────────────────────────────────────────────
+#
+# Laptop/server-class (speed-Diamond):
+#   - cochranblock (this site, serves requests)
+#   - approuter (reverse proxy, serves requests)
+#   - kova (local AI engine, CPU-bound inference)
+#   - rogue-repo (payment engine, hot paths)
+#   - tmuxisfree (fleet orchestrator, CPU-bound dispatch)
+#   - exopack (test-augmentation, CI-speed matters)
+#   - whobelooking (OSINT aggregator, CPU-bound JSON work)
+#
+# Edge / mobile / spacecraft-class (size-Diamond):
+#   - pixel-forge (Android APK, Google Play distribution)
+#   - ghost-fabric (LoRa mesh node, 915 MHz constrained)
+#   - pocket-server (phone-hosted web server)
+#   - call-shield (on-device call screening, sub-ms constraint)
+#   - aptnomo (already 312 KB — Size-Diamond territory)
+#   - any future LEO smallsat baremetal Rust payload
+#   - any future NanoSign-signed safetensors inference binary
+#
+# When in doubt: if the binary ships to more than ~10 machines, lean
+# size-Diamond. If the binary serves more than ~10 requests/sec on a
+# single machine, lean speed-Diamond.
+
+
+# ─── POST-BUILD COMPRESSION (both profiles) ─────────────────────────
+#
+# After cargo build --profile=<variant>, further compress with:
+#
+#   upx --best --lzma target/diamond/my-binary
+#   upx --best --lzma target/diamond-edge/my-binary
+#
+# Cuts 50-70% more off typical binaries. Warning: corporate AV flags
+# UPX'd binaries. Only UPX for distribution where users know what they
+# run. Don't UPX anything scanned by enterprise AV.
+
+
+# ─── GEOLOGY REPORT (both profiles) ─────────────────────────────────
+#
+# Record binary size after each build:
+#
+#   ls -la target/diamond/my-binary | awk '{print $5}' >> binary-sizes.log
+#   ls -la target/diamond-edge/my-binary | awk '{print $5}' >> binary-sizes-edge.log
+#
+# Commit both logs. Every line is a pressure pass. Watch the numbers
+# fall until they can't fall further. That's when you have diamond.

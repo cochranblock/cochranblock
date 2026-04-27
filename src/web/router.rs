@@ -5,12 +5,12 @@
 
 use axum::http::header::{HeaderName, HeaderValue};
 use axum::response::Redirect;
-use axum::{Router, routing::get};
+use axum::{Router, routing::{get, post}};
 use tower_http::{
     compression::CompressionLayer, set_header::SetResponseHeaderLayer, trace::TraceLayer,
 };
 
-use super::{assets, community_grant, intake, pages};
+use super::{assets, booking, community_grant, intake, n_bench, pages};
 use crate::t0;
 
 /// f1 = app_router. Why: Single router with compression, trace, security headers; state shared via Arc.
@@ -35,7 +35,8 @@ pub fn f1(p0: t0) -> Router {
         .route("/deploy/confirmed", get(intake::confirmed))
         .route("/about", get(pages::f12))
         .route("/contact", get(pages::f13))
-        .route("/book", get(pages::f63))
+        .route("/book", get(booking::get_form).post(booking::post_form))
+        .route("/book/confirmed", get(booking::confirmed))
         .route("/downloads", get(pages::f68))
         .route(
             "/community-grant",
@@ -77,6 +78,9 @@ pub fn f1(p0: t0) -> Router {
         .route("/receipts", get(|| async { Redirect::permanent("/no-quarter") }))
         .route("/mission", get(|| async { Redirect::permanent("/no-quarter") }))
         .route("/speed", get(|| async { Redirect::permanent("/stats") }))
+        .route("/n-bench", get(n_bench::get_page))
+        .route("/api/n-bench/checkout", post(n_bench::create_checkout))
+        .route("/n-bench/thanks", get(n_bench::thanks))
         .route("/openbooks", get(pages::f86))
         .route(
             "/govdocs/faq",
@@ -119,6 +123,10 @@ pub fn f1(p0: t0) -> Router {
         .route("/proposals", get(pages::f117))
         .route("/federal-pipeline", get(pages::f117))
         .route("/pipeline", get(pages::f117))
+        // Tanner cofounder pitch deck — 10 slides + 4 appendices, three-entity structure
+        .route("/tanner", get(pages::f108))
+        .route("/cofounder", get(pages::f108))
+        .route("/pitch-deck-tanner", get(pages::f108))
         .route(
             "/aiedge-whitepaper.pdf",
             get(|| async {

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+  <!-- 2D square tilted 45° = diamond, with center dot -->
+  <path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="4" fill="#00d9ff"/>
+</svg>

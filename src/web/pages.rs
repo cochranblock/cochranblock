@@ -12,20 +12,6 @@ use std::sync::Arc;
 
 use crate::t0;
 
-#[derive(Serialize)]
-struct t19 {
-    label: String,
-    mailto: String,
-}
-
-#[derive(Serialize)]
-struct t20 {
-    date: String,
-    day_name: String,
-    date_label: String,
-    times: Vec<t19>,
-}
-
 const BASE_URL: &str = "https://cochranblock.org";
 
 /// f69 = robots_txt. Why: Allow crawlers; point to sitemap.
@@ -1858,73 +1844,7 @@ pub async fn f13(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f64 = get_date_slots — weekdays, 8am–5pm EST
-fn f64() -> Vec<t20> {
-    let today = Utc::now().with_timezone(&New_York).date_naive();
-    let times = [
-        "8:00am", "8:30am", "9:00am", "9:30am", "10:00am", "10:30am", "11:00am", "11:30am",
-        "12:00pm", "12:30pm", "1:00pm", "1:30pm", "2:00pm", "2:30pm", "3:00pm", "3:30pm", "4:00pm",
-        "4:30pm", "5:00pm",
-    ];
-    let mut date_slots = Vec::new();
-    for day_offset in 0..90i64 {
-        let date = today + Duration::days(day_offset);
-        let wd = date.weekday();
-        if wd != Weekday::Sat && wd != Weekday::Sun {
-            let day_name = match wd {
-                Weekday::Mon => "Mon",
-                Weekday::Tue => "Tue",
-                Weekday::Wed => "Wed",
-                Weekday::Thu => "Thu",
-                Weekday::Fri => "Fri",
-                _ => continue,
-            };
-            let date_str = date.format("%b %d").to_string();
-            let date_iso = date.format("%Y-%m-%d").to_string();
-            let time_slots: Vec<t19> = times
-                .iter()
-                .map(|time| {
-                    let subject = format!(
-                        "Discovery%20Call%20Request%20-%20{}%20{}%20EST",
-                        date_str.replace(' ', "%20"),
-                        time.replace(':', "%3A")
-                    );
-                    t19 {
-                        label: format!("{} EST", time),
-                        mailto: format!("mailto:mcochran@cochranblock.org?subject={}", subject),
-                    }
-                })
-                .collect();
-            date_slots.push(t20 {
-                date: date_iso,
-                day_name: day_name.to_string(),
-                date_label: date_str,
-                times: time_slots,
-            });
-        }
-        if date_slots.len() >= 60 {
-            break;
-        }
-    }
-    date_slots
-}
-
-/// f63 = serve_book. Why: Calendar + time slots for discovery calls; Braintrust flow.
-pub async fn f63(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let date_slots = f64();
-    let slots_json = serde_json::to_string(&date_slots).unwrap_or_default();
-    let slots_json_escaped = slots_json.replace('<', "\\u003c").replace('>', "\\u003e");
-    let v0 = format!(
-        r##"<section class="booking-page"><h1>Schedule a Discovery Call</h1><p class="booking-intro">30 minutes · Discuss your goals and how I can help · All times Eastern (EST)</p><p class="booking-context">Shared via Braintrust — pick a date, then a time. Your email will open with a pre-filled request.</p><p class="booking-legend">Available weekdays · 8am–5pm EST</p><p class="booking-hint" id="booking-hint">Select a date, then a time.</p><a href="#booking-calendar" class="skip-link skip-link-calendar">Skip to calendar</a><div class="booking-calendar-wrapper" id="booking-calendar" role="region" aria-label="Calendar - pick a date then a time" aria-describedby="booking-hint"><div class="booking-calendar-header"><div class="booking-month-row"><button type="button" class="booking-nav" id="booking-prev" aria-label="Previous month">&larr;</button><h3 class="booking-month" id="booking-month"></h3><button type="button" class="booking-nav" id="booking-next" aria-label="Next month">&rarr;</button><span class="booking-available-badge" id="booking-available-badge"></span></div></div><div class="booking-calendar-grid" id="booking-grid" role="grid" aria-label="Month view"></div></div><div class="booking-time-panel" id="booking-time-panel" aria-live="polite" hidden><h3 class="booking-time-heading" id="booking-time-heading"></h3><div class="booking-time-slots" id="booking-time-slots" role="group"></div></div><p class="booking-note">I'll confirm within 24 hours.</p><p class="booking-fallback">None of these work? <a href="mailto:mcochran@cochranblock.org?subject=Discovery%20Call%20Request">Email me</a> to propose a time.</p><script type="application/json" id="booking-slots-data">{}</script><script src="/assets/js/booking.js"></script></section>"##,
-        slots_json_escaped
-    );
-    Html(format!(
-        "{}{}{}{}",
-        f62("book", "Schedule a Call | CochranBlock"),
-        C7,
-        v0,
-        C8
-    ))
-}
+// /book moved to src/web/booking.rs - calendar + form + SMTP send.
 
 /// f67 = serve_products. Why: Product catalog — Platforms, Partnerships, Internal Tools.
 pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {

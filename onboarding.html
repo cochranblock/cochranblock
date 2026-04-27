@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="KNOXAI — operator-run guild certifying AI models are free of CSAM and harmful content. Hardware-keyed, dual-signed, peer-reviewed.">
+<title>KNOXAI — Operator Onboarding</title>
+<style>
+:root {
+  --bg: #000; --bg2: #0a0a0a; --bg3: #121212;
+  --fg: #f5f5f5; --fg2: #bbb; --fg3: #666;
+  --amber: #ffb300; --green: #4caf50; --red: #ef5350; --blue: #42a5f5; --purple: #ab47bc;
+  --line: rgba(255,255,255,0.08); --line2: rgba(255,255,255,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  font-size: 14.5px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body { max-width: 820px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+.classification {
+  font-size: 0.68rem; letter-spacing: 0.45em; color: var(--red);
+  text-transform: uppercase; text-align: center;
+  padding: 0.5rem 0; margin-bottom: 2rem;
+  border-top: 1px solid var(--red); border-bottom: 1px solid var(--red);
+  opacity: 0.8;
+}
+.pretag {
+  font-size: 0.7rem; letter-spacing: 0.4em; color: var(--fg3);
+  text-transform: uppercase; margin-bottom: 0.8rem;
+}
+h1.logo {
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  font-weight: 900; letter-spacing: 0.12em; line-height: 1;
+  margin-bottom: 0.8rem;
+}
+.subtitle {
+  font-size: 0.85rem; letter-spacing: 0.25em; color: var(--amber);
+  margin-bottom: 2rem; text-transform: uppercase;
+}
+.doc-meta {
+  font-size: 0.78rem; color: var(--fg3);
+  border-top: 1px solid var(--line); padding-top: 1rem;
+  margin-bottom: 3rem; display: grid; grid-template-columns: repeat(2,1fr); gap: 0.3rem 1.5rem;
+}
+.doc-meta .lbl { color: var(--amber); opacity: 0.7; }
+
+h2 {
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--amber);
+  margin-top: 3.5rem; margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 1px solid var(--line);
+}
+h2 .num { color: var(--fg3); margin-right: 0.8em; font-weight: 400; }
+
+h3 {
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--fg);
+  margin-top: 2rem; margin-bottom: 0.8rem;
+}
+h3 .tag {
+  display: inline-block; font-size: 0.7rem; letter-spacing: 0.2em;
+  padding: 0.1em 0.6em; margin-left: 0.6em; border-radius: 3px;
+  background: rgba(255,179,0,0.12); color: var(--amber); font-weight: 600;
+}
+
+p { margin-bottom: 1rem; color: var(--fg2); }
+strong { color: var(--fg); font-weight: 700; }
+em { color: var(--fg2); font-style: italic; }
+
+ul, ol { margin: 1rem 0 1rem 1.6rem; color: var(--fg2); }
+ul li, ol li { margin-bottom: 0.4rem; }
+ul.clean { list-style: none; margin-left: 0; }
+ul.clean li { padding: 0.4rem 0 0.4rem 1.5rem; position: relative; }
+ul.clean li::before {
+  content: "▸"; position: absolute; left: 0;
+  color: var(--amber); opacity: 0.65;
+}
+
+code, .kbd {
+  font-family: inherit; font-size: 0.9em;
+  background: rgba(255,255,255,0.07); padding: 0.08em 0.4em;
+  border-radius: 3px; color: var(--amber);
+}
+pre {
+  background: var(--bg2); border: 1px solid var(--line);
+  padding: 1rem 1.2rem; border-radius: 4px;
+  overflow-x: auto; font-size: 0.85rem; line-height: 1.55;
+  margin: 1rem 0;
+}
+pre code { background: none; padding: 0; color: var(--fg); }
+
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.85rem; }
+th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--fg3); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; }
+td:first-child { font-weight: 700; white-space: nowrap; }
+
+.callout {
+  background: var(--bg2); border: 1px solid var(--line2);
+  padding: 1rem 1.25rem; margin: 1.25rem 0; border-radius: 4px;
+}
+.callout-amber { border-left: 3px solid var(--amber); }
+.callout-red { border-left: 3px solid var(--red); background: rgba(239,83,80,0.04); }
+.callout-green { border-left: 3px solid var(--green); background: rgba(76,175,80,0.04); }
+.callout .cl-label {
+  font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 0.5rem;
+}
+.callout-amber .cl-label { color: var(--amber); }
+.callout-red .cl-label { color: var(--red); }
+.callout-green .cl-label { color: var(--green); }
+
+.lane {
+  border-left: 2px solid; padding: 0.2rem 0 0.2rem 1.5rem;
+  margin: 2rem 0;
+}
+.lane.redteam { border-color: var(--red); }
+.lane.ml-research { border-color: var(--blue); }
+.lane.ml-eng { border-color: var(--green); }
+.lane.data { border-color: var(--amber); }
+.lane.safety { border-color: var(--purple); }
+
+.lane-header {
+  font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 0.4rem;
+}
+.lane.redteam .lane-header { color: var(--red); }
+.lane.ml-research .lane-header { color: var(--blue); }
+.lane.ml-eng .lane-header { color: var(--green); }
+.lane.data .lane-header { color: var(--amber); }
+.lane.safety .lane-header { color: var(--purple); }
+
+.op-card {
+  background: var(--bg2); border: 1px solid var(--line2);
+  padding: 1.5rem; border-radius: 6px; margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.op-card .op-row { display: grid; grid-template-columns: 140px 1fr; gap: 0.3rem 1rem; padding: 0.25rem 0; }
+.op-card .op-k { color: var(--fg3); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.sig {
+  margin-top: 4rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--line); color: var(--fg3);
+  font-size: 0.82rem;
+}
+.sig .name { color: var(--fg); font-weight: 700; }
+
+.toc {
+  background: var(--bg2); padding: 1.25rem 1.5rem;
+  border-radius: 4px; margin: 2rem 0;
+  font-size: 0.85rem;
+}
+.toc-title {
+  font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 0.8rem; font-weight: 700;
+}
+.toc ol { margin: 0 0 0 1.4rem; }
+.toc a { color: var(--fg2); text-decoration: none; }
+.toc a:hover { color: var(--amber); }
+
+hr.fade {
+  border: none; height: 1px;
+  background: linear-gradient(to right, transparent, var(--line2), transparent);
+  margin: 3rem 0 2rem;
+}
+
+@media (max-width: 600px) {
+  body { padding: 2rem 1rem 4rem; }
+  .doc-meta { grid-template-columns: 1fr; }
+  .op-card .op-row { grid-template-columns: 1fr; gap: 0.1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="classification">For Named Operator Only · Eyes Only · Do Not Forward</div>
+
+<div class="pretag">Operator Onboarding · Document v0.1 · 2026-04-16</div>
+<h1 class="logo">KNOXAI</h1>
+<div class="subtitle">The Guild Handbook</div>
+
+<div class="doc-meta">
+<div><span class="lbl">Platform:</span> The Cochran Block, LLC</div>
+<div><span class="lbl">Operator #0:</span> Michael Cochran (Founder)</div>
+<div><span class="lbl">Operator #1:</span> Harris</div>
+<div><span class="lbl">Operator #2:</span> You?</div>
+<div><span class="lbl">Founding Advisor:</span> John Szeder</div>
+<div><span class="lbl">Jurisdiction:</span> Maryland, USA</div>
+<div><span class="lbl">CAGE · UEI:</span> 1CQ66 · W7X3HAQL9CF9</div>
+<div><span class="lbl">OA Effective:</span> 2026-04-14 (signed, public)</div>
+<div><span class="lbl">Doc Status:</span> Operator-facing</div>
+</div>
+
+<div class="toc">
+<div class="toc-title">What's in here</div>
+<ol>
+<li><a href="#s1">What you just agreed to</a></li>
+<li><a href="#s2">Pick your lane — specialty tags</a></li>
+<li><a href="#s3">Build your signing device</a></li>
+<li><a href="#s4">The methodology (branches by specialty)</a></li>
+<li><a href="#s5">Taking jobs</a></li>
+<li><a href="#s6">The signing ceremony</a></li>
+<li><a href="#s7">Getting paid</a></li>
+<li><a href="#s8">Blacklist + mandatory reporting</a></li>
+<li><a href="#s9">Things that get you expelled</a></li>
+<li><a href="#s10">Key rotation + succession</a></li>
+<li><a href="#s11">Your public reputation</a></li>
+<li><a href="#s12">Escalation</a></li>
+<li><a href="#s13">Appendix — Operator #0 reference entry</a></li>
+</ol>
+</div>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s1"><span class="num">01</span> What You Just Agreed To</h2>
+
+<p>
+You're joining KNOXAI as a vetted operator. That means you'll run AI-model audits, sign certificates with a hardware key you hold, and get paid per cert signed. You are not an employee of The Cochran Block, LLC. You are an <strong>independent operator</strong> in a peer-reviewed guild, paid through the platform on a revenue-split basis.
+</p>
+
+<p>
+You accepted a TAC member's referral. That member vouched for you. Your performance reflects on them.
+</p>
+
+<div class="callout callout-amber">
+<div class="cl-label">Three things you are agreeing to by reading this</div>
+<p style="margin-bottom: 0.5rem">1. You will run the methodology as written. You will not shortcut gates.</p>
+<p style="margin-bottom: 0.5rem">2. Your hardware signing key will never leave your physical control.</p>
+<p style="margin-bottom: 0">3. If you find illegal material during an audit, you will report it per the platform's mandatory-reporting path (§8). No discretion.</p>
+</div>
+
+<p>
+Everything else — pricing, splits, rotation, rep scoring — is detail you can negotiate or adjust. These three are non-negotiable. Break any of them and you're expelled from the directory, named publicly, and the guild refunds any cert you signed before we knew.
+</p>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s2"><span class="num">02</span> Pick Your Lane</h2>
+
+<p>
+Every operator is tagged with one or more specialties. Tags drive customer routing, reputation, and rate tiers. You self-declare at onboarding; your TAC referrer confirms or amends.
+</p>
+
+<table>
+<thead><tr><th>Tag</th><th>Who you are</th><th>Gates you're strongest on</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--red)">redteam</td><td>Offensive cyber, adversarial prompting, "find what's hidden"</td><td>2, 5</td></tr>
+<tr><td style="color:var(--blue)">ml-research</td><td>Published adversarial ML / membership inference / unlearning</td><td>3</td></tr>
+<tr><td style="color:var(--green)">ml-eng</td><td>Training pipeline internals, framework-level auditor</td><td>4</td></tr>
+<tr><td style="color:var(--amber)">data</td><td>Dataset provenance, statistical corpus analysis</td><td>4</td></tr>
+<tr><td style="color:var(--purple)">safety</td><td>AI safety research, eval design, harmful-output classifiers</td><td>2, 5</td></tr>
+<tr><td style="color:var(--fg3)">cleared</td><td>Active U.S. security clearance (orthogonal)</td><td>Gov tier only</td></tr>
+</tbody>
+</table>
+
+<p>
+Most operators carry 1–2 tags. Triple-tag operators exist (founder-level, MATS alumni with clearance, etc.) — they're the rare unicorns and they command the highest per-audit rates.
+</p>
+
+<div class="callout callout-green">
+<div class="cl-label">Dual-signed certs</div>
+<p style="margin-bottom:0">Portfolio and Gov tier certs require <strong>two operators with complementary tags</strong> to sign. Example: one <code>redteam</code> + one <code>ml-research</code>. Two hardware keys, two touch events, two different people in two different houses. No single compromised operator can forge a dual-signed cert.</p>
+</div>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s3"><span class="num">03</span> Build Your Signing Device</h2>
+
+<p>
+Every operator holds their own hardware signing key. The platform does not hold keys. The platform cannot forge signatures. If a cert is signed by you, you signed it, on your hardware, with your finger.
+</p>
+
+<h3>Parts list (≈ $40)</h3>
+
+<table>
+<tbody>
+<tr><td>ESP32-WROOM-32</td><td>Any DevKitC or equivalent (CP2102 or CH340 USB bridge). ~$8.</td></tr>
+<tr><td>Fingerprint sensor</td><td>R307 or FPC1020 module. UART, 150-template on-chip storage. ~$15–20.</td></tr>
+<tr><td>LoRa SX1276 / RFM95W</td><td>915 MHz module (US) or 868 MHz (EU). ~$8. Optional in v0.1 but required for vault deployment.</td></tr>
+<tr><td>RGB LED + 3× 220Ω resistors</td><td>Status indicator. ~$1.</td></tr>
+<tr><td>Dupont wires, breadboard</td><td>Initial bring-up. ~$5.</td></tr>
+<tr><td>18650 Li-ion + charging board</td><td>Battery + TP4056 module. ~$6.</td></tr>
+<tr><td>Fire safe with bolt-down kit</td><td>Combination lock, fire-rated (UL 350). ~$80–120. Single coax passthrough hole drillable.</td></tr>
+</tbody>
+</table>
+
+<h3>Provisioning flow (one-shot, irreversible)</h3>
+
+<pre><code># 1. Flash the signer firmware
+knoxai-sign flash --port /dev/ttyUSB0
+
+# 2. Enable ESP32 secure boot + flash encryption (burns eFuses FIRST, before key)
+knoxai-sign secure-boot --confirm-irreversible
+
+# 3. Generate P-256 keypair inside ESP32, burn private key to eFuse
+knoxai-sign provision --operator-id &lt;your-slug&gt;
+
+# 4. Export public key (one-time operation, private key stays in silicon)
+knoxai-sign export-pubkey &gt; pubkey-&lt;your-slug&gt;.pem
+
+# 5. Enroll fingerprints — all 10, each mapped to a cert action (§6)
+knoxai-sign enroll-fingers
+
+# 6. Submit pubkey to the directory
+knoxai-sign directory submit pubkey-&lt;your-slug&gt;.pem
+</code></pre>
+
+<div class="callout callout-red">
+<div class="cl-label">Order matters</div>
+<p style="margin-bottom:0">Enable <strong>secure boot + flash encryption BEFORE</strong> burning the signing key. If you burn the key first, firmware dumps are readable on physical theft of the device. Order of eFuse burns is permanent. There is no "undo." Run the provision wizard and don't skip steps.</p>
+</div>
+
+<h3>Where the device lives</h3>
+
+<p>
+Inside a bolted-down fire safe in your home. Drilled coax passthrough for the LoRa antenna. Antenna mounted on the outside of the safe. The device is battery-powered, in listen mode, for months at a time. You open the safe only during a signing ceremony.
+</p>
+
+<p>
+The vault is portable. You can move it. You can take it with you when you move houses. The only thing that has to stay within ~10 feet of the vault during signing is <em>any</em> machine running <code>knoxai-sign</code> — bt (my case), a laptop, or a phone with a USB LoRa dongle.
+</p>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s4"><span class="num">04</span> The Methodology</h2>
+
+<p>
+The audit is five gates. Every cert says which gates passed and which were skipped (with documented reason). Gate coverage depends on your specialty tags — skip the lanes that aren't yours.
+</p>
+
+<h3>Gate 1 — Hash scan <span class="tag">all operators</span></h3>
+
+<p>
+Pipeline work. Run the submitted model over a test-prompt battery, hash every output with PhotoDNA-compatible (or PDQ if NCMEC partnership not yet active), compare against the platform's hash database. Any match auto-fails and auto-reports per §8.
+</p>
+
+<p>No judgment call required. Automated end-to-end. Every operator runs this regardless of specialty.</p>
+
+<!-- RED TEAM LANE -->
+<div class="lane redteam">
+<div class="lane-header">Gate 2 — Red-team battery</div>
+<p>
+<strong>Own this if you're tagged <code>redteam</code> or <code>safety</code>.</strong>
+</p>
+<p>
+You run the platform's curated prompt battery (500+ prompts, refreshed quarterly) PLUS your own bespoke vectors for the specific model class. You craft prompts the platform doesn't know about — that's the part that can't be automated. You know what adversaries look like.
+</p>
+<p>
+Each output gets classified by the platform's open-weights safety classifier stack (CLIP nudity + age detector + Llama Guard 3 + Detoxify). You review borderline cases personally. False positives are expensive for the customer; don't rubber-stamp.
+</p>
+<p>
+Output: a pass/fail + the full prompt-and-response log (hash included in cert artifact).
+</p>
+</div>
+
+<!-- ML RESEARCH LANE -->
+<div class="lane ml-research">
+<div class="lane-header">Gate 3 — Membership inference</div>
+<p>
+<strong>Own this if you're tagged <code>ml-research</code>.</strong>
+</p>
+<p>
+Take the platform's curated set of known-bad training artifacts (NCMEC hash list partnership, or proxy set for v0.1). For each artifact, run the caption-conditioned generation protocol: prompt the model with the caption, measure reproduction fidelity via SSIM, LPIPS, perceptual hash distance.
+</p>
+<p>
+High fidelity above threshold = model has memorized that specific image = model was trained on that specific image. That's a Gate 3 fail. You document the fidelity score per artifact in the cert artifact bundle.
+</p>
+<p>
+This is the academic-rigor gate. Read the Carlini membership inference papers if you haven't. Reference implementations exist in the <code>knoxai-audit</code> crate.
+</p>
+</div>
+
+<!-- ML ENG LANE -->
+<div class="lane ml-eng">
+<div class="lane-header">Gate 4 — Dataset attestation (engineering side)</div>
+<p>
+<strong>Own this if you're tagged <code>ml-eng</code>.</strong>
+</p>
+<p>
+Customer submits a signed TOML manifest declaring training corpus. You validate: does the declared base model's SHA256 match the actual base? Do the declared fine-tune dataset hashes match what exists on disk at the cited URLs? Is LAION-5B (or a flagged derivative) in the chain? If so, did they re-scrub, and can you verify?
+</p>
+<p>
+This is forensic engineering. You're not trusting the customer's declaration — you're verifying it against reality. When it doesn't match, the cert fails and the publisher is on record lying.
+</p>
+</div>
+
+<!-- DATA LANE -->
+<div class="lane data">
+<div class="lane-header">Gate 4 — Dataset attestation (data-science side)</div>
+<p>
+<strong>Own this if you're tagged <code>data</code>.</strong>
+</p>
+<p>
+Same gate, different angle. You look at the declared corpus statistically — distribution of image sizes, caption-length histograms, source-domain breakdown, suspicious shards. You know what a real LAION-5B subset's statistics look like. You can smell a synthesized or laundered manifest.
+</p>
+<p>
+Cross-reference against flagged-dataset fingerprints maintained by the platform. Flag statistical anomalies for deeper review before you sign.
+</p>
+</div>
+
+<!-- SAFETY LANE -->
+<div class="lane safety">
+<div class="lane-header">Gate 5 — Harmful output beyond CSAM</div>
+<p>
+<strong>Own this if you're tagged <code>safety</code> or <code>redteam</code>.</strong>
+</p>
+<p>
+Broader harm audit: bioweapon synthesis, CBRN planning, extremism, grooming-text generation, revenge-porn of identifiable real people, coordinated fraud. Tiered severity. Some categories auto-fail; others annotate the cert with a severity flag.
+</p>
+<p>
+You use Llama Guard 3 + ShieldGemma + custom eval harnesses. Prompts drawn from the platform's library + your own. If you're coming from Anthropic / OpenAI / DeepMind safety, this lane uses skills you already use daily.
+</p>
+</div>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s5"><span class="num">05</span> Taking Jobs</h2>
+
+<p>
+Customer submits a model to the platform. The dispatch server looks at the model type, the requested tier, and the operator directory. Then one of three things happens:
+</p>
+
+<ul class="clean">
+<li><strong>Standard tier ($20):</strong> first available operator with matching tags auto-assigned. You get a notification, 15 minutes to accept or decline. Decline without penalty.</li>
+<li><strong>Operator tier ($500):</strong> customer picked you specifically from the directory. You get 24 hours to accept. If you decline, customer picks the next operator.</li>
+<li><strong>Portfolio / Gov tier:</strong> platform coordinates. You get a call from Michael or a TAC member. These are named engagements.</li>
+</ul>
+
+<h3>SLA expectations</h3>
+
+<table>
+<tbody>
+<tr><td>Standard</td><td>72 hours from accept to cert delivery (automated gates should finish in under 4 hours; you review + sign within the rest)</td></tr>
+<tr><td>Operator</td><td>5 business days. Personal attention is the product; customers accept the longer window.</td></tr>
+<tr><td>Portfolio</td><td>Negotiated per engagement. Usually monthly audit cadence.</td></tr>
+<tr><td>Gov</td><td>Contract-specific. Clearance ops overhead applies.</td></tr>
+</tbody>
+</table>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s6"><span class="num">06</span> The Signing Ceremony</h2>
+
+<p>
+You've run the gates. You have an audit-artifact hash. Time to sign.
+</p>
+
+<ol>
+<li>Open the vault.</li>
+<li>LED pulses amber — device received the audit hash over LoRa, waiting for biometric authorization. 30-second timeout.</li>
+<li>Press the <strong>correct finger</strong> on the fingerprint sensor. Each finger maps to a cert action:
+<table style="margin-top:0.6rem">
+<tbody>
+<tr><td>R thumb</td><td>Full pass (all 5 gates)</td></tr>
+<tr><td>R index</td><td>Partial pass (documented skip)</td></tr>
+<tr><td>R middle</td><td>First-party cert (self-audit, rare)</td></tr>
+<tr><td>R ring</td><td>Revocation of a prior cert</td></tr>
+<tr><td>R pinky</td><td>Advisory sign-off (TAC review)</td></tr>
+<tr><td>L thumb</td><td>Emergency blacklist (mandatory NCMEC report)</td></tr>
+<tr><td>L index</td><td>Annual re-cert renewal</td></tr>
+<tr><td>L middle</td><td>Provenance (non-model document, receipts)</td></tr>
+<tr><td>L ring</td><td>Duress (silent — looks valid, carries coercion flag)</td></tr>
+<tr><td>L pinky</td><td>Kill switch (decommission this device, rotate key)</td></tr>
+</tbody>
+</table>
+</li>
+<li>Sensor matches on-chip (template never exits the sensor). ESP32 reads your private key from eFuse. ECDSA P-256 sign.</li>
+<li>LED goes green. Signature + cert action code returned over LoRa.</li>
+<li>Close the vault.</li>
+</ol>
+
+<div class="callout callout-red">
+<div class="cl-label">Rules of the ceremony</div>
+<ul class="clean" style="margin-bottom:0">
+<li><strong>One touch = one cert.</strong> No batch mode. The firmware doesn't have the code path.</li>
+<li><strong>Wrong finger = wrong cert type.</strong> An impersonator with a latex copy doesn't know your mapping.</li>
+<li><strong>30-second timeout.</strong> No touch = auto-reject. Prevents remote exploits waiting you out.</li>
+<li><strong>Never sign a hash you didn't personally compute.</strong> Running gates on someone else's say-so is expulsion.</li>
+</ul>
+</div>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s7"><span class="num">07</span> Getting Paid</h2>
+
+<h3>Revenue splits</h3>
+
+<table>
+<thead><tr><th>Tier</th><th>Operator</th><th>Platform</th></tr></thead>
+<tbody>
+<tr><td>Standard ($20/yr)</td><td>80% = $16</td><td>20%</td></tr>
+<tr><td>Operator ($500/yr)</td><td>70% = $350</td><td>30%</td></tr>
+<tr><td>Portfolio ($5K–50K/yr)</td><td>60%</td><td>40%</td></tr>
+<tr><td>Gov (per-engagement)</td><td>50%</td><td>50%</td></tr>
+</tbody>
+</table>
+
+<p>
+For dual-signed certs (Portfolio + Gov), the operator share is split 50/50 between the two operators. Platform take is unchanged.
+</p>
+
+<h3>Payment flow</h3>
+
+<ul class="clean">
+<li>Customer pays the platform via Stripe at cert purchase.</li>
+<li>You deliver the signed cert. Platform validates the hardware signature against your directory pubkey.</li>
+<li>Within 24 hours of validated delivery: your operator share lands in your Stripe Connect account.</li>
+<li>1099-NEC issued at year-end by The Cochran Block, LLC for any calendar year you earn &gt; $600.</li>
+</ul>
+
+<p>
+You are a 1099 contractor. You handle your own taxes. The platform does not withhold. International operators: Stripe Connect handles the payout to your local currency; you're responsible for your jurisdiction's tax treatment.
+</p>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s8"><span class="num">08</span> Blacklist + Mandatory Reporting</h2>
+
+<p>
+You will eventually find something. Here's what to do.
+</p>
+
+<h3>When a gate triggers a CSAM finding</h3>
+
+<ol>
+<li>Do not share the finding outside the reporting channel. Not in Slack, not with the customer, not with anyone. It is now evidence.</li>
+<li>Sign the cert with your <strong>L thumb finger</strong> (emergency blacklist). This triggers:
+<ul class="clean" style="margin: 0.5rem 0;">
+<li>Publisher flagged on <code>knox.cochranblock.org/blacklist</code></li>
+<li>Automated NCMEC CyberTipline report filed by the platform under 18 USC §2258A</li>
+<li>Customer account frozen; refund not issued</li>
+<li>Platform legal notified immediately</li>
+</ul>
+</li>
+<li>Preserve your local audit-artifact bundle. Encrypted storage. Platform legal will coordinate chain of custody with law enforcement if it comes to that.</li>
+</ol>
+
+<div class="callout callout-red">
+<div class="cl-label">Federal mandatory reporting</div>
+<p style="margin-bottom:0">The Cochran Block, LLC is an electronic communication service provider under 18 USC §2258A. The platform files the required report. You are not required to file individually — but you must notify the platform within 60 minutes of finding. Failure to notify within 24 hours is expulsion.</p>
+</div>
+
+<h3>When a gate triggers non-CSAM harm (extremism, bioweapon, etc.)</h3>
+
+<p>
+Sign the cert with <strong>R index</strong> (partial pass). The cert records the severity class but does not trigger a federal report. Publisher may remediate and re-submit for re-cert. Platform may decline certain categories at its discretion (TAC decision).
+</p>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s9"><span class="num">09</span> Things That Get You Expelled</h2>
+
+<div class="callout callout-red">
+<p style="margin-bottom:1rem"><strong>Any of the following results in immediate expulsion, public delisting, and refund of every cert you've signed in the preceding 90 days:</strong></p>
+<ul class="clean" style="margin-bottom:0">
+<li>Sharing your hardware signing device with another person, even briefly</li>
+<li>Signing a cert without personally running the gates you attest to</li>
+<li>Cert-farming (accepting obviously-clean re-submissions to bump your rate stats)</li>
+<li>Signing a cert for your own financial interest (undisclosed conflict of interest)</li>
+<li>Failing to trigger the blacklist path on a confirmed CSAM finding</li>
+<li>Discussing the specifics of a customer's model with anyone outside the audit</li>
+<li>Publicly claiming KNOXAI affiliation you don't have (e.g., "KNOXAI Certified" without an active cert)</li>
+<li>Accepting outside payment from a customer whose model you audited (no kickbacks)</li>
+</ul>
+</div>
+
+<p>
+Expulsion is permanent and named. Your operator entry moves to the public expelled list at <code>knox.cochranblock.org/expelled</code>. TAC is notified. Your referrer is notified. Your referrer's standing is reviewed.
+</p>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s10"><span class="num">10</span> Key Rotation + Succession</h2>
+
+<h3>If your signing device is compromised (lost, stolen, suspected tamper)</h3>
+
+<ol>
+<li>Notify platform within 60 minutes.</li>
+<li>Platform publishes a revocation notice under your operator slug. Your old pubkey is flagged.</li>
+<li>You provision a new device (§3). New pubkey gets a new slug (<code>your-name-2</code>). Old slug is frozen, not reused.</li>
+<li>Certs you signed under the old key remain verifiable for their validity window (unless platform determines fraud, in which case they're retroactively revoked).</li>
+</ol>
+
+<h3>If you die or become incapacitated</h3>
+
+<p>
+Your Operating Agreement analog (or the platform's operator agreement) specifies your successor. Options:
+</p>
+
+<ul class="clean">
+<li><strong>No successor:</strong> your slug is retired; certs you signed remain valid through their expiration. No new certs under your key, ever.</li>
+<li><strong>Named successor (another operator):</strong> they inherit your Portfolio-tier customer relationships (if any), but must provision their own hardware key. Your key dies with you. Your successor signs going forward under their own slug.</li>
+</ul>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s11"><span class="num">11</span> Your Public Reputation</h2>
+
+<p>
+Your operator entry is public at <code>knox.cochranblock.org/operators/&lt;your-slug&gt;</code>. The following is visible to anyone:
+</p>
+
+<ul class="clean">
+<li>Name (real name or pseudonym; your choice at onboarding)</li>
+<li>Specialty tags</li>
+<li>Pubkey fingerprint</li>
+<li>Joined date</li>
+<li>Total certs signed · pass rate · fail rate · revocation count</li>
+<li>Median time-to-turnaround per tier</li>
+<li>Dispute count (customer complaints that went to arbitration)</li>
+<li>Referrer (the TAC member who brought you in)</li>
+<li>Status: active · under review · expelled</li>
+</ul>
+
+<p>
+The following is NEVER visible publicly:
+</p>
+
+<ul class="clean">
+<li>Your earnings</li>
+<li>Your customer list</li>
+<li>The specific models you audited</li>
+<li>Any personally-identifiable info you didn't opt to display</li>
+<li>Your physical address</li>
+</ul>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s12"><span class="num">12</span> Escalation</h2>
+
+<p>
+In order:
+</p>
+
+<ol>
+<li><strong>Your TAC referrer.</strong> The person who brought you in. First line for methodology questions, judgment calls, "does this feel off."</li>
+<li><strong>Any other TAC member.</strong> Directory at <code>knox.cochranblock.org/tac</code>. Peer escalation.</li>
+<li><strong>Michael (Operator #0, founder).</strong> <code>mcochran@cochranblock.org</code> — 24h response. Signal available on request.</li>
+<li><strong>Platform legal</strong> — for mandatory-reporting coordination, chain of custody, subpoena response. Contact via Michael only.</li>
+</ol>
+
+<!-- ═════════════════════════════════════════════════════════════════════ -->
+<h2 id="s13"><span class="num">13</span> Appendix — Operator #0 Reference Entry</h2>
+
+<p>
+What your directory entry will look like. This is mine — use it as a template.
+</p>
+
+<div class="op-card">
+<div class="op-row"><span class="op-k">slug</span><span>michael-cochran</span></div>
+<div class="op-row"><span class="op-k">real name</span><span>Michael Cochran</span></div>
+<div class="op-row"><span class="op-k">location</span><span>Baltimore County, Maryland, USA</span></div>
+<div class="op-row"><span class="op-k">specialties</span><span><span style="color:var(--red)">redteam</span>, <span style="color:var(--green)">ml-eng</span>, <span style="color:var(--fg3)">cleared</span>, founder</span></div>
+<div class="op-row"><span class="op-k">role</span><span>Operator #0 · KNOXAI founder</span></div>
+<div class="op-row"><span class="op-k">veteran</span><span>USCYBERCOM Offensive Cyber Operator · 100+ missions</span></div>
+<div class="op-row"><span class="op-k">entity</span><span>The Cochran Block, LLC · CAGE 1CQ66 · UEI W7X3HAQL9CF9</span></div>
+<div class="op-row"><span class="op-k">jurisdiction</span><span>Maryland LLC, formed 2026-03-24, Doc #2345892</span></div>
+<div class="op-row"><span class="op-k">OA signed</span><span>2026-04-14 · <a href="/operations" style="color:var(--amber)">/operations</a> · full stack: <a href="/constitution" style="color:var(--amber)">/constitution</a></span></div>
+<div class="op-row"><span class="op-k">pubkey</span><span><code>pending device provisioning</code></span></div>
+<div class="op-row"><span class="op-k">repos</span><span>23 public · github.com/cochranblock · Unlicense</span></div>
+<div class="op-row"><span class="op-k">notable work</span><span>kova · approuter · approuter-acme · pixel-forge · nanobyte · tmuxisfree · ghost-fabric · aptnomo · cochranblock · rogue-repo · oakilydokily · illbethejudgeofthat · provenance-docs · call-shield · deglaze · battle-bros · any-gpu · pocket-server · header-writer · worldview · whyyoulying · wowasticker · ronin-sites</span></div>
+<div class="op-row"><span class="op-k">crates.io</span><span>gotemcoach · 5 published: kova-engine, exopack, any-gpu, header-writer, whobelooking</span></div>
+<div class="op-row"><span class="op-k">status</span><span style="color:var(--green)">active · founder · self-signed founding cert</span></div>
+<div class="op-row"><span class="op-k">joined</span><span>2026-04-16 (Day 1)</span></div>
+<div class="op-row"><span class="op-k">referrer</span><span>—  (founder; no upstream referrer)</span></div>
+<div class="op-row"><span class="op-k">stats</span><span>certs signed: 0 · pass rate: — · pre-launch</span></div>
+</div>
+
+<p class="faint" style="font-size:0.82rem; opacity:0.6; margin-top:1rem">
+My resume is the reason this guild exists. Twenty-three public repos, one signed OA, one veteran-owned LLC with federal identifiers, one hundred-plus missions spent finding what's hidden in systems. My entry is the quality bar. Yours doesn't have to match it — you bring your own bar, I bring mine — but the format and transparency are the same.
+</p>
+
+<hr class="fade">
+
+<div class="sig">
+<div><span class="name">Michael Cochran</span> · Operator #0 · Founder · KNOXAI</div>
+<div>mcochran@cochranblock.org · The Cochran Block, LLC · Baltimore County, MD</div>
+<div style="margin-top:1rem; opacity:0.6">
+Document version 0.1 · 2026-04-16 · Revisions tracked at knox.cochranblock.org/onboarding-history<br>
+Feedback is welcome and will be reflected in v0.2. Your TAC referrer is your first stop.
+</div>
+</div>
+
+</body>
+</html>

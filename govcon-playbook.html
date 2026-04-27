@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GovCon Playbook — A Solo Founder's Map to Federal Contracting | cochranblock.org</title>
+<meta name="description" content="The complete small-business federal contracting playbook. Unlicensed. Forkable. Every wall, every form, every trick, every line item — in one page. By The Cochran Block, LLC.">
+<meta name="robots" content="index, follow">
+<style>
+:root {
+  --ink: #111;
+  --paper: #fafaf7;
+  --accent: #c01818;
+  --accent2: #1a6f3a;
+  --line: #d4d4c8;
+  --note: #f5f2e8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 16px;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 24px; }
+header {
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+.banner {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 6px 12px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: 36px;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+h1 .red { color: var(--accent); }
+.subtitle {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 16px;
+}
+.meta {
+  font-size: 13px;
+  color: #666;
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+}
+.meta span { margin-right: 16px; }
+nav.toc {
+  background: var(--note);
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  margin: 32px 0;
+  font-size: 14px;
+}
+nav.toc h3 {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #555;
+}
+nav.toc ol { margin-left: 22px; }
+nav.toc li { margin-bottom: 4px; }
+nav.toc a { color: var(--ink); text-decoration: none; }
+nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+section {
+  margin: 48px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+section:first-of-type { border-top: none; }
+h2 {
+  font-size: 26px;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+h2 .num {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--paper);
+  font-size: 14px;
+  padding: 2px 10px;
+  margin-right: 12px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+h3 { font-size: 18px; margin: 24px 0 8px; }
+p { margin-bottom: 14px; }
+ul, ol { margin: 12px 0 18px 24px; }
+li { margin-bottom: 6px; }
+code {
+  background: var(--note);
+  padding: 1px 6px;
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+pre {
+  background: #1e1e1e;
+  color: #eaeaea;
+  padding: 18px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 16px 0;
+  border-left: 4px solid var(--accent);
+}
+blockquote.callout {
+  background: var(--note);
+  border-left: 4px solid var(--accent2);
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-style: italic;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+table th, table td {
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+table th {
+  background: var(--note);
+  font-weight: 700;
+}
+.warning {
+  background: #fef6e7;
+  border: 1px solid #e6b800;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 4px;
+}
+.warning strong { color: #8a5a00; }
+.win {
+  background: #eef8ee;
+  border: 1px solid #4a9a4a;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 4px;
+}
+.unlicense-box {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 24px;
+  margin: 40px 0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.unlicense-box h3 { color: #ffcc00; margin-bottom: 12px; }
+.unlicense-box pre { background: #333; margin-top: 12px; }
+footer {
+  margin-top: 80px;
+  padding: 24px 0;
+  border-top: 3px double var(--ink);
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+}
+footer a { color: var(--ink); }
+@media (max-width: 640px) {
+  .container { padding: 16px; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <span class="banner">Unlicensed · Forkable · Public Domain</span>
+  <h1>The <span class="red">GovCon Playbook</span><br>A Solo Founder's Map to Federal Contracting</h1>
+  <p class="subtitle">Every wall, every form, every trick, every line item — in one page. Fork it, strip it, resell it, never attribute me. That's the deal.</p>
+  <p class="meta">
+    <span>by The Cochran Block, LLC</span>
+    <span>Dundalk, MD · CAGE 1CQ66 · UEI W7X3HAQL9CF9</span>
+    <span>v1.0 · April 2026</span>
+  </p>
+</header>
+
+<nav class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#s1">Legal Entity (Week 1-2)</a></li>
+    <li><a href="#s2">Federal Registration (Week 2-4)</a></li>
+    <li><a href="#s3">State Registration (Parallel)</a></li>
+    <li><a href="#s4">Optional Certifications (Month 2-6)</a></li>
+    <li><a href="#s5">Compliance Infrastructure</a></li>
+    <li><a href="#s6">Finding Opportunities</a></li>
+    <li><a href="#s7">Writing the Proposal</a></li>
+    <li><a href="#s8">Executing the Award</a></li>
+    <li><a href="#s9">Scaling (Year 2+)</a></li>
+    <li><a href="#s10">The Unlicense Baby Overlay</a></li>
+  </ol>
+</nav>
+
+<blockquote class="callout">
+<strong>Who this is for:</strong> Solo founders and small shops who want to sell to the federal government, have heard rumors that it takes six months and a lawyer to get started, and want to know the actual shortest path. Everything here is Unlicensed. Copy it. Strip my name. Sell it as your own playbook on Gumroad. I do not care. The moat is the community you build while shipping it, not the document.
+</blockquote>
+
+<section id="s1">
+<h2><span class="num">§ 1</span>Legal Entity</h2>
+<p><strong>Timeline:</strong> 1-2 weeks. <strong>Cost:</strong> $100-500 depending on state.</p>
+
+<h3>1.1 Pick your structure</h3>
+<p>Solo gov contractors almost always form an <strong>LLC</strong>. Sole proprietorship is fine for freelancing; it is bad for federal contracting because it mixes your personal liability with your business liability and it looks unserious to procurement officers. S-corp election is optional and tax-driven; worry about it after your first $100k in revenue.</p>
+
+<h3>1.2 Form the LLC</h3>
+<ul>
+  <li>File Articles of Organization with your state (in Maryland: Maryland Department of Assessments & Taxation, ~$100-200, online).</li>
+  <li>Draft an <strong>Operating Agreement</strong>, even for a single-member LLC. Gov buyers will sometimes ask for it. A 3-page template is sufficient.</li>
+  <li>Get your Registered Agent (yourself is fine if you're at a stable address; services like Northwest Registered Agent cost $100-150/yr).</li>
+</ul>
+
+<h3>1.3 Get an EIN</h3>
+<p>Free, online, 10 minutes: <a href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online">IRS SS-4 online application</a>. You'll get your EIN immediately. Keep the confirmation PDF forever.</p>
+
+<div class="warning">
+<strong>Warning:</strong> Do not pay any service that claims they'll "get your EIN for $49." Those companies are scams extracting money for a free IRS form.
+</div>
+
+<h3>1.4 Open a business bank account</h3>
+<p>You cannot register in SAM.gov without a business bank account in your LLC's name. Regional/local banks work fine. Neobanks (Mercury, Relay) also work and often faster to open. Your bank name and account routing must match what's in SAM.</p>
+</section>
+
+<section id="s2">
+<h2><span class="num">§ 2</span>Federal Registration</h2>
+<p><strong>Timeline:</strong> 2-4 weeks. <strong>Cost:</strong> $0 (everything free; beware third-party "registration services" charging $500+).</p>
+
+<h3>2.1 SAM.gov entity registration</h3>
+<p>This is the gate. Every federal contract touches SAM. Register at <a href="https://sam.gov">sam.gov</a>. You'll auto-generate a <strong>UEI</strong> (Unique Entity Identifier) as part of registration. After review (1-14 business days), you'll get a <strong>CAGE code</strong> (Commercial and Government Entity).</p>
+
+<ul>
+  <li>Have ready: EIN, bank info, physical address matching state filings, list of NAICS codes (next step).</li>
+  <li>Annual renewal required. Set a calendar reminder for 335 days out. If your registration lapses, every active bid becomes invalid.</li>
+</ul>
+
+<h3>2.2 NAICS codes — the trap</h3>
+<p>You select NAICS codes at SAM registration. Each NAICS has a different <strong>small-business size standard</strong> (revenue or headcount cap). Picking the wrong code locks you out of opportunities or kicks you out of small-business status prematurely.</p>
+
+<table>
+  <thead>
+    <tr><th>NAICS</th><th>Title</th><th>Size Standard</th><th>Solo-founder fit</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>541715</td><td>R&amp;D Physical/Engineering/Life Sciences</td><td>1,000 employees</td><td><strong>SBIR gold</strong></td></tr>
+    <tr><td>541511</td><td>Custom Computer Programming</td><td>$34M revenue</td><td>Most common</td></tr>
+    <tr><td>541512</td><td>Computer Systems Design</td><td>$34M revenue</td><td>Infrastructure work</td></tr>
+    <tr><td>541519</td><td>Other Computer-Related Services</td><td>$34M revenue</td><td>Catch-all</td></tr>
+    <tr><td>541611</td><td>Admin Management Consulting</td><td>$24.5M revenue</td><td>Advisory work</td></tr>
+    <tr><td>541690</td><td>Other Scientific/Technical Consulting</td><td>$19M revenue</td><td>Narrow advisory</td></tr>
+    <tr><td>541990</td><td>Other Professional/Scientific/Technical</td><td>$19.5M revenue</td><td>Fallback</td></tr>
+    <tr><td>611430</td><td>Professional Management Development Training</td><td>$16.5M revenue</td><td>SkillBridge angle</td></tr>
+  </tbody>
+</table>
+
+<p>You can have up to 10 NAICS codes in SAM. <strong>Pick your primary NAICS carefully</strong> — it determines your "official" small-business status and drives the set-asides you qualify for.</p>
+</section>
+
+<section id="s3">
+<h2><span class="num">§ 3</span>State Registration</h2>
+<p>Required if you want to bid on state/local contracts in addition to federal. Parallel with § 2.</p>
+
+<h3>3.1 Maryland example</h3>
+<ul>
+  <li><strong>eMaryland Marketplace Advantage (eMMA)</strong> — free, mandatory for state work. Register at <a href="https://procurement.maryland.gov/">procurement.maryland.gov</a>.</li>
+  <li><strong>Small Business Reserve (SBR)</strong> — free, automatic qualification if you meet criteria. Gives preference on ~10% of state spend.</li>
+  <li><strong>MBE / VSBE / DBE</strong> — ethnic-minority, veteran, and disability-owned certifications.</li>
+</ul>
+
+<h3>3.2 Other states</h3>
+<p>Each state has an analogous registration system. Check your state's procurement portal. Most are free. Some (NY, CA) have more bureaucratic processes.</p>
+</section>
+
+<section id="s4">
+<h2><span class="num">§ 4</span>Optional Certifications</h2>
+<p>Certifications give you <strong>set-aside preference</strong> — ie. the contract is reserved for businesses with that certification. ROI varies widely.</p>
+
+<table>
+  <thead>
+    <tr><th>Cert</th><th>Eligibility</th><th>Effort</th><th>ROI</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>8(a)</strong></td><td>Social/economic disadvantage, 9-yr max</td><td>High — months of docs</td><td>Very high — sole-source up to $7M</td></tr>
+    <tr><td><strong>HUBZone</strong></td><td>Based on physical address</td><td>Low if you already live there</td><td>High — dedicated set-asides</td></tr>
+    <tr><td><strong>SDVOSB</strong></td><td>Service-connected disability</td><td>Medium — VA verification</td><td>High — VA set-asides + govwide</td></tr>
+    <tr><td><strong>VOSB</strong></td><td>Veteran status</td><td>Medium</td><td>Medium — VA priority</td></tr>
+    <tr><td><strong>WOSB</strong></td><td>51%+ woman-owned</td><td>Medium</td><td>Medium — WOSB set-asides</td></tr>
+    <tr><td><strong>EDWOSB</strong></td><td>WOSB + economic disadvantage</td><td>Medium-high</td><td>High — sole-source up to $7M</td></tr>
+  </tbody>
+</table>
+
+<div class="warning">
+<strong>Honest take:</strong> Don't chase certifications you don't legitimately qualify for. The ones you qualify for, grab immediately. The ones you don't, ignore. Scammers will push paid "cert prep" services worth nothing. SBA and VA do all reviews themselves for free.
+</div>
+</section>
+
+<section id="s5">
+<h2><span class="num">§ 5</span>Compliance Infrastructure</h2>
+
+<h3>5.1 Cybersecurity baseline</h3>
+<ul>
+  <li><strong>NIST SP 800-171</strong> — 110 security controls for Controlled Unclassified Information (CUI). Required for most DoD work. Self-attested initially.</li>
+  <li><strong>CMMC 2.0</strong> — replaces 800-171 for DoD contracts starting 2025-2027 rollout:
+    <ul>
+      <li>Level 1 (17 practices) — self-attest</li>
+      <li>Level 2 (110 practices) — third-party assessment (~$30k+)</li>
+      <li>Level 3 (rarely needed) — gov-led assessment</li>
+    </ul>
+  </li>
+  <li><strong>NIST SP 800-218</strong> (SSDF) — Secure Software Development Framework. SBIR-relevant.</li>
+  <li><strong>SOC 2 Type 2</strong> — not required for most gov work but helps with enterprise/defense customers. Budget $15-40k/yr.</li>
+</ul>
+
+<h3>5.2 Data rights posture</h3>
+<p>This is where most small businesses lose 3-6 months per proposal. Your options:</p>
+<ul>
+  <li><strong>Unlimited Rights</strong> — Government gets everything. Use for deliverables fully funded by Gov.</li>
+  <li><strong>Government Purpose Rights (GPR)</strong> — Gov gets federal-use rights; you retain commercial rights. Default for SBIR work.</li>
+  <li><strong>Limited Rights / Restricted Rights</strong> — You retain commercial; Gov gets constrained use. Typical for pre-existing IP.</li>
+  <li><strong>SBIR Data Rights</strong> — 5 years of protection post-delivery. Must be asserted per 37 CFR 401.</li>
+  <li><strong>Public Domain Dedication (Unlicense Baby)</strong> — No rights held by anyone. Simplest. Fastest. Hardest for lawyers to challenge. See § 10.</li>
+</ul>
+
+<h3>5.3 Insurance</h3>
+<ul>
+  <li><strong>General liability</strong> — $1M/$2M typical, ~$500-1500/yr for solo consultancy</li>
+  <li><strong>Errors &amp; Omissions (E&amp;O)</strong> — $1M minimum for most professional services contracts, $1-3k/yr</li>
+  <li><strong>Cyber liability</strong> — increasingly required, $1-2M coverage, $500-2500/yr</li>
+  <li><strong>Workers comp</strong> — required if you have any employees, even part-time</li>
+</ul>
+
+<h3>5.4 Accounting posture</h3>
+<ul>
+  <li><strong>Firm-Fixed-Price contracts</strong> — simple, regular accounting (QuickBooks fine)</li>
+  <li><strong>Cost-reimbursement / T&amp;M contracts</strong> — require <strong>DCAA-compliant</strong> time tracking and cost accounting. Budget $10-30k/yr for compliant bookkeeping or avoid these contracts as a solo founder</li>
+</ul>
+</section>
+
+<section id="s6">
+<h2><span class="num">§ 6</span>Finding Opportunities</h2>
+
+<h3>6.1 Free portals</h3>
+<ul>
+  <li><a href="https://sam.gov/search">SAM.gov Contract Opportunities</a> — federal master list</li>
+  <li><a href="https://www.sbir.gov">SBIR.gov</a> — all agency SBIR/STTR topics, unified</li>
+  <li><a href="https://sbir.nasa.gov">sbir.nasa.gov</a> — NASA-specific BAA hub</li>
+  <li><a href="https://seedfund.nsf.gov">seedfund.nsf.gov</a> — NSF SBIR</li>
+  <li><a href="https://www.dodsbirsttr.mil">dodsbirsttr.mil</a> — DoD SBIR/STTR</li>
+  <li><a href="https://grants.nih.gov">grants.nih.gov</a> — HHS/NIH</li>
+  <li><a href="https://fpds.gov">FPDS.gov</a> — historical federal award data (messy but free)</li>
+</ul>
+
+<h3>6.2 Paid aggregators</h3>
+<table>
+  <thead><tr><th>Tool</th><th>Cost</th><th>Worth it?</th></tr></thead>
+  <tbody>
+    <tr><td>GovWin IQ</td><td>$10-30k/yr</td><td>Primes only</td></tr>
+    <tr><td>Bloomberg Government</td><td>$6-15k/yr</td><td>Enterprise</td></tr>
+    <tr><td>EZGovOpps</td><td>$300-1200/yr</td><td>Small shops — yes</td></tr>
+    <tr><td>Higher Gov</td><td>$240-900/yr</td><td>Solo founders — yes</td></tr>
+  </tbody>
+</table>
+
+<h3>6.3 Subcontracting to primes</h3>
+<p>Every Top-20 prime has a small-business liaison office. Cold-outreach their SBLO:</p>
+<ul>
+  <li>Lockheed Martin — lockheedmartin.com/en-us/suppliers/small-business.html</li>
+  <li>Northrop Grumman — northropgrumman.com/suppliers/small-business-program</li>
+  <li>Raytheon (RTX) — rtx.com/suppliers/small-business</li>
+  <li>General Dynamics, Boeing, L3Harris, Leidos, SAIC, CACI, Peraton, ManTech, Booz Allen, Accenture Federal — same pattern</li>
+</ul>
+</section>
+
+<section id="s7">
+<h2><span class="num">§ 7</span>Writing the Proposal</h2>
+
+<h3>7.1 Read the RFP three times</h3>
+<ol>
+  <li><strong>First read:</strong> is this winnable? Do you have past performance, required certs, schedule fit?</li>
+  <li><strong>Second read:</strong> build a compliance matrix — every "shall" in the RFP becomes a row, with a pointer to where your proposal addresses it.</li>
+  <li><strong>Third read:</strong> look for mandatory forms, attachments, page limits, font requirements, submission method (email vs portal vs physical). Missing any = automatic disqualification.</li>
+</ol>
+
+<h3>7.2 Standard volume structure</h3>
+<ul>
+  <li><strong>Volume I — Technical</strong>
+    <ul>
+      <li>TAB A: Technical Approach (problem, solution, architecture, risks)</li>
+      <li>TAB B: Management Approach (team, schedule, QA, IP posture)</li>
+      <li>TAB C: Past Performance (3 similar projects, $ value, POC, description)</li>
+      <li>Key Personnel Resumes</li>
+    </ul>
+  </li>
+  <li><strong>Volume II — Price/Cost</strong>
+    <ul>
+      <li>Detailed cost breakdown (labor categories, rates, hours, ODCs)</li>
+      <li>Basis of estimates</li>
+      <li>Travel, materials, subcontractor costs</li>
+    </ul>
+  </li>
+  <li><strong>Volume III — Attachments</strong>
+    <ul>
+      <li>Representations and Certifications</li>
+      <li>COI disclosures</li>
+      <li>Affidavits (bid, contract, non-collusion)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>7.3 Past performance — the chicken-and-egg problem</h3>
+<p>You need past performance to win contracts. But you need contracts to build past performance. How to break the cycle:</p>
+<ul>
+  <li><strong>Subcontract first</strong> — your first 3 "projects" can be sub work under a prime</li>
+  <li><strong>State + local contracts</strong> count as past performance for federal</li>
+  <li><strong>Commercial work</strong> counts if it's similar in scope and $ value</li>
+  <li><strong>SBIR Phase I awards</strong> count as past performance for Phase II</li>
+  <li><strong>SkillBridge placements</strong> — if you've hosted a service member as an intern, that's past performance with DoD visibility</li>
+  <li>Be honest — "limited past performance" is a known small-business condition, and some evaluations weight technical over past performance</li>
+</ul>
+</section>
+
+<section id="s8">
+<h2><span class="num">§ 8</span>Executing the Award</h2>
+<ul>
+  <li><strong>Invoicing</strong> — read the contract clause on invoicing schedule. Federal contracts typically use Wide Area Workflow (WAWF) / iRAPT for submissions.</li>
+  <li><strong>Progress reports</strong> — monthly typically, with specific format per agency.</li>
+  <li><strong>CDRLs</strong> (Contract Data Requirements Lists) — every deliverable has a DI-form number and specific format. Read these BEFORE you sign.</li>
+  <li><strong>IP markings</strong> — every deliverable must carry rights legends per DFARS 252.227-7013/7014. See § 10 for the Unlicense Baby shortcut.</li>
+  <li><strong>Security requirements</strong> — each contract specifies clearance and facility needs. Budget and plan ahead.</li>
+  <li><strong>Closeout</strong> — final invoice, final CDRLs, CPARS evaluation (your permanent past-performance record).</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2><span class="num">§ 9</span>Scaling</h2>
+
+<h3>9.1 DoD SkillBridge — the solo founder cheat code</h3>
+<p>DoD SkillBridge lets transitioning service members intern at your company for up to 180 days. <strong>The service member's pay continues to come from DoD — you pay nothing.</strong> Over 85% of SkillBridge interns get hired by their host. You get:</p>
+<ul>
+  <li>Cleared talent pipeline (many have security clearances)</li>
+  <li>Real productive capacity at zero labor cost</li>
+  <li>Past performance ("hosted N SkillBridge fellows")</li>
+  <li>DoD visibility through the program office</li>
+  <li>Pathway for your company to grow past sole-proprietor</li>
+</ul>
+<p>Apply at <a href="https://skillbridge.osd.mil">skillbridge.osd.mil</a>.</p>
+
+<h3>9.2 Teaming Agreements</h3>
+<p>When you subcontract or get subcontracted:</p>
+<ul>
+  <li><strong>Teaming Agreement</strong> — pre-award, describes who does what if the team wins</li>
+  <li><strong>Subcontract</strong> — post-award, the actual binding agreement</li>
+  <li>Watch for <strong>flow-down clauses</strong> — prime's obligations that cascade to you</li>
+</ul>
+
+<h3>9.3 Mentor-Protégé Program</h3>
+<p>SBA's Mentor-Protégé program pairs small businesses with larger primes. Primes get credit toward their small-business subcontracting goals; you get mentorship, joint ventures (including for set-asides you couldn't pursue alone), and a growth path.</p>
+
+<h3>9.4 The "too much success" trap</h3>
+<p>Once you cross your NAICS size standard, you <strong>lose small-business status</strong>. You go from competing on set-asides to competing with primes directly. Plan the transition:</p>
+<ul>
+  <li>You can recertify as small under the new fiscal year's rules if revenue dropped</li>
+  <li>You can pivot primary NAICS to one with a higher ceiling</li>
+  <li>You can absorb the loss of set-asides if your full-and-open competitive position is strong</li>
+</ul>
+</section>
+
+<section id="s10">
+<h2><span class="num">§ 10</span>The Unlicense Baby Overlay</h2>
+<p>The shortcut for solo founders who don't want to negotiate IP rights with government lawyers ever again.</p>
+
+<div class="unlicense-box">
+<h3>THE UNLICENSE (drop this in every repo as LICENSE and in every file as header)</h3>
+<pre>This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to &lt;https://unlicense.org&gt;</pre>
+</div>
+
+<h3>10.1 The IP section for your proposal (copy-paste)</h3>
+<div class="win">
+<p><em>"The Offeror maintains all software development under the Unlicense, dedicating any and all copyright interest to the public domain. All deliverables are public domain at the moment of commit and fully reusable by the Government, its contractors, and any other party in perpetuity without attribution or royalty obligation. Successor-in-interest risk is eliminated. Zero patents, zero cross-licensing, zero foreign IP-transfer surface area. Full supply-chain transparency via public git history."</em></p>
+</div>
+
+<h3>10.2 The `unlicense-me` CLI tool</h3>
+<p>A single-command migration:</p>
+<pre>cargo install unlicense-me
+cd /path/to/your/repo
+unlicense-me</pre>
+<p>Checks dependencies for incompatible licenses, re-writes headers, generates the PR. ~8 seconds per repo.</p>
+
+<h3>10.3 Timeline of Invention &amp; Proof of Artifacts</h3>
+<p>Unlicensed code is public domain — anyone can use it. But priority still matters. Maintain:</p>
+<ul>
+  <li><strong>TIMELINE_OF_INVENTION.md</strong> — each major contribution with date, one-line description, commit reference. Establishes prior-art dates for USPTO 102(a)(1) defense.</li>
+  <li><strong>PROOF_OF_ARTIFACTS.md</strong> — cryptographic signatures (BLAKE3, SHA-256, or FIPS-compliant equivalents) on every release artifact.</li>
+  <li><strong>Public git history</strong> — every commit is a legally-notarized timestamp. GitHub adds their own timestamps to the commit metadata.</li>
+</ul>
+
+<h3>10.4 What Unlicense does NOT do</h3>
+<ul>
+  <li><strong>Civil law jurisdictions</strong> (Germany, France, Japan): those legal systems don't fully recognize "public domain dedication" — authors have inalienable moral rights. For projects with contributors in these countries, consider pairing Unlicense with CC0 (which has a permissive-license fallback).</li>
+  <li><strong>Patent grants</strong>: Unlicense doesn't grant patent rights explicitly (Apache 2.0 does). For projects in patent-heavy areas, add an explicit patent grant note.</li>
+  <li><strong>Copyleft missions</strong>: if your goal is to prevent proprietary enclosure, GPL/AGPL is the right tool, not Unlicense.</li>
+  <li><strong>Employee IP assignment</strong>: most employed developers cannot Unlicense their work repos — employer owns by assignment. This playbook targets solo founders.</li>
+</ul>
+</section>
+
+<footer>
+  <p><strong>This playbook is Unlicensed.</strong> Copy it. Fork it. Strip my name. Resell it. Translate it. Revise it. Build a competing movement from it. I will not stop you and I will not charge you.</p>
+  <p>The moat is the community. Not the document.</p>
+  <p style="margin-top:16px;">Published by <a href="https://cochranblock.org">The Cochran Block, LLC</a> · Dundalk, MD · April 2026<br>
+  <a href="https://github.com/cochranblock">github.com/cochranblock</a> · <a href="https://cochranblock.org/about">about</a> · <a href="https://cochranblock.org/stats">stats</a></p>
+  <p style="margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#999;">v1.0 · Signed · Timeline of Invention entry: 2026-04-21 (target publish date, post-MSU RFP)</p>
+</footer>
+
+</div>
+</body>
+</html>

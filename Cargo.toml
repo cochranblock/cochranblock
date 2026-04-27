@@ -79,6 +79,7 @@ exopack = { version = "0.1", git = "https://github.com/cochranblock/exopack", op
 dotenvy = "0.15"
 open = "5"
 approuter-client = { version = "0.2", git = "https://github.com/cochranblock/approuter", optional = true }
+lettre = { version = "0.11", default-features = false, features = ["smtp-transport", "builder", "rustls-tls", "tokio1-rustls-tls"] }
 axum-server = { version = "0.7", features = ["tls-rustls"] }
 rustls = { version = "0.23", features = ["ring"] }
 rcgen = "0.14"
