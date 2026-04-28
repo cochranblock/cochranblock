@@ -279,17 +279,25 @@ pub async fn f2_root(
     headers: axum::http::HeaderMap,
     uri: axum::http::Uri,
 ) -> axum::response::Response {
-    let is_knox = headers
+    let host_lc = headers
         .get(axum::http::header::HOST)
         .and_then(|v| v.to_str().ok())
-        .map(|h| {
-            let h = h.split(':').next().unwrap_or("").to_ascii_lowercase();
-            h == "knox.cochranblock.org" || h.starts_with("knox.")
-        })
-        .unwrap_or(false);
+        .map(|h| h.split(':').next().unwrap_or("").to_ascii_lowercase())
+        .unwrap_or_default();
+    let is_knox = host_lc == "knox.cochranblock.org" || host_lc.starts_with("knox.");
+    let is_captainslog = host_lc == "captainslog.cochranblock.org"
+        || host_lc.starts_with("captainslog.");
+    let is_whyme = host_lc == "whyme.cochranblock.org"
+        || host_lc.starts_with("whyme.");
     use axum::response::IntoResponse;
     if is_knox {
         return knox_dispatch(state, uri).await.into_response();
+    }
+    if is_captainslog {
+        return captainslog_dispatch(uri).await.into_response();
+    }
+    if is_whyme {
+        return super::whyme::page().await.into_response();
     }
     // cochranblock.org root: serve The Anti-Founder Manifesto.
     // KNOXAI lives on its subdomain (knox.cochranblock.org) and is
@@ -307,6 +315,17 @@ pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// Knox subdomain dispatcher. Routes knox.cochranblock.org/* paths.
+/// captainslog.cochranblock.org dispatcher — index at /, single posts at /{slug}.
+async fn captainslog_dispatch(uri: axum::http::Uri) -> axum::response::Response {
+    use axum::response::IntoResponse;
+    let path = uri.path();
+    if path == "/" || path.is_empty() {
+        return super::captains_log::index().await.into_response();
+    }
+    let slug = path.trim_start_matches('/').trim_end_matches('/');
+    super::captains_log::post(slug).await
+}
+
 async fn knox_dispatch(
     state: State<Arc<t0>>,
     uri: axum::http::Uri,
@@ -448,7 +467,7 @@ pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
     } else {
         String::new()
     };
-    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-receipts" style="font-size:0.95rem;margin-top:0.6rem;color:var(--muted)">📦 <strong style="color:var(--accent)"><span id="hero-repo-count">31</span></strong> public Rust repos · <strong style="color:var(--accent)"><span id="hero-crate-count">22</span></strong> crates on crates.io · <a href="/52-days" style="color:var(--accent)">live receipts →</a></p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I shipped <strong><span id="hero-repo-count-2">31</span> Rust products</strong> in 60+ days — source verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a>.</p><p class="hero-skills">Sovereign Intelligence · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · <span id="hero-repo-count-3">31</span> Shipped Products · <span id="hero-crate-count-2">22</span> Published Crates</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a></p>
+    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-receipts" style="font-size:0.95rem;margin-top:0.6rem;color:var(--muted)">📦 <strong style="color:var(--accent)"><span id="hero-repo-count">31</span></strong> public Rust repos · <strong style="color:var(--accent)"><span id="hero-crate-count">22</span></strong> crates on crates.io · <a href="/52-days" style="color:var(--accent)">live receipts →</a></p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I shipped <strong><span id="hero-repo-count-2">31</span> Rust products</strong> in 60+ days — source verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a>.</p><p class="hero-skills">Sovereign Intelligence · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · <span id="hero-repo-count-3">31</span> Shipped Products · <span id="hero-crate-count-2">22</span> Published Crates</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a><a href="https://whyme.cochranblock.org" class="btn btn-secondary">Why Hire Me</a></p>
 <script>
 (function(){
   var TOK=null; // public; no auth needed for crates.io
@@ -3556,7 +3575,24 @@ pub async fn f94(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f71 = handler_404. Why: Site-styled 404 instead of axum default.
-pub async fn f71(State(_p0): State<Arc<t0>>) -> (axum::http::StatusCode, Html<String>) {
+pub async fn f71(
+    State(_p0): State<Arc<t0>>,
+    headers: axum::http::HeaderMap,
+    uri: axum::http::Uri,
+) -> axum::response::Response {
+    use axum::response::IntoResponse;
+    let host_lc = headers
+        .get(axum::http::header::HOST)
+        .and_then(|v| v.to_str().ok())
+        .map(|h| h.split(':').next().unwrap_or("").to_ascii_lowercase())
+        .unwrap_or_default();
+    if host_lc == "captainslog.cochranblock.org" || host_lc.starts_with("captainslog.") {
+        return captainslog_dispatch(uri).await;
+    }
+    f71_404().await.into_response()
+}
+
+async fn f71_404() -> (axum::http::StatusCode, Html<String>) {
     let body = r#"<section class="contact"><h1>Page Not Found</h1><p>The page you're looking for doesn't exist or has moved.</p><p class="contact-cta"><a href="/" class="btn">Back to Home</a><a href="/contact" class="btn btn-secondary">Get in Touch</a></p></section>"#;
     let html = format!(
         "{}{}{}{}",

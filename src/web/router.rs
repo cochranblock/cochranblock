@@ -65,6 +65,9 @@ pub fn f1(p0: t0) -> Router {
         .route("/knox", get(|| async { Redirect::permanent("https://knox.cochranblock.org") }))
         .route("/knoxai", get(|| async { Redirect::permanent("https://knox.cochranblock.org") }))
         .route("/john", get(pages::f105))
+        .route("/whyme", get(|| async { super::whyme::page().await }))
+        .route("/why-me", get(|| async { super::whyme::page().await }))
+        .route("/why", get(|| async { super::whyme::page().await }))
         .route("/onboarding", get(pages::f106))
         .route("/handbook", get(pages::f106))
         .route("/knox/apply", get(intake::knox_apply_form).post(intake::knox_apply_submit))
@@ -75,7 +78,10 @@ pub fn f1(p0: t0) -> Router {
         .route("/no-quarter", get(pages::f107))
         .route("/noquarter", get(pages::f107))
         .route("/hunt", get(|| async { Redirect::permanent("/no-quarter") }))
-        .route("/receipts", get(|| async { Redirect::permanent("/no-quarter") }))
+        .route("/receipts", get(pages::f_anti_founder))
+        .route("/anti-founder", get(pages::f_anti_founder))
+        .route("/antifounder", get(pages::f_anti_founder))
+        .route("/eat-the-founder-software-market", get(pages::f_anti_founder))
         .route("/mission", get(|| async { Redirect::permanent("/no-quarter") }))
         .route("/speed", get(|| async { Redirect::permanent("/stats") }))
         .route("/n-bench", get(n_bench::get_page))
@@ -110,23 +116,11 @@ pub fn f1(p0: t0) -> Router {
         .route("/money", get(pages::f110))
         .route("/operations/amendment-003", get(pages::f111))
         .route("/amendment-003", get(pages::f111))
-        // Clean pitch-deck aliases — bypass the legal preamble
-        .route("/pitch", get(pages::f116))
-        .route("/deck", get(pages::f116))
-        .route("/10-slides", get(pages::f116))
-        .route("/pitch-deck", get(pages::f116))
-        .route("/for-john", get(pages::f116))
-        .route("/speedrun-deck", get(pages::f116))
-        .route("/knoxai-deck", get(pages::f116))
         // Federal pipeline archive — not indexed, for named reviewer conversations
         .route("/archive", get(pages::f117))
         .route("/proposals", get(pages::f117))
         .route("/federal-pipeline", get(pages::f117))
         .route("/pipeline", get(pages::f117))
-        // Tanner cofounder pitch deck — 10 slides + 4 appendices, three-entity structure
-        .route("/tanner", get(pages::f108))
-        .route("/cofounder", get(pages::f108))
-        .route("/pitch-deck-tanner", get(pages::f108))
         .route(
             "/aiedge-whitepaper.pdf",
             get(|| async {
@@ -318,7 +312,7 @@ pub fn f1(p0: t0) -> Router {
             get(|| async { Redirect::permanent("/security") }),
         )
         .route(
-            "/the-way-iron-man-1-ended-was-fucking-epic",
+            "/the-way-iron-man-1-ended-was-epic",
             get(|| async { Redirect::permanent("/security") }),
         )
         .route(
