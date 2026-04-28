@@ -375,7 +375,7 @@ table tr.me-row { background: rgba(255,179,0,0.05); }
 <tr><td>Lines of Rust</td><td class="num me">143,763</td></tr>
 <tr><td>Rust source files</td><td class="num me">351</td></tr>
 <tr><td>Tests</td><td class="num me">1,598</td></tr>
-<tr><td>crates.io publications (gotemcoach)</td><td class="num me">5</td></tr>
+<tr><td>crates.io publications (gotemcoach)</td><td class="num me"><span id="crates-count">20</span></td></tr>
 <tr><td>Live production domains</td><td class="num me">3</td></tr>
 <tr><td>Federal registrations (SAM.gov active, CAGE, UEI, SDVOSB submitted)</td><td class="num me">4</td></tr>
 <tr><td>Formal Articles of Amendment signed</td><td class="num me">5 <span style="color:var(--fg3);font-weight:400;">(001, 002, 003, 005, 006)</span></td></tr>
@@ -393,7 +393,8 @@ table tr.me-row { background: rgba(255,179,0,0.05); }
 <div class="velocity-card"><div class="velocity-num">2,764</div><div class="velocity-lbl">LoC / day</div></div>
 <div class="velocity-card"><div class="velocity-num">6.75</div><div class="velocity-lbl">Rust files / day</div></div>
 <div class="velocity-card"><div class="velocity-num">30.7</div><div class="velocity-lbl">Tests / day</div></div>
-<div class="velocity-card"><div class="velocity-num">1 / 10.4</div><div class="velocity-lbl">Days per crate published</div></div>
+<div class="velocity-card"><div class="velocity-num"><span id="crates-card-num">20</span></div><div class="velocity-lbl">crates.io published — live</div></div>
+<div class="velocity-card"><div class="velocity-num"><span id="crates-per-day">0.31</span></div><div class="velocity-lbl">crates / day</div></div>
 <div class="velocity-card"><div class="velocity-num">100%</div><div class="velocity-lbl">Rust, Unlicense or private</div></div>
 </div>
 
@@ -534,6 +535,32 @@ table tr.me-row { background: rgba(255,179,0,0.05); }
   }
   tick();
   setInterval(tick, 3600000);
+
+  // Live crate count from crates.io — receipts that update themselves
+  function fetchCrates() {
+    fetch('https://crates.io/api/v1/users/gotemcoach')
+      .then(function(r) { return r.json(); })
+      .then(function(u) {
+        var uid = u && u.user && u.user.id;
+        if (!uid) return;
+        return fetch('https://crates.io/api/v1/crates?user_id=' + uid + '&per_page=100');
+      })
+      .then(function(r) { return r ? r.json() : null; })
+      .then(function(d) {
+        if (!d || !d.crates) return;
+        var n = d.crates.length;
+        var nodes = document.querySelectorAll('#crates-count, #crates-card-num');
+        for (var i = 0; i < nodes.length; i++) nodes[i].textContent = n;
+        var d0 = new Date(2026, 1, 24);
+        var days = Math.max(1, Math.floor((new Date() - d0) / 86400000));
+        var rate = (n / days).toFixed(2);
+        var perDay = document.getElementById('crates-per-day');
+        if (perDay) perDay.textContent = rate;
+      })
+      .catch(function() { /* offline / CORS — leave static fallback */ });
+  }
+  fetchCrates();
+  setInterval(fetchCrates, 600000);
 })();
 </script>
 

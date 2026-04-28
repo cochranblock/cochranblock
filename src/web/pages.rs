@@ -291,8 +291,19 @@ pub async fn f2_root(
     if is_knox {
         return knox_dispatch(state, uri).await.into_response();
     }
-    // cochranblock.org root redirects to knox.cochranblock.org
-    axum::response::Redirect::temporary("https://knox.cochranblock.org").into_response()
+    // cochranblock.org root: serve The Anti-Founder Manifesto.
+    // KNOXAI lives on its subdomain (knox.cochranblock.org) and is
+    // referenced from inside the manifesto.
+    let body_bytes = include_packed::include_packed!("assets/anti-founder.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned()).into_response()
+}
+
+/// f_anti_founder = The Anti-Founder Manifesto. Served at /, /anti-founder,
+/// /antifounder, /receipts, and /eat-the-founder-software-market. Public-domain
+/// receipts and the doctrine.
+pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/anti-founder.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
 /// Knox subdomain dispatcher. Routes knox.cochranblock.org/* paths.
@@ -304,7 +315,6 @@ async fn knox_dispatch(
     match uri.path() {
         "/" => f104(state).await.into_response(),
         "/operators" | "/handbook" | "/onboarding" => f106(state).await.into_response(),
-        "/deck" | "/deck-v2" | "/pitch" | "/pitch-deck" => f116(state).await.into_response(),
         "/apply" => super::intake::knox_apply_form(state).await.into_response(),
         "/verify" => knox_verify_page().await.into_response(),
         "/directory" => knox_placeholder("Operator Directory", "Public operator roster. Coming soon.").into_response(),
@@ -396,7 +406,7 @@ Everyone says "check your AI models against NCMEC." Nobody can actually do it wi
 <strong>Contact:</strong> <a href="mailto:mcochran@cochranblock.org">mcochran@cochranblock.org</a>
 </div>
 
-<p style="margin-top:1.5rem"><a href="/">&larr; Back to KNOXAI</a> &nbsp;&middot;&nbsp; <a href="/apply">Apply as Operator</a> &nbsp;&middot;&nbsp; <a href="/deck">View Pitch Deck</a></p>
+<p style="margin-top:1.5rem"><a href="/">&larr; Back to KNOXAI</a> &nbsp;&middot;&nbsp; <a href="/apply">Apply as Operator</a> </p>
 
 <div class="footer">
 All Rights Reserved &mdash; The Cochran Block, LLC &mdash; CAGE 1CQ66 &mdash; UEI W7X3HAQL9CF9
@@ -438,11 +448,32 @@ pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
     } else {
         String::new()
     };
-    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I built <a href="https://github.com/cochranblock">23 Rust products</a> — source available on request.</p><p class="hero-skills">Sovereign Intelligence · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · 23 Shipped Products</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a></p></section>"#].concat();
+    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-receipts" style="font-size:0.95rem;margin-top:0.6rem;color:var(--muted)">📦 <strong style="color:var(--accent)"><span id="hero-repo-count">31</span></strong> public Rust repos · <strong style="color:var(--accent)"><span id="hero-crate-count">22</span></strong> crates on crates.io · <a href="/52-days" style="color:var(--accent)">live receipts →</a></p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I shipped <strong><span id="hero-repo-count-2">31</span> Rust products</strong> in 60+ days — source verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a>.</p><p class="hero-skills">Sovereign Intelligence · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · <span id="hero-repo-count-3">31</span> Shipped Products · <span id="hero-crate-count-2">22</span> Published Crates</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a></p>
+<script>
+(function(){
+  var TOK=null; // public; no auth needed for crates.io
+  fetch('https://crates.io/api/v1/users/gotemcoach').then(function(r){return r.json();}).then(function(u){
+    var uid=u&&u.user&&u.user.id; if(!uid) return;
+    return fetch('https://crates.io/api/v1/crates?user_id='+uid+'&per_page=100');
+  }).then(function(r){return r?r.json():null;}).then(function(d){
+    if(!d||!d.crates) return;
+    var n=d.crates.length;
+    var ids=['hero-crate-count','hero-crate-count-2'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]); if(el) el.textContent=n;}
+  }).catch(function(){});
+  fetch('https://api.github.com/orgs/cochranblock/repos?per_page=100').then(function(r){return r.json();}).then(function(d){
+    if(!Array.isArray(d)) return;
+    var n=d.filter(function(r){return r.name!=='.github';}).length;
+    var ids=['hero-repo-count','hero-repo-count-2','hero-repo-count-3'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]); if(el) el.textContent=n;}
+  }).catch(function(){});
+})();
+</script>
+</section>"#].concat();
     let head = f62d(
         "home",
         "CochranBlock | Fractional CTO · Zero-Cloud Architect",
-        "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 15 repositories. Veteran-owned.",
+        "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 31 public Rust repos. 22 crates on crates.io. Veteran-owned.",
     );
     Html([head.as_str(), JSON_LD_FAQ, C7, v0.as_str(), C8].concat())
 }
@@ -5885,18 +5916,6 @@ pub async fn f114(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// veteran is the throw-in. Voice is direct, receipt-anchored, Michael.
 pub async fn f115(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/52-days.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
-}
-
-/// f116 = /pitch-deck standalone. The 10-slide Kawasaki deck without the
-/// formal Article XV amendment preamble. Reviewer-optimized share link —
-/// a Speedrun partner (or John) opens this and sees deck immediately, no
-/// "WHEREAS" clauses to scroll past. The formal legal version (Schedule C
-/// of the OA) remains at /amendment-003 for the record; this endpoint is
-/// the pitch artifact itself. Pitch-specific aliases (/pitch, /deck,
-/// /10-slides, /for-john, /speedrun-deck, /knoxai-deck) all land here.
-pub async fn f116(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let body_bytes = include_packed::include_packed!("assets/pitch-deck-v2.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
