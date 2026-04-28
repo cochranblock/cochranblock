@@ -25,7 +25,7 @@ const BODY: &str = r##"<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Why hire Michael Cochran — cochranblock.org</title>
-<meta name="description" content="Tattoo artists don't patent their tattoos. Software is the same kind of craft. 22 Rust repos, ~310K LOC, 20K+ tests, all public domain. The portfolio is the pitch.">
+<meta name="description" content="Tattoo artists don't patent their tattoos. Software is the same kind of craft. 32 public repos, 22 shipping Rust, 1,235 verified cargo-test passes, all public domain. The portfolio is the pitch.">
 <link rel="canonical" href="https://whyme.cochranblock.org/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <style>
