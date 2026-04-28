@@ -13,6 +13,14 @@ homepage = "https://cochranblock.org"
 keywords = ["zero-cloud", "single-binary", "website", "rust-web", "axum"]
 categories = ["web-programming::http-server"]
 readme = "README.md"
+include = [
+    "src/**/*",
+    "assets/**/*",
+    "content/**/*",
+    "Cargo.toml",
+    "UNLICENSE",
+    "README.md",
+]
 exclude = ["screenshots/", "docs/", "content/", "*.png", "*.pdf"]
 
 # tests = rough draft. exopack for quantifiable quality. Release strips both.
