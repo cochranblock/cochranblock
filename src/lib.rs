@@ -6,6 +6,7 @@
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
 pub mod error;
+pub mod logs;
 pub mod std_aliases;
 
 #[cfg(feature = "admin")]

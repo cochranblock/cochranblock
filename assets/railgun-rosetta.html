@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Railgun Rosetta. A developer's translation key between Python, C, and Rust. The railgun's native tongue is Rust; this is how you arrive from any other language.">
+<meta name="robots" content="index,follow">
+<title>Railgun Rosetta — Cochran Block</title>
+<style>
+:root {
+  --bg: #050508;
+  --bg2: #0a0a0e;
+  --bg3: #121218;
+  --fg: #f5f5f5;
+  --fg2: #bbb;
+  --fg3: #666;
+  --accent: #00d9ff;
+  --accent-hover: #33e1ff;
+  --amber: #ffb300;
+  --green: #4caf50;
+  --red: #ef5350;
+  --line: rgba(0,217,255,0.10);
+  --line2: rgba(0,217,255,0.22);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.brand { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.4rem; }
+.brand-logo { width: 44px; height: 44px; flex-shrink: 0; }
+.brand-name { font-size: 0.75rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; font-weight: 700; text-decoration: none; border: none; }
+.pretag { font-size: 0.7rem; letter-spacing: 0.45em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+
+h1.banner {
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  margin-bottom: 1rem;
+}
+h1.banner .accent { color: var(--accent); }
+.sub { font-size: 0.9rem; letter-spacing: 0.3em; color: var(--amber); text-transform: uppercase; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+.sub .pulse { display: inline-block; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; margin-right: 0.6em; vertical-align: middle; animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.creed { font-size: clamp(1.1rem, 2.4vw, 1.35rem); font-weight: 600; line-height: 1.55; margin: 2rem 0; padding: 1.2rem 1.5rem; border-left: 4px solid var(--accent); background: rgba(0,217,255,0.05); }
+
+h2 { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin: 2.5rem 0 0.5rem; padding-top: 1.3rem; border-top: 1px solid var(--line); }
+h3 { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 1.5rem 0 0.5rem; }
+
+p { color: var(--fg2); margin: 0.5rem 0 0.9rem; }
+p strong { color: var(--fg); }
+em { color: var(--amber); font-style: normal; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--line2); }
+a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+
+.lang-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0.5rem; }
+.lang-tab { padding: 0.35rem 0.9rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; border: 1px solid var(--line2); background: var(--bg3); color: var(--fg2); }
+.lang-tab.active { color: var(--accent); border-color: var(--accent); background: rgba(0,217,255,0.06); }
+.lang-tab.coming { color: var(--fg3); border-style: dashed; }
+
+table.rosetta { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.6rem; font-size: 0.78rem; }
+table.rosetta th, table.rosetta td { padding: 0.7rem 0.7rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+table.rosetta th { color: var(--amber); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid var(--line2); }
+table.rosetta th.lang-py { color: #ffd866; }
+table.rosetta th.lang-c  { color: #ab9df2; }
+table.rosetta th.lang-rs { color: #00d9ff; }
+table.rosetta td.label { color: var(--fg); font-weight: 700; white-space: nowrap; vertical-align: top; }
+table.rosetta td code,
+table.rosetta th code { background: transparent; color: inherit; }
+table.rosetta td pre { background: var(--bg3); padding: 0.55rem 0.7rem; margin: 0; font-size: 0.74rem; line-height: 1.55; color: var(--fg2); white-space: pre; overflow-x: auto; border-left: 2px solid var(--line2); }
+table.rosetta tr:hover td pre { border-left-color: var(--accent); }
+
+.callout { margin: 1.6rem 0; padding: 1rem 1.2rem; border-left: 3px solid var(--amber); background: rgba(255,179,0,0.05); font-size: 0.88rem; color: var(--fg2); }
+.callout strong { color: var(--fg); }
+
+.foot { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); font-size: 0.72rem; color: var(--fg3); letter-spacing: 0.1em; text-transform: uppercase; }
+.foot a { color: var(--fg3); border-bottom-color: var(--line); }
+.foot a:hover { color: var(--amber); }
+.dot { color: var(--accent); margin: 0 0.5em; }
+</style>
+</head>
+<body>
+
+<div class="brand">
+<svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+  <path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="4" fill="#00d9ff"/>
+</svg>
+<a href="/" class="brand-name">CochranBlock</a>
+</div>
+
+<div class="pretag">cochranblock.org/railgun-rosetta &middot; the cochran block, llc</div>
+
+<h1 class="banner">RAILGUN <span class="accent">ROSETTA</span></h1>
+
+<div class="sub"><span class="pulse"></span>Translation key &middot; Python &middot; C &middot; Rust</div>
+
+<div class="creed">
+The railgun's native tongue is <strong>Rust</strong>. This is the key that gets you here from any other language. <em>Start where you are. Translate one row at a time.</em>
+</div>
+
+<h2>Why this exists</h2>
+
+<p>Every Cochran Block product (<a href="https://crates.io/crates/runsible">runsible</a>, <a href="https://crates.io/crates/r8r">r8r</a>, <a href="https://crates.io/crates/exopack">exopack</a>, others in the <a href="/manual">Manual</a>) is shipped as a single Rust binary. Most working developers don't write Rust. They write Python, JavaScript, Go, C, Java, C#, Ruby. The Rosetta is the translation between the language you already know and the language the railgun speaks.</p>
+
+<p>It is not a complete reference. It is a working alternative to "I'd love to use that crate but I don't know Rust." Read one row, copy the right column into your editor, ship.</p>
+
+<div class="lang-tabs">
+<span class="lang-tab active">Python</span>
+<span class="lang-tab active">C</span>
+<span class="lang-tab coming">Go (coming)</span>
+<span class="lang-tab coming">JavaScript / TS (coming)</span>
+<span class="lang-tab coming">Java / Kotlin (coming)</span>
+<span class="lang-tab coming">C++ (coming)</span>
+<span class="lang-tab coming">C# (coming)</span>
+<span class="lang-tab coming">Ruby (coming)</span>
+<span class="lang-tab coming">Bash (coming)</span>
+</div>
+
+<h2>Python &harr; Rust</h2>
+
+<p>The first translation, because Michael's mental model is Python-procedural. Concurrency-focused, no OOP. Most rows here are 1-for-1.</p>
+
+<table class="rosetta">
+<thead><tr><th>Pattern</th><th class="lang-py">Python</th><th class="lang-rs">Rust</th></tr></thead>
+<tbody>
+
+<tr><td class="label">Print a line</td>
+<td><pre>print("hello, world")</pre></td>
+<td><pre>println!("hello, world");</pre></td></tr>
+
+<tr><td class="label">Variable (immutable by default in Rust)</td>
+<td><pre>name = "Michael"
+age  = 38</pre></td>
+<td><pre>let name = "Michael";
+let age: u32 = 38;</pre></td></tr>
+
+<tr><td class="label">Mutable variable</td>
+<td><pre>count = 0
+count += 1</pre></td>
+<td><pre>let mut count = 0;
+count += 1;</pre></td></tr>
+
+<tr><td class="label">String formatting</td>
+<td><pre>msg = f"hi {name}, age {age}"</pre></td>
+<td><pre>let msg = format!("hi {name}, age {age}");</pre></td></tr>
+
+<tr><td class="label">List / Vec</td>
+<td><pre>xs = [1, 2, 3]
+xs.append(4)
+for x in xs:
+    print(x)</pre></td>
+<td><pre>let mut xs: Vec&lt;i32&gt; = vec![1, 2, 3];
+xs.push(4);
+for x in &amp;xs {
+    println!("{x}");
+}</pre></td></tr>
+
+<tr><td class="label">Dict / HashMap</td>
+<td><pre>m = {"a": 1, "b": 2}
+m["c"] = 3
+for k, v in m.items():
+    print(k, v)</pre></td>
+<td><pre>use std::collections::HashMap;
+let mut m: HashMap&lt;&amp;str, i32&gt; = HashMap::new();
+m.insert("a", 1);
+m.insert("b", 2);
+m.insert("c", 3);
+for (k, v) in &amp;m {
+    println!("{k} {v}");
+}</pre></td></tr>
+
+<tr><td class="label">Function</td>
+<td><pre>def add(a: int, b: int) -&gt; int:
+    return a + b</pre></td>
+<td><pre>fn add(a: i32, b: i32) -&gt; i32 {
+    a + b
+}</pre></td></tr>
+
+<tr><td class="label">Error handling</td>
+<td><pre>try:
+    result = risky()
+except IOError as e:
+    print(f"oops: {e}")</pre></td>
+<td><pre>match risky() {
+    Ok(result) =&gt; { /* use result */ }
+    Err(e)     =&gt; eprintln!("oops: {e}"),
+}
+// or with ?:
+let result = risky()?;</pre></td></tr>
+
+<tr><td class="label">Read a file</td>
+<td><pre>with open("notes.txt") as f:
+    text = f.read()</pre></td>
+<td><pre>let text = std::fs::read_to_string("notes.txt")?;</pre></td></tr>
+
+<tr><td class="label">Write a file</td>
+<td><pre>with open("out.txt", "w") as f:
+    f.write("done\n")</pre></td>
+<td><pre>std::fs::write("out.txt", "done\n")?;</pre></td></tr>
+
+<tr><td class="label">JSON parse</td>
+<td><pre>import json
+data = json.loads(s)
+name = data["name"]</pre></td>
+<td><pre>// Cargo.toml: serde_json = "1"
+let data: serde_json::Value =
+    serde_json::from_str(&amp;s)?;
+let name = data["name"].as_str().unwrap();</pre></td></tr>
+
+<tr><td class="label">JSON struct (typed)</td>
+<td><pre>from dataclasses import dataclass
+@dataclass
+class User:
+    name: str
+    age:  int
+
+import json
+u = User(**json.loads(s))</pre></td>
+<td><pre>// Cargo.toml: serde = { version="1", features=["derive"] }
+//             serde_json = "1"
+use serde::Deserialize;
+#[derive(Deserialize)]
+struct User { name: String, age: u32 }
+let u: User = serde_json::from_str(&amp;s)?;</pre></td></tr>
+
+<tr><td class="label">HTTP GET</td>
+<td><pre>import requests
+r = requests.get("https://api.example.com/x")
+data = r.json()</pre></td>
+<td><pre>// Cargo.toml: reqwest = { version="0.12", features=["json"] }
+let data: serde_json::Value =
+    reqwest::blocking::get("https://api.example.com/x")?.json()?;</pre></td></tr>
+
+<tr><td class="label">HTTP server (FastAPI &harr; axum)</td>
+<td><pre>from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/hello")
+def hello():
+    return {"msg": "hi"}</pre></td>
+<td><pre>// Cargo.toml: axum = "0.8", tokio = { version="1", features=["full"] }
+use axum::{Router, routing::get, Json};
+use serde_json::json;
+
+#[tokio::main]
+async fn main() {
+    let app = Router::new()
+        .route("/hello", get(|| async { Json(json!({"msg": "hi"})) }));
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}</pre></td></tr>
+
+<tr><td class="label">Async coroutine</td>
+<td><pre>import asyncio
+
+async def fetch(url):
+    await asyncio.sleep(1)
+    return url
+
+asyncio.run(fetch("x"))</pre></td>
+<td><pre>// Cargo.toml: tokio = { version="1", features=["full"] }
+async fn fetch(url: &amp;str) -&gt; &amp;str {
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    url
+}
+
+#[tokio::main]
+async fn main() {
+    let _ = fetch("x").await;
+}</pre></td></tr>
+
+<tr><td class="label">Run a subprocess</td>
+<td><pre>import subprocess
+out = subprocess.run(
+    ["ls", "-la"],
+    capture_output=True, text=True
+).stdout</pre></td>
+<td><pre>let out = std::process::Command::new("ls")
+    .arg("-la")
+    .output()?;
+let stdout = String::from_utf8(out.stdout)?;</pre></td></tr>
+
+<tr><td class="label">Regex</td>
+<td><pre>import re
+m = re.match(r"(\d+)-(\w+)", "42-foo")
+if m: print(m.group(1), m.group(2))</pre></td>
+<td><pre>// Cargo.toml: regex = "1"
+use regex::Regex;
+let re = Regex::new(r"(\d+)-(\w+)")?;
+if let Some(c) = re.captures("42-foo") {
+    println!("{} {}", &amp;c[1], &amp;c[2]);
+}</pre></td></tr>
+
+<tr><td class="label">CLI args</td>
+<td><pre>import argparse
+p = argparse.ArgumentParser()
+p.add_argument("--name", required=True)
+args = p.parse_args()
+print(args.name)</pre></td>
+<td><pre>// Cargo.toml: clap = { version="4", features=["derive"] }
+use clap::Parser;
+#[derive(Parser)]
+struct Args { #[arg(long)] name: String }
+fn main() {
+    let args = Args::parse();
+    println!("{}", args.name);
+}</pre></td></tr>
+
+<tr><td class="label">Test</td>
+<td><pre>def test_add():
+    assert add(2, 3) == 5
+
+# pytest tests/test_x.py</pre></td>
+<td><pre>#[test]
+fn test_add() {
+    assert_eq!(add(2, 3), 5);
+}
+
+// cargo test</pre></td></tr>
+
+</tbody>
+</table>
+
+<div class="callout">
+<strong>Common pivots from Python.</strong> Three concepts that change shape on the way to Rust: <em>ownership</em> (Python garbage collects, Rust tracks who owns each value), <em>match</em> (Rust's pattern match replaces Python's if/elif chains and structural unpacking), and <em>cargo</em> (one tool replaces pip + venv + setuptools + pytest + tox). None of these require new mental models so much as new muscle memory.
+</div>
+
+<h2>C &harr; Rust</h2>
+
+<p>For the systems crowd. Rust keeps everything C gives you (no GC, predictable layout, FFI), and adds the ownership rules that make refactoring safe.</p>
+
+<table class="rosetta">
+<thead><tr><th>Pattern</th><th class="lang-c">C</th><th class="lang-rs">Rust</th></tr></thead>
+<tbody>
+
+<tr><td class="label">Print a line</td>
+<td><pre>#include &lt;stdio.h&gt;
+printf("hello, world\n");</pre></td>
+<td><pre>println!("hello, world");</pre></td></tr>
+
+<tr><td class="label">Heap allocation</td>
+<td><pre>int *p = malloc(sizeof(int));
+*p = 42;
+free(p);</pre></td>
+<td><pre>let p = Box::new(42_i32);
+// dropped automatically at end of scope</pre></td></tr>
+
+<tr><td class="label">Pointer / reference</td>
+<td><pre>void incr(int *x) { (*x)++; }
+int v = 1;
+incr(&amp;v);</pre></td>
+<td><pre>fn incr(x: &amp;mut i32) { *x += 1; }
+let mut v = 1;
+incr(&amp;mut v);</pre></td></tr>
+
+<tr><td class="label">Strings</td>
+<td><pre>const char *name = "Michael";
+char buf[64];
+snprintf(buf, sizeof buf,
+         "hi %s", name);</pre></td>
+<td><pre>let name = "Michael";
+let buf  = format!("hi {name}");</pre></td></tr>
+
+<tr><td class="label">Struct</td>
+<td><pre>struct Point { float x, y; };
+struct Point p = { .x = 1.0, .y = 2.0 };</pre></td>
+<td><pre>struct Point { x: f32, y: f32 }
+let p = Point { x: 1.0, y: 2.0 };</pre></td></tr>
+
+<tr><td class="label">Enum / tagged union</td>
+<td><pre>enum Shape { CIRCLE, SQUARE };
+struct ShapeVal {
+    enum Shape kind;
+    union { float r; float side; };
+};</pre></td>
+<td><pre>enum Shape {
+    Circle { r: f32 },
+    Square { side: f32 },
+}</pre></td></tr>
+
+<tr><td class="label">Read a file</td>
+<td><pre>FILE *f = fopen("notes.txt", "r");
+char buf[1024];
+size_t n = fread(buf, 1, 1023, f);
+buf[n] = '\0';
+fclose(f);</pre></td>
+<td><pre>let text = std::fs::read_to_string("notes.txt")?;</pre></td></tr>
+
+<tr><td class="label">Dynamic array</td>
+<td><pre>int *xs = malloc(4 * sizeof(int));
+xs[0] = 1; xs[1] = 2; xs[2] = 3; xs[3] = 4;
+// realloc, track length, free, etc.
+free(xs);</pre></td>
+<td><pre>let xs = vec![1, 2, 3, 4];
+// length tracked, dropped automatically</pre></td></tr>
+
+<tr><td class="label">Error handling</td>
+<td><pre>int rc = do_thing();
+if (rc != 0) {
+    fprintf(stderr, "fail: %s\n", strerror(errno));
+    return rc;
+}</pre></td>
+<td><pre>do_thing()?;
+// or with full match:
+match do_thing() {
+    Ok(_)  =&gt; {},
+    Err(e) =&gt; eprintln!("fail: {e}"),
+}</pre></td></tr>
+
+<tr><td class="label">Function pointer / closure</td>
+<td><pre>typedef int (*Fn)(int);
+int apply(int x, Fn f) { return f(x); }
+int sq(int x) { return x * x; }
+int y = apply(3, sq);</pre></td>
+<td><pre>fn apply&lt;F: Fn(i32) -&gt; i32&gt;(x: i32, f: F) -&gt; i32 { f(x) }
+let y = apply(3, |n| n * n);</pre></td></tr>
+
+<tr><td class="label">Build &amp; run</td>
+<td><pre>cc -O2 -o app main.c
+./app</pre></td>
+<td><pre>cargo run --release</pre></td></tr>
+
+<tr><td class="label">Static link to libc / FFI</td>
+<td><pre>// you ARE libc
+extern int getpid(void);</pre></td>
+<td><pre>extern "C" { fn getpid() -&gt; i32; }
+unsafe { let _ = getpid(); }</pre></td></tr>
+
+</tbody>
+</table>
+
+<div class="callout">
+<strong>The big swap from C.</strong> You stop writing memory plumbing. <code>Box</code>, <code>Vec</code>, <code>String</code>, <code>Result</code>, and the borrow checker take over the work that used to be malloc/realloc/free + length tracking + error codes + segfault hunts. Most C programs become <em>shorter</em> in Rust.
+</div>
+
+<h2>Coming next</h2>
+
+<p>Translations are added in a deliberate order: <strong>Python</strong> first (above), then <strong>C</strong> (above), then <strong>Go</strong>, <strong>JavaScript / TypeScript</strong>, <strong>Java / Kotlin</strong>, <strong>C++</strong>, <strong>C#</strong>, <strong>Ruby</strong>, <strong>Bash</strong>. Each language gets the same row pattern so your eye learns the shape once.</p>
+
+<p>Source for this page lives in the cochranblock crate at <a href="https://github.com/cochranblock/cochranblock">github.com/cochranblock/cochranblock</a>. Pull requests adding rows or whole languages are welcome and will be folded into the next manual revision.</p>
+
+<div class="foot">
+The Cochran Block, LLC <span class="dot">&middot;</span> EIN 41-3835237 <span class="dot">&middot;</span> CAGE 1CQ66 <span class="dot">&middot;</span> UEI W7X3HAQL9CF9 <span class="dot">&middot;</span> SDVOSB Pending <span class="dot">&middot;</span> Maryland CSB Approved
+<br><br>
+<a href="/">Home</a> <span class="dot">&middot;</span> <a href="/manual">Manual</a> <span class="dot">&middot;</span> <a href="https://crates.io/crates/cochranblock">crates.io</a> <span class="dot">&middot;</span> <a href="https://docs.rs/cochranblock">docs.rs</a> <span class="dot">&middot;</span> <a href="https://github.com/cochranblock">GitHub</a> <span class="dot">&middot;</span> <a href="mailto:mcochran@cochranblock.org">Email</a>
+</div>
+
+</body>
+</html>

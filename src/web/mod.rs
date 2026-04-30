@@ -11,4 +11,5 @@ pub mod mailer;
 pub mod n_bench;
 pub mod pages;
 pub mod router;
+pub mod visits;
 pub mod whyme;

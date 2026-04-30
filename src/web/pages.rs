@@ -289,6 +289,8 @@ pub async fn f2_root(
         || host_lc.starts_with("captainslog.");
     let is_whyme = host_lc == "whyme.cochranblock.org"
         || host_lc.starts_with("whyme.");
+    let is_manual = host_lc == "manual.cochranblock.org"
+        || host_lc.starts_with("manual.");
     use axum::response::IntoResponse;
     if is_knox {
         return knox_dispatch(state, uri).await.into_response();
@@ -298,6 +300,11 @@ pub async fn f2_root(
     }
     if is_whyme {
         return super::whyme::page().await.into_response();
+    }
+    if is_manual {
+        // Every path on manual.cochranblock.org serves The Manual.
+        let body_bytes = include_packed::include_packed!("assets/manual.html");
+        return Html(String::from_utf8_lossy(&body_bytes).into_owned()).into_response();
     }
     // cochranblock.org root: serve The Anti-Founder Manifesto.
     // KNOXAI lives on its subdomain (knox.cochranblock.org) and is
@@ -311,6 +318,21 @@ pub async fn f2_root(
 /// receipts and the doctrine.
 pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/anti-founder.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
+/// f_manual = The Cochran Block Manual. Served at /manual, /manual/{*rest},
+/// and every path on manual.cochranblock.org. Mirrors docs.rs/cochranblock
+/// with the apex-domain theme (cyan + diamond logo).
+pub async fn f_manual(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/manual.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
+/// f_railgun_rosetta = Railgun Rosetta. Developer translation key between
+/// Python, C, and Rust. Served at /railgun-rosetta, /rosetta, and aliases.
+pub async fn f_railgun_rosetta(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/railgun-rosetta.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
@@ -338,8 +360,13 @@ async fn knox_dispatch(
         "/verify" => knox_verify_page().await.into_response(),
         "/directory" => knox_placeholder("Operator Directory", "Public operator roster. Coming soon.").into_response(),
         "/blacklist" => knox_placeholder("Public Blacklist", "Models that failed audit. Coming soon.").into_response(),
+        "/manual" => {
+            // KNOX manual = the cochranblock manual mirrored on the knox subdomain
+            let body = include_packed::include_packed!("assets/manual.html");
+            Html(String::from_utf8_lossy(&body).into_owned()).into_response()
+        }
         _ => {
-            // Fall through to main router for shared routes
+            // Fall through to knox home for shared routes
             f104(state).await.into_response()
         }
     }
@@ -5836,19 +5863,14 @@ pub async fn f104(State(_p0): State<Arc<t0>>) -> Html<&'static str> {
     Html(KNOX_HTML)
 }
 
-/// f105 = john-brief. Serves the KNOXAI guild rundown at /john and
-/// knox.cochranblock.org/john. Standalone styled HTML packed at build time.
-/// noindex,nofollow in the page meta; not linked from anywhere public.
-pub async fn f105(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let body_bytes = include_packed::include_packed!("assets/john-brief.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
-}
+// f105 (john-brief) and /john route removed 2026-04-28 per founder decision.
+// "no free rides" — the named individual no longer appears in cochranblock material.
 
 /// f106 = onboarding. Serves the operator onboarding handbook at /onboarding.
 /// Obscure-path distribution: noindex,nofollow in meta, not linked anywhere
 /// public. Michael shares the URL privately with operators greenlit by TAC.
 /// If leakage becomes a concern later, wrap with the same russian-doll gate
-/// used by f105 (copy the gate from assets/john-brief.html).
+/// used historically (gate logic preserved in git history if needed).
 pub async fn f106(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/onboarding.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
@@ -5959,7 +5981,7 @@ pub async fn f115(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// artifacts — DARPA whitepapers, SBIR technical approaches, capability
 /// statement, outreach templates. Not indexed (noindex,nofollow); intended
 /// for named investor + partner conversations only. Keeps the main stage
-/// (/for-john, /pitch-deck) clean while preserving artifact density for
+/// (/pitch-deck) clean while preserving artifact density for
 /// reviewers who want to dig.
 pub async fn f117(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/archive.html");
@@ -6026,7 +6048,7 @@ Nobody certifies the models are clean. <em>We do.</em>
 <div class="lbl">Operator #0</div><div class="val">Michael Cochran (Founder) <span class="tag t-red">redteam</span><span class="tag t-green">ml-eng</span><span class="tag t-gray">cleared</span></div>
 <div class="lbl">Operator #1</div><div class="val">Harris <span class="tag t-blue">ml-research</span><span class="tag t-purple">safety</span></div>
 <div class="lbl">Operator #2</div><div class="val" style="color:var(--yellow)">You?</div>
-<div class="lbl">Founding Advisor</div><div class="val">John Szeder</div>
+<div class="lbl">Founding Advisor</div><div class="val">TBD</div>
 </div>
 </div>
 

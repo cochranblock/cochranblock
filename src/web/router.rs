@@ -10,7 +10,7 @@ use tower_http::{
     compression::CompressionLayer, set_header::SetResponseHeaderLayer, trace::TraceLayer,
 };
 
-use super::{assets, booking, community_grant, intake, n_bench, pages};
+use super::{assets, booking, community_grant, intake, n_bench, pages, visits};
 use crate::t0;
 
 /// f1 = app_router. Why: Single router with compression, trace, security headers; state shared via Arc.
@@ -27,6 +27,13 @@ pub fn f1(p0: t0) -> Router {
     let h3 = SetResponseHeaderLayer::overriding(
         HeaderName::from_static("referrer-policy"),
         HeaderValue::from_static("strict-origin-when-cross-origin"),
+    );
+    // HSTS: tell browsers to use HTTPS only for the next 2 years, including
+    // every subdomain. preload makes the domain eligible for the Chromium
+    // HSTS preload list (submit at hstspreload.org once stable).
+    let h4 = SetResponseHeaderLayer::overriding(
+        HeaderName::from_static("strict-transport-security"),
+        HeaderValue::from_static("max-age=63072000; includeSubDomains; preload"),
     );
     let r0 = Router::new()
         .route("/", get(pages::f2_root))
@@ -64,12 +71,12 @@ pub fn f1(p0: t0) -> Router {
         .route("/proof", get(|| async { Redirect::permanent("/sovereignty") }))
         .route("/knox", get(|| async { Redirect::permanent("https://knox.cochranblock.org") }))
         .route("/knoxai", get(|| async { Redirect::permanent("https://knox.cochranblock.org") }))
-        .route("/john", get(pages::f105))
         .route("/whyme", get(|| async { super::whyme::page().await }))
         .route("/why-me", get(|| async { super::whyme::page().await }))
         .route("/why", get(|| async { super::whyme::page().await }))
         .route("/onboarding", get(pages::f106))
         .route("/handbook", get(pages::f106))
+        .route("/operators", get(pages::f106))
         .route("/knox/apply", get(intake::knox_apply_form).post(intake::knox_apply_submit))
         .route("/knox/apply/confirmed", get(intake::knox_apply_confirmed))
         .route("/apply", get(intake::knox_apply_form).post(intake::knox_apply_submit))
@@ -82,6 +89,26 @@ pub fn f1(p0: t0) -> Router {
         .route("/anti-founder", get(pages::f_anti_founder))
         .route("/antifounder", get(pages::f_anti_founder))
         .route("/eat-the-founder-software-market", get(pages::f_anti_founder))
+        // The Manual at the apex.
+        .route("/manual", get(pages::f_manual))
+        .route("/manual/", get(pages::f_manual))
+        .route("/manual/manual", get(pages::f_manual))
+        .route("/manual/manual/", get(pages::f_manual))
+        .route("/manual/manual/manual", get(pages::f_manual))
+        .route("/manual/manual/manual/", get(pages::f_manual))
+        .route("/manual/manual/manual/manual", get(pages::f_manual))
+        .route("/manual/manual/manual/manual/", get(pages::f_manual))
+        .route("/manual/manual/manual/manual/manual", get(pages::f_manual))
+        // Railgun Rosetta — developer translation key (Python / C / Rust)
+        .route("/railgun-rosetta", get(pages::f_railgun_rosetta))
+        .route("/rosetta", get(pages::f_railgun_rosetta))
+        .route("/rosetta-stone", get(pages::f_railgun_rosetta))
+        // Bare-name aliases for assets pinned in the static include_packed
+        // table — point them at the existing /assets/* handler.
+        .route("/resume.pdf", get(|| async { axum::response::Redirect::permanent("/assets/resume.pdf") }))
+        .route("/cochranblock-logo.svg", get(|| async { axum::response::Redirect::permanent("/assets/cochranblock-logo.svg") }))
+        .route("/cochranblock-hero-logo.svg", get(|| async { axum::response::Redirect::permanent("/assets/cochranblock-hero-logo.svg") }))
+        .route("/favicon.svg", get(|| async { axum::response::Redirect::permanent("/assets/favicon.svg") }))
         .route("/mission", get(|| async { Redirect::permanent("/no-quarter") }))
         .route("/speed", get(|| async { Redirect::permanent("/stats") }))
         .route("/n-bench", get(n_bench::get_page))
@@ -550,7 +577,9 @@ pub fn f1(p0: t0) -> Router {
         .layer(h1)
         .layer(h2)
         .layer(h3)
+        .layer(h4)
         .layer(CompressionLayer::new().zstd(true))
+        .layer(axum::middleware::from_fn(visits::log_middleware))
         .layer(TraceLayer::new_for_http())
         .with_state(p0)
 }
