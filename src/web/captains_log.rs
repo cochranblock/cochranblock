@@ -23,7 +23,7 @@ const POSTS: &[Post] = &[Post {
 
 <p>I'm not selling whobelooking anymore. The product is free. The repo is Unlicense. The site is a demo of what runs when you clone it.</p>
 
-<p>This isn't a marketing pivot. It's the actual move. The software market has too many founders charging $200/month for a hashmap with a chart. I'm tired of watching mediocre Node bloat get a Series A while the people who can actually ship 23 Rust binaries from a laptop have to scramble for a fractional CTO retainer.</p>
+<p>This isn't a marketing pivot. It's the actual move. The software market has too many founders charging $200/month for a hashmap with a chart. I'm tired of watching mediocre Node bloat get a Series A while the people who can actually ship 31 Rust binaries from a laptop have to scramble for a fractional CTO retainer.</p>
 
 <blockquote>Eat the founder software market with free software. Double it as a resume.</blockquote>
 

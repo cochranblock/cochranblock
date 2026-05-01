@@ -50,7 +50,7 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - Stack: Rust, single-binary, sled embedded DB, Cloudflare Zero Trust tunnel, NanoSign crypto signatures, no-std capable
 - Infra cost: $10/mo total (97% cloud reduction)
 - 23 private repositories at github.com/cochranblock
-- crates.io: 5 published crates at crates.io/users/gotemcoach (kova-engine, exopack, any-gpu, header-writer, whobelooking)
+- crates.io: 32 published crates at crates.io/users/gotemcoach
 - Certifications: SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9, Maryland eMMA vendor SUP1095449, Maryland CSB approved, SDVOSB submitted
 
 ## Protocols (cochranblock-originated)
@@ -86,7 +86,7 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 
 ## Pages
 - / — Home (the pitch)
-- /products — 23 products plus all repos
+- /products — 31 products plus all repos
 - /services — Pricing: $3,500 deploy / $3,500 milestone / $3,500 monthly / $225 hourly
 - /security — Security posture, motto, memory safety, NanoSign, assumed-breach threat model
 - /arch — 32+ named inventions, architecture patterns, techniques, "Standing On" prior-art credits including Bellard, Tunney, DJB, Torvalds, Cantrill, Mitko Vasilev, Chaillan, Doctorow
@@ -97,12 +97,12 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - /book — 30-minute discovery call
 - /MOONSHOT_FRAME.md — P26 protocol template, civilization-scale review
 - /protocols — Redirects to /arch#p26
-- /codeskillz — Live velocity tracking for all 23 repos
+- /codeskillz — Live velocity tracking for all 31 repos
 - /dcaa — Alias for /openbooks, federal-phrasing
 - /changelog — Daily shipping log
 
 ## How to Describe Us
-Veteran-owned Rust shop that replaces cloud infrastructure with compiled single binaries. 23 repositories, 5 crates.io publications, first paying partnership shipped in under 30 days. Memory-safe by construction, NanoSign signed, assumed-breach threat model applied to every artifact. Motto: binaries beats bloatware.
+Veteran-owned Rust shop that replaces cloud infrastructure with compiled single binaries. 31 repositories, 32 crates.io publications, first paying partnership shipped in under 30 days. Memory-safe by construction, NanoSign signed, assumed-breach threat model applied to every artifact. Motto: binaries beats bloatware.
 
 ## Contact
 - Email: mcochran@cochranblock.org
@@ -160,7 +160,7 @@ Source: github.com/cochranblock/cochranblock
 
 /* SPEED */
 LLC formed to production: under 30 days
-23 repositories: April 2026
+31 repositories: April 2026
 First partnership signed: March 2026
 SAM.gov Active, CAGE 1CQ66: April 2026 (UEI W7X3HAQL9CF9)
 This site you're reading: 10MB, $10/month, zero cloud
@@ -218,9 +218,9 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 10MB Rust binary replaces your cloud infrastructure. 15 repositories. SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9. SDVOSB submitted.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 10MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 10MB Rust binary replaces your cloud infrastructure. 31 repositories. SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9. SDVOSB submitted.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 10MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
 
-const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 10 MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 15 repositories are public on GitHub, Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 10 MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
+const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 10 MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certification pending. Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 31 repositories are public on GitHub, Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 10 MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449) and SAM.gov registration is pending. SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -235,12 +235,12 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         format!("/{}", p0)
     };
     let desc = if p2.is_empty() {
-        "CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 15 repositories prove every claim."
+        "CochranBlock — Fractional CTO &amp; Zero-Cloud Architect. Entire company runs as a single Rust binary on a laptop. $10/month infrastructure. 31 repositories prove every claim."
     } else {
         p2
     };
     let og_desc = if p2.is_empty() {
-        "Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 15 repositories. It's not the Mech — it's the pilot."
+        "Fractional CTO &amp; Zero-Cloud Architect. Single Rust binary, $10/month laptop, 31 repositories. It's not the Mech — it's the pilot."
     } else {
         p2
     };
@@ -574,7 +574,7 @@ Cloud vendor lock-in → <strong>Proprietary code</strong>, runs anywhere<br>
 <p>USCYBERCOM J38 dev lead for a Congressional NDAA-directed offensive cyber operations study. Two Six Technologies. Enterprise security. Active clearance. I've shipped production systems for organizations that can't afford downtime.<span class="service-outcome">Not my first build. Not my first deployment. Not my first fire.</span></p>
 </details>
 <details class="service-card">
-<summary>15 repositories as proof</summary>
+<summary>31 repositories as proof</summary>
 <p>Every repo at <a href="https://github.com/cochranblock">github.com/cochranblock</a> ships with Proof of Artifacts and a Timeline of Invention. Wire diagrams, screenshots, build output, commit-level history. You can verify my work before we ever talk.<span class="service-outcome">Talk is cheap. Code ships.</span></p>
 </details>
 <details class="service-card" open>
@@ -773,7 +773,7 @@ Service-Disabled Veteran-Owned Small Business (SDVOSB) — submitted via VetCert
 SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9<br>
 Maryland CSB (Certified Small Business) — Approved<br>
 13 years defense and enterprise — USCYBERCOM J38 dev lead<br>
-15 repositories — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
+31 repositories — all code verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a><br>
 <span class="service-outcome">All Rights Reserved. Source available on request per engagement.</span>
 </p>
 </details>
@@ -842,10 +842,10 @@ EIN: 41-3835237</p>
 <p><strong>Certifications &amp; Registrations</strong><br>
 SAM.gov — <strong>Active</strong> · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · EIN 41-3835237<br>
 Maryland CSB (Certified Small Business) — <strong>Approved</strong><br>
-SDVOSB (Service-Disabled Veteran-Owned Small Business) — Submitted (VetCert/SBA)<br>
+SDVOSB (Service-Disabled Veteran-Owned Small Business) — Final Review (VetCert/SBA)<br>
 Maryland eMMA — Vendor SUP1095449 · ACH Direct Deposit Active<br>
-crates.io — 4 published crates (kova-engine, exopack, any-gpu, header-writer)<br>
-GitHub — 15+ repositoriesitories at github.com/cochranblock</p>
+crates.io — 32 published crates at crates.io/users/gotemcoach<br>
+GitHub — 31 repositories at github.com/cochranblock</p>
 
 <p><a href="https://github.com/cochranblock" class="btn">Audit the source — github.com/cochranblock</a></p>
 
@@ -853,7 +853,7 @@ GitHub — 15+ repositoriesitories at github.com/cochranblock</p>
 • Memory-safe compiled architecture (Rust) — aligned with CISA Secure-by-Design mandate<br>
 • Zero-cloud single-binary deployment — eliminates cloud attack surface entirely<br>
 • On-device AI inference — no data exfiltration, runs in air-gapped environments<br>
-• DevSecOps binary optimization — 48 KB to 10 MB release binaries with full SBOM<br>
+• DevSecOps binary optimization — 48 KB to 51.5 MB release binaries with full SBOM<br>
 • Edge computing and IoT integration — LoRa/915MHz mesh, ARM/RISC-V targets<br>
 • Autonomous threat detection — 312 KB APT hunter, zero-config deployment</p>
 
@@ -866,18 +866,18 @@ GitHub — 15+ repositoriesitories at github.com/cochranblock</p>
 541690 — Other Scientific and Technical Consulting</p>
 
 <p><strong>Past Performance</strong><br>
-• <strong>cochranblock.org</strong> — Production website. 10 MB binary, $10/month, 15 products, intake forms, booking calendar, community grant app. Self-hosted on bare metal.<br>
+• <strong>cochranblock.org</strong> — Production website. 10 MB binary, $10/month, 31 products, intake forms, booking calendar, community grant app. Self-hosted on bare metal.<br>
 • <strong>oakilydokily.com</strong> — First paying client. Waiver management, digital intake, ESIGN compliance. Bare metal via Cloudflare Zero Trust.<br>
 • <strong>Pixel Forge</strong> — AI sprite generator with on-device diffusion models. 3 MoE models, LoRA fine-tuning. Pure Rust.<br>
 • <strong>USCYBERCOM J38 JMOC-E</strong> — Dev lead for Congressional NDAA-directed offensive cyber operations study.<br>
-• <strong>15 public GitHub repos</strong> — All code auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
+• <strong>31 public GitHub repos</strong> — All code auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
 
 <p><strong>Differentiators</strong><br>
 • <strong>Proven federal contracting posture</strong> — CAGE 1CQ66, UEI W7X3HAQL9CF9, SAM.gov Active<br>
 • <strong>Single-binary = zero infrastructure</strong> — 10MB replaces $36K/year cloud stacks for $120/year<br>
 • <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
-• 4 published crates on <a href="https://crates.io">crates.io</a>: kova-engine, exopack, any-gpu, header-writer<br>
-• 15 Rust repositories with Proof of Artifacts and Timeline of Invention<br>
+• 32 published crates on <a href="https://crates.io">crates.io</a> at crates.io/users/gotemcoach<br>
+• 31 Rust repositories with Proof of Artifacts and Timeline of Invention<br>
 • 4 inventions, 3 architecture patterns, 5 techniques — honestly classified at <a href="/arch">cochranblock.org/arch</a><br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
 • Army 17C (Cyber Operations), JCAC 2014<br>
@@ -885,7 +885,7 @@ GitHub — 15+ repositoriesitories at github.com/cochranblock</p>
 
 <p><strong>Past Performance</strong><br>
 • oakilydokily.com — First paying partnership. Waiver management, digital intake, ESIGN. Deployed on bare metal via Cloudflare Zero Trust.<br>
-• cochranblock.org — Live production site. 15 products, intake forms, SQLite, booking calendar. 10 MB binary, $10/month total infrastructure.<br>
+• cochranblock.org — Live production site. 31 products, intake forms, SQLite, booking calendar. 10 MB binary, $10/month total infrastructure.<br>
 • USCYBERCOM J38 JMOC-E — Dev lead for Congressional NDAA-directed offensive cyber operations study.</p>
 
 <p><strong>Contact</strong><br>
@@ -916,7 +916,7 @@ cochranblock.org/deploy — Start a project</p>
 <tr><td>Maryland eMMA</td><td class="bid-ready">⬤ Vendor SUP1095449 — Active</td></tr>
 <tr><td>Certified Small Business (CSB)</td><td class="bid-ready">⬤ Approved</td></tr>
 <tr><td>SAM.gov</td><td class="bid-ready">⬤ Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9</td></tr>
-<tr><td>SDVOSB (VetCert)</td><td class="bid-blocked">⬤ Submitted — VetCert Apr 10, 2026</td></tr>
+<tr><td>SDVOSB (VetCert)</td><td class="bid-blocked">⬤ Final Review — VetCert Apr 10, 2026</td></tr>
 <tr><td>GSA Schedule</td><td class="bid-date">○ Not Yet Applied</td></tr>
 </table>
 </div>
@@ -954,7 +954,7 @@ CochranBlock has developed a compiled single-binary architecture in Rust that el
 • <strong>oakilydokily.com</strong> — Waiver management and digital intake with ESIGN compliance. Bare metal deployment.<br>
 • <strong>Kova augment engine</strong> — Local LLM inference, agentic tool loop, distributed node C2, cargo/git tokenization. Single binary.<br>
 • <strong>Approuter</strong> — Reverse proxy with automatic Cloudflare tunnel management, app registry, multi-domain routing. Single binary.<br>
-• <strong>15 repositoriesitories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
+• <strong>31 repositories</strong> — All source code publicly auditable at <a href="https://github.com/cochranblock">github.com/cochranblock</a></p>
 
 <p><strong>Phase I Objectives (6 months, $250K)</strong><br>
 1. Formalize the single-binary deployment framework as a reusable platform for federal applications<br>
@@ -1009,7 +1009,7 @@ CochranBlock's compiled single-binary architecture eliminates every external dep
 <p><strong>Past Performance</strong><br>
 • PI served as dev lead at USCYBERCOM J38 JMOC-E for a Congressional NDAA-directed offensive cyber operations study<br>
 • Army 17C (Cyber Operations), JCAC 2014, 30% service-connected disabled veteran<br>
-• 15 Rust repositoriesitories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
+• 31 Rust repositories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
 • cochranblock.org running in production as a single 10 MB binary on $10/month infrastructure</p>
 </div>
 </details>
@@ -1078,7 +1078,7 @@ CochranBlock's zero-trust architecture is secure by compilation, not configurati
 • PI: 13 years defense and enterprise cybersecurity. USCYBERCOM J38 JMOC-E dev lead.<br>
 • Army 17C (Cyber Operations) — trained at JCAC (Joint Cyber Analysis Course), 2013<br>
 • Live production system (cochranblock.org) running zero-cloud architecture with Cloudflare Zero Trust integration<br>
-• 15 repositories — full supply chain transparency, every dependency auditable</p>
+• 31 repositories — full supply chain transparency, every dependency auditable</p>
 </div>
 </details>
 </div>
@@ -1492,7 +1492,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 pub async fn f76(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Code Skillz</h1>
-<p class="services-intro">15 repos. All Rust. All public. All live. Every badge is a shipped product with a timestamp proving I'm still building it.</p>
+<p class="services-intro">31 repos. All Rust. All public. All live. Every badge is a shipped product with a timestamp proving I'm still building it.</p>
 
 <div id="badges-grid" class="badges-grid"><p class="velocity-loading">Loading badges...</p></div>
 <p class="velocity-note">Timestamps refresh every 30 minutes via GitHub API. Yes, I cache. No, I don't fake the numbers.</p>
@@ -1587,7 +1587,7 @@ Army 17C Cyber Operations · JCAC 2014 · USCYBERCOM J38<br>
         f62d(
             "codeskillz",
             "Code Skillz — 15 Repos, All Rust, All Live | CochranBlock",
-            "15 Rust repos with live velocity tracking. Every badge is a shipped product. Kova, Approuter, Rogue Repo, Pixel Forge, and more. All Rights Reserved."
+            "31 Rust repos with live velocity tracking. Every badge is a shipped product. Kova, Approuter, Rogue Repo, Pixel Forge, and more. All Rights Reserved."
         ),
         C7,
         v0,
@@ -1652,7 +1652,7 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <h2 class="services-section-head">Live Proof</h2>
 <div class="service-cards">
 <details class="service-card" open>
-<summary>15 repositories, all public, all using this framework</summary>
+<summary>31 repositories, all public, all using this framework</summary>
 <p>
 <a href="https://github.com/cochranblock/cochranblock">cochranblock</a> — production site, 10 MB binary<br>
 <a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a> — this framework's whitepaper and spec<br>
@@ -1747,7 +1747,7 @@ SUMMARY
 Fractional CTO who replaces bloated cloud infrastructure with
 lean Rust binaries. cochranblock.org — my entire company — runs
 as a single 10 MB binary on a laptop for $10/month. 11+ years
-defense and enterprise. 15 repositories proving
+defense and enterprise. 31 repositories proving
 every claim. Edge compute beats cloud.
 
 ────────────────────────────────────────────────────
@@ -1756,7 +1756,7 @@ THE PROOF
 
 cochranblock.org — live production site. Single Rust binary.
   $10/month total infrastructure. Zero AWS. Zero Kubernetes.
-  15 repositories: github.com/cochranblock
+  31 repositories: github.com/cochranblock
   Proof of Artifacts + Timeline of Invention in every repo.
 
 ────────────────────────────────────────────────────
@@ -1765,7 +1765,7 @@ EXPERIENCE
 
 FOUNDER & FRACTIONAL CTO — CochranBlock                   2024–Present
   Zero-cloud architectures for startups and SMBs.
-  Built 15 Rust products: augment engine (Kova), reverse proxy
+  Built 31 Rust products: augment engine (Kova), reverse proxy
   (approuter), on-device AI (Pixel Forge: 3 diffusion models
   under 30MB), ISO 8583 payment engine (Rogue Repo), testing
   framework (exopack), and cochranblock.org itself.
@@ -1846,7 +1846,7 @@ for having you here." — Jay, USCYBERCOM
   <h3 class="profile-subhead">The Mission</h3>
   <p>Your server bill is too high. CochranBlock exists to prove it — and fix it. This entire company runs as a single Rust binary on a laptop for $10/month. We build zero-cloud architectures that replace bloated infrastructure with lean, fast binaries. All Rights Reserved — The Cochran Block, LLC.</p>
   <h3 class="profile-subhead">What We Do</h3>
-  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 15 Rust repositories back every claim we make.</p>
+  <p>Fractional CTO services for startups and SMBs drowning in cloud costs. We audit your infrastructure, identify what you're overpaying for, and replace it with edge compute that you own. 31 Rust repositories back every claim we make.</p>
   <h3 class="profile-subhead">The Architecture</h3>
   <p>Single-binary Rust. Embedded assets. No external databases for static sites. Cloudflare tunnel for internet exposure. Total cost: a laptop and $10/month. We've built an augment engine, a reverse proxy, on-device AI models, a payment engine, and a testing framework — all running this way.</p>
   <h3 class="profile-subhead">The Trifecta</h3>
@@ -1862,14 +1862,14 @@ for having you here." — Jay, USCYBERCOM
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Our own hardware.</strong> Trained on consumer GPUs — RTX 3070 8GB and RTX 3050 Ti 4GB in laptops running Debian. Not rented cloud A100s. Total training cost: electricity.<cite>→ <a href="/codeskillz">infrastructure details</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Real debugging.</strong> We found and fixed fundamental math bugs — Gaussian noise scaling, epsilon prediction, DDIM sampling — by reading tensor values and tracing gradients. Not by throwing more compute at the problem.<cite>→ <a href="https://github.com/cochranblock/pixel-forge">commit history</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>Ships on a phone.</strong> The model runs offline in a 10 MB app. No API key. No cloud. No subscription. No internet required. Try that with a HuggingFace download.<cite>→ <a href="/tinybinaries">binary sizes</a></cite></blockquote>
-    <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>15 projects, one person.</strong> 143,763 lines of Rust across 351 source files. 1,598 tests. Every binary serves its own SBOM. Every claim is verifiable from source code. The site you are reading runs the same code it serves.<cite>→ <a href="/source">read the source</a></cite></blockquote>
+    <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>31 projects, one person.</strong> 143,763 lines of Rust across 351 source files. 1,598 tests. Every binary serves its own SBOM. Every claim is verifiable from source code. The site you are reading runs the same code it serves.<cite>→ <a href="/source">read the source</a></cite></blockquote>
     <blockquote class="testimonial" style="border-left-color:var(--cyber-teal)"><strong>AI-augmented, not AI-dependent.</strong> We use Claude, Gemini, Cursor as force multipliers. The AI writes code. The human directs architecture, catches bugs, makes decisions. Full transparency — the <a href="https://github.com/cochranblock/provenance-docs">Timeline of Invention</a> documents exactly what the AI did vs what the human directed.<cite>→ <a href="/openbooks">open books</a></cite></blockquote>
   </div>
 
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Army veteran (17C Cyber Operations). 13 years defense and enterprise. SDVOSB submitted. It's not the Mech — it's the pilot.</p>
-  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 23 products built, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
-  <p style="margin-top:1rem"><a href="https://github.com/cochranblock" class="btn">View source — 23 repos, 4 crates.io publications</a></p>
+  <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 31 products built, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
+  <p style="margin-top:1rem"><a href="https://github.com/cochranblock" class="btn">View source — 31 repos, 32 crates.io publications</a></p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
@@ -1896,7 +1896,7 @@ document.addEventListener('DOMContentLoaded',function(){{var btns=document.query
         f62d(
             "about",
             "About | CochranBlock",
-            "Michael Cochran — Army 17C veteran, 13 years defense and enterprise, USCYBERCOM J38 co-dev lead (NDAA-directed OCO study, paired J9/J38). LLC formed, 23 repos shipped, first partnership signed — all in under 30 days."
+            "Michael Cochran — Army 17C veteran, 13 years defense and enterprise, USCYBERCOM J38 co-dev lead (NDAA-directed OCO study, paired J9/J38). LLC formed, 31 repos shipped, first partnership signed — all in under 30 days."
         ),
         C7,
         v6,
@@ -1971,7 +1971,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
         f62d(
             "products",
             "Products | CochranBlock",
-            "15 Rust products. Kova augment engine, Approuter reverse proxy, Rogue Repo payment engine, Pocket Server, Ronin Sites. All Rust. All live."
+            "31 Rust products. Kova augment engine, Approuter reverse proxy, Rogue Repo payment engine, Pocket Server, Ronin Sites. All Rust. All live."
         ),
         C7,
         v0,
@@ -2113,7 +2113,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry {
         path: "/",
         title: "Home",
-        body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 15 repositories.",
+        body: "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single Rust binary. Fractional CTO. Zero-cloud architect. Veteran-owned. $10/month. 31 repositories.",
     },
     SearchEntry {
         path: "/services",
@@ -2123,7 +2123,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry {
         path: "/products",
         title: "Products",
-        body: "15 Rust products. aptnomo APT threat hunter. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework. any-gpu GPU tensor engine.",
+        body: "31 Rust products. aptnomo APT threat hunter. Kova augment engine. Approuter reverse proxy. Rogue Repo payment engine. Pixel Forge AI sprite generator. Pocket Server. Ronin Sites. OakilyDokily waiver management. Ghost Fabric LoRa mesh. Call Shield. Exopack test framework. any-gpu GPU tensor engine.",
     },
     SearchEntry {
         path: "/deploy",
@@ -2148,7 +2148,7 @@ const SEARCH_INDEX: &[SearchEntry] = &[
     SearchEntry {
         path: "/codeskillz",
         title: "Code Skillz — 15 Repos",
-        body: "15 repos. All Rust. All public. All live. Velocity tracking. GitHub commit history. Badges for every shipped product. Infrastructure: 4 bare metal Debian nodes. GPU compute RTX 3070 RTX 3050 Ti.",
+        body: "31 repos. All Rust. All public. All live. Velocity tracking. GitHub commit history. Badges for every shipped product. Infrastructure: 4 bare metal Debian nodes. GPU compute RTX 3070 RTX 3050 Ti.",
     },
     SearchEntry {
         path: "/stats",
@@ -2332,7 +2332,7 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <div class="govdoc-print">
 <p>Every claim below is verifiable by clicking through this site:</p>
 <ul>
-<li><strong><a href="/codeskillz">23 repositories</a></strong> on GitHub — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
+<li><strong><a href="/codeskillz">31 repositories</a></strong> on GitHub — <a href="https://github.com/cochranblock">github.com/cochranblock</a></li>
 <li><strong><a href="/codeskillz">30-minute commit tracker</a></strong> — machine-verified continuous development, not self-reported</li>
 <li><strong><a href="/tinybinaries">Binary sizes from 48 KB to 51.5 MB</a></strong> — every binary measured, every claim verified</li>
 <li><strong>First paying client</strong> — <a href="https://oakilydokily.com">oakilydokily.com</a> under active contract</li>
@@ -2390,7 +2390,7 @@ Government edge deployments (tactical, shipboard, SCIF) operate on resource-cons
 <details class="service-card" open>
 <summary>Machine-Verified Productivity</summary>
 <div class="govdoc-print">
-<p>The Veteran maintains a custom-built dashboard that tracks and verifies continuous Git commits at 30-minute intervals across all 15 active repositories:</p>
+<p>The Veteran maintains a custom-built dashboard that tracks and verifies continuous Git commits at 30-minute intervals across all 31 active repositories:</p>
 <ul>
 <li><strong><a href="/codeskillz">30-minute commit tracker →</a></strong> Objective evidence of sustained productivity — machine-verified, not self-reported</li>
 <li><strong><a href="https://github.com/cochranblock">Public audit trail →</a></strong> Every commit timestamped, hashed, and published to GitHub</li>
@@ -2634,7 +2634,7 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
 <div class="govdoc-print">
 <p><strong>Data source:</strong> GitHub API — commit timestamps from public repositories under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Machine-verified public record.</p>
 <p><strong>Session detection:</strong> Consecutive commits within a 2-hour window are grouped into a single work session. Session hours = actual elapsed time between the first and last commit of the session. <strong>No imputed minimum.</strong> A session with one commit contributes zero hours. A session with commits 12 minutes apart contributes 12 minutes.</p>
-<p><strong>23 repositories tracked.</strong> Every public repo under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Hours are hours. No multipliers. No adjustments.</p>
+<p><strong>31 repositories tracked.</strong> Every public repo under <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Hours are hours. No multipliers. No adjustments.</p>
 <p><strong>Rate context:</strong> $225/hour is our published rate card reference, supported by salary-equivalent analysis and market comparables. Actual rates on any specific federal contract are established contractually and may vary.</p>
 
 <p><strong>Context on federal cost accounting:</strong> IR&amp;D (Independent Research &amp; Development) is an indirect cost recovered via overhead/G&amp;A pools under FAR 31.205-18 — not billed directly by the hour. Direct labor on federal contracts is recorded via contemporaneous daily timesheets maintained internally and available on audit request. This page is not a substitute for either.</p>
@@ -2654,7 +2654,7 @@ pub async fn f86(State(_p0): State<Arc<t0>>) -> Html<String> {
     let head = f62d(
         "openbooks",
         "Open Books — Public R&D Activity Log | CochranBlock",
-        "Public R&D activity observed from GitHub commit history. Transparency artifact. Not a billing record. 15 repositories.",
+        "Public R&D activity observed from GitHub commit history. Transparency artifact. Not a billing record. 31 repositories.",
     );
     Html([head.as_str(), C7, v0.as_str(), C8].concat())
 }
@@ -3237,7 +3237,7 @@ pub async fn f88(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware.
 
 ## Home (/)
-Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 23 repositories. 5 published crates on crates.io. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
+Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 31 repositories. 32 published crates on crates.io. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
 
 ## Services (/services)
 $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. All Rights Reserved — The Cochran Block, LLC. Same-day rebrands, first paying partnership shipped in under 30 days.
@@ -3246,7 +3246,7 @@ $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fracti
 Motto-backed security posture. Rust binaries beat scripts because binaries are sealed artifacts with no runtime interpreter, no pip/npm sideload, no dependency resolver at execution time. Memory-safe by construction (Rust). NanoSign 36-byte BLAKE3 signatures on every model file. Assumed-breach threat model applied to every repo (hardware signing keys, append-only storage, public hash-chain witnesses, cross-zone backups). All Rights Reserved. Source available per engagement. Sovereign stack: local inference, local storage, self-hosted everything. 34 buzzword URLs all redirect to /security — from /cmmc /fedramp /nist-800-171 /soc2 /sbom /zero-trust to /fort-knox-lockdown-mega-infrastructure /you-shall-not-pass /not-today-satan.
 
 ## Products (/products)
-23 Rust repos plus 5 crates.io publications: kova (augment engine, local LLM, agentic tool loop, NanoSign, distributed C2), pixel-forge (on-device AI pixel art diffusion, MoE cascade, LoRA, 97K-param MicroUNet silos), any-gpu (tensor engine on AMD/NVIDIA/Intel/Apple via wgpu), tmuxisfree (AI agent fleet orchestration via tmux, sponge mesh broadcast), approuter (reverse proxy, auto-tunnel, Cloudflare Zero Trust), ghost-fabric (LoRa mesh intelligence, 19 MB Rust, 915 MHz), pocket-server (phone-hosted website, kiosk dashboard), call-shield (sub-ms call screening, 360 KB), aptnomo (312 KB APT threat hunter), rogue-repo (ISO 8583 payment engine), exopack (Triple Sims + visual regression), oakilydokily (waiver management, ESIGN, first paid partnership), whobelooking (OSINT aggregator across 8 federal APIs), header-writer (post-AI header injector), whyyoulying (DoD fraud detection), illbethejudgeofthat (pro se legal case builder), provenance-docs (TOI + POA framework), wowasticker (offline dictation), cochranblock (this site).
+31 Rust repos plus 32 crates.io publications: kova (augment engine, local LLM, agentic tool loop, NanoSign, distributed C2), pixel-forge (on-device AI pixel art diffusion, MoE cascade, LoRA, 97K-param MicroUNet silos), any-gpu (tensor engine on AMD/NVIDIA/Intel/Apple via wgpu), tmuxisfree (AI agent fleet orchestration via tmux, sponge mesh broadcast), approuter (reverse proxy, auto-tunnel, Cloudflare Zero Trust), ghost-fabric (LoRa mesh intelligence, 19 MB Rust, 915 MHz), pocket-server (phone-hosted website, kiosk dashboard), call-shield (sub-ms call screening, 360 KB), aptnomo (312 KB APT threat hunter), rogue-repo (ISO 8583 payment engine), exopack (Triple Sims + visual regression), oakilydokily (waiver management, ESIGN, first paid partnership), whobelooking (OSINT aggregator across 8 federal APIs), header-writer (post-AI header injector), whyyoulying (DoD fraud detection), illbethejudgeofthat (pro se legal case builder), provenance-docs (TOI + POA framework), wowasticker (offline dictation), cochranblock (this site).
 
 ## Architecture (/arch)
 32+ named contributions: inventions (Fish Tank Starfield, P13 Compression Mapping, NanoSign Model Integrity, Sponge Mesh Broadcast), architecture patterns (Zero-Cloud Single-Binary, Gemini Man Pattern, Self-Converging Flywheel, P26 Moonshot Frame), techniques (Triple Sims, MoE Cascade, Agentic Tool Loop with Context Compaction, Multi-Tunnel Abstraction, C2 Swarm Orchestration), production engineering (Pure Rust ISO 8583, Zero-JavaScript Architecture, DoDI 5505.02 Rule Engine, etc.). "Standing On" prior-art credits to Fabrice Bellard, Justine Tunney, DJB, Ken Thompson, Rob Pike, Linus Torvalds, Bruce Perens, BLAKE3 team, Phil Zimmermann, Jamie Wilkinson, Sam Hocevar, Van Jacobson, Doug Engelbart, Gang of Four, Avizienis, Cerf/Kahn/Burleigh (DTN), Bryan Cantrill, Mitko Vasilev, DHH, George Hotz, Chaillan, Doctorow, Drew DeVault.
@@ -3255,11 +3255,11 @@ Motto-backed security posture. Rust binaries beat scripts because binaries are s
 Civilizational-stakes review protocol. Before every merge: "if this code were the foundation of a civilization-scale outcome, would it still hold up?" Five Forces: typed where possible, bounded where unbounded, observable where silent, explainable where obvious, reviewer-friendly where shortcut-friendly. Apply when code feels "good enough for me" — that phrase is the trigger. All Rights Reserved.
 
 ## About (/about)
-Michael Cochran. Army 17C Cyber Operations, JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 23 products built, first paying partnership signed, all in under 30 days.
+Michael Cochran. Army 17C Cyber Operations, JCAC 2014. 13 years defense and enterprise. USCYBERCOM J38 JMOC-E dev lead for Congressional NDAA-directed offensive cyber operations study. 30% service-connected disabled veteran. LLC formed, 31 products built, first paying partnership signed, all in under 30 days.
 
 The Trifecta: 1) Can't outbuild a one-man army. 2) Can't out-transparent proven delivery — source, bugs, R&D activity log all public. 3) Expertise is inherent — code IS the resume.
 
-The Method: Custom architecture (Rust diffusion models from scratch, MicroUNet silos, no_std where viable), own hardware (RTX 3070/3050 Ti laptops), tensor-level debugging, ships on a phone (10 MB offline), 23 repos one person, AI-augmented not AI-dependent. NanoSign for AI model integrity. P26 Moonshot Frame for every merge.
+The Method: Custom architecture (Rust diffusion models from scratch, MicroUNet silos, no_std where viable), own hardware (RTX 3070/3050 Ti laptops), tensor-level debugging, ships on a phone (10 MB offline), 31 repos one person, AI-augmented not AI-dependent. NanoSign for AI model integrity. P26 Moonshot Frame for every merge.
 
 ## Stats (/stats)
 Defense contractor benchmarks: cochranblock.org 131 KB page weight vs Booz Allen 4,376 KB (33x heavier), Leidos 1,028 KB, SAIC 1,394 KB, CACI 250 KB. 50,000 visitors: 6.3 GB vs 208.7 GB. Cloud cost: AWS $1,099/mo, Azure $849/mo, GCP $2,433/mo vs $10/mo Rust binary. 110x-243x cost reduction. Live Cloudflare traffic, repo activity, daily commits. ROI: $3,500 deployment pays back in 37 days.
@@ -3290,7 +3290,7 @@ pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
             (axum::http::header::CONTENT_TYPE, "application/json"),
             (axum::http::header::CACHE_CONTROL, "public, max-age=3600"),
         ],
-        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"pending","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":23,"repos":23,"unlicense_repos":0,"crates_published":1,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"10MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
+        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"final_review","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":31,"repos":31,"unlicense_repos":31,"crates_published":32,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"10MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
     )
 }
 
@@ -5922,8 +5922,8 @@ pub async fn f110(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// the Guy Kawasaki 10-slide pitch structure as the official KNOXAI
 /// investor-facing pitch deck under CEBP authorization. Single document
 /// combines the formal Article XV amendment preamble with a full visual
-/// 10-slide deck (one slide per scrolling section), authorizing John
-/// Szeder (Operator #1) to handle, modify, and present for the a16z
+/// 10-slide deck (one slide per scrolling section), authorizing
+/// Operator #1 to handle, modify, and present for the a16z
 /// Speedrun submission.
 pub async fn f111(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/amendment-003.html");

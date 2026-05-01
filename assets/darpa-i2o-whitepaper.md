@@ -37,11 +37,11 @@ All techniques are implemented, tested, and running:
 - **cochranblock.org:** Production multi-domain web platform. 15MB binary, $10/month total infrastructure. 75fps render, 164ms first paint, zero layout shift.
 - **whobelooking:** Federal contract intelligence system. 8 APIs, headless Chrome scraper, 451 opportunities scraped and scored. Single binary.
 - **whyyoulying:** Labor fraud detection. 8 DoDI 5505.02 rules, GAGAS referral export, 67 unit + 12 integration tests. 621KB binary.
-- **15 open-source repositories** publicly auditable at github.com/cochranblock
+- **31 open-source repositories** publicly auditable at github.com/cochranblock
 
 ### 4. Technical Approach
 
-**Phase 0 (current):** Working prototypes deployed across 15 repositories. Timeline of Invention with commit-level provenance for every technique.
+**Phase 0 (current):** Working prototypes deployed across 31 repositories. Timeline of Invention with commit-level provenance for every technique.
 
 **Phase I (12 months, $1M):**
 1. Harden Kova agent loop for IL4/IL5 environments — FIPS 140-3 crypto module, CAC/PIV auth

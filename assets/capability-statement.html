@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Capability Statement — The Cochran Block, LLC</title>
+<style>
+  @page { size: letter; margin: 0.5in 0.55in; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #fff; color: #111;
+    font-family: 'Charter','Georgia','Source Serif Pro',serif;
+    font-size: 9.5pt; line-height: 1.32;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .mono, code, .reg-tbl td:nth-child(2), .ident {
+    font-family: 'JetBrains Mono','SF Mono','Menlo','Consolas',monospace;
+    font-size: 9pt;
+  }
+  .head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 2px solid #c98800; padding-bottom: 6pt; margin-bottom: 10pt;
+  }
+  .head .name { font-family: 'JetBrains Mono','SF Mono',monospace; font-weight: 700; font-size: 16pt; letter-spacing: -0.2pt; color: #111; }
+  .head .name .amber { color: #c98800; }
+  .head .who { font-style: italic; color: #444; font-size: 9pt; margin-top: 2pt; }
+  .head .right { text-align: right; font-size: 8.5pt; color: #333; line-height: 1.45; font-family: 'JetBrains Mono','SF Mono',monospace; }
+  .tagline {
+    font-style: italic; color: #c98800; font-weight: 600;
+    margin: 0 0 12pt 0; font-size: 10pt; letter-spacing: 0.1pt;
+  }
+  .grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 14pt; }
+  h2 {
+    font-family: 'JetBrains Mono','SF Mono',monospace;
+    font-size: 8.5pt; letter-spacing: 1.2pt; text-transform: uppercase;
+    color: #111; margin: 0 0 5pt 0; padding-bottom: 2pt;
+    border-bottom: 1px solid #d8b86a; font-weight: 700;
+  }
+  section { margin-bottom: 10pt; break-inside: avoid; }
+  ul.bul { list-style: none; padding: 0; margin: 0; }
+  ul.bul > li { padding: 0 0 5pt 12pt; position: relative; }
+  ul.bul > li::before {
+    content: "▸"; position: absolute; left: 0; top: 0;
+    color: #c98800; font-size: 8.5pt;
+  }
+  .sub { color: #444; font-style: italic; font-size: 8.7pt; display: block; margin-top: 1pt; }
+  .reg-tbl { width: 100%; border-collapse: collapse; }
+  .reg-tbl td { padding: 2.5pt 0; border-bottom: 1px dotted #ccc; vertical-align: top; }
+  .reg-tbl td:first-child { color: #333; }
+  .reg-tbl td:last-child { text-align: right; font-weight: 600; color: #c98800; font-family: 'JetBrains Mono',monospace; font-size: 8.7pt; white-space: nowrap; }
+  .naics { display: grid; grid-template-columns: 1fr 1fr; gap: 3pt 12pt; font-family: 'JetBrains Mono',monospace; font-size: 8.6pt; }
+  .naics .code { color: #c98800; font-weight: 700; }
+  .differentiator {
+    border-left: 3px solid #c98800; padding: 6pt 9pt;
+    background: #fff8e6; margin-top: 4pt; font-size: 9pt;
+  }
+  .differentiator strong { color: #111; }
+  .receipts {
+    margin-top: 8pt; padding: 6pt 9pt;
+    border: 1px solid #d8b86a; background: #fffaf0;
+    font-family: 'JetBrains Mono',monospace; font-size: 8.5pt; line-height: 1.55;
+  }
+  .receipts .row { display: flex; justify-content: space-between; }
+  .receipts .row .v { color: #c98800; font-weight: 700; }
+  footer {
+    margin-top: 14pt; padding-top: 6pt;
+    border-top: 1px solid #c98800;
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono',monospace; font-size: 8pt; color: #333;
+  }
+  footer .url { color: #c98800; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div>
+    <div class="name">The Cochran Block<span class="amber">,</span> LLC</div>
+    <div class="who">Michael Cochran &middot; Owner / Founder</div>
+  </div>
+  <div class="right">
+    7452 School Avenue<br>
+    Dundalk, MD 21222<br>
+    mcochran@cochranblock.org<br>
+    cochranblock.org
+  </div>
+</div>
+
+<div class="tagline">Zero-cloud compiled architecture. Memory-safe by default. Veteran-owned.</div>
+
+<div class="grid">
+
+<div>
+
+<section>
+<h2>Core Competencies</h2>
+<ul class="bul">
+  <li><strong>Memory-safe compiled architecture (Rust)</strong>
+    <span class="sub">Aligned with CISA Secure-by-Design mandate, EO 14028, NIST SP 800-218.</span></li>
+  <li><strong>On-device AI inference</strong>
+    <span class="sub">Local LLM execution via custom Mixture-of-Experts. No API calls, no data exfiltration. Air-gap capable.</span></li>
+  <li><strong>DevSecOps binary optimization</strong>
+    <span class="sub">48 KB to 51.5 MB release binaries with full SBOM traceability and verifiable provenance.</span></li>
+  <li><strong>Hardware-signed AI model integrity (KNOXAI)</strong>
+    <span class="sub">ESP32-eFuse root of trust + 5-gate audit pipeline. Reproducible cryptographic attestation for AI model integrity.</span></li>
+  <li><strong>Federal-grade automation replacing ansible-tier tooling</strong>
+    <span class="sub">Statically-linked Rust binaries deployable on government systems with no runtime dependencies.</span></li>
+</ul>
+</section>
+
+<section>
+<h2>Past Performance &amp; Credentials</h2>
+<ul class="bul">
+  <li>Title 10 Offensive Cyber Operator, ARCYBER 103rd Cyber Mission Team</li>
+  <li>USCYBERCOM J38 JMOC-E co-dev lead, NDAA-directed offensive cyber operations study</li>
+  <li>US Army veteran &middot; MOS 17C Cyber Operations &middot; JCAC Corry Station 2014</li>
+  <li><strong>31 shipped Rust products &middot; 32 crates published &middot; 60-day production sprint</strong></li>
+</ul>
+
+<div class="differentiator">
+<strong>Differentiator:</strong> Service-disabled veteran with operational ARCYBER background, building the capability he previously deployed on active duty. Capital efficient (<span class="ident">$364 / 60-day sprint</span>). Federal-friendly per-contract Unlicense flip on government systems with retained commercial IP.
+</div>
+
+<div class="receipts">
+<div class="row"><span>Public Rust repositories</span><span class="v">31</span></div>
+<div class="row"><span>crates.io publications (gotemcoach)</span><span class="v">32</span></div>
+<div class="row"><span>Lines of Rust shipped</span><span class="v">144,272 net</span></div>
+<div class="row"><span>Total spend, 60-day sprint</span><span class="v">$364</span></div>
+<div class="row"><span>Live production domains</span><span class="v">3</span></div>
+<div class="row"><span>Verifiable at</span><span class="v">github.com/cochranblock</span></div>
+</div>
+
+</section>
+
+</div>
+
+<div>
+
+<section>
+<h2>Registrations</h2>
+<table class="reg-tbl">
+<tr><td>SAM.gov</td><td>Active</td></tr>
+<tr><td>CAGE Code</td><td>1CQ66</td></tr>
+<tr><td>UEI</td><td>W7X3HAQL9CF9</td></tr>
+<tr><td>EIN</td><td>41-3835237</td></tr>
+<tr><td>MD CSB (Certified Small Business)</td><td>Approved</td></tr>
+<tr><td>MD eMMA Vendor</td><td>SUP1095449</td></tr>
+<tr><td>SDVOSB (VetCert / SBA)</td><td>Final Review</td></tr>
+<tr><td>GSA Schedule</td><td>Not Yet Applied</td></tr>
+</table>
+</section>
+
+<section>
+<h2>NAICS Codes</h2>
+<div class="naics">
+  <div><span class="code">541512</span> Computer Systems Design</div>
+  <div><span class="code">541511</span> Custom Programming</div>
+  <div><span class="code">541519</span> Other Computer Services</div>
+  <div><span class="code">518210</span> Computing Infrastructure</div>
+  <div><span class="code">541330</span> Engineering Services</div>
+  <div><span class="code">541690</span> Technical Consulting</div>
+</div>
+</section>
+
+<section>
+<h2>Contract Vehicles &amp; Set-Asides</h2>
+<ul class="bul">
+  <li>SDVOSB sole-source eligible up to $4M (FAR 19.1406) once approved</li>
+  <li>Small business sub-contractor under prime FAR 19.702 plans</li>
+  <li>Authorized for State of Maryland procurement</li>
+  <li>SBIR / STTR Phase I, Direct-to-Phase-II eligible</li>
+  <li>OTA / DIU / SOFWERX rapid-prototype vehicles</li>
+  <li>SOCOM scout card portal: AI Edge submission active (TRL 5)</li>
+</ul>
+</section>
+
+<section>
+<h2>Customer Targets</h2>
+<ul class="bul">
+  <li>ARCYBER, USCYBERCOM, INSCOM, JFHQ-DODIN cyber programs</li>
+  <li>SOCOM AI Edge / disconnected-environment capability</li>
+  <li>Banking and fintech AI assurance (SR 11-7, OCC 2026-13)</li>
+  <li>Defense prime sub-contractor: GDIT, CACI, Leidos, ManTech, Peraton</li>
+</ul>
+</section>
+
+</div>
+
+</div>
+
+<footer>
+  <div>The Cochran Block, LLC &middot; Veteran-Owned &middot; CAGE 1CQ66 &middot; UEI W7X3HAQL9CF9</div>
+  <div class="url">cochranblock.org</div>
+</footer>
+
+</body>
+</html>
