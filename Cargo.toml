@@ -32,7 +32,7 @@ default = []
 tests = ["exopack", "colored", "admin", "dev"]
 admin = []
 dev = []
-approuter = ["dep:approuter-client", "dep:lers"]
+approuter = ["dep:approuter-client"]
 
 [lib]
 name = "cochranblock"
@@ -64,7 +64,7 @@ tokio = { version = "1", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 sled = "0.34"
-sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "sqlite"] }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio-rustls", "sqlite", "macros", "migrate"] }
 urlencoding = "2"
 bincode = { version = "2", features = ["serde"] }
 zstd = "0.13"
@@ -78,7 +78,7 @@ tracing-appender = "0.2"
 chrono = { version = "0.4", features = ["serde"] }
 chrono-tz = "0.9"
 uuid = { version = "1", features = ["v4"] }
-reqwest = { version = "0.11", features = ["blocking", "json", "cookies", "rustls-tls"], default-features = false }
+reqwest = { version = "0.12", features = ["blocking", "json", "cookies", "rustls-tls"], default-features = false }
 sha2 = "0.10"
 colored = { version = "2", optional = true }
 tempfile = "3"
@@ -92,7 +92,6 @@ lettre = { version = "0.11", default-features = false, features = ["smtp-transpo
 axum-server = { version = "0.7", features = ["tls-rustls"] }
 rustls = { version = "0.23", features = ["ring"] }
 rcgen = "0.14"
-lers = { version = "0.4", features = ["dns-01-cloudflare"], optional = true }
 # openssl removed — rustls handles all TLS. Zero C dependencies.
 
 [build-dependencies]

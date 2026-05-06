@@ -4,8 +4,17 @@
 
 set -euo pipefail
 
-echo "[1/5] Pull + build on lf..."
-ssh lf "cd /home/mcochran/cochranblock && git pull && source ~/.cargo/env && cargo build --release --features approuter 2>&1 | tail -2"
+echo "[0/6] cargo audit gate (per .cargo/audit.toml)..."
+VULN_COUNT=$(ssh lf "cd /home/mcochran/cochranblock && source ~/.cargo/env && git pull && cargo audit 2>&1 | grep -c '^RUSTSEC-' || echo 0")
+if [ "${VULN_COUNT:-0}" -gt 0 ]; then
+  echo "  ABORT: $VULN_COUNT actionable RUSTSEC advisories. Bump deps before deploy."
+  echo "  See: ssh lf 'cd /home/mcochran/cochranblock && cargo audit'"
+  exit 1
+fi
+echo "  PASS: 0 unignored vulnerabilities"
+
+echo "[1/6] Pull + build on lf..."
+ssh lf "cd /home/mcochran/cochranblock && source ~/.cargo/env && cargo build --release --features approuter 2>&1 | tail -2"
 
 echo "[2/5] Copy binary lf → gd (staging)..."
 scp lf:/home/mcochran/cochranblock/target/release/cochranblock /tmp/cochranblock-x86

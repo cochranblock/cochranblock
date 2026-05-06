@@ -1,0 +1,23 @@
+# Unlicense — cochranblock.org
+# cargo-audit ignore list for unfixable / inapplicable advisories.
+#
+# Run:  cargo audit
+# Each ignore must include a rationale comment.
+
+[advisories]
+ignore = [
+    # rsa 0.9.x — Marvin Attack timing side-channel.
+    # No fix available upstream (it's a fundamental issue with non-constant-time
+    # RSA implementations across the ecosystem). The crate enters our lockfile
+    # via `sqlx-mysql`, which is a transitive dep of `sqlx 0.8` even when only
+    # the `sqlite` feature is enabled. We do NOT compile `sqlx-mysql` (verified:
+    # `cargo tree -i rsa --target all` returns no matches; no `librsa-*.rlib`
+    # ever lands in `target/release/deps/`). This advisory is therefore present
+    # only as a lockfile artifact and not exploitable in our binary.
+    "RUSTSEC-2023-0071",
+]
+
+# `unmaintained` advisories below are warnings, not vulnerabilities. Cargo-audit
+# does not fail on them by default; we leave them visible so future cleanup
+# (e.g. migrating sled→redb, swapping `image` for a smaller decoder) can reduce
+# the list.
