@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="The Cochran Block manual. Index of every Rust crate published under the Unlicense (public domain). The Anti-Founder Manifesto in crate form.">
+<meta name="description" content="The Cochran Block Manual. Doctrine and operations in one scroll. The Anti-Founder Manifesto plus the crate index. Public domain. Receipts attached.">
 <meta name="robots" content="index,follow">
-<title>The Manual — Cochran Block</title>
+<title>The Cochran Block Manual &mdash; Doctrine &amp; Operations</title>
 <style>
 :root {
   --bg: #050508;
@@ -17,10 +17,13 @@
   --accent: #00d9ff;
   --accent-hover: #33e1ff;
   --amber: #ffb300;
+  --amber-dim: rgba(255,179,0,0.5);
   --green: #4caf50;
   --red: #ef5350;
+  --blood: #b71c1c;
   --line: rgba(0,217,255,0.10);
   --line2: rgba(0,217,255,0.22);
+  --line-amber: rgba(255,179,0,0.22);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
@@ -28,8 +31,12 @@ html, body {
   font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
   font-size: 15px; line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
-body { max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+body { margin: 0; padding: 0; }
+
+/* ───── Shared atoms ──────────────────────────────────────── */
+
 .brand { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.4rem; }
 .brand-logo { width: 44px; height: 44px; flex-shrink: 0; }
 .brand-name {
@@ -50,7 +57,7 @@ h1.banner {
   margin-bottom: 1rem;
   color: var(--fg);
 }
-h1.banner .accent { color: var(--accent); }
+h1.banner .anti, h1.banner .accent { color: var(--accent); }
 .sub {
   font-size: 0.9rem;
   letter-spacing: 0.3em;
@@ -77,6 +84,9 @@ h1.banner .accent { color: var(--accent); }
   border-left: 4px solid var(--accent);
   background: rgba(0,217,255,0.05);
 }
+.creed strong { color: var(--fg); }
+.creed code { background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--amber); font-size: 0.92em; }
+
 h2 {
   font-size: 1.15rem; font-weight: 800;
   letter-spacing: 0.18em; text-transform: uppercase;
@@ -84,23 +94,36 @@ h2 {
   margin: 3rem 0 0.8rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
+  scroll-margin-top: 1.2rem;
+}
+h3 {
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--fg);
+  margin: 1.6rem 0 0.5rem;
 }
 p { color: var(--fg2); margin: 0.6rem 0 1rem; }
 p strong { color: var(--fg); }
 em { color: var(--amber); font-style: normal; }
 a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--line2); }
 a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+code { background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--amber); font-size: 0.88em; }
 
-.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 2rem; }
-.badge {
-  display: inline-block;
-  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--line2);
-  background: rgba(0,217,255,0.04);
-  color: var(--accent);
-  border-bottom: 1px solid var(--line2);
+ul.bullets { list-style: none; padding-left: 0; }
+ul.bullets li {
+  padding: 0.5rem 0 0.5rem 1.2rem;
+  position: relative;
+  color: var(--fg2);
+  border-bottom: 1px solid var(--line);
 }
+ul.bullets li::before {
+  content: "\203A";
+  position: absolute; left: 0; top: 0.5rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+ul.bullets li:last-child { border-bottom: none; }
+ul.bullets li code { color: var(--amber); }
 
 table.receipts {
   width: 100%;
@@ -121,9 +144,11 @@ table.receipts th {
   text-transform: uppercase;
   border-bottom: 1px solid var(--line2);
 }
-table.receipts td.crate { color: var(--fg); font-weight: 700; white-space: nowrap; }
-table.receipts td.purpose { color: var(--fg2); }
+table.receipts td.proj, table.receipts td.crate { color: var(--fg); font-weight: 700; white-space: nowrap; }
+table.receipts td.replaces, table.receipts td.purpose { color: var(--fg2); }
+table.receipts td.hours { color: var(--accent); font-weight: 700; white-space: nowrap; }
 table.receipts td.lic { color: var(--green); font-weight: 700; white-space: nowrap; }
+table.receipts td.link { white-space: nowrap; }
 
 pre.code {
   background: var(--bg3);
@@ -148,6 +173,16 @@ pre.code .com { color: var(--fg3); font-style: italic; }
   color: var(--fg2);
 }
 .callout strong { color: var(--fg); }
+
+.cta {
+  margin: 3rem 0 1rem;
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--accent);
+  background: rgba(0,217,255,0.04);
+}
+.cta h3 { color: var(--accent); margin-top: 0; }
+.cta p { color: var(--fg2); }
+.cta code { background: var(--bg3); padding: 2px 6px; border-radius: 3px; color: var(--amber); font-size: 0.85rem; }
 
 .foot {
   margin-top: 4rem;
@@ -179,16 +214,14 @@ pre.code .com { color: var(--fg3); font-style: italic; }
 }
 .epigraph .quote::before {
   content: "\201C";
-  font-size: 2em;
-  line-height: 0;
+  font-size: 2em; line-height: 0;
   vertical-align: -0.35em;
   color: var(--accent);
   margin-right: 0.15em;
 }
 .epigraph .quote::after {
   content: "\201D";
-  font-size: 2em;
-  line-height: 0;
+  font-size: 2em; line-height: 0;
   vertical-align: -0.5em;
   color: var(--accent);
   margin-left: 0.05em;
@@ -203,9 +236,152 @@ pre.code .com { color: var(--fg3); font-style: italic; }
   font-style: normal;
   font-weight: 700;
 }
+
+.badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 2rem; }
+.badge {
+  display: inline-block;
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line2);
+  background: rgba(0,217,255,0.04);
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line2);
+}
+.badge:hover { color: var(--accent-hover); border-color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+
+/* ───── Acts ──────────────────────────────────────────────── */
+
+.act-i {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* ───── The Seam ──────────────────────────────────────────── */
+
+.seam {
+  position: relative;
+  padding: 4rem 1.5rem 3rem;
+  margin: 0;
+  text-align: center;
+  overflow: hidden;
+  scroll-margin-top: 1rem;
+}
+.seam::before, .seam::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  margin: 0 auto;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,179,0,0.0) 5%,
+    var(--amber) 22%,
+    var(--amber) 78%,
+    rgba(255,179,0,0.0) 95%,
+    transparent 100%);
+}
+.seam::before { margin-bottom: 2.5rem; }
+.seam::after  { margin-top: 2.5rem; }
+
+.seam-glyph {
+  font-size: clamp(6rem, 22vw, 14rem);
+  line-height: 1;
+  color: var(--amber);
+  opacity: 0.13;
+  letter-spacing: -0.05em;
+  font-weight: 100;
+  user-select: none;
+  margin: 0.5rem 0 1rem;
+  text-shadow: 0 0 60px rgba(255,179,0,0.35);
+}
+.seam-cap {
+  display: block;
+  font-size: clamp(0.7rem, 1.4vw, 0.82rem);
+  letter-spacing: 0.42em;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0.6rem 0;
+}
+.seam-cap.dim {
+  color: var(--amber-dim);
+  letter-spacing: 0.38em;
+  font-size: clamp(0.62rem, 1.2vw, 0.72rem);
+  font-weight: 600;
+}
+
+/* ───── Act II + sticky TOC rail ──────────────────────────── */
+
+.act-ii-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 6rem;
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 3rem;
+}
+.act-ii-main { min-width: 0; }
+.toc-rail {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  border-left: 1px solid var(--line2);
+  padding: 0.2rem 0 0.2rem 1rem;
+}
+.toc-rail .toc-head {
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  margin-bottom: 0.9rem;
+  font-size: 0.66rem;
+}
+.toc-rail a {
+  display: block;
+  color: var(--fg3);
+  border: none;
+  padding: 0.32rem 0;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+.toc-rail a:hover, .toc-rail a:focus { color: var(--accent); }
+.toc-rail .toc-sep {
+  height: 1px; background: var(--line);
+  margin: 0.8rem 0;
+}
+
+@media (max-width: 980px) {
+  .act-ii-wrap { grid-template-columns: 1fr; gap: 0; }
+  .toc-rail {
+    position: static;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 1rem 0;
+    margin: 0 0 2rem;
+  }
+  .toc-rail a {
+    display: inline-block;
+    margin-right: 1.1rem;
+    padding: 0.18rem 0;
+  }
+  .toc-rail .toc-sep { display: none; }
+}
+
+/* Act II banner sized to pair visually with Act I banner */
+.act-ii-main h1.banner { color: var(--fg); }
+.act-ii-main h1.banner .accent { color: var(--accent); }
 </style>
 </head>
 <body>
+
+<!-- ═════════════════════════ ACT I — THE DOCTRINE ═════════════════════════ -->
+<section class="act-i" id="doctrine">
 
 <div class="brand">
 <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
@@ -214,8 +390,168 @@ pre.code .com { color: var(--fg3); font-style: italic; }
 </svg>
 <a href="/" class="brand-name">CochranBlock</a>
 </div>
+<div class="pretag">manual.cochranblock.org &middot; the cochran block, llc</div>
 
-<div class="pretag">cochranblock.org &middot; the cochran block, llc</div>
+<h1 class="banner">THE <span class="anti">ANTI</span>-FOUNDER<br><span style="font-size:0.42em;letter-spacing:0.18em;color:var(--accent);font-weight:700">M&middot;A&middot;N&middot;I&middot;F&middot;E&middot;S&middot;T&middot;O</span></h1>
+
+<div class="sub"><span class="pulse"></span>Public Domain &middot; Zero Cloud &middot; Receipts Attached</div>
+
+<div class="creed" style="border-left-color: var(--accent); background: rgba(0,217,255,0.07); font-size: clamp(1.4rem, 3.4vw, 1.8rem);">
+If I can rebuild your stack in a single weekend, <strong>I&rsquo;m going to remake it in Rust under the Unlicense.</strong>
+<br><br>
+I&rsquo;m raising the technical bar.
+</div>
+
+<h2 id="what-is">What An Anti-Founder Is</h2>
+
+<p>An anti-founder is a person who looked at the founder software market &mdash; the racket where someone wraps an open-source primitive in a UI, charges $200 per seat per month, ships a deck full of TAM math, and claims the moat is "execution" &mdash; and decided the only honest answer was to <em>burn down the moat in front of everyone</em>.</p>
+
+<p>I tried doing it the other way. I tried the cofounder route. Someone tried to take public-domain code I wrote, hide the receipts, dress it in a hoodie, and sell it as a startup. The plan was to take a weekend's worth of Unlicensed work and ride it through a fundraise like the bytes themselves were the secret.</p>
+
+<p>I gave him his copy and walked away. The original is still mine. The doctrine got clearer.</p>
+
+<div class="callout">
+<strong>The doctrine:</strong> If a SaaS company exists because somebody else doesn't know how easy the thing is, that company is a tax on ignorance. Every time I rebuild one of those tools and put it in the public domain, the tax gets cheaper for the next person.
+</div>
+
+<h2 id="doctrine-receipts">The Receipts</h2>
+
+<p>Each of these is a one-binary, single-laptop reimagining of a tool venture-funded companies have raised tens to hundreds of millions to sell. Built on the weekends listed. Released under the Unlicense. Public domain. Take it.</p>
+
+<table class="receipts">
+<thead>
+<tr><th>Project</th><th>Replaces</th><th>Time</th><th>License</th><th>Repo</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td class="proj">runsible</td>
+  <td class="replaces">Ansible (Red Hat / IBM)</td>
+  <td class="hours">6 hrs</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/runsible">github.com/cochranblock/runsible</a></td>
+</tr>
+<tr>
+  <td class="proj">r8r</td>
+  <td class="replaces">n8n (Series B, $60M raised)</td>
+  <td class="hours">12 hrs</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/r8r">github.com/cochranblock/r8r</a></td>
+</tr>
+<tr>
+  <td class="proj">kova</td>
+  <td class="replaces">LangChain &amp; agentic frameworks</td>
+  <td class="hours">ongoing</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/kova">github.com/cochranblock/kova</a></td>
+</tr>
+<tr>
+  <td class="proj">rogue-repo</td>
+  <td class="replaces">Stripe Issuing / payment-engine SaaS</td>
+  <td class="hours">weekend</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/rogue-repo">github.com/cochranblock/rogue-repo</a></td>
+</tr>
+<tr>
+  <td class="proj">approuter</td>
+  <td class="replaces">Cloudflare Pages / Vercel-tier reverse proxy</td>
+  <td class="hours">weekend</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/approuter">github.com/cochranblock/approuter</a></td>
+</tr>
+<tr>
+  <td class="proj">tmuxisfree</td>
+  <td class="replaces">LangChain orchestration shells</td>
+  <td class="hours">weekend</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/tmuxisfree">github.com/cochranblock/tmuxisfree</a></td>
+</tr>
+<tr>
+  <td class="proj">pixel-forge</td>
+  <td class="replaces">on-device image-gen / mid-journey-on-server</td>
+  <td class="hours">weekend</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/pixel-forge">github.com/cochranblock/pixel-forge</a></td>
+</tr>
+<tr>
+  <td class="proj">any-gpu</td>
+  <td class="replaces">cloud GPU rentals for inference</td>
+  <td class="hours">weekend</td>
+  <td class="lic">Unlicense</td>
+  <td class="link"><a href="https://github.com/cochranblock/any-gpu">github.com/cochranblock/any-gpu</a></td>
+</tr>
+</tbody>
+</table>
+
+<div class="callout">
+<strong>r8r</strong> was originally the codebase known as <code>for-tanner</code>, a private Rust port I wrote intending to onboard a cofounder. When the cofounder track ended, I gave him a copy and renamed mine. The receipts move with me.
+<br><br>
+<strong>Hour counts above are real engaged work,</strong> derived from git commit clusters (commits within 30 min count as continuous; gaps over 30 min start a new session credited at 30 min). Reproducible from the public git history at <a href="https://github.com/cochranblock">github.com/cochranblock</a>. Wall-clock calendar elapsed is longer; engaged time is what's listed.
+</div>
+
+<h2 id="cost">What This Costs You</h2>
+
+<p>Nothing. That's the entire point.</p>
+
+<ul class="bullets">
+<li>No license fee. The Unlicense literally dedicates the code to the public domain. You can fork, sell, sublicense, embed, classify, white-label, rebrand. I don't care. <em>That's the deal.</em></li>
+<li>No SaaS bill. Every one of these is a single binary that runs on a 2019 laptop. No Kubernetes. No Snowflake. No "we provision a Postgres cluster" surprise on month two.</li>
+<li>No telemetry. The repos do not phone home. I can't see who's running them.</li>
+<li>No vendor lock. There is no vendor.</li>
+<li>No support contract. If you want one, I have an LLC. If you don't, the code is yours forever regardless.</li>
+</ul>
+
+<h2 id="selling">What I'm Actually Selling</h2>
+
+<p>I sell <strong>my time</strong>, not my code. The Cochran Block, LLC is an SDVOSB-eligible shop. We do federal contracting, cleared cyber engineering, and bespoke Rust modernization. The free tools are the resume.</p>
+
+<ul class="bullets">
+<li><strong>Federal &amp; cleared cyber work.</strong> 13+ years across USCYBERCOM (Combat Mission Team, National Mission Team), JCWA hands-on (JCC2, JCAP, UDP), Two Six Technologies, MaxisIQ. Prior TS/SCI, reactivation eligible.</li>
+<li><strong>Single-binary Rust modernization.</strong> If your team has a Python or Node service that needs to become a single binary that boots in milliseconds, that's the day job.</li>
+<li><strong>Anti-vendor consulting.</strong> Bring me the SaaS contract you're about to renew. I'll quote you the cost of just rebuilding the thing in-house. Often it's less than one quarter of the renewal.</li>
+</ul>
+
+<div class="cta">
+<h3>Eat the founder software market with me</h3>
+<p>If you're a founder, an engineering leader, a CTO who is sick of being shaken down by SaaS rent, or a federal program manager who is tired of being told "you can't run that on-prem":</p>
+<p>Take any of the tools above. Run them. Fork them. Use them in production. Tell me what to rebuild next. The Unlicense means I cannot stop you and would not if I could.</p>
+<p>Contact: <a href="mailto:mcochran@cochranblock.org">mcochran@cochranblock.org</a> &middot; <a href="https://github.com/cochranblock">github.com/cochranblock</a> &middot; <a href="/assets/michael-cochran-resume_may_2026.pdf">resume</a></p>
+</div>
+
+<h2 id="knoxai">One Honest Disclosure</h2>
+
+<p>I do still run KNOXAI, the third-party AI-model integrity certification operation, on a separate subdomain. KNOXAI is a paid service because some work &mdash; vetted access to NCMEC / IWF / CAID, hardware-signed certs, ESP-registered audits &mdash; is illegal to give away. The radioactive data has gates for a reason.</p>
+
+<p>Everything else I touch goes Unlicense. KNOXAI is the exception that proves the rule, and even there the verification artifacts are public.</p>
+
+<p><a href="https://knox.cochranblock.org">knox.cochranblock.org &rarr;</a></p>
+
+</section>
+
+<!-- ═════════════════════════ THE SEAM ═════════════════════════ -->
+<section class="seam" id="seam" aria-label="Transition: doctrine to manual">
+  <div class="seam-glyph" aria-hidden="true">&#9670;</div>
+  <span class="seam-cap">The&nbsp;&nbsp;Doctrine&nbsp;&nbsp;Ends&nbsp;&nbsp;Here&nbsp;&nbsp;&middot;&nbsp;&nbsp;The&nbsp;&nbsp;Manual&nbsp;&nbsp;Begins</span>
+  <span class="seam-cap dim">32&nbsp;&nbsp;Crates&nbsp;&nbsp;&middot;&nbsp;&nbsp;One&nbsp;&nbsp;Operator&nbsp;&nbsp;&middot;&nbsp;&nbsp;All&nbsp;&nbsp;Auditable</span>
+</section>
+
+<!-- ═════════════════════════ ACT II — THE MANUAL ═════════════════════════ -->
+<div class="act-ii-wrap">
+
+<aside class="toc-rail" aria-label="Manual table of contents">
+  <div class="toc-head">On This Page</div>
+  <a href="#manual">Overview</a>
+  <a href="#template">It's A Template</a>
+  <a href="#instance">This Instance</a>
+  <a href="#manual-receipts">Crate Receipts</a>
+  <a href="#use-it">Use It</a>
+  <a href="#reaching">Reaching The Manual</a>
+  <a href="#chicken-egg">AI Bypass</a>
+  <a href="#wall">Wall of Laptops</a>
+  <div class="toc-sep"></div>
+  <a href="#doctrine" style="color:var(--amber)">&uarr; Back to Doctrine</a>
+</aside>
+
+<main class="act-ii-main" id="manual">
 
 <h1 class="banner">THE <span class="accent">MANUAL</span></h1>
 
@@ -238,7 +574,7 @@ pre.code .com { color: var(--fg3); font-style: italic; }
 If I can rebuild your stack in a single weekend, <strong>I&rsquo;m going to remake it in Rust under the Unlicense.</strong> This is the directory.
 </div>
 
-<h2 style="border-top-color: var(--accent); border-top-width: 2px;">It's A Template &mdash; Anti-Founder Website In Pure Rust</h2>
+<h2 id="template" style="border-top-color: var(--accent); border-top-width: 2px;">It's A Template &mdash; Anti-Founder Website In Pure Rust</h2>
 
 <div class="creed" style="border-left-color: var(--amber); background: rgba(255,179,0,0.06); font-size: clamp(1.1rem, 2.4vw, 1.35rem);">
 The crate currently named <code>cochranblock</code> on crates.io is a <strong>template</strong>. It is the seed of an Anti-Founder website written in pure Rust. Fork it, rename it, point it at your own list of public-domain crates, and you have your own anti-founder site with no SaaS bill, no static-site generator, no JS framework. Just a Rust binary, an HTML asset, and a name.
@@ -248,34 +584,34 @@ The crate currently named <code>cochranblock</code> on crates.io is a <strong>te
 
 <h3>How to instantiate your own</h3>
 
-<pre class="code" style="background: var(--bg3); border-left: 3px solid var(--accent); padding: 1rem 1.2rem; font-size: 0.82rem; color: var(--fg2); overflow-x: auto; white-space: pre; margin: 1rem 0;"><span style="color: var(--fg3)"># 1. Reserve your name on crates.io</span>
+<pre class="code"><span class="com"># 1. Reserve your name on crates.io</span>
 cargo new --lib your-handle-block &amp;&amp; cd your-handle-block
 
-<span style="color: var(--fg3)"># 2. Copy the cochranblock manual scaffold (Cargo.toml, src/lib.rs, README.md)</span>
-<span style="color: var(--fg3)">#    from https://github.com/cochranblock as a starting point</span>
+<span class="com"># 2. Copy the cochranblock manual scaffold (Cargo.toml, src/lib.rs, README.md)</span>
+<span class="com">#    from https://github.com/cochranblock as a starting point</span>
 
-<span style="color: var(--fg3)"># 3. Rewrite README.md and the catalog() function with YOUR receipts</span>
+<span class="com"># 3. Rewrite README.md and the catalog() function with YOUR receipts</span>
 $EDITOR README.md src/lib.rs
 
-<span style="color: var(--fg3)"># 4. Publish (uses your crates.io API token from ~/.cargo/credentials.toml)</span>
+<span class="com"># 4. Publish (uses your crates.io API token from ~/.cargo/credentials.toml)</span>
 cargo publish
 
-<span style="color: var(--fg3)"># 5. Add a /manual route in your axum site that serves the same content</span>
-<span style="color: var(--fg3)">#    Optional: register manual.your-domain.tld with your reverse proxy</span></pre>
+<span class="com"># 5. Add a /manual route in your axum site that serves the same content</span>
+<span class="com">#    Optional: register manual.your-domain.tld with your reverse proxy</span></pre>
 
 <p>That's the whole template. The single Rust binary that serves <a href="/">cochranblock.org</a> is open at <a href="https://github.com/cochranblock">github.com/cochranblock</a>, Unlicense, public domain. Take it.</p>
 
-<h2>What This Specific Instance Is</h2>
+<h2 id="instance">What This Specific Instance Is</h2>
 
 <p>The template, instantiated as <em>my</em> manual. <code>cargo add cochranblock</code> pulls a tiny dependency that ships no runtime code; it ships a <em>catalog</em>. Adding it to your project does three things:</p>
 
-<ul style="list-style:none;padding-left:0">
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Reserves the <code>cochranblock</code> name on crates.io.</li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Surfaces the catalog of every Cochran Block crate via <code>cargo doc --open -p cochranblock</code> or <a href="https://docs.rs/cochranblock">docs.rs/cochranblock</a>.</li>
-<li style="padding:0.4rem 0;padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Makes The Anti-Founder Manifesto reachable through the Rust toolchain, not just through a website.</li>
+<ul class="bullets">
+<li>Reserves the <code>cochranblock</code> name on crates.io.</li>
+<li>Surfaces the catalog of every Cochran Block crate via <code>cargo doc --open -p cochranblock</code> or <a href="https://docs.rs/cochranblock">docs.rs/cochranblock</a>.</li>
+<li>Makes The Anti-Founder Manifesto reachable through the Rust toolchain, not just through a website.</li>
 </ul>
 
-<h2>Receipts</h2>
+<h2 id="manual-receipts">Receipts</h2>
 
 <p>Every crate below is on crates.io, released under the Unlicense, dedicated to the public domain. <em>Take, fork, embed, sublicense, sell, classify, white-label.</em> No attribution required.</p>
 
@@ -299,7 +635,7 @@ cargo publish
 <strong>Naming clarification.</strong> The crate name <code>kova</code> on crates.io is squatted by an unrelated party. The Cochran Block AI augment engine is published as <a href="https://crates.io/crates/kova-engine">kova-engine</a>. That is the canonical name going forward.
 </div>
 
-<h2>Use It</h2>
+<h2 id="use-it">Use It</h2>
 
 <pre class="code"><span class="com"># Cargo.toml</span>
 [dependencies]
@@ -318,21 +654,21 @@ cargo publish
     }
 }</pre>
 
-<h2>Reaching The Manual</h2>
+<h2 id="reaching">Reaching The Manual</h2>
 
 <p>The manual is reachable through a deliberately self-referential URL pattern. Every URL matching <code>manual.cochranblock.org/(manual/)*</code> resolves here:</p>
 
-<ul style="list-style:none;padding-left:0">
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span><a href="https://cochranblock.org/manual">cochranblock.org/manual</a></li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span><a href="https://manual.cochranblock.org">manual.cochranblock.org</a></li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span><a href="https://manual.cochranblock.org/manual">manual.cochranblock.org/manual</a></li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span><a href="https://manual.cochranblock.org/manual/manual">manual.cochranblock.org/manual/manual</a></li>
-<li style="padding:0.4rem 0;padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>&hellip; arbitrarily nested. Every <code>(manual/)<sup>n</sup></code> is The Manual.</li>
+<ul class="bullets">
+<li><a href="https://cochranblock.org/manual">cochranblock.org/manual</a></li>
+<li><a href="https://manual.cochranblock.org">manual.cochranblock.org</a></li>
+<li><a href="https://manual.cochranblock.org/manual">manual.cochranblock.org/manual</a></li>
+<li><a href="https://manual.cochranblock.org/manual/manual">manual.cochranblock.org/manual/manual</a></li>
+<li>&hellip; arbitrarily nested. Every <code>(manual/)<sup>n</sup></code> is The Manual.</li>
 </ul>
 
-<p>And on the apex domain, <code>cochranblock.org/manual/&lt;anything&gt;</code> also lands here. The path past the third <code>/</code> is decorative — the manual catches all of it.</p>
+<p>And on the apex domain, <code>cochranblock.org/manual/&lt;anything&gt;</code> also lands here. The path past the third <code>/</code> is decorative &mdash; the manual catches all of it.</p>
 
-<h2>Chicken &amp; Egg Bypass</h2>
+<h2 id="chicken-egg">Chicken &amp; Egg Bypass</h2>
 
 <p>Every crate in this manual is a <em>working alternative</em> to a venture-funded SaaS, but it is also something else: a <strong>training corpus for your AI</strong>. The chicken-and-egg of "you need to know Rust to use Rust crates" gets bypassed by pointing your AI at the source.</p>
 
@@ -340,33 +676,36 @@ cargo publish
 
 <p>The <a href="/railgun-rosetta">Railgun Rosetta</a> exists for the same reason &mdash; it teaches your AI (and you) how to translate the patterns into Python, C, and the languages it already speaks.</p>
 
-<h2>The Wall of Laptops Pattern</h2>
+<h2 id="wall">The Wall of Laptops Pattern</h2>
 
 <p>You are reading this on a website. The same crates run my home wall of repurposed laptops as zero-GUI status displays. The pattern is short:</p>
 
-<ul style="list-style:none;padding-left:0">
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Old laptop. Lid open, monitor on, keyboard ignored.</li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Debian Trixie netinstall, server profile, no desktop environment. GUI weighs too much for the use case.</li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>htop on tty1 via a one-shot systemd unit (<code>htop-wall.service</code>) that disables <code>getty@tty1</code> and points <code>StandardInput=tty</code>/<code>TTYPath=/dev/tty1</code> at the kernel framebuffer console.</li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Console font sized to viewing distance via <code>setfont -C /dev/tty1 -d &lt;Lat15-TerminusNNxNN.psf.gz&gt;</code>. The <code>-d</code> flag doubles the glyph for far viewing.</li>
-<li style="padding:0.4rem 0 0.4rem 1.2rem;border-bottom:1px solid var(--line);position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>Backlight pegged with a udev rule that <code>chgrp video</code>s <code>/sys/class/backlight/&lt;dev&gt;/brightness</code> on add, then writes <code>max_brightness</code> to it.</li>
-<li style="padding:0.4rem 0;padding-left:1.2rem;position:relative"><span style="position:absolute;left:0;top:0.4rem;color:var(--accent)">&rsaquo;</span>htop's column set narrowed to <code>USER, TIME+, COMMAND</code> &mdash; a high-pass filter for the displays. Numeric noise (PID, NI, PRI, VIRT, RES, SHR, S, CPU%, MEM%) hidden because the wall is for situational awareness, not micro-tuning.</li>
+<ul class="bullets">
+<li>Old laptop. Lid open, monitor on, keyboard ignored.</li>
+<li>Debian Trixie netinstall, server profile, no desktop environment. GUI weighs too much for the use case.</li>
+<li>htop on tty1 via a one-shot systemd unit (<code>htop-wall.service</code>) that disables <code>getty@tty1</code> and points <code>StandardInput=tty</code>/<code>TTYPath=/dev/tty1</code> at the kernel framebuffer console.</li>
+<li>Console font sized to viewing distance via <code>setfont -C /dev/tty1 -d &lt;Lat15-TerminusNNxNN.psf.gz&gt;</code>. The <code>-d</code> flag doubles the glyph for far viewing.</li>
+<li>Backlight pegged with a udev rule that <code>chgrp video</code>s <code>/sys/class/backlight/&lt;dev&gt;/brightness</code> on add, then writes <code>max_brightness</code> to it.</li>
+<li>htop's column set narrowed to <code>USER, TIME+, COMMAND</code> &mdash; a high-pass filter for the displays. Numeric noise (PID, NI, PRI, VIRT, RES, SHR, S, CPU%, MEM%) hidden because the wall is for situational awareness, not micro-tuning.</li>
 </ul>
 
 <p>The doctrine: <em>TUIs are the answer.</em> A laptop running a single TUI in the framebuffer console uses ~80&nbsp;MB RAM total. The same laptop running a desktop browser would burn 1.5&nbsp;GB. Repurpose, don't replace.</p>
 
-<h2>The Anti-Founder Doctrine</h2>
+<h2 id="closing-doctrine">The Anti-Founder Doctrine</h2>
 
 <p>I rebuild venture-funded SaaS in a weekend, on a single laptop, with zero cloud bill. Then I release it under the Unlicense and tell you to take it home.</p>
 
 <p><strong>No moat. No rent. No sleazy salesman.</strong> No cofounder pretending it took a team of fifteen and Series B money to do what one operator did in single-digit engaged hours.</p>
 
-<p>The full manifesto is at <a href="/">cochranblock.org</a>.</p>
+<p>The full manifesto sits at the top of this page. <a href="#doctrine">&uarr; Scroll up &mdash; the doctrine is the first half of this manual.</a></p>
 
 <div class="foot">
 The Cochran Block, LLC <span class="dot">&middot;</span> EIN 41-3835237 <span class="dot">&middot;</span> CAGE 1CQ66 <span class="dot">&middot;</span> UEI W7X3HAQL9CF9 <span class="dot">&middot;</span> SDVOSB Pending <span class="dot">&middot;</span> Maryland CSB Approved
 <br><br>
-<a href="/">Home</a> <span class="dot">&middot;</span> <a href="https://crates.io/crates/cochranblock">crates.io</a> <span class="dot">&middot;</span> <a href="https://docs.rs/cochranblock">docs.rs</a> <span class="dot">&middot;</span> <a href="https://github.com/cochranblock">GitHub</a> <span class="dot">&middot;</span> <a href="mailto:mcochran@cochranblock.org">Email</a>
+<a href="/">Home</a> <span class="dot">&middot;</span> <a href="https://crates.io/crates/cochranblock">crates.io</a> <span class="dot">&middot;</span> <a href="https://docs.rs/cochranblock">docs.rs</a> <span class="dot">&middot;</span> <a href="https://github.com/cochranblock">GitHub</a> <span class="dot">&middot;</span> <a href="/assets/michael-cochran-resume_may_2026.pdf">Resume</a> <span class="dot">&middot;</span> <a href="https://knox.cochranblock.org">KNOXAI</a> <span class="dot">&middot;</span> <a href="mailto:mcochran@cochranblock.org">Email</a>
+</div>
+
+</main>
 </div>
 
 </body>

@@ -61,6 +61,76 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-05-06 (later) — Native-Details Hamburger Menu + CDP-Driven Rendering Verification (chromiumoxide)
+
+**What:** Closing the mobile-nav gap on the LET'S TEAM root.
+
+- **Mobile hamburger menu** at `/` (`assets/lets-team.html`) — `<details class="nav-mobile">` with `<summary>` styled as a 40×40 cyan-bordered burger icon (3 stacked bars). When opened: `[open]` state morphs the bars into an X, expands a fixed-position drawer below the brand bar containing the full nav grouped into 4 labeled sections — **On This Page** (Engage / Architecture / Verticals / Registrations) / **Procurement** (Gov Docs / SBIR / VR&E / DCAA / Capability Statement / Resume) / **Receipts** (Open Books / Source / Stats / Binaries / Pulse) / **Site** (Products / Services / About / Contact / Book / Deploy / Grant / Arch / No Quarter) + Read the Doctrine →. CSS-only — no JavaScript. Uses native `<details>`/`<summary>` pattern which renders reliably across all browsers (the `<input type="checkbox">` + `<label>` toggle pattern was attempted first but fought chromium-headless rendering at the small viewport).
+- **chromiumoxide CDP audit binary** — standalone Rust crate at `/tmp/burger-check/` that drives Chromium via the DevTools Protocol. Sets iPhone-like viewport (390×844, deviceScaleFactor=2, mobile=true, iOS Safari UA), navigates, then evaluates JS to query the actual computed DOM state of `.nav-mobile` and its `<summary>`. Settles whether elements are *rendering* — not just whether the headless CLI can capture them. Output: full computed-style dump (`display`, `visibility`, `position`, `bbox`, `z-index`, etc.) plus before/after screenshots of the closed/open hamburger states. Confirmed the burger renders at the correct position (40×40 box at 335.6, 11.2 — top-right of mobile viewport) with cyan border + 12% cyan fill, and the click-to-open animation works end-to-end.
+- **Headless-CLI quirk documented** — `chromium --headless=new --screenshot` at small viewports (e.g. 390×844) failed to capture `position: fixed` elements layered over the cosmic backdrop (`html::before` + `html::after` radial gradients), even when computed style confirmed the element was rendering at the right place with full opacity. Switched to chromiumoxide CDP screenshots which use the same DevTools API real browsers use — captures correctly. Lesson: headless CLI screenshots are NOT the source of truth; CDP introspection + screenshots are.
+- **Visual upgrade for the hamburger button** — bumped the summary from `1px solid var(--border-strong)` (translucent cyan, low contrast against dark backdrop) to `1.5px solid var(--accent)` + `background: rgba(0,217,255,0.12)` + drop-shadow, so the burger reads clearly against the cosmic backdrop on actual phone screens.
+
+**Why:** The phone-portrait nav had `display: none` on `.nav-links` with no replacement, leaving phone visitors with only the brand at the top — they had to scroll to the 4-group footer for navigation. User caught this and asked for a "hamburger stack that makes sense." The four-group ordering (On This Page → Procurement → Receipts → Site) mirrors the buyer journey: scan-the-page anchors first, then the procurement-officer artifacts (cap statement, resume, gov docs), then evidence (openbooks, source, stats), then the rest of the site. Headless-CLI rendering kept producing empty captures despite correct CSS, so the chromiumoxide CDP audit was built to *prove* via computed-style introspection that the hamburger was actually rendering — separating "real bug" from "headless-tooling quirk."
+
+**Commit:** Same uncommitted set as the prior 2026-05-06 entry plus:
+- `assets/lets-team.html` extended with the `<details class="nav-mobile">` markup + `.nav-mobile-menu` 4-group content (~70 lines added) and the corresponding CSS (`.nav-mobile`, `.nav-mobile > summary`, `.nav-mobile-menu`, `.nav-mobile-menu .nav-group-head`, mobile media query) (~80 lines added).
+- `/tmp/burger-check/` — standalone Rust crate using chromiumoxide 0.7 (tokio-runtime, no fetcher) for CDP-driven rendering verification.
+- `screenshots/burger-cdp.png` (352 KB) — closed-state proof
+- `screenshots/burger-cdp-open.png` (246 KB) — open-state proof, drawer expanded
+
+**AI Role:** Claude implemented all CSS and HTML, wrote the chromiumoxide audit binary from scratch (correctly debugged the chromiumoxide 0.7 feature flags after a first wrong guess), and ran the verification. Human directed: catching the missing-mobile-nav gap, demanding the hamburger stack be ordered to "make sense," refusing to accept "I gave up on chromium-headless verification" as an answer ("that wasn't a fucking option"), and naming the right tool ("chromiumoxide rust it") that closed the loop.
+
+**Proof:**
+- Live: https://cochranblock.org/ at narrow viewport — 40×40 cyan-bordered ☰ at top-right.
+- CDP-verified computed style: `.nav-mobile { display: block; position: fixed; top: 11.2px; right: 14.4px; z-index: 100; visibility: visible; opacity: 1; bbox 40×40 at (335.6, 11.2) }`.
+- Screenshots: `screenshots/burger-cdp.png` (closed), `screenshots/burger-cdp-open.png` (open with drawer expanded showing all 4 groups).
+- DOM count: 1 `<details>`, 1 `<summary>`, 1 `<div class="nav-mobile-menu">`, 25 `<a>` items.
+
+### 2026-05-06 — LET'S TEAM Apex Root + Two-Act Manifesto Fold + Cap-Statement-Styled Resume + Trust-Chip Strip + HTML→PDF Render Pipeline + AI Orchestration Positioning
+
+**What:** Major site reorganization centered on subcontractor-hire positioning while preserving doctrine moat.
+
+- **Apex root replaced** — `cochranblock.org/` now serves `assets/lets-team.html` (formerly served the anti-founder manifesto). Hero: `LET'S TEAM.` Three-mode subhead: "We sub on your contract, we prime your SBIR, we teach our architecture under the Unlicense." Trust strip flex-wraps atomic credential chips so long values (UEI W7X3HAQL9CF9, EIN 41-3835237, etc.) never clip on phone portrait. 6 hero engagement-mode pills + 8-mode AS PRIME column (SBIR I/II/III, STTR, D2P2, JV, Mentor-Protégé, STRATFI/TACFI) and 3-mode AS SUB column (Teaming, Subcontract, IDIQ). Architecture Taught Under the Unlicense section (7 patterns, public-domain commitment). Verticals: Defense / Healthtech / Fed Civilian with FAR/DFARS/NIST/CMMC bullets. 2026 Procurement Posture banner naming CISA Secure-by-Design, NSA/CISA June 2025 CSI, DARPA TRACTOR, DoD CIO FY25-26 Software Mod Plan. Dual-Use Proof table with KNOXAI as commercialization anchor. Past Performance split into 3 sections: Corporate (Cochran Block) / Military Service (USCYBERCOM J38 JMOC-E + ARCYBER 103rd CMT + NMT) / Contractor Employment (Two Six + MaxisIQ, with real dates).
+- **Two-Act Manifesto Fold** — `assets/manual.html` rewritten to fold the standalone manifesto (now Act I, "THE ANTI-FOUNDER") into the operations manual (Act II, "THE MANUAL") on a single scroll, joined by an amber-rule seam with dimmed diamond glyph. Sticky TOC rail kicks in at the seam. `assets/anti-founder.html` deleted. `/manual`, `manual.cochranblock.org/*`, `/anti-founder`, `/antifounder`, `/receipts`, `/eat-the-founder-software-market` all serve the folded asset; deep-linkers append `#doctrine` or `#manual` to land at either half.
+- **Cap-statement-styled resume** at `/resume` (`assets/resume.html`) — banner reads `MICHAEL COCHRAN` (cyan/white split, Orbitron 26pt 900) so ATS keyword filters and corporate recruiters don't get tripped by an "ANTI-FOUNDER" header. Cyan/dark anti-founder aesthetic, JetBrains Mono, letter-format `@page`. Single-column print flow with `break-inside: avoid` on credential clusters keeps the doc to exactly 2 pages. Quantified achievement bullets per role (Hire Heroes USA / Terrance Ford rewrite incorporated). Phone (443) 900-7903, LinkedIn, GIAC GSEC, Offensive Operations Foundation Course (NSA/USCYBERCOM), `Inactive Top Secret / SCI · CI Polygraph`. Hannah Montana mode (separate ATS + branded variants) explored and rejected — single resume with name-led banner is the correct trade-off.
+- **HTML → PDF render pipeline** — `scripts/build-resume-pdf.sh` uses chromium-headless `--print-to-pdf` against `assets/resume.html` (with `sed` rewrite of root-relative URLs to absolute `https://cochranblock.org/...` so PDF hyperlinks survive standalone). Site `/resume` and downloadable PDF now share a single source of truth. Print stylesheet hides the topbar, pdf-nudge banner, backrefs grid, and cosmic backdrop, leaving the clean letter-format doc.
+- **PDF renames + back-compat** — `assets/capability-statement.pdf` → `assets/cochranblock-capability-statement.pdf`; `assets/resume.pdf` → `assets/michael-cochran-resume_may_2026.pdf`. `src/web/assets.rs` keeps the legacy bare names mapped to the new files; `/resume.pdf` 308-redirects. External links don't 404.
+- **Custom AI orchestration over curated data** — added across Architecture Taught (7th pattern), Dual-Use Proof (new row), and all three verticals (Defense / Healthtech / Fed Civilian). Doctrine line: *"Data is the moat, not the model."* Researched and curated corpora paired with on-device inference = dual-use AI defensible without an OpenAI bill or FedRAMP cloud auth.
+- **Trust-Chip Strip layout** — credentials display restructured from inline `<br>`-separated text to flex-wrap atomic `<span class="chip">` units. Each credential is its own self-contained pill that wraps cleanly without clipping at the viewport edge on phone portrait. Mobile rule: `font-size: 0.66rem; padding: 0.15rem 0.4rem; overflow-wrap: anywhere; word-break: break-word;`.
+- **Cosmic backdrop on new pages** — lifted starDrift + per-page ambient gradient + shooting stars CSS from `assets/css/main.css` into `assets/lets-team.html` and `assets/resume.html` (resume backdrop wrapped in `@media screen` so PDF print stays clean). Visual identity now matches `/govdocs` and `/services`.
+- **Backref expansion** — lets-team gets a 4-group footer grid (Engage / Gov / Receipts / Site, 30+ links) plus 3 dropdown nav menus (Gov / Tools / Site) plus inline cross-refs in the body. 46 backref links to other site sections (was 0). Resume gets a 4-group `.backrefs` strip in the footer (Engage / Gov / Receipts / Doctrine, screen-only — hidden in print).
+- **Mobile + tablet portrait fixes** — `clamp(1.7rem, 10vw, 3.4rem)` banner on phone (was 14vw and overflowing), past-performance + dual-use tables card-collapse `<720px`, defensive `overflow-wrap: anywhere`/`min-width: 0` guards, hero pills `0.62rem` so 6 fit 3+3 on 390px, footer 4-col → 2-col `<1024px`, verticals 3-col → 2-col → 1-col, third vert grid-column reset at `<820px` (was leaking `span 2` from tablet rule).
+- **Test scaffolding** — `src/tests/http.rs` got 14 new tests (`lets_team_root_serves_buyer_page`, `lets_team_root_engagement_modes`, `lets_team_architecture_taught_unlicense`, `lets_team_dual_use_proof_table`, `lets_team_past_performance_three_sections`, `lets_team_2026_procurement_posture`, `lets_team_alias_routes_200`, `manual_serves_folded_doctrine_plus_ops`, `manual_recursive_aliases_200`, `legacy_manifesto_paths_serve_folded_manual`, `removed_anti_founder_asset_404`, `resume_html_capability_styled`, `resume_html_six_job_split`, `resume_pdf_still_at_assets`) and 4 updated tests (`index_business`, `home_ctas`, `hero_product_status`, `buttons_hero_ctas_200`) for the new routing.
+- **Multi-Viewport Screenshot Pipeline** — `scripts/screenshots.sh` drives chromium-headless across phone-portrait (390x844), phone-landscape (844x390), tablet-portrait (768x1024), tablet-landscape (1024x768), and desktop (1280x800) for `/`, `/resume`, `/manual`, `/govdocs`, `/services`. UI/UX simulation in CI-style; 25 captures per pass.
+- **Routing additions** — `/lets-team`, `/team`, `/teaming` all alias to apex root buyer page. `/resume` route + `f_resume_html` handler. Manual subdomain dispatch in `f2_root` swapped from manifesto to folded manual.
+- **Operating agreement** — left untouched but audited for SDVOSB/SBIR/teaming/JV/MPP/dual-use coverage. Already aligned. One pending edit (SDVOSB row: `Application in progress` → `Final Review`) deferred per user.
+
+**Why:** The doctrine is the moat for direct-pursuit channels but the wrong opener for prime BD scouts, contracting officers, and ATS-routed recruiters. Splitting persona — `LET'S TEAM.` apex root for buyers, folded manual for the doctrine-curious, name-led resume for the ATS gauntlet — preserves the brand while surviving the resume pipeline. `MICHAEL COCHRAN` as the resume banner avoids the "anti-X" pattern-match that gets resumes filtered. Trust-chip restructure was triggered by user reporting "the box under JV/Mentor-Protégé looks weird on portrait cell" — was credential text clipping at the viewport edge on phone. HTML→PDF pipeline ensures the artifact downloaded by a contracting officer matches the page they just read, not a stale ReportLab-rendered version diverging quietly. AI-orchestration-over-curated-data positioning was added at user request — Michael has shipped multiple instances and "data is the moat, not the model" is the dual-use credibility story SBIR evaluators want.
+
+**Commit:** Uncommitted at time of writing (deployed live to gd via direct binary scp + hot-reload). Files changed:
+- `assets/lets-team.html` (new, 51 KB)
+- `assets/resume.html` (new, 34 KB, banner: MICHAEL COCHRAN)
+- `assets/manual.html` (rewrite — folded manifesto + seam + ops)
+- `assets/anti-founder.html` (deleted — folded into manual.html)
+- `assets/cochranblock-capability-statement.pdf` (renamed from capability-statement.pdf)
+- `assets/michael-cochran-resume_may_2026.pdf` (renamed from resume.pdf, regenerated from HTML)
+- `src/web/pages.rs` (new handlers: `f_resume_html`, `f_lets_team`; `f2_root` updated; `f_anti_founder` now serves folded manual)
+- `src/web/router.rs` (`/resume`, `/lets-team`, `/team`, `/teaming` routes; legacy PDF redirects)
+- `src/web/assets.rs` (new asset keys, legacy aliases preserved)
+- `src/web/whyme.rs` (resume PDF link updated)
+- `src/tests/http.rs` (14 new + 4 updated tests, ~400 lines added)
+- `scripts/build-resume-pdf.sh` (new)
+- `scripts/screenshots.sh` (new)
+- `screenshots/prod-*.png` (14 multi-viewport captures of production)
+
+**AI Role:** Claude (this agent) implemented all HTML/CSS/Rust edits, ran the chromium-headless render + screenshot pipelines, and drove the deploy. Human directed: the brand-vs-pipeline tension recognition that drove the MICHAEL COCHRAN banner switch, the "Hannah Montana this shit" exploration and subsequent rejection, the AI-orchestration-over-curated-data positioning, the trust-chip-on-cell observation, identification of mobile portrait failures, the SDVOSB Final Review status calibration, and the cosmic-backdrop-must-stay-throughout aesthetic constraint.
+
+**Proof:**
+- Live: https://cochranblock.org/, https://cochranblock.org/resume, https://manual.cochranblock.org/
+- PDF: https://cochranblock.org/assets/michael-cochran-resume_may_2026.pdf (290 KB, 2 pages, generated from /resume HTML)
+- Screenshots: `screenshots/prod-{lets-team,resume,manual,govdocs,services}-{phone,tablet,desktop}-{portrait,landscape}.png` (14 captures)
+- Cloudflare cache purged across all 10 domains under the approuter account post-deploy.
+
 ### 2026-04-09 — /inventions Page + Truth Audit + Defense Contractor Benchmarks + Mobile Polish
 
 **What:** Added /inventions page cataloguing 7 inventions (no known prior art), 4 original techniques, and 18 production engineering contributions — all with commit provenance. Truth audit updated all site metrics to live deployment benchmarks (9.9MB binary, 116ms TTFB, 176ms first paint, 72fps, 0.0000 CLS, 131 DOM elements). /speed page replaced Wix comparison with defense contractor benchmarks — cochranblock.org vs Booz Allen, Leidos, SAIC, CACI. Capability statement updated with EIN, ACH, 4 crates.io crates, 7 named inventions, CSS v4. Mobile fixes: nav menu default state, search overlap on <480px, horizontal table scroll, Facebook webview. SAM.gov status updated to Active (CAGE 1CQ66). Fish Tank Starfield invented and documented in Human Revelations section. JCAC date corrected to 2014.
@@ -223,3 +293,9 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 ---
 
 *Part of the [CochranBlock](https://cochranblock.org) zero-cloud architecture. All source under the Unlicense.*
+<!-- COCHRANBLOCK-BRAND-FOOTER:START - generated by cochranblock/scripts/brand-stamp.sh -->
+
+---
+
+<sub>&#9656; **THE COCHRAN BLOCK, LLC** &#183; CAGE `1CQ66` &#183; UEI `W7X3HAQL9CF9` &#183; UNLICENSE &#183; [cochranblock.org](https://cochranblock.org)</sub>
+<!-- COCHRANBLOCK-BRAND-FOOTER:END -->

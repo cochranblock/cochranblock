@@ -103,9 +103,37 @@ pub fn f1(p0: t0) -> Router {
         .route("/railgun-rosetta", get(pages::f_railgun_rosetta))
         .route("/rosetta", get(pages::f_railgun_rosetta))
         .route("/rosetta-stone", get(pages::f_railgun_rosetta))
+        // Let's Team page — apex-root buyer page, also reachable directly
+        .route("/lets-team", get(pages::f_lets_team))
+        .route("/team", get(pages::f_lets_team))
+        .route("/teaming", get(pages::f_lets_team))
+        // HTML resume — banner reads "MICHAEL COCHRAN" so the artifact
+        // survives ATS keyword filters and recruiter scans. Doctrine still
+        // lives on the site (manual.cochranblock.org) + lets-team root.
+        .route("/resume", get(pages::f_resume_html))
         // Bare-name aliases for assets pinned in the static include_packed
-        // table — point them at the existing /assets/* handler.
-        .route("/resume.pdf", get(|| async { axum::response::Redirect::permanent("/assets/resume.pdf") }))
+        // table — point them at the existing /assets/* handler. PDF aliases
+        // point at the descriptive filenames so the browser's Save As / dock
+        // download surfaces the human-readable name (cochranblock-capability-
+        // statement.pdf, michael-cochran-resume_may_2026.pdf).
+        .route(
+            "/resume.pdf",
+            get(|| async {
+                axum::response::Redirect::permanent("/assets/michael-cochran-resume_may_2026.pdf")
+            }),
+        )
+        .route(
+            "/michael-cochran-resume_may_2026.pdf",
+            get(|| async {
+                axum::response::Redirect::permanent("/assets/michael-cochran-resume_may_2026.pdf")
+            }),
+        )
+        .route(
+            "/cochranblock-capability-statement.pdf",
+            get(|| async {
+                axum::response::Redirect::permanent("/assets/cochranblock-capability-statement.pdf")
+            }),
+        )
         .route("/cochranblock-logo.svg", get(|| async { axum::response::Redirect::permanent("/assets/cochranblock-logo.svg") }))
         .route("/cochranblock-hero-logo.svg", get(|| async { axum::response::Redirect::permanent("/assets/cochranblock-hero-logo.svg") }))
         .route("/favicon.svg", get(|| async { axum::response::Redirect::permanent("/assets/favicon.svg") }))
@@ -210,7 +238,9 @@ pub fn f1(p0: t0) -> Router {
             get(|| async {
                 (
                     [(axum::http::header::CONTENT_TYPE, "application/pdf")],
-                    include_packed::include_packed!("assets/capability-statement.pdf"),
+                    include_packed::include_packed!(
+                        "assets/cochranblock-capability-statement.pdf"
+                    ),
                 )
             }),
         )

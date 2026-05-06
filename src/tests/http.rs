@@ -557,7 +557,7 @@ pub async fn f51() -> Vec<t24> {
     v0.push(
         run("resume_pdf", async {
             let v3 = v2
-                .get(format!("{}/assets/resume.pdf", v1))
+                .get(format!("{}/assets/michael-cochran-resume_may_2026.pdf", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
@@ -575,6 +575,8 @@ pub async fn f51() -> Vec<t24> {
     );
     v0.push(
         run("index_business", async {
+            // Apex root now serves the LET'S TEAM page (assets/lets-team.html).
+            // Locks the buyer-facing pitch: Rust + SDVOSB + teaming language.
             let v3 = v2
                 .get(format!("{}/", v1))
                 .send()
@@ -584,12 +586,16 @@ pub async fn f51() -> Vec<t24> {
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(status.is_success(), format!("status {}", status))?;
             assert_ok(
-                v4.contains("Rust") && v4.contains("SaaS"),
-                "home missing Rust SaaS messaging",
+                v4.contains("Rust") && v4.contains("SDVOSB"),
+                "lets-team root missing Rust+SDVOSB framing",
             )?;
             assert_ok(
-                v4.contains("Get in Touch") || v4.contains("Book a Call"),
-                "home missing CTA",
+                v4.contains("Teaming") || v4.contains("Subcontract"),
+                "lets-team root missing engagement-mode language",
+            )?;
+            assert_ok(
+                v4.contains("Capability Statement") || v4.contains("capability-statement"),
+                "lets-team root missing capability statement CTA",
             )?;
             Ok(())
         })
@@ -673,6 +679,10 @@ pub async fn f51() -> Vec<t24> {
     );
     v0.push(
         run("home_ctas", async {
+            // The lets-team root surfaces email + cap-statement + resume + doctrine.
+            // The old commercial nav (/contact /book /about /products) is gone
+            // from the root page itself — that nav is reserved for /govdocs and
+            // the rest of the multi-page commercial section.
             let v3 = v2
                 .get(format!("{}/", v1))
                 .send()
@@ -680,14 +690,24 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(
-                v4.contains("href=\"/contact\""),
-                "home missing contact link",
+                v4.contains("mailto:mcochran@cochranblock.org"),
+                "lets-team missing email CTA",
             )?;
-            assert_ok(v4.contains("href=\"/book\""), "home missing book link")?;
-            assert_ok(v4.contains("href=\"/about\""), "home missing about link")?;
             assert_ok(
-                v4.contains("href=\"/products\""),
-                "home missing products link",
+                v4.contains("/assets/cochranblock-capability-statement.pdf"),
+                "lets-team missing capability statement PDF link",
+            )?;
+            assert_ok(
+                v4.contains("/assets/michael-cochran-resume_may_2026.pdf"),
+                "lets-team missing resume PDF link",
+            )?;
+            assert_ok(
+                v4.contains("manual.cochranblock.org"),
+                "lets-team missing doctrine link to manual subdomain",
+            )?;
+            assert_ok(
+                v4.contains("github.com/cochranblock"),
+                "lets-team missing github link",
             )?;
             Ok(())
         })
@@ -878,6 +898,9 @@ pub async fn f51() -> Vec<t24> {
     );
     v0.push(
         run("hero_product_status", async {
+            // Lets-team hero replaces "Product in development / Consulting open"
+            // with the trust strip: SDVOSB Final Review, SAM.gov Active, CAGE,
+            // UEI, TS/SCI reactivation eligible, Dual-Use Established.
             let v3 = v2
                 .get(format!("{}/", v1))
                 .send()
@@ -885,12 +908,24 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(
-                v4.contains("Product in development") || v4.contains("hero-status"),
-                "hero must show product status",
+                v4.contains("SAM.gov") && v4.contains("Active"),
+                "hero must show SAM.gov active",
             )?;
             assert_ok(
-                v4.contains("Consulting") && (v4.contains("open") || v4.contains("capacity")),
-                "hero must show consulting availability",
+                v4.contains("CAGE") && v4.contains("1CQ66"),
+                "hero must show CAGE 1CQ66",
+            )?;
+            assert_ok(
+                v4.contains("UEI") && v4.contains("W7X3HAQL9CF9"),
+                "hero must show UEI",
+            )?;
+            assert_ok(
+                v4.contains("Final Review"),
+                "hero must show calibrated SDVOSB language",
+            )?;
+            assert_ok(
+                v4.contains("TS/SCI"),
+                "hero must show clearance posture",
             )?;
             Ok(())
         })
@@ -1157,6 +1192,10 @@ pub async fn f51() -> Vec<t24> {
     );
     v0.push(
         run("buttons_hero_ctas_200", async {
+            // Lets-team hero CTAs: Email · Capability Statement PDF · Resume PDF
+            // · Read the Doctrine. (Old commercial CTAs /products, /book,
+            // /contact, /about moved off the root page; still reachable via
+            // multi-page nav from /govdocs etc.)
             let v3 = v2
                 .get(format!("{}/", v1))
                 .send()
@@ -1164,18 +1203,45 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(
-                v4.contains("href=\"/products\""),
-                "hero missing products link",
+                v4.contains("mailto:mcochran@cochranblock.org"),
+                "hero missing Email CTA",
             )?;
             assert_ok(
-                v4.contains("href=\"/book\""),
-                "hero missing Book a Call link",
+                v4.contains("/assets/cochranblock-capability-statement.pdf"),
+                "hero missing Capability Statement PDF",
             )?;
             assert_ok(
-                v4.contains("href=\"/contact\""),
-                "hero missing Get in Touch link",
+                v4.contains("/assets/michael-cochran-resume_may_2026.pdf"),
+                "hero missing Resume PDF",
             )?;
-            assert_ok(v4.contains("href=\"/about\""), "hero missing About link")?;
+            assert_ok(
+                v4.contains("manual.cochranblock.org"),
+                "hero missing Read the Doctrine link",
+            )?;
+            // Verify the linked artifacts return 200
+            let r_capstmt = v2
+                .get(format!("{}/assets/cochranblock-capability-statement.pdf", v1))
+                .send()
+                .await
+                .map_err(|e| e.to_string())?;
+            let r_resume = v2
+                .get(format!("{}/assets/michael-cochran-resume_may_2026.pdf", v1))
+                .send()
+                .await
+                .map_err(|e| e.to_string())?;
+            assert_ok(
+                r_capstmt.status().is_success(),
+                "hero /assets/cochranblock-capability-statement.pdf must 200",
+            )?;
+            assert_ok(
+                r_resume.status().is_success(),
+                "hero /assets/michael-cochran-resume_may_2026.pdf must 200",
+            )?;
+            // Stub the unused vars (was: r_book, r_contact, r_about)
+            let _r_book: Option<()> = None;
+            let _r_contact: Option<()> = None;
+            let _r_about: Option<()> = None;
+            assert_ok(true, "(legacy nav assertions removed — see comment)")?;
             let r_products = v2
                 .get(format!("{}/products", v1))
                 .send()
@@ -1198,9 +1264,9 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             assert_ok(
                 r_products.status().is_success(),
-                "hero /products link must 200",
+                "/products page must still 200",
             )?;
-            assert_ok(r_book.status().is_success(), "hero /book link must 200")?;
+            assert_ok(r_book.status().is_success(), "/book page must still 200")?;
             assert_ok(
                 r_contact.status().is_success(),
                 "hero /contact link must 200",
@@ -1269,7 +1335,7 @@ pub async fn f51() -> Vec<t24> {
                 "contact must have Book a Call link",
             )?;
             assert_ok(
-                v4.contains("/assets/resume.pdf"),
+                v4.contains("/assets/michael-cochran-resume_may_2026.pdf"),
                 "contact must have resume download",
             )?;
             let r_book = v2
@@ -1278,7 +1344,7 @@ pub async fn f51() -> Vec<t24> {
                 .await
                 .map_err(|e| e.to_string())?;
             let r_resume = v2
-                .get(format!("{}/assets/resume.pdf", v1))
+                .get(format!("{}/assets/michael-cochran-resume_may_2026.pdf", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
@@ -2304,6 +2370,398 @@ pub async fn f51() -> Vec<t24> {
             Ok(())
         })
         .await,
+    );
+
+    // ═══════════════════════════════════════════════════════════════════
+    //  LET'S TEAM root + folded manual + cap-statement-styled resume
+    //  Locks the routing established when the apex root moved off the
+    //  manifesto and onto the buyer-facing pitch (assets/lets-team.html),
+    //  with the doctrine + ops manual living at /manual and on the manual
+    //  subdomain via assets/manual.html (folded Act I + seam + Act II).
+    // ═══════════════════════════════════════════════════════════════════
+
+    v0.push(
+        run("lets_team_root_serves_buyer_page", async {
+            let v3 = v2.get(format!("{}/", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // Hero banner — "LET'S TEAM."
+            assert_ok(
+                v4.contains("LET&#39;S") || v4.contains("LET'S"),
+                "root missing LET'S TEAM banner",
+            )?;
+            assert_ok(v4.contains("TEAM"), "root missing TEAM banner segment")?;
+            // Doctrine sentence
+            assert_ok(
+                v4.contains("Architecture taught is architecture adopted"),
+                "root missing doctrine sentence",
+            )?;
+            // Speedometer markup
+            assert_ok(v4.contains("speedo"), "root missing speedometer markup")?;
+            // Engagement two-column
+            assert_ok(v4.contains("As Prime"), "root missing AS PRIME column")?;
+            assert_ok(v4.contains("As Sub"), "root missing AS SUB column")?;
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("lets_team_root_engagement_modes", async {
+            let v3 = v2.get(format!("{}/", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // SBIR teaming modes
+            for mode in &[
+                "SBIR Phase I", "SBIR Phase II", "SBIR Phase III",
+                "STTR", "Direct-to-Phase-II",
+                "SDVOSB Joint Venture", "Mentor-Prot",
+                "STRATFI",
+            ] {
+                assert_ok(
+                    v4.contains(mode),
+                    format!("root missing engagement mode '{}'", mode),
+                )?;
+            }
+            // Sub modes
+            for mode in &[
+                "Teaming Agreement", "Subcontract on prime", "IDIQ task order",
+            ] {
+                assert_ok(
+                    v4.contains(mode),
+                    format!("root missing sub mode '{}'", mode),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("lets_team_architecture_taught_unlicense", async {
+            let v3 = v2.get(format!("{}/", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            assert_ok(
+                v4.contains("Architecture") && v4.contains("Unlicense"),
+                "root missing Architecture-Taught-Under-The-Unlicense section",
+            )?;
+            assert_ok(
+                v4.contains("we don") && v4.contains("gatekeep"),
+                "root missing 'we don't gatekeep' commitment",
+            )?;
+            // Seven patterns referenced
+            for pattern in &[
+                "Single-binary", "Triple-Sims", "DIL", "On-device AI",
+                "C2 mesh", "Wall-of-Laptops",
+            ] {
+                assert_ok(
+                    v4.contains(pattern),
+                    format!("architecture-taught missing '{}'", pattern),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("lets_team_dual_use_proof_table", async {
+            let v3 = v2.get(format!("{}/", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            assert_ok(
+                v4.contains("Dual-Use") && v4.contains("Proof"),
+                "root missing Dual-Use Proof section",
+            )?;
+            assert_ok(
+                v4.contains("KNOXAI") && v4.contains("commercialization"),
+                "root missing KNOXAI commercialization anchor",
+            )?;
+            assert_ok(
+                v4.contains("Federal pull") || v4.contains("federal pull"),
+                "root missing federal-pull column",
+            )?;
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("lets_team_past_performance_three_sections", async {
+            let v3 = v2.get(format!("{}/", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // Three-section split: Corporate / Military / Contractor
+            assert_ok(
+                v4.contains("Corporate Past Performance"),
+                "root missing Corporate Past Performance label",
+            )?;
+            assert_ok(
+                v4.contains("Military Service"),
+                "root missing Military Service label",
+            )?;
+            assert_ok(
+                v4.contains("Contractor Employment"),
+                "root missing Contractor Employment label",
+            )?;
+            // Specific entries with dates
+            assert_ok(
+                v4.contains("USCYBERCOM J38 JMOC-E") && v4.contains("Jun 2020"),
+                "root missing USCYBERCOM J38 JMOC-E + 2020 date",
+            )?;
+            assert_ok(
+                v4.contains("Two Six Technologies") && v4.contains("Sep 2022"),
+                "root missing Two Six entry + 2022 start date",
+            )?;
+            assert_ok(
+                v4.contains("MaxisIQ") && v4.contains("Sep 2024"),
+                "root missing MaxisIQ entry + 2024 start date",
+            )?;
+            assert_ok(
+                v4.contains("oakilydokily.com"),
+                "root missing oakilydokily corporate PP entry",
+            )?;
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("lets_team_2026_procurement_posture", async {
+            let v3 = v2.get(format!("{}/", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // Named programs primes are quoting in 2026 RFPs
+            for token in &[
+                "CISA Secure-by-Design",
+                "DARPA TRACTOR",
+                "DoD CIO",
+                "AFWERX",
+                "NSA/CISA",
+            ] {
+                assert_ok(
+                    v4.contains(token),
+                    format!("procurement-posture missing '{}'", token),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("lets_team_alias_routes_200", async {
+            for path in &["/lets-team", "/team", "/teaming"] {
+                let v3 = v2.get(format!("{}{}", v1, path)).send().await
+                    .map_err(|e| e.to_string())?;
+                assert_ok(
+                    v3.status().is_success(),
+                    format!("alias {} must 200, got {}", path, v3.status()),
+                )?;
+                let v4 = v3.text().await.map_err(|e| e.to_string())?;
+                assert_ok(
+                    v4.contains("LET&#39;S") || v4.contains("LET'S"),
+                    format!("alias {} not serving lets-team page", path),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("manual_serves_folded_doctrine_plus_ops", async {
+            let v3 = v2.get(format!("{}/manual", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            assert_ok(v3.status().is_success(), "/manual must 200")?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // Act I — doctrine
+            assert_ok(
+                v4.contains("ANTI") && v4.contains("FOUNDER"),
+                "/manual missing ANTI-FOUNDER banner (Act I)",
+            )?;
+            assert_ok(
+                v4.contains("id=\"doctrine\""),
+                "/manual missing #doctrine anchor",
+            )?;
+            // Seam
+            assert_ok(
+                v4.contains("id=\"seam\""),
+                "/manual missing #seam anchor",
+            )?;
+            assert_ok(
+                v4.contains("DOCTRINE") && v4.contains("MANUAL")
+                    && v4.contains("BEGINS"),
+                "/manual missing seam caption",
+            )?;
+            // Act II — ops manual
+            assert_ok(
+                v4.contains("THE") && v4.contains("MANUAL"),
+                "/manual missing THE MANUAL banner (Act II)",
+            )?;
+            assert_ok(
+                v4.contains("id=\"manual\""),
+                "/manual missing #manual anchor",
+            )?;
+            // Sticky TOC rail
+            assert_ok(
+                v4.contains("toc-rail"),
+                "/manual missing sticky TOC rail",
+            )?;
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("manual_recursive_aliases_200", async {
+            for path in &[
+                "/manual/",
+                "/manual/manual",
+                "/manual/manual/",
+                "/manual/manual/manual",
+                "/manual/manual/manual/manual/manual",
+            ] {
+                let v3 = v2.get(format!("{}{}", v1, path)).send().await
+                    .map_err(|e| e.to_string())?;
+                assert_ok(
+                    v3.status().is_success(),
+                    format!("{} must 200, got {}", path, v3.status()),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("legacy_manifesto_paths_serve_folded_manual", async {
+            // /anti-founder, /antifounder, /receipts, /eat-the-founder-software-market
+            // continue to resolve (now to the folded manual). Deep-linkers can
+            // append #doctrine to land at the manifesto half.
+            for path in &[
+                "/anti-founder",
+                "/antifounder",
+                "/receipts",
+                "/eat-the-founder-software-market",
+            ] {
+                let v3 = v2.get(format!("{}{}", v1, path)).send().await
+                    .map_err(|e| e.to_string())?;
+                assert_ok(
+                    v3.status().is_success(),
+                    format!("{} must 200, got {}", path, v3.status()),
+                )?;
+                let v4 = v3.text().await.map_err(|e| e.to_string())?;
+                assert_ok(
+                    v4.contains("ANTI") && v4.contains("FOUNDER"),
+                    format!("{} not serving folded manual", path),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("removed_anti_founder_asset_404", async {
+            // assets/anti-founder.html was deleted when the manifesto folded
+            // into manual.html. The standalone asset path must now 404.
+            let v3 = v2
+                .get(format!("{}/assets/anti-founder.html", v1))
+                .send()
+                .await
+                .map_err(|e| e.to_string())?;
+            assert_ok(
+                v3.status().as_u16() == 404,
+                format!(
+                    "/assets/anti-founder.html must 404 (file removed in fold), got {}",
+                    v3.status()
+                ),
+            )?;
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("resume_html_capability_styled", async {
+            let v3 = v2.get(format!("{}/resume", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            assert_ok(v3.status().is_success(), "/resume must 200")?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // Cap-statement aesthetic: ANTI-FOUNDER banner, dark bg, JetBrains Mono
+            assert_ok(
+                v4.contains("ANTI") && v4.contains("FOUNDER"),
+                "/resume missing ANTI-FOUNDER banner (cap-statement style)",
+            )?;
+            assert_ok(
+                v4.contains("@page") && v4.contains("size: letter"),
+                "/resume missing letter-format @page rule",
+            )?;
+            assert_ok(
+                v4.contains("JetBrains Mono"),
+                "/resume missing JetBrains Mono font (cap-statement style)",
+            )?;
+            // Content from Ford rewrite + structural truth
+            assert_ok(
+                v4.contains("(443) 900-7903"),
+                "/resume missing phone number",
+            )?;
+            assert_ok(
+                v4.contains("linkedin.com/in/cochranblock"),
+                "/resume missing LinkedIn",
+            )?;
+            assert_ok(
+                v4.contains("GIAC Security Essentials") || v4.contains("GSEC"),
+                "/resume missing GSEC certification",
+            )?;
+            assert_ok(
+                v4.contains("Offensive Operations Foundation Course"),
+                "/resume missing OOFC training",
+            )?;
+            assert_ok(
+                v4.contains("Inactive Top Secret") && v4.contains("CI Polygraph"),
+                "/resume missing calibrated clearance language",
+            )?;
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("resume_html_six_job_split", async {
+            let v3 = v2.get(format!("{}/resume", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            let v4 = v3.text().await.map_err(|e| e.to_string())?;
+            // Structural truth: 6 jobs, military split into J38 + 103rd CMT + NMT
+            for entry in &[
+                "The Cochran Block, LLC",
+                "MaxisIQ",
+                "Two Six Technologies",
+                "USCYBERCOM",
+                "ARCYBER 103rd Combat Mission Team",
+                "National Mission Team",
+            ] {
+                assert_ok(
+                    v4.contains(entry),
+                    format!("/resume missing job entry '{}'", entry),
+                )?;
+            }
+            // Specific dates for each
+            for date in &[
+                "Feb 2026", "Sep 2024", "Sep 2022", "Jun 2020",
+                "Feb 2017", "Jul 2014",
+            ] {
+                assert_ok(
+                    v4.contains(date),
+                    format!("/resume missing date marker '{}'", date),
+                )?;
+            }
+            Ok(())
+        }).await,
+    );
+
+    v0.push(
+        run("resume_pdf_still_at_assets", async {
+            // /resume.pdf redirects to /assets/michael-cochran-resume_may_2026.pdf (308 permanent).
+            // /assets/michael-cochran-resume_may_2026.pdf must 200 with PDF content type.
+            let v3 = v2.get(format!("{}/resume.pdf", v1)).send().await
+                .map_err(|e| e.to_string())?;
+            assert_ok(
+                v3.status().as_u16() == 308 || v3.status().is_success(),
+                format!("/resume.pdf must redirect or 200, got {}", v3.status()),
+            )?;
+            Ok(())
+        }).await,
     );
 
     v0

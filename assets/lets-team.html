@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Let's Team — The Cochran Block, LLC</title>
+<meta name="description" content="Rust shop for federal primes and SBIR pursuits. SDVOSB-eligible. We sub on your contract, we prime your SBIR, we teach our architecture under the Unlicense.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #050508;
+  --bg: #050508;
+  --surface: #0d0d14;
+  --surface-elevated: #14141f;
+  --text: #e8e8e8;
+  --muted: #9ca3af;
+  --accent: #00d9ff;
+  --accent-hover: #33e1ff;
+  --purple: #9d4edd;
+  --cyber-teal: #00ffcc;
+  --orange: #ff6b35;
+  --amber: #ffb300;
+  --green: #4caf50;
+  --border: rgba(0, 217, 255, 0.15);
+  --border-strong: rgba(0, 217, 255, 0.35);
+  --glow: rgba(0, 217, 255, 0.35);
+  --radius: 8px;
+  --radius-sm: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ───── Cosmic backdrop (matches /govdocs + /services from main.css) ───── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse 600px 400px at 50% 50%,
+    rgba(255,255,255,0.12),
+    rgba(0,217,255,0.06) 40%,
+    transparent 70%);
+  background-size: 200% 200%;
+  animation: starDrift 100s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes starDrift {
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 60% 40%; }
+  50%  { background-position: 100% 20%; }
+  75%  { background-position: 40% 80%; }
+  100% { background-position: 0% 0%; }
+}
+/* Per-page ambient — lets-team identity: cyan + amber + purple buyer-pitch tint */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(ellipse 500px 320px at 8% 12%, rgba(0, 217, 255, 0.14), transparent 55%),
+    radial-gradient(ellipse 420px 280px at 92% 8%, rgba(157, 78, 221, 0.10), transparent 50%),
+    radial-gradient(ellipse 580px 380px at 78% 65%, rgba(255, 179, 0, 0.08), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+/* Shooting star — rare cyan streak */
+.container::before {
+  content: '';
+  position: fixed;
+  top: 12%; left: -10%;
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), rgba(0,217,255,0.5), transparent);
+  border-radius: 1px;
+  opacity: 0;
+  transform: rotate(-15deg);
+  animation: shootingStar 22s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.container::after {
+  content: '';
+  position: fixed;
+  top: 36%; right: -5%;
+  width: 60px; height: 1px;
+  background: linear-gradient(270deg, transparent, rgba(255,255,255,0.6), rgba(157,78,221,0.4), transparent);
+  border-radius: 1px;
+  opacity: 0;
+  transform: rotate(12deg);
+  animation: shootingStar2 33s ease-in-out 8s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes shootingStar {
+  0%, 94% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-15deg); }
+  95% { opacity: 0; }
+  96% { opacity: 1; transform: translate3d(30vw, 5vh, 0) rotate(-15deg); }
+  98% { opacity: 0.6; transform: translate3d(70vw, 12vh, 0) rotate(-15deg); }
+  100% { opacity: 0; transform: translate3d(90vw, 16vh, 0) rotate(-15deg); }
+}
+@keyframes shootingStar2 {
+  0%, 95% { opacity: 0; transform: translate3d(0, 0, 0) rotate(12deg); }
+  96% { opacity: 0; }
+  97% { opacity: 0.8; transform: translate3d(-30vw, 4vh, 0) rotate(12deg); }
+  99% { opacity: 0.4; transform: translate3d(-70vw, 9vh, 0) rotate(12deg); }
+  100% { opacity: 0; transform: translate3d(-85vw, 11vh, 0) rotate(12deg); }
+}
+/* Push interactive content above the cosmic layers */
+.nav, .container, footer { position: relative; z-index: 2; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-hover); }
+
+/* ───── Nav (simplified C7) ───── */
+.nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,5,8,0.85);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 50;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700; letter-spacing: 0.08em;
+  color: var(--text);
+  font-size: 1rem;
+}
+.nav-brand-logo { width: 28px; height: 28px; }
+.nav-links { display: flex; gap: 1.3rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; align-items: center; }
+.nav-links a { color: var(--muted); }
+.nav-links a:hover { color: var(--accent); }
+.nav-group {
+  position: relative;
+}
+.nav-group summary {
+  list-style: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 0.2rem 0;
+}
+.nav-group summary::-webkit-details-marker { display: none; }
+.nav-group summary::after { content: " ▾"; font-size: 0.7em; opacity: 0.6; }
+.nav-group[open] summary { color: var(--accent); }
+.nav-group-links {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 180px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,217,255,0.1);
+  z-index: 60;
+}
+.nav-group-links a {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-group-links a:last-child { border-bottom: none; }
+.nav-group-links a:hover { background: rgba(0,217,255,0.06); }
+
+/* Mobile hamburger — fixed-position button so it's not constrained by the
+   nav flex layout. Visible on phone (≤720px), hidden otherwise. */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0.7rem;
+  right: 0.9rem;
+  z-index: 100;
+}
+.nav-mobile > summary {
+  list-style: none;
+  cursor: pointer;
+  width: 40px; height: 40px;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: rgba(0,217,255,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,217,255,0.1);
+}
+.nav-mobile > summary::-webkit-details-marker { display: none; }
+.nav-mobile > summary::marker { display: none; content: ''; }
+.nav-mobile > summary:hover { background: rgba(0,217,255,0.08); border-color: var(--accent); }
+.nav-mobile > summary > span {
+  display: block;
+  width: 22px; height: 2.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.nav-mobile[open] > summary > span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.nav-mobile[open] > summary > span:nth-child(2) {
+  opacity: 0;
+}
+.nav-mobile[open] > summary > span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+.nav-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 240px;
+  max-width: calc(100vw - 1.4rem);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: rgba(5,5,8,0.97);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,217,255,0.08);
+  padding: 0.4rem 0;
+  z-index: 60;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+.nav-mobile-menu > a {
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.nav-mobile-menu > a:hover { background: rgba(0,217,255,0.06); color: var(--accent); }
+.nav-mobile-menu > a:last-child {
+  color: var(--amber);
+  font-weight: 700;
+  border-bottom: none;
+}
+.nav-mobile-menu .nav-group-head {
+  padding: 0.55rem 1.1rem 0.3rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+.nav-mobile-menu .nav-group-head:not(:first-child) {
+  border-top: 1px solid var(--border);
+  margin-top: 0.2rem;
+  padding-top: 0.6rem;
+}
+.nav-mobile-menu > a.indent {
+  padding-left: 1.6rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.nav-mobile-menu > a.indent:hover { color: var(--accent); }
+
+@media (max-width: 720px) {
+  .nav { padding: 0.7rem 0.9rem; gap: 0.5rem; position: relative; }
+  .nav-mobile { display: block; }
+  .nav-brand span { font-size: 0.78rem; letter-spacing: 0.16em; }
+  .nav-brand { gap: 0.5rem; }
+  .nav-brand-logo { width: 24px; height: 24px; }
+  /* Hide the inline desktop nav-links on phone — the mobile-details replaces it */
+  .nav-links { display: none !important; }
+}
+
+/* ───── Layout ───── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+
+/* ───── Hero ───── */
+.hero { padding: 5rem 0 4rem; }
+.hero-pretag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2.2rem, 8.5vw, 6rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero-sub {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.5;
+  max-width: 780px;
+  margin-bottom: 2rem;
+}
+.hero-sub strong { color: var(--accent); font-weight: 600; }
+.hero-modes {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  margin: 1.5rem 0 2rem;
+}
+.hero-mode {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  background: rgba(0,217,255,0.04);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+.hero-mode.alt { color: var(--purple); border-color: rgba(157,78,221,0.4); background: rgba(157,78,221,0.04); }
+
+/* Trust strip — flex-wrap chips so each credential is its own atomic unit
+   that wraps cleanly without clipping at the viewport edge. */
+.trust {
+  margin: 2rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+.trust .chip {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0.18rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: rgba(0,217,255,0.04);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trust .chip strong {
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 0.35em;
+  letter-spacing: 0.06em;
+}
+.trust strong { color: var(--text); font-weight: 600; }
+.trust .sep { color: var(--accent); margin: 0 0.4em; }
+@media (max-width: 720px) {
+  .trust { padding: 0.7rem 0.75rem; gap: 0.3rem 0.4rem; }
+  .trust .chip {
+    font-size: 0.66rem;
+    padding: 0.15rem 0.4rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+/* CTA row */
+.cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+.btn {
+  display: inline-block;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.75rem 1.3rem;
+  background: var(--accent);
+  color: var(--void);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, transform 0.1s;
+}
+.btn:hover { background: var(--accent-hover); transform: translateY(-1px); color: var(--void); }
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: rgba(0,217,255,0.08); color: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-doctrine {
+  background: transparent;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+}
+.btn-doctrine:hover { background: rgba(255,179,0,0.08); color: var(--amber); border-color: var(--amber); }
+
+/* ───── Speedometer ───── */
+.speedo {
+  margin: 2.5rem 0;
+  padding: 1.6rem 1.8rem;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  max-width: 640px;
+}
+.speedo-digits {
+  display: flex;
+  gap: 0.35rem;
+}
+.speedo-cell {
+  width: 48px; height: 64px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: var(--muted);
+  position: relative;
+  overflow: hidden;
+}
+.speedo-cell.live {
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--glow), 0 0 24px rgba(0,217,255,0.4);
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(0,217,255,0.06) 100%);
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 12px var(--glow), 0 0 24px rgba(0,217,255,0.4); }
+  50% { text-shadow: 0 0 20px var(--glow), 0 0 40px rgba(0,217,255,0.6); }
+}
+.speedo-meta { display: flex; flex-direction: column; gap: 0.4rem; }
+.speedo-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--accent); font-weight: 700;
+}
+.speedo-bar {
+  position: relative;
+  height: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.speedo-bar-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 64%;
+  background: linear-gradient(90deg, var(--purple), var(--accent));
+  box-shadow: 0 0 12px var(--glow);
+  border-radius: 99px;
+  animation: fill-roll 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes fill-roll {
+  from { width: 0; }
+  to { width: 64%; }
+}
+.speedo-scale {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.speedo-foot {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+}
+.speedo-foot a { color: var(--accent); }
+@media (max-width: 580px) {
+  .speedo { grid-template-columns: 1fr; padding: 1.4rem; }
+  .speedo-cell { width: 38px; height: 52px; font-size: 1.7rem; }
+}
+
+/* ───── Section heads ───── */
+h2.section-head {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+h2.section-head .accent { color: var(--accent); }
+.section-intro {
+  color: var(--muted);
+  font-size: 1.02rem;
+  max-width: 780px;
+  margin-bottom: 1.5rem;
+}
+
+/* ───── Engagement two-column ───── */
+.engage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 1024px) {
+  /* Tablet portrait: tighten hero pills + footer 4-col → 2-col */
+  .hero-mode { font-size: 0.72rem; padding: 0.45rem 0.8rem; letter-spacing: 0.14em; }
+  .foot-grid { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+  .verts { grid-template-columns: repeat(2, 1fr); }
+  .vert:nth-child(3) { grid-column: span 2; }
+}
+@media (max-width: 820px) {
+  .engage-grid { grid-template-columns: 1fr; }
+  /* Phones: collapse verticals to single column AND reset the
+     "3rd card spans 2" rule from the tablet breakpoint above. */
+  .verts { grid-template-columns: 1fr; gap: 0.9rem; }
+  .vert, .vert:nth-child(2), .vert:nth-child(3) {
+    grid-column: auto;
+  }
+  .vert ul { font-size: 0.88rem; }
+}
+.engage-col {
+  padding: 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.engage-col.primary { border-color: var(--accent); background: linear-gradient(180deg, rgba(0,217,255,0.04) 0%, var(--surface) 100%); }
+.engage-col.secondary { border-color: rgba(157,78,221,0.35); background: linear-gradient(180deg, rgba(157,78,221,0.04) 0%, var(--surface) 100%); }
+.engage-col h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.engage-col.primary h3 { color: var(--accent); }
+.engage-col.secondary h3 { color: var(--purple); }
+.engage-col .sub {
+  font-size: 0.85rem; color: var(--muted);
+  font-style: italic;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.04em;
+}
+.engage-list { list-style: none; }
+.engage-list li {
+  position: relative;
+  padding: 0.55rem 0 0.55rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.engage-list li::before {
+  content: "▸";
+  position: absolute; left: 0; top: 0.55rem;
+  font-weight: 700;
+}
+.engage-col.primary .engage-list li::before { color: var(--accent); }
+.engage-col.secondary .engage-list li::before { color: var(--purple); }
+.engage-list li:last-child { border-bottom: none; }
+.engage-list li strong { color: var(--text); font-weight: 700; }
+.engage-list li .li-sub { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 0.15rem; line-height: 1.4; }
+.engage-best {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ───── Architecture taught ───── */
+.taught {
+  padding: 2rem 1.8rem;
+  background: linear-gradient(135deg, rgba(0,217,255,0.03), rgba(157,78,221,0.03));
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+.taught .lead {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.18rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 1.4rem;
+  line-height: 1.5;
+}
+.taught .lead strong { color: var(--accent); font-weight: 700; }
+.taught-list { list-style: none; }
+.taught-list li {
+  padding: 0.6rem 0 0.6rem 1.6rem;
+  position: relative;
+  border-bottom: 1px dashed var(--border);
+  color: var(--text);
+  font-size: 0.96rem;
+}
+.taught-list li::before {
+  content: "◆";
+  position: absolute; left: 0; top: 0.6rem;
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+.taught-list li:last-child { border-bottom: none; }
+.taught-list li strong { color: var(--text); }
+.taught-list li code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.86em;
+  background: var(--bg); color: var(--amber);
+  padding: 1px 5px; border-radius: 3px;
+  border: 1px solid var(--border);
+}
+.taught-foot {
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.taught-foot strong { color: var(--accent); }
+
+/* ───── Verticals ───── */
+.verts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+@media (max-width: 820px) { .verts { grid-template-columns: 1fr; } }
+.vert {
+  padding: 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--accent);
+}
+.vert:nth-child(2) { border-top-color: var(--cyber-teal); }
+.vert:nth-child(3) { border-top-color: var(--purple); }
+.vert h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+.vert ul { list-style: none; }
+.vert li {
+  padding: 0.4rem 0 0.4rem 0.9rem;
+  position: relative;
+  font-size: 0.86rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+.vert li::before {
+  content: "›";
+  position: absolute; left: 0; top: 0.4rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+.vert:nth-child(2) li::before { color: var(--cyber-teal); }
+.vert:nth-child(3) li::before { color: var(--purple); }
+.vert li:last-child { border-bottom: none; }
+
+/* ───── Procurement banner ───── */
+.proc-banner {
+  padding: 1.6rem 1.8rem;
+  background: var(--surface);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius);
+  font-size: 0.96rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+.proc-banner strong { color: var(--amber); font-weight: 700; }
+.proc-banner code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--bg); color: var(--accent);
+  padding: 1px 5px; border-radius: 3px;
+  font-size: 0.88em;
+}
+
+/* ───── Tables ───── */
+table.dual-use, table.regs, table.pp {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+table.dual-use th, table.dual-use td,
+table.regs th, table.regs td,
+table.pp th, table.pp td {
+  padding: 0.7rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+table.dual-use th, table.regs th, table.pp th {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-strong);
+}
+table.dual-use td:first-child, table.regs td:first-child, table.pp td:first-child {
+  color: var(--text); font-weight: 600;
+}
+table.dual-use td:nth-child(2), table.dual-use td:nth-child(3) {
+  color: var(--muted); font-size: 0.88rem;
+}
+table.regs td:last-child {
+  color: var(--accent); font-weight: 600;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+}
+table.pp td.role { color: var(--text); font-weight: 600; min-width: 200px; }
+table.pp td.entity { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+table.pp td.dates { color: var(--muted); white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+table.pp td.scope { color: var(--muted); font-size: 0.88rem; }
+
+.pp-section-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 1.5rem 0 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px dashed var(--border);
+}
+.pp-section-label.military { color: var(--orange); }
+.pp-section-label.contractor { color: var(--purple); }
+
+/* ───── Footer (4-group link grid + brand strip — mirrors C8) ───── */
+footer.foot {
+  padding: 3rem 0 3rem;
+  border-top: 1px solid var(--border);
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 2.2rem;
+}
+@media (max-width: 720px) {
+  .foot-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+}
+.foot-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.foot-heading {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.foot-group a {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  border-bottom: 1px dotted transparent;
+  padding: 0.1rem 0;
+}
+.foot-group a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.foot-strip {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  text-align: center;
+}
+.foot-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  line-height: 2;
+}
+.foot-line a { color: var(--muted); border-bottom: 1px dotted var(--border); }
+.foot-line a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.foot-line .sep { color: var(--accent); margin: 0 0.5em; }
+
+/* ───── Mobile portrait fixes ───── */
+.table-wrap {
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-wrap > table {
+  margin: 0;
+  min-width: 560px; /* keeps columns legible; horizontal scroll triggers below */
+}
+@media (max-width: 720px) {
+  /* Defensive: force everything to obey viewport width on phone */
+  html, body { max-width: 100vw; overflow-x: hidden; }
+  .container, .hero, section, .engage-grid, .engage-col, .verts, .vert,
+  .trust, .speedo, .proc-banner, .taught, .foot-grid, .foot-group, footer.foot {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .container { width: 100%; padding: 0 1rem; }
+  /* Word-break long inline credentials defensively */
+  p, li, td, span, .hero-sub, .trust, .creed, .summary {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  /* Past Performance + Dual-Use tables: collapse to stacked cards */
+  table.pp, table.dual-use {
+    display: block;
+    min-width: 0;
+  }
+  table.pp thead, table.dual-use thead { display: none; }
+  table.pp tbody, table.dual-use tbody { display: block; }
+  table.pp tr, table.dual-use tr {
+    display: block;
+    padding: 0.7rem 0.8rem;
+    margin-bottom: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  table.pp td, table.dual-use td {
+    display: block;
+    padding: 0.2rem 0;
+    border: none;
+    text-align: left !important;
+    white-space: normal;
+  }
+  table.pp td.role, table.pp td.entity, table.pp td.dates, table.pp td.scope {
+    min-width: 0;
+    white-space: normal;
+  }
+  table.pp td.role { font-size: 1rem; padding-bottom: 0.15rem; }
+  table.pp td.dates { color: var(--amber); font-weight: 700; font-size: 0.78rem; }
+  table.pp td.entity { color: var(--accent); font-size: 0.82rem; }
+  table.pp td.scope { color: var(--muted); font-size: 0.85rem; padding-top: 0.3rem; }
+  /* Dual-use: prepend a label per cell so the row reads as a card */
+  table.dual-use td:first-child {
+    color: var(--text); font-weight: 700; font-size: 0.95rem;
+    padding-bottom: 0.2rem;
+  }
+  table.dual-use td:nth-child(2)::before {
+    content: "FED · "; color: var(--amber); font-size: 0.7rem;
+    letter-spacing: 0.18em; font-weight: 700;
+  }
+  table.dual-use td:nth-child(3)::before {
+    content: "COMM · "; color: var(--cyber-teal); font-size: 0.7rem;
+    letter-spacing: 0.18em; font-weight: 700;
+  }
+  /* Hero modes pills: tighten so they don't stack one-per-row */
+  .hero-mode {
+    font-size: 0.68rem;
+    padding: 0.4rem 0.7rem;
+    letter-spacing: 0.14em;
+  }
+  /* CTA buttons: don't stretch full-width */
+  .cta-row .btn {
+    flex: 0 0 auto;
+    font-size: 0.78rem;
+    padding: 0.65rem 1rem;
+  }
+  /* Trust strip: shorter line-height + denser separators */
+  .trust { font-size: 0.78rem; line-height: 1.7; padding: 0.9rem 1rem; }
+  /* Section padding: reduce vertical space on small screens */
+  section { padding: 2.2rem 0; }
+  /* Hero h1 tighter — fits LET'S TEAM. on a 390px viewport */
+  .hero h1 { font-size: clamp(1.7rem, 10vw, 3.4rem); letter-spacing: -0.03em; }
+  /* Pretag wraps cleanly — trim letterspacing on phone */
+  .hero-pretag { letter-spacing: 0.28em; font-size: 0.7rem; }
+  /* Container padding tighter */
+  .container { padding: 0 1rem; }
+  .hero { padding: 3rem 0 2.5rem; }
+  /* Trust strip: aggressive word break so credential lines never overflow */
+  .trust {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 0.74rem;
+    line-height: 1.65;
+  }
+  /* Hero pills: smaller + tighter so 6 pills fit a 390px viewport */
+  .hero-mode {
+    font-size: 0.62rem;
+    padding: 0.35rem 0.55rem;
+    letter-spacing: 0.1em;
+  }
+  /* Hero-sub paragraphs wrap defensively */
+  .hero-sub { overflow-wrap: anywhere; }
+  /* Section heads tighter */
+  h2.section-head { font-size: 0.95rem; letter-spacing: 0.16em; }
+  /* Engagement column body wrap */
+  .engage-list li, .engage-list li .li-sub { overflow-wrap: anywhere; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="nav-brand">
+    <svg class="nav-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="3"/>
+      <circle cx="60" cy="60" r="5" fill="#00d9ff"/>
+    </svg>
+    <span>COCHRAN BLOCK</span>
+  </a>
+  <details class="nav-mobile">
+    <summary aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </summary>
+    <div class="nav-mobile-menu">
+      <span class="nav-group-head">On This Page</span>
+      <a href="#engage" class="indent">Engage</a>
+      <a href="#taught" class="indent">Architecture</a>
+      <a href="#verts" class="indent">Verticals</a>
+      <a href="#regs" class="indent">Registrations</a>
+
+      <span class="nav-group-head">Procurement</span>
+      <a href="/govdocs" class="indent">Gov Docs</a>
+      <a href="/sbir" class="indent">SBIR</a>
+      <a href="/vre" class="indent">VR&amp;E</a>
+      <a href="/dcaa" class="indent">DCAA</a>
+      <a href="/assets/cochranblock-capability-statement.pdf" class="indent">Capability Statement (PDF)</a>
+      <a href="/resume" class="indent">Resume</a>
+
+      <span class="nav-group-head">Receipts</span>
+      <a href="/openbooks" class="indent">Open Books</a>
+      <a href="/source" class="indent">Source</a>
+      <a href="/stats" class="indent">Stats</a>
+      <a href="/tinybinaries" class="indent">Binaries</a>
+      <a href="/pulse" class="indent">Pulse</a>
+
+      <span class="nav-group-head">Site</span>
+      <a href="/products" class="indent">Products</a>
+      <a href="/services" class="indent">Services</a>
+      <a href="/about" class="indent">About</a>
+      <a href="/contact" class="indent">Contact</a>
+      <a href="/book" class="indent">Book a Call</a>
+      <a href="/deploy" class="indent">Deploy</a>
+      <a href="/community-grant" class="indent">Grant</a>
+      <a href="/arch" class="indent">Arch</a>
+      <a href="/no-quarter" class="indent">No Quarter</a>
+
+      <a href="https://manual.cochranblock.org">Read the Doctrine →</a>
+    </div>
+  </details>
+  <div class="nav-links">
+    <a href="#engage">Engage</a>
+    <a href="#taught">Architecture</a>
+    <a href="#verts">Verticals</a>
+    <a href="#regs">Registrations</a>
+    <details class="nav-group">
+      <summary>Gov</summary>
+      <div class="nav-group-links">
+        <a href="/govdocs">Gov Docs</a>
+        <a href="/sbir">SBIR</a>
+        <a href="/vre">VR&amp;E</a>
+        <a href="/dcaa">DCAA</a>
+        <a href="/assets/cochranblock-capability-statement.pdf">Capability Stmt PDF</a>
+      </div>
+    </details>
+    <details class="nav-group">
+      <summary>Tools</summary>
+      <div class="nav-group-links">
+        <a href="/openbooks">Open Books</a>
+        <a href="/source">Source</a>
+        <a href="/stats">Stats</a>
+        <a href="/tinybinaries">Binaries</a>
+        <a href="/search">Search</a>
+        <a href="/pulse">Pulse</a>
+      </div>
+    </details>
+    <details class="nav-group">
+      <summary>Site</summary>
+      <div class="nav-group-links">
+        <a href="/products">Products</a>
+        <a href="/services">Services</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/book">Book a Call</a>
+        <a href="/deploy">Deploy</a>
+        <a href="/community-grant">Grant</a>
+        <a href="/arch">Arch</a>
+        <a href="/no-quarter">No Quarter</a>
+      </div>
+    </details>
+    <a href="/resume">Resume</a>
+    <a href="https://manual.cochranblock.org">Doctrine →</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═════════════════════════ HERO ═════════════════════════ -->
+<section class="hero">
+  <div class="hero-pretag">SDVOSB · Rust · Cleared Cyber · Public Domain</div>
+  <h1>LET&#39;S <span class="accent">TEAM</span>.</h1>
+  <p class="hero-sub">
+    Rust shop, SDVOSB-eligible. <strong>We sub on your contract,
+    we prime your SBIR, we teach our architecture under the Unlicense.</strong>
+    Architecture taught is architecture adopted.
+  </p>
+
+  <div class="hero-modes">
+    <span class="hero-mode">Teaming Agreement</span>
+    <span class="hero-mode">Subcontract</span>
+    <span class="hero-mode">IDIQ Task Order</span>
+    <span class="hero-mode alt">SBIR I/II/III</span>
+    <span class="hero-mode alt">STTR</span>
+    <span class="hero-mode alt">JV / Mentor-Protégé</span>
+  </div>
+
+  <div class="trust">
+    <span class="chip"><strong>SDVOSB</strong> Final Review</span>
+    <span class="chip"><strong>SAM.gov</strong> Active</span>
+    <span class="chip"><strong>CAGE</strong> 1CQ66</span>
+    <span class="chip"><strong>UEI</strong> W7X3HAQL9CF9</span>
+    <span class="chip"><strong>EIN</strong> 41-3835237</span>
+    <span class="chip"><strong>TS/SCI</strong> reactivation eligible</span>
+    <span class="chip"><strong>Maryland CSB</strong> approved</span>
+    <span class="chip"><strong>eMMA</strong> SUP1095449</span>
+    <span class="chip"><strong>30%</strong> service-connected disabled veteran</span>
+    <span class="chip"><strong>Dual-Use</strong> Established</span>
+  </div>
+
+  <!-- Speedometer -->
+  <div class="speedo">
+    <div class="speedo-digits" aria-label="32 crates published">
+      <div class="speedo-cell">0</div>
+      <div class="speedo-cell">0</div>
+      <div class="speedo-cell">0</div>
+      <div class="speedo-cell live">3</div>
+      <div class="speedo-cell live">2</div>
+    </div>
+    <div class="speedo-meta">
+      <div class="speedo-label">▲ Crates Published</div>
+      <div class="speedo-bar">
+        <div class="speedo-bar-fill"></div>
+      </div>
+      <div class="speedo-scale"><span>0</span><span>32</span><span>50</span></div>
+      <div class="speedo-foot">LIVE · <a href="https://crates.io/users/gotemcoach">crates.io/users/gotemcoach</a> · <a href="https://github.com/cochranblock">github.com/cochranblock</a></div>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <a href="mailto:mcochran@cochranblock.org?subject=Teaming%20inquiry%20%E2%80%94%20The%20Cochran%20Block" class="btn">Email — Let's Team</a>
+    <a href="/assets/cochranblock-capability-statement.pdf" class="btn btn-secondary">Capability Statement (PDF)</a>
+    <a href="/assets/michael-cochran-resume_may_2026.pdf" class="btn btn-secondary">Resume (PDF)</a>
+    <a href="https://manual.cochranblock.org" class="btn btn-doctrine">Read the Doctrine →</a>
+  </div>
+</section>
+
+<!-- ═════════════════════════ ENGAGEMENT ═════════════════════════ -->
+<section id="engage">
+  <h2 class="section-head">How <span class="accent">We Team</span></h2>
+  <p class="section-intro">Two tracks. The first is your contract; we slot in. The second is our small business; you team with us as the prime or as the sub for transition. Pick whichever makes the procurement office happy.</p>
+
+  <div class="engage-grid">
+    <div class="engage-col primary">
+      <h3>As Prime · Teaming Preferred</h3>
+      <p class="sub">You team with us; we hold the small business set-aside.</p>
+      <ul class="engage-list">
+        <li><strong>SBIR Phase I</strong> — concept feasibility; subs allowed up to 33%
+          <span class="li-sub">SDVOSB set-aside topics; AFWERX, SpaceWERX, NavalX, DARPA, NIH, NSF Open Topics</span></li>
+        <li><strong>SBIR Phase II</strong> — prototype build; subs allowed up to 50%
+          <span class="li-sub">Cost-reimbursement-aware; up to ~$2M per topic</span></li>
+        <li><strong>SBIR Phase III</strong> — sole-source, no dollar cap
+          <span class="li-sub">Team with us as the transition vehicle; we sub UNDER you for delivery</span></li>
+        <li><strong>STTR</strong> — small biz + research-institution partner
+          <span class="li-sub">Open to UMD, JHU APL, MITRE-affiliated researcher pairings</span></li>
+        <li><strong>Direct-to-Phase-II (D2P2)</strong>
+          <span class="li-sub">32-crate Unlicense base + IR&amp;D openbooks = Phase I-equivalent evidence</span></li>
+        <li><strong>SDVOSB Joint Venture</strong>
+          <span class="li-sub">JV with another SDVOSB to combine past performance for Phase II / set-aside pursuits</span></li>
+        <li><strong>SBA / DoD Mentor-Protégé</strong>
+          <span class="li-sub">Open to 18-month mentor-protégé arrangements; primes can sub to us on set-asides without disqualifying SDVOSB status</span></li>
+        <li><strong>STRATFI / TACFI</strong> — post-Phase II match funding
+          <span class="li-sub">Commercial revenue (KNOXAI + oakilydokily + consulting) provides the private match</span></li>
+      </ul>
+      <div class="engage-best">Best when you've got a topic, a research lead, a Phase III transition need — or you want to mentor.</div>
+    </div>
+
+    <div class="engage-col secondary">
+      <h3>As Sub · Where It Fits</h3>
+      <p class="sub">Your contract; we slot in for the Rust/cyber CLIN.</p>
+      <ul class="engage-list">
+        <li><strong>Teaming Agreement</strong> — pre-award partnership
+          <span class="li-sub">Most common first touch; converts to subcontract on win</span></li>
+        <li><strong>Subcontract on prime instrument</strong>
+          <span class="li-sub">Add us to your active contract; rate card on file; ready for clause flow-down</span></li>
+        <li><strong>Named sub on IDIQ task order</strong>
+          <span class="li-sub">Pre-named on your bid for specific task orders; on-call for the surge</span></li>
+      </ul>
+      <div class="engage-best">Best when you've got an active instrument and need a specialized Rust/cyber capability for a CLIN.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════ ARCHITECTURE TAUGHT ═════════════════════════ -->
+<section id="taught">
+  <h2 class="section-head">Architecture <span class="accent">Taught Under The Unlicense</span></h2>
+  <div class="taught">
+    <p class="lead">When we team, <strong>we don&#39;t gatekeep</strong>. The architecture is the deliverable. The architecture is public domain. Bring the contract; the patterns travel under the Unlicense.</p>
+    <ul class="taught-list">
+      <li><strong>Single-binary Rust web service pattern</strong> — this site is the reference impl. 10 MB binary, $10/mo bare-metal hosting, zero cloud. Source on GitHub, Unlicense.</li>
+      <li><strong>Triple-Sims testing gate</strong> — three-stage simulation before merge. Implemented in <code>exopack</code>. Re-used across every Cochran Block crate.</li>
+      <li><strong>Edge / DIL / disconnected deployment patterns</strong> — operates in disconnected, intermittent, limited-bandwidth environments. Zero external dependencies at runtime.</li>
+      <li><strong>On-device AI inference</strong> — <code>any-gpu</code>, <code>pixel-forge</code>, <code>kova-engine</code>. Runs on consumer hardware. No FedRAMP cloud auth required because there is no cloud.</li>
+      <li><strong>Distributed C2 mesh</strong> — <code>ghost-fabric</code>, <code>runsible</code>. Multi-node orchestration via SSH with tokenized command compression. Resync on connectivity restore.</li>
+      <li><strong>Wall-of-Laptops TUI / framebuffer-console pattern</strong> — zero-GUI status displays. ~80 MB RAM total per node. Repurpose, don&#39;t replace.</li>
+      <li><strong>The <code>cochranblock</code> crate itself</strong> — a template for instantiating your own anti-founder website. Fork it, rename it, point it at your own catalog. Public domain.</li>
+      <li><strong>Custom AI orchestration over curated, research-backed datasets</strong> — multiple shipped instances. <em>Data is the moat, not the model.</em> Researched and curated corpora, paired with on-device inference, deliver the kind of dual-use AI that&rsquo;s defensible without an OpenAI bill or a FedRAMP cloud auth.</li>
+    </ul>
+    <div class="taught-foot">
+      <strong>No license fee.</strong> No NDA needed for the patterns. Full crate-by-crate breakdown at <a href="https://manual.cochranblock.org">manual.cochranblock.org</a>.
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════ VERTICALS ═════════════════════════ -->
+<section id="verts">
+  <h2 class="section-head">Verticals</h2>
+  <p class="section-intro">Where the work fits. Each vertical lists the procurement vocabulary your contracting specialist will look for, not marketing words.</p>
+  <div class="verts">
+    <div class="vert">
+      <h3>Defense</h3>
+      <ul>
+        <li>USCYBERCOM J38 JMOC-E (military service)</li>
+        <li>JCWA hands-on: JCC2, JCAP, UDP</li>
+        <li><strong>Custom AI orchestration · curated mission-specific datasets</strong></li>
+        <li>CMMC 2.0 Level 2 readiness in progress</li>
+        <li>DFARS 252.204-7012 / -7020 / -7021 awareness</li>
+        <li>Army 17C Cyber Operations · JCAC 2014</li>
+        <li>TS/SCI reactivation eligible</li>
+      </ul>
+    </div>
+    <div class="vert">
+      <h3>Healthtech</h3>
+      <ul>
+        <li>Memory-safe Rust aligned to CISA Secure-by-Design</li>
+        <li>On-prem AI inference (no FedRAMP cloud auth required)</li>
+        <li><strong>Custom AI orchestration over curated, research-backed datasets</strong></li>
+        <li>HL7 / FHIR familiarity</li>
+        <li>HIPAA Security Rule design pattern</li>
+        <li>Single-binary deployment for clinical edge</li>
+        <li>Air-gapped inference for radioactive data</li>
+      </ul>
+    </div>
+    <div class="vert">
+      <h3>Fed Civilian</h3>
+      <ul>
+        <li>Single-binary Rust services</li>
+        <li>Zero-cloud / FedRAMP-Mod-avoidant architecture</li>
+        <li><strong>Custom AI orchestration · curated mission-specific datasets</strong></li>
+        <li>NIST SP 800-218 (SSDF) familiarity</li>
+        <li>NIST SP 800-53 / 800-171 controls familiarity</li>
+        <li>Public IR&amp;D openbooks for audit-ready transparency</li>
+        <li>97% cost reduction vs cloud baseline (demonstrated)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════ 2026 PROCUREMENT POSTURE ═════════════════════════ -->
+<section id="posture">
+  <h2 class="section-head">2026 Procurement <span class="accent">Posture</span></h2>
+  <div class="proc-banner">
+    Aligned to <strong>CISA Secure-by-Design pledge</strong> + the memory-safety roadmap (Jan 1, 2026 deadline). Compliant with <strong>NSA/CISA June 2025 CSI</strong> "Memory Safe Languages: Reducing Vulnerabilities." Ready for <strong>DARPA TRACTOR</strong> C-to-Rust translation pursuits. Positioned for <strong>DoD CIO FY25-26 Software Modernization Implementation Plan</strong> software-factory subcontracts. CMMC 2.0 readiness on roadmap; <code>NIST SP 800-171</code> self-assessment in progress.
+    <br><br>
+    <strong>SBIR-ready.</strong> Dual-use posture demonstrated by paid commercial product (<a href="https://knox.cochranblock.org">KNOXAI</a>) plus 32-crate Unlicense technology base. Targeting AFWERX / SpaceWERX / NavalX / DARPA Open Topics. STRATFI / TACFI match-funding viable via existing commercial revenue.
+  </div>
+</section>
+
+<!-- ═════════════════════════ DUAL-USE PROOF ═════════════════════════ -->
+<section id="dual-use">
+  <h2 class="section-head">Dual-Use <span class="accent">Proof</span></h2>
+  <p class="section-intro">Federal pull paired with commercial pull. KNOXAI is the commercialization anchor — same technology base, two revenue streams.</p>
+  <table class="dual-use">
+    <thead>
+      <tr><th>Technology</th><th>Federal pull</th><th>Commercial pull</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Single-binary Rust services</td>
+        <td>DoD CIO FY25-26 Software Mod Plan; FedRAMP-Mod-avoidant deployments</td>
+        <td>oakilydokily.com (paying client); cochranblock.org self-hosted</td>
+      </tr>
+      <tr>
+        <td>Memory-safe modernization</td>
+        <td>CISA Secure-by-Design; NSA/CISA June 2025 CSI; DARPA TRACTOR</td>
+        <td>32 Unlicense crates with public adoption</td>
+      </tr>
+      <tr>
+        <td>On-device AI inference</td>
+        <td>DoD edge / disconnected-environment requirements</td>
+        <td><code>any-gpu</code>, <code>pixel-forge</code> — runs on consumer GPUs</td>
+      </tr>
+      <tr>
+        <td>AI model integrity certification</td>
+        <td>NIST AI RMF · EO 14110 · federal AI assurance</td>
+        <td><strong>KNOXAI — paid commercial service · the proprietary lane · STRATFI/TACFI match source</strong></td>
+      </tr>
+      <tr>
+        <td>Custom AI orchestration over curated data</td>
+        <td>Mission-specific dataset curation; on-device inference for disconnected / cleared environments</td>
+        <td>Multiple shipped instances; researched and curated corpora as the moat (data, not model)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═════════════════════════ PAST PERFORMANCE ═════════════════════════ -->
+<section id="pp">
+  <h2 class="section-head">Past <span class="accent">Performance</span></h2>
+  <p class="section-intro">Three sections, three different framings. Corporate past performance follows The Cochran Block, LLC. Military service is the owner's uniform. Contractor employment is the owner's W-2 history. All three are publicly verifiable.</p>
+
+  <div class="pp-section-label">Corporate Past Performance · The Cochran Block, LLC</div>
+  <table class="pp">
+    <thead><tr><th>Engagement</th><th>Entity</th><th>Period</th><th>Scope</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="role">oakilydokily.com</td>
+        <td class="entity">Commercial · paying client</td>
+        <td class="dates">2025–present</td>
+        <td class="scope">Waiver management; digital intake; ESIGN compliance; Cloudflare Zero Trust on bare metal</td>
+      </tr>
+      <tr>
+        <td class="role"><a href="/openbooks" style="color:var(--text);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px">cochranblock.org</a></td>
+        <td class="entity">IR&amp;D · self-funded · <a href="/openbooks" style="color:var(--accent)">openbooks audit</a></td>
+        <td class="dates">2024–present</td>
+        <td class="scope">Production website; 31 products; 10 MB binary; $10/mo infrastructure; intake forms; SQLite; booking; community grant app. Full IR&amp;D activity log at <a href="/openbooks" style="color:var(--accent)">/openbooks</a>.</td>
+      </tr>
+      <tr>
+        <td class="role">KNOXAI</td>
+        <td class="entity">Commercial · multiple customers</td>
+        <td class="dates">2024–present</td>
+        <td class="scope">Third-party AI-model integrity certification; specifics under NDA; verification artifacts public</td>
+      </tr>
+      <tr>
+        <td class="role">Maryland eMMA</td>
+        <td class="entity">State vendor SUP1095449</td>
+        <td class="dates">2024–present</td>
+        <td class="scope">ACH direct deposit active; ready for state task orders</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pp-section-label military">Military Service · Michael Cochran (Owner)</div>
+  <table class="pp">
+    <tbody>
+      <tr>
+        <td class="role">USCYBERCOM J38 JMOC-E</td>
+        <td class="entity">Systems Developer · co-dev lead</td>
+        <td class="dates">Jun 2020 – Sep 2022</td>
+        <td class="scope">NDAA-directed offensive cyber operations study; API development, CI/CD pipeline design, data modeling, network protocol implementation. Specifics not publicly disclosed.</td>
+      </tr>
+      <tr>
+        <td class="role">ARCYBER 103rd Combat Mission Team</td>
+        <td class="entity">Title 10 Offensive Cyber Operator</td>
+        <td class="dates">Feb 2017 – Jun 2020</td>
+        <td class="scope">Executed 100+ operational missions; Python automation tooling for mission support. Specifics not publicly disclosed.</td>
+      </tr>
+      <tr>
+        <td class="role">National Mission Team</td>
+        <td class="entity">Digital Network Exploitation Analyst</td>
+        <td class="dates">Jul 2014 – Feb 2017</td>
+        <td class="scope">Network mapping, traffic analysis, Intelligence Community reporting.</td>
+      </tr>
+      <tr>
+        <td class="role">U.S. Army · MOS 17C Cyber Operations</td>
+        <td class="entity">JCAC Corry Station 2014</td>
+        <td class="dates">2014 – 2022</td>
+        <td class="scope">Cleared environment throughout active service; prior TS/SCI; reactivation eligible.</td>
+      </tr>
+      <tr>
+        <td class="role">30% service-connected disabled veteran</td>
+        <td class="entity">VA-rated</td>
+        <td class="dates">—</td>
+        <td class="scope">Basis for SDVOSB eligibility.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pp-section-label contractor">Contractor Employment · Michael Cochran (Owner)</div>
+  <table class="pp">
+    <tbody>
+      <tr>
+        <td class="role">Two Six Technologies</td>
+        <td class="entity">Senior Software Engineer · W-2</td>
+        <td class="dates">Sep 2022 – Sep 2024</td>
+        <td class="scope">JCWA hands-on integrations: JCC2, JCAP, UDP. YAML-to-SQL pipelines, regex parsing engines, data sanitization tooling for compartmented cyber environments.</td>
+      </tr>
+      <tr>
+        <td class="role">MaxisIQ</td>
+        <td class="entity">Senior Systems Engineer · W-2</td>
+        <td class="dates">Sep 2024 – Feb 2026</td>
+        <td class="scope">Mission-critical systems for USCYBERCOM Title 10 ops support. Custom Python tooling for systems survey + automated server service repairs. SSH/Kerberos infrastructure automation.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.82rem;color:var(--muted);margin-top:1rem;font-style:italic">Contract numbers omitted intentionally. Contractor employment entries reflect work performed as W-2 employee of the named employer; The Cochran Block, LLC was not the contracting entity for those engagements. References available on request.</p>
+</section>
+
+<!-- ═════════════════════════ REGISTRATIONS ═════════════════════════ -->
+<section id="regs">
+  <h2 class="section-head">Registrations &amp; <span class="accent">NAICS</span></h2>
+  <table class="regs">
+    <tbody>
+      <tr><td>SAM.gov</td><td>Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9</td></tr>
+      <tr><td>SDVOSB · MySBA Certifications</td><td>Final Review (~12 day SBA average as of 2026-Q1)</td></tr>
+      <tr><td>Maryland CSB · Certified Small Business</td><td>Approved</td></tr>
+      <tr><td>Maryland eMMA · State vendor</td><td>SUP1095449 · ACH active</td></tr>
+      <tr><td>EIN</td><td>41-3835237</td></tr>
+      <tr><td>Clearance posture</td><td>Prior TS/SCI · reactivation eligible</td></tr>
+    </tbody>
+  </table>
+  <h3 style="font-family:'Orbitron',sans-serif;font-size:0.9rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text);margin:1.5rem 0 0.6rem">NAICS Codes</h3>
+  <table class="regs">
+    <tbody>
+      <tr><td>541511</td><td>Custom Computer Programming Services</td></tr>
+      <tr><td>541512</td><td>Computer Systems Design Services</td></tr>
+      <tr><td>541519</td><td>Other Computer Related Services</td></tr>
+      <tr><td>541330</td><td>Engineering Services</td></tr>
+      <tr><td>541690</td><td>Other Scientific and Technical Consulting</td></tr>
+      <tr><td>541714</td><td>R&amp;D in Biotechnology (except nanobiotechnology)</td></tr>
+      <tr><td>541715</td><td>R&amp;D in the Physical, Engineering, and Life Sciences</td></tr>
+      <tr><td>518210</td><td>Computing Infrastructure Providers</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:1rem;font-size:0.88rem;color:var(--muted)">Available now for non-set-aside teaming, IDIQ task orders, and SBIR pursuits. SDVOSB set-aside eligibility activates upon SBA Final Review completion.</p>
+  <p style="margin-top:0.6rem;font-size:0.86rem;color:var(--muted)">
+    Full procurement-document set at <a href="/govdocs">/govdocs</a>
+    <span style="color:var(--accent);margin:0 0.3em">·</span>
+    Capability Statement: <a href="/assets/cochranblock-capability-statement.pdf">PDF</a>
+    <span style="color:var(--accent);margin:0 0.3em">·</span>
+    SBIR positioning: <a href="/sbir">/sbir</a>
+    <span style="color:var(--accent);margin:0 0.3em">·</span>
+    VR&amp;E: <a href="/vre">/vre</a>
+    <span style="color:var(--accent);margin:0 0.3em">·</span>
+    DCAA path: <a href="/dcaa">/dcaa</a>
+  </p>
+</section>
+
+<!-- ═════════════════════════ FOOTER ═════════════════════════ -->
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-group">
+      <span class="foot-heading">Engage</span>
+      <a href="mailto:mcochran@cochranblock.org?subject=Teaming%20inquiry">Email · Let's Team</a>
+      <a href="/book">Book a Call</a>
+      <a href="/contact">Contact</a>
+      <a href="/deploy">Deploy</a>
+      <a href="/community-grant">Community Grant</a>
+      <a href="https://www.linkedin.com/in/cochranblock">LinkedIn</a>
+    </div>
+    <div class="foot-group">
+      <span class="foot-heading">Gov</span>
+      <a href="/govdocs">Gov Docs</a>
+      <a href="/sbir">SBIR</a>
+      <a href="/vre">VR&amp;E</a>
+      <a href="/dcaa">DCAA</a>
+      <a href="/assets/cochranblock-capability-statement.pdf">Capability Statement (PDF)</a>
+      <a href="/resume">Resume (HTML)</a>
+      <a href="/assets/michael-cochran-resume_may_2026.pdf">Resume (PDF)</a>
+    </div>
+    <div class="foot-group">
+      <span class="foot-heading">Receipts</span>
+      <a href="https://github.com/cochranblock">github.com/cochranblock</a>
+      <a href="https://crates.io/users/gotemcoach">crates.io · 32 crates</a>
+      <a href="/openbooks">IR&amp;D Open Books</a>
+      <a href="/source">Source Viewer</a>
+      <a href="/stats">Stats</a>
+      <a href="/tinybinaries">Binaries</a>
+      <a href="/pulse">Pulse</a>
+    </div>
+    <div class="foot-group">
+      <span class="foot-heading">Site</span>
+      <a href="/products">Products</a>
+      <a href="/services">Services</a>
+      <a href="/about">About</a>
+      <a href="/arch">Architecture</a>
+      <a href="/no-quarter">No Quarter</a>
+      <a href="/railgun-rosetta">Railgun Rosetta</a>
+      <a href="https://manual.cochranblock.org">Doctrine + Manual →</a>
+      <a href="https://knox.cochranblock.org">KNOXAI →</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+  </div>
+
+  <div class="foot-strip">
+    <p class="foot-line">
+      <strong style="color:var(--text)">The Cochran Block, LLC</strong>
+      <span class="sep">·</span> 7452 School Avenue, Dundalk, MD 21222
+      <span class="sep">·</span> Veteran-Owned
+    </p>
+    <p class="foot-line">
+      UEI W7X3HAQL9CF9 <span class="sep">·</span> CAGE 1CQ66 <span class="sep">·</span> EIN 41-3835237
+      <span class="sep">·</span> SAM.gov Active <span class="sep">·</span> SDVOSB Final Review
+      <span class="sep">·</span> Maryland CSB Approved <span class="sep">·</span> eMMA SUP1095449
+    </p>
+    <p class="foot-line">
+      All non-proprietary work · <a href="https://unlicense.org">Unlicense</a> · Public Domain
+    </p>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

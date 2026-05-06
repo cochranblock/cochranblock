@@ -302,22 +302,25 @@ pub async fn f2_root(
         return super::whyme::page().await.into_response();
     }
     if is_manual {
-        // Every path on manual.cochranblock.org serves The Manual.
+        // Every path on manual.cochranblock.org serves the folded Manual
+        // (Act I doctrine + seam + Act II ops manual).
         let body_bytes = include_packed::include_packed!("assets/manual.html");
         return Html(String::from_utf8_lossy(&body_bytes).into_owned()).into_response();
     }
-    // cochranblock.org root: serve The Anti-Founder Manifesto.
-    // KNOXAI lives on its subdomain (knox.cochranblock.org) and is
-    // referenced from inside the manifesto.
-    let body_bytes = include_packed::include_packed!("assets/anti-founder.html");
+    // cochranblock.org apex root: serve the LET'S TEAM page — buyer-facing
+    // pitch tuned for federal primes, SBIR pursuits, teaming agreements.
+    // Doctrine + ops manual live at manual.cochranblock.org, linked from the
+    // hero. KNOXAI on its own subdomain. Resume at /resume.
+    let body_bytes = include_packed::include_packed!("assets/lets-team.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned()).into_response()
 }
 
-/// f_anti_founder = The Anti-Founder Manifesto. Served at /, /anti-founder,
-/// /antifounder, /receipts, and /eat-the-founder-software-market. Public-domain
-/// receipts and the doctrine.
+/// f_anti_founder = The Anti-Founder Manifesto, now Act I of the folded
+/// Manual. Served at /, /anti-founder, /antifounder, /receipts, and
+/// /eat-the-founder-software-market — all resolve to the same folded
+/// asset; deep-linkers can append `#doctrine` to land at the manifesto.
 pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let body_bytes = include_packed::include_packed!("assets/anti-founder.html");
+    let body_bytes = include_packed::include_packed!("assets/manual.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
@@ -326,6 +329,26 @@ pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// with the apex-domain theme (cyan + diamond logo).
 pub async fn f_manual(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/manual.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
+/// f_resume_html = HTML resume at /resume. Banner: MICHAEL COCHRAN.
+/// Cap-statement-styled (cyan/dark, JetBrains Mono, letter-format @page) with
+/// name-led branding so ATS keyword filters and corporate recruiters don't
+/// get tripped by a brand-forward header. The doctrine still lives on the
+/// site (manual.cochranblock.org) and the lets-team root; the resume itself
+/// is the artifact that needs to survive the recruiter pipeline.
+/// PDF: /assets/michael-cochran-resume_may_2026.pdf.
+pub async fn f_resume_html(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/resume.html");
+    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+}
+
+/// f_lets_team = LET'S TEAM. Direct alias for the apex root buyer page,
+/// for deep-linking from external listings (LinkedIn, capability briefings,
+/// teaming-agreement intros).
+pub async fn f_lets_team(State(_p0): State<Arc<t0>>) -> Html<String> {
+    let body_bytes = include_packed::include_packed!("assets/lets-team.html");
     Html(String::from_utf8_lossy(&body_bytes).into_owned())
 }
 
@@ -902,8 +925,8 @@ cochranblock.org/deploy — Start a project</p>
 <details class="service-card" open>
 <summary>Available documents</summary>
 <p>
-<a href="/assets/capability-statement.pdf" class="btn" download>Capability Statement (PDF)</a>
-<a href="/assets/resume.pdf" class="btn" download>Resume (PDF)</a>
+<a href="/assets/cochranblock-capability-statement.pdf" class="btn" download>Capability Statement (PDF)</a>
+<a href="/assets/michael-cochran-resume_may_2026.pdf" class="btn" download>Resume (PDF)</a>
 <a href="/assets/og-image.png" class="btn btn-secondary" download>Company Logo Card</a>
 </p>
 <p class="govdoc-note">W-9: Available on request — <a href="mailto:mcochran@cochranblock.org?subject=W-9%20Request">email for a signed copy</a>.</p>
@@ -1732,7 +1755,7 @@ pub async fn f12(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v5 = r#"<div class="legacy-tab-content">
 <div class="resume-actions">
   <button type="button" class="btn" id="copy-resume" onclick="navigator.clipboard.writeText(document.getElementById('resume-text').innerText).then(function(){document.getElementById('copy-resume').textContent='Copied.'})">Copy to Clipboard</button>
-  <a href="/assets/resume.pdf" class="btn btn-secondary" download>Download PDF</a>
+  <a href="/assets/michael-cochran-resume_may_2026.pdf" class="btn btn-secondary" download>Download PDF</a>
 </div>
 <p class="resume-hint">Step 1: Click "Copy to Clipboard"<br>Step 2: Paste it wherever you want<br>Step 3: There is no step 3</p>
 <pre id="resume-text" class="resume-raw">
@@ -1906,7 +1929,7 @@ document.addEventListener('DOMContentLoaded',function(){{var btns=document.query
 
 /// f13 = serve_contact. Why: Email CTA; no form friction.
 pub async fn f13(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let v0 = r#"<section class="contact"><h1>Contact</h1><p class="trust-badge">Product in development · Consulting: open</p><blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote><p>Interested in our product roadmap, consulting, or a discovery call? Reach out by email.</p><p class="contact-micro">Product interest? Email with subject "Product Launch" to get notified when we ship.</p><p class="contact-micro">No form, no friction — just email.</p><p class="contact-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn">Email Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/assets/resume.pdf" class="btn btn-secondary" download>Michael's Resume</a></p><p class="contact-secondary">Or connect on <a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p><p class="contact-note">We typically respond within 24–48 hours.</p></section>"#;
+    let v0 = r#"<section class="contact"><h1>Contact</h1><p class="trust-badge">Product in development · Consulting: open</p><blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote><p>Interested in our product roadmap, consulting, or a discovery call? Reach out by email.</p><p class="contact-micro">Product interest? Email with subject "Product Launch" to get notified when we ship.</p><p class="contact-micro">No form, no friction — just email.</p><p class="contact-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn">Email Us</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="/assets/michael-cochran-resume_may_2026.pdf" class="btn btn-secondary" download>Michael's Resume</a></p><p class="contact-secondary">Or connect on <a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p><p class="contact-note">We typically respond within 24–48 hours.</p></section>"#;
     Html(format!(
         "{}{}{}{}",
         f62d(
@@ -2441,7 +2464,7 @@ Government edge deployments (tactical, shipboard, SCIF) operate on resource-cons
 <a href="/deploy" class="btn">Start a Project</a>
 </p>
 
-<p class="govdoc-note">This page is the business plan. Every claim links to live proof on this site or public GitHub repositories. A VA counselor can verify everything by clicking through. For the printable version: <a href="/assets/resume.pdf">Resume (PDF)</a> · <a href="mailto:mcochran@cochranblock.org?subject=VR%26E%20Business%20Plan">Email for full documentation package</a></p>
+<p class="govdoc-note">This page is the business plan. Every claim links to live proof on this site or public GitHub repositories. A VA counselor can verify everything by clicking through. For the printable version: <a href="/assets/michael-cochran-resume_may_2026.pdf">Resume (PDF)</a> · <a href="mailto:mcochran@cochranblock.org?subject=VR%26E%20Business%20Plan">Email for full documentation package</a></p>
 </section>"#;
     Html(format!(
         "{}{}{}{}",

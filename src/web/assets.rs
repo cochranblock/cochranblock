@@ -24,8 +24,20 @@ fn t15_get(p0: &str) -> Option<Vec<u8>> {
         "img/ronin-sites.png" => include_packed!("assets/img/ronin-sites.png"),
         "img/pixel-forge.png" => include_packed!("assets/img/pixel-forge.png"),
         "img/aptnomo.png" => include_packed!("assets/img/aptnomo.png"),
-        "resume.pdf" => include_packed!("assets/resume.pdf"),
-        "capability-statement.pdf" => include_packed!("assets/capability-statement.pdf"),
+        // Primary descriptive filenames — these are what land in the user's
+        // Downloads folder when a contracting officer or recruiter saves them.
+        "michael-cochran-resume_may_2026.pdf" => {
+            include_packed!("assets/michael-cochran-resume_may_2026.pdf")
+        }
+        "cochranblock-capability-statement.pdf" => {
+            include_packed!("assets/cochranblock-capability-statement.pdf")
+        }
+        // Legacy bare names — keep serving the same bytes so external links and
+        // search-engine indexes don't 404. Internal links use the new names.
+        "resume.pdf" => include_packed!("assets/michael-cochran-resume_may_2026.pdf"),
+        "capability-statement.pdf" => {
+            include_packed!("assets/cochranblock-capability-statement.pdf")
+        }
         "og-image.png" => include_packed!("assets/og-image.png"),
         "icon-192.png" => include_packed!("assets/icon-192.png"),
         "icon-512.png" => include_packed!("assets/icon-512.png"),

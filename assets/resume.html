@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resume — Michael Cochran · The Cochran Block, LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0.32in 0.42in; background: #050508; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #050508; color: #f5f5f5;
+    font-family: 'JetBrains Mono','SF Mono','Fira Code','Menlo','Consolas',monospace;
+    font-size: 7.4pt; line-height: 1.36;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  body { padding: 0.32in 0.42in; }
+  .cyan { color: #00d9ff; }
+  .amber { color: #ffb300; }
+  .dim { color: #777; }
+  .fg2 { color: #bbb; }
+
+  .head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px solid rgba(0,217,255,0.30);
+    padding-bottom: 6pt; margin-bottom: 7pt;
+  }
+  .pretag {
+    font-size: 6.2pt; letter-spacing: 0.30em; color: #00d9ff;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 3pt;
+  }
+  .banner {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 26pt; font-weight: 900; line-height: 0.95;
+    letter-spacing: -0.6pt; color: #f5f5f5;
+  }
+  .banner .anti, .banner .cyan { color: #00d9ff; }
+  .banner-sub {
+    font-size: 7pt; letter-spacing: 0.32em; color: #ffb300;
+    text-transform: uppercase; font-weight: 700;
+    margin-top: 4pt;
+  }
+  .who { font-size: 8pt; color: #bbb; margin-top: 4pt; }
+  .who strong { color: #f5f5f5; }
+  .head .right {
+    text-align: right; font-size: 7.4pt; color: #bbb; line-height: 1.6;
+    padding-top: 6pt;
+  }
+  .head .right .label { color: #00d9ff; letter-spacing: 0.18em; font-size: 6.5pt; text-transform: uppercase; }
+  .head .right a { color: #00d9ff; text-decoration: none; }
+
+  .creed {
+    border-left: 3px solid #00d9ff;
+    background: rgba(0,217,255,0.06);
+    padding: 5pt 8pt; margin-bottom: 7pt;
+    font-size: 7.4pt; line-height: 1.45;
+  }
+  .creed strong { color: #00d9ff; }
+  .creed em { color: #ffb300; font-style: italic; }
+
+  .grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 11pt; }
+
+  h2 {
+    font-size: 6.4pt; letter-spacing: 0.30em; text-transform: uppercase;
+    color: #ffb300; font-weight: 800;
+    margin-bottom: 4pt; padding-bottom: 2pt;
+    border-bottom: 1px solid rgba(0,217,255,0.18);
+  }
+  section { margin-bottom: 7pt; }
+  h2 { break-after: avoid-page; }
+  .exp-item, .skill-block, .receipts, .auth, .cert-line { break-inside: avoid; }
+  .exp-head, .exp-lead { break-after: avoid; }
+
+  .summary { font-size: 7.2pt; color: #ddd; line-height: 1.45; }
+  .summary strong { color: #f5f5f5; }
+  .summary em { color: #00d9ff; font-style: normal; font-weight: 700; }
+
+  .exp-item {
+    margin-bottom: 5pt;
+    padding-bottom: 4pt;
+    border-bottom: 1px dotted rgba(0,217,255,0.12);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 6pt;
+    margin-bottom: 2pt;
+  }
+  .exp-role { color: #f5f5f5; font-weight: 700; font-size: 7.4pt; }
+  .exp-org { color: #00d9ff; font-weight: 700; font-size: 7.2pt; }
+  .exp-dates {
+    color: #ffb300; font-weight: 700;
+    font-size: 6.6pt; letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .exp-lead {
+    color: #bbb; font-size: 7pt; line-height: 1.42;
+    margin-bottom: 2pt;
+  }
+  .exp-lead strong { color: #f5f5f5; }
+
+  ul.acc { list-style: none; margin-top: 1.5pt; }
+  ul.acc > li {
+    padding: 0 0 1.6pt 9pt; position: relative;
+    font-size: 7pt; line-height: 1.38;
+    color: #bbb;
+  }
+  ul.acc > li::before {
+    content: "▸"; position: absolute; left: 0; top: 0;
+    color: #00d9ff; font-size: 6.4pt;
+  }
+  ul.acc > li strong { color: #f5f5f5; }
+  ul.acc > li em {
+    color: #ffb300; font-style: normal; font-weight: 700;
+  }
+
+  ul.bul { list-style: none; }
+  ul.bul > li {
+    padding: 0 0 2pt 9pt; position: relative;
+    font-size: 7.2pt; line-height: 1.38;
+    color: #bbb;
+  }
+  ul.bul > li::before {
+    content: "▸"; position: absolute; left: 0; top: 0;
+    color: #00d9ff; font-size: 6.6pt;
+  }
+  ul.bul > li strong { color: #f5f5f5; }
+
+  .skill-block {
+    font-size: 6.8pt; line-height: 1.42;
+    margin-bottom: 2.5pt;
+  }
+  .skill-block .label {
+    color: #00d9ff; font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-right: 3pt;
+  }
+  .skill-block .vals { color: #bbb; }
+
+  .receipts {
+    margin-top: 5pt; padding: 6pt 8pt;
+    border: 1px solid #00d9ff; background: rgba(0,217,255,0.04);
+    font-size: 6.8pt; line-height: 1.55;
+  }
+  .receipts .row { display: flex; justify-content: space-between; }
+  .receipts .row .v { color: #00d9ff; font-weight: 700; }
+  .receipts .row .v.amber { color: #ffb300; }
+  .receipts .head-row {
+    color: #00d9ff; letter-spacing: 0.22em; text-transform: uppercase;
+    font-size: 6.4pt; padding-bottom: 4pt; margin-bottom: 4pt;
+    border-bottom: 1px dashed rgba(0,217,255,0.30); font-weight: 700;
+  }
+
+  .auth {
+    border-left: 3px solid #ffb300;
+    background: rgba(255,179,0,0.05);
+    padding: 5pt 8pt; margin-top: 4pt;
+    font-size: 6.8pt; line-height: 1.55;
+    color: #ddd;
+  }
+  .auth strong { color: #ffb300; }
+  .auth code {
+    background: #14141f; color: #ffb300;
+    padding: 0 3pt; border-radius: 2pt;
+    font-size: 6.6pt;
+  }
+
+  .cert-line {
+    font-size: 6.8pt; line-height: 1.45;
+    color: #ddd;
+  }
+  .cert-line strong { color: #f5f5f5; }
+  .cert-line .org { color: #00d9ff; }
+
+  footer {
+    margin-top: 8pt; padding-top: 4pt;
+    border-top: 1px solid rgba(0,217,255,0.30);
+    display: flex; justify-content: space-between;
+    font-size: 6.2pt; color: #888; letter-spacing: 0.06em;
+  }
+  footer .url { color: #00d9ff; font-weight: 700; letter-spacing: 0.10em; }
+
+  /* Top backref bar — screen-only, hidden in print so PDF stays clean.
+     Sticky at the top so you can always get back to the apex root or other
+     sections from the resume page. */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 6pt 12pt;
+    padding: 6pt 10pt;
+    background: rgba(5,5,8,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0,217,255,0.22);
+    margin: -0.32in -0.42in 8pt -0.42in;
+    font-size: 7pt;
+    letter-spacing: 0.06em;
+  }
+  .topbar .home {
+    font-weight: 700; color: #00d9ff;
+    font-size: 7.4pt; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .topbar .home:hover { color: #33e1ff; }
+  .topbar .links { display: flex; flex-wrap: wrap; gap: 4pt 10pt; }
+  .topbar a { color: #bbb; text-decoration: none; }
+  .topbar a:hover { color: #00d9ff; }
+  .topbar .sep { color: #444; }
+  .topbar .save {
+    color: #ffb300; font-weight: 700;
+    border: 1px solid rgba(255,179,0,0.4);
+    padding: 2pt 7pt; border-radius: 3pt;
+    font-size: 6.8pt; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .topbar .save:hover { color: #ffd166; border-color: rgba(255,179,0,0.8); }
+  @media print { .topbar { display: none !important; } }
+  @media screen and (max-width: 720px) {
+    .topbar {
+      margin: -1rem -1rem 0.6rem -1rem;
+      padding: 0.6rem 0.8rem;
+      font-size: 9pt;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .topbar .home { font-size: 11pt; }
+    .topbar .save { font-size: 8.5pt; padding: 0.3rem 0.7rem; }
+  }
+
+  /* Backref strip — only on screen, hidden in print so PDF stays clean */
+  .backrefs {
+    margin-top: 7pt; padding: 6pt 8pt;
+    background: rgba(0,217,255,0.04);
+    border: 1px solid rgba(0,217,255,0.18);
+    border-radius: 3pt;
+    display: flex; flex-wrap: wrap; gap: 6pt 14pt;
+    font-size: 6.8pt; line-height: 1.55;
+  }
+  .backrefs .label {
+    color: #ffb300; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-size: 6pt;
+    margin-right: 4pt;
+  }
+  .backrefs a { color: #00d9ff; text-decoration: none; font-weight: 600; }
+  .backrefs a:hover { text-decoration: underline; }
+  .backrefs .group { display: flex; flex-wrap: wrap; gap: 6pt; align-items: baseline; }
+  .backrefs .sep { color: #555; }
+  @media print { .backrefs { display: none !important; } }
+  @media screen and (max-width: 720px) {
+    .backrefs { font-size: 9pt; padding: 0.6rem 0.8rem; gap: 0.4rem 0.8rem; }
+    .backrefs .label { font-size: 8.5pt; }
+  }
+
+  @media screen and (min-width: 768px) {
+    body {
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.5in;
+      box-shadow: 0 0 40px rgba(0,217,255,0.08);
+      position: relative;
+      z-index: 2;
+    }
+    html { background: #02020a; }
+  }
+
+  /* Cosmic backdrop on screen only — print stays clean letter format */
+  @media screen {
+    html { position: relative; min-height: 100%; }
+    html::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse 600px 400px at 50% 50%,
+        rgba(255,255,255,0.10),
+        rgba(0,217,255,0.05) 40%,
+        transparent 70%);
+      background-size: 200% 200%;
+      animation: starDrift 100s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    html::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse 480px 300px at 10% 14%, rgba(0, 217, 255, 0.12), transparent 55%),
+        radial-gradient(ellipse 400px 260px at 88% 10%, rgba(255, 179, 0, 0.08), transparent 50%),
+        radial-gradient(ellipse 560px 360px at 75% 70%, rgba(157, 78, 221, 0.07), transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes starDrift {
+      0%   { background-position: 0% 0%; }
+      25%  { background-position: 60% 40%; }
+      50%  { background-position: 100% 20%; }
+      75%  { background-position: 40% 80%; }
+      100% { background-position: 0% 0%; }
+    }
+  }
+  @media print {
+    html::before, html::after { display: none !important; }
+    /* Single-column print flow — two-column grid splits awkwardly across pages
+       when content is unbalanced (6 experience entries on left, 5 short blocks
+       on right). Single column keeps logical reading order. */
+    .grid { grid-template-columns: 1fr; gap: 0; }
+    /* Tighten print spacing so the doc still fits in ~2 pages */
+    section { margin-bottom: 5pt; }
+    h2 {
+      margin: 7pt 0 3pt; padding-top: 3pt;
+      border-top: 1px solid rgba(0,217,255,0.18);
+    }
+    body > .grid > div:first-child > section:first-child h2,
+    body > .grid > div > section:first-child h2 {
+      border-top: none; padding-top: 0;
+    }
+    .exp-item { margin-bottom: 4pt; padding-bottom: 3pt; }
+    .creed { margin-bottom: 5pt; padding: 4pt 8pt; }
+    .skill-block { margin-bottom: 1pt; }
+    .receipts { margin-top: 4pt; padding: 5pt 7pt; }
+    /* Skills section: condense to 2 typographic columns inside its section */
+    section:has(.skill-block) > div:has(> .skill-block:nth-of-type(2)),
+    .skill-block ~ .skill-block {
+      /* fall-through; per-section column treatment via the section selector */
+    }
+    /* When parent section has multiple skill-blocks, column-count via :has */
+    section:has(.skill-block:nth-of-type(3)) {
+      column-count: 2;
+      column-gap: 14pt;
+      column-rule: 1px dotted rgba(0,217,255,0.18);
+    }
+    section:has(.skill-block:nth-of-type(3)) h2 { column-span: all; }
+    section:has(.skill-block:nth-of-type(3)) .skill-block { break-inside: avoid; }
+    /* Education / Certifications / Training / Authorizations:
+       sit side-by-side via column-count where the section has a heading + a couple of items */
+    .auth, .cert-line { break-inside: avoid; page-break-inside: avoid; }
+
+    /* Force the Verifiable Receipts box to stay attached to the previous section
+       so it doesn't orphan onto its own page with 80% blank space. */
+    .receipts {
+      break-before: avoid;
+      page-break-before: avoid;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-top: 4pt;
+    }
+    /* Pull the entire credentials cluster onto page 2 instead of page 3 —
+       Education / Certifications / Specialized Military Training /
+       Authorizations / Technical Competencies all want to stay together
+       once the experience section ends. break-inside: avoid prevents
+       single bullets from orphaning to the next page. */
+    section:has(.skill-block),
+    section:has(.auth),
+    section:has(.bul),
+    section:has(.cert-line) {
+      break-before: avoid;
+      page-break-before: avoid;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    section:has(.skill-block:nth-of-type(3)) h2 {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    ul.bul, ul.acc {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    /* Tighter section spacing so Auth + Tech Comp + Receipts fit together */
+    section { margin-bottom: 3pt; }
+    .auth { margin-top: 2pt; padding: 3pt 6pt; }
+    /* Authorizations: narrower margin + condensed inside */
+    .auth strong { font-weight: 700; }
+    /* Education / Certs / Training are short — pack them tighter */
+    .cert-line { margin-top: 2pt; }
+    .cert-line + .cert-line { margin-top: 2pt; }
+    ul.bul > li { padding-bottom: 0.8pt; line-height: 1.32; font-size: 6.5pt; }
+    /* Body padding tighter for print; zero-height bottom prevents a phantom
+       page-3 from being created when the page-2 content fills almost to edge. */
+    body { padding: 0.28in 0.42in 0 0.42in; min-height: 0; }
+    html, body { page-break-after: avoid; break-after: avoid; }
+    @page { size: letter; margin: 0.28in 0.38in; background: #050508; }
+    /* Receipts: tighter rows so the box fits on page 2 */
+    .receipts { font-size: 6.4pt; line-height: 1.42; padding: 4pt 7pt; }
+    .receipts .head-row { padding-bottom: 3pt; margin-bottom: 3pt; font-size: 6pt; }
+    .receipts .row { padding: 0.2pt 0; }
+    /* Footer hidden in print — its info (CAGE / UEI / cochranblock.org) is now
+       inline in the .who line at the top of the resume. Avoids orphaning the
+       footer alone on a third page. */
+    footer { display: none !important; }
+
+    /* Tighten experience leads + accomplishments for print so the doc fits 2 pages */
+    .exp-lead { font-size: 6.7pt; line-height: 1.4; margin-bottom: 1.5pt; }
+    ul.acc > li { font-size: 6.7pt; line-height: 1.36; padding-bottom: 1.2pt; }
+    .summary { font-size: 6.9pt; line-height: 1.4; }
+    .creed { font-size: 7pt; line-height: 1.42; padding: 4pt 7pt; }
+    .exp-role, .exp-org { font-size: 7.2pt; }
+    .exp-dates { font-size: 6.4pt; }
+    .auth { font-size: 6.6pt; padding: 4pt 7pt; line-height: 1.5; }
+    .cert-line { font-size: 6.6pt; line-height: 1.4; }
+    .skill-block { font-size: 6.5pt; line-height: 1.38; }
+    .receipts { font-size: 6.5pt; line-height: 1.5; }
+    h2 { font-size: 6.2pt; margin-top: 6pt; padding-top: 2pt; }
+  }
+
+  /* Tablet portrait — keep two-column but tighten spacing + slightly bigger fonts */
+  @media screen and (min-width: 721px) and (max-width: 1024px) {
+    html, body { font-size: 8.4pt; }
+    body { padding: 1.5rem 1.2rem; }
+    .grid { gap: 14pt; }
+    .banner { font-size: 19pt; }
+    .summary { font-size: 7.8pt; }
+    .exp-lead { font-size: 7.6pt; line-height: 1.45; }
+    ul.acc > li { font-size: 7.5pt; line-height: 1.45; }
+    .skill-block { font-size: 7.4pt; line-height: 1.5; }
+    .receipts { font-size: 7.4pt; }
+    .topbar { font-size: 8pt; gap: 8pt 14pt; }
+  }
+
+  /* Mobile portrait — collapse to single column, bump font-size for readability.
+     Print rules and the @page letter format stay intact for PDF generation. */
+  @media screen and (max-width: 720px) {
+    html, body { font-size: 10pt; line-height: 1.5; }
+    body { padding: 1rem; }
+    .head {
+      flex-direction: column;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+    .head .right {
+      text-align: left;
+      padding-top: 0;
+      font-size: 10pt;
+    }
+    .banner { font-size: clamp(1.7rem, 9vw, 2.6rem); }
+    .banner-sub { font-size: 8.5pt; letter-spacing: 0.22em; }
+    .who { font-size: 10pt; }
+    .creed { font-size: 10pt; padding: 0.7rem 0.9rem; }
+    h2 { font-size: 8.5pt; letter-spacing: 0.24em; }
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .summary { font-size: 9.5pt; line-height: 1.5; }
+    .exp-head { flex-direction: column; gap: 0.15rem; align-items: flex-start; }
+    .exp-role { font-size: 10pt; }
+    .exp-org { font-size: 9.5pt; }
+    .exp-dates { font-size: 8.5pt; }
+    .exp-lead { font-size: 9pt; line-height: 1.5; }
+    ul.acc > li { font-size: 9pt; padding: 0 0 4pt 12pt; line-height: 1.5; }
+    ul.bul > li { font-size: 9pt; }
+    .skill-block { font-size: 9pt; line-height: 1.5; margin-bottom: 0.4rem; }
+    .receipts { font-size: 9pt; padding: 0.7rem 0.9rem; }
+    .receipts .row { padding: 0.15rem 0; }
+    .auth { font-size: 9pt; padding: 0.7rem 0.9rem; }
+    .cert-line { font-size: 9.5pt; line-height: 1.5; }
+    /* PDF download nudge — visible only on screens, hidden in print */
+    .pdf-nudge {
+      display: block;
+      margin: 0.6rem 0 1rem;
+      padding: 0.6rem 0.9rem;
+      background: rgba(255,179,0,0.08);
+      border-left: 3px solid #ffb300;
+      font-size: 9pt;
+      color: #ddd;
+    }
+    .pdf-nudge a { color: #ffb300; font-weight: 700; }
+  }
+  .pdf-nudge { display: none; }
+  @media print {
+    .pdf-nudge { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Resume navigation">
+  <a class="home" href="/">◆ Cochran Block · Home</a>
+  <div class="links">
+    <a href="/">Lets Team</a>
+    <span class="sep">·</span>
+    <a href="https://manual.cochranblock.org">Doctrine</a>
+    <span class="sep">·</span>
+    <a href="/govdocs">Gov Docs</a>
+    <span class="sep">·</span>
+    <a href="/assets/cochranblock-capability-statement.pdf">Capability Statement</a>
+    <span class="sep">·</span>
+    <a href="https://github.com/cochranblock">GitHub</a>
+    <span class="sep">·</span>
+    <a href="mailto:mcochran@cochranblock.org?subject=Resume%20inquiry">Email</a>
+  </div>
+  <a class="save" href="/assets/michael-cochran-resume_may_2026.pdf" download>Save PDF ↓</a>
+</nav>
+
+<div class="pdf-nudge">
+  Reading on a phone? The print-format PDF is cleaner — <a href="/assets/michael-cochran-resume_may_2026.pdf">View Resume PDF →</a>
+</div>
+
+<div class="head">
+  <div>
+    <div class="pretag">▸ Senior Systems Engineer &middot; Title 10 OCO &middot; U.S. Army Veteran</div>
+    <div class="banner"><span class="cyan">MICHAEL</span> COCHRAN</div>
+    <div class="banner-sub">Resume · Senior Systems Engineer · Cleared Cyber · Rust Modernization</div>
+    <div class="who"><strong>Owner &amp; Engineer</strong> &middot; The Cochran Block, LLC &middot; <span class="cyan">CAGE 1CQ66</span> &middot; <span class="cyan">UEI W7X3HAQL9CF9</span></div>
+  </div>
+  <div class="right">
+    <div class="label">Contact</div>
+    Dundalk, MD 21222<br>
+    (443) 900-7903<br>
+    mcochran@cochranblock.org<br>
+    <a href="https://www.linkedin.com/in/cochranblock/">linkedin.com/in/cochranblock</a><br>
+    <span class="cyan">cochranblock.org</span>
+  </div>
+</div>
+
+<div class="creed">
+13+ years federal cyber operations across <strong>USCYBERCOM</strong>, ARCYBER Combat Mission Teams, National Mission Teams. Now solo Rust engineer. <em>31 public Rust products · 32 crates published · 257+ engaged engineering hours.</em> All non-proprietary work released under the Unlicense.
+</div>
+
+<div class="grid">
+
+<!-- ═══ LEFT COLUMN: Summary + Experience ═══ -->
+<div>
+
+<section>
+<h2>Professional Summary</h2>
+<p class="summary">
+Senior Systems Engineer and Title 10 Offensive Cyber Operator with <strong>13+ years of federal cyber operations</strong> supporting mission-critical environments aligned with USCYBERCOM. United States Army Veteran transitioning into <em>Rust-based, AI-piloted development</em>, with a proven record of delivering production-grade software across AI infrastructure, fintech, SaaS, and open-source ecosystems. Operates as a solo engineer specializing in high-performance Rust, local AI/LLM integration, and fully Unlicensed (public domain) software aligned with frictionless procurement. Combines offensive cyber expertise, secure systems architecture, and modern AI-enabled development to support scalable, mission-driven service environments.
+</p>
+</section>
+
+<section>
+<h2>Experience</h2>
+
+<div class="exp-item">
+<div class="exp-head">
+  <div><span class="exp-role">Owner &amp; Engineer</span> &middot; <span class="exp-org">The Cochran Block, LLC</span></div>
+  <div class="exp-dates">Feb 2026 – Present</div>
+</div>
+<div class="exp-lead">
+Owned end-to-end architecture, development, and deployment of sovereign, AI-driven Rust systems, delivering production-grade platforms across SaaS, automation, and offline-first applications. Led full-stack engineering from systems design through secure deployment, emphasizing local AI inference, performance optimization, and zero-dependency distribution.
+</div>
+<ul class="acc">
+  <li>Architected and deployed <strong>10+ production-grade Rust platforms</strong>, consolidating AI orchestration, SaaS delivery, and secure payment processing — <em>sub-50 ms API latency</em> with fully self-hosted, sovereign AI capability across all systems.</li>
+  <li>Reengineered legacy automation paradigms into Rust-native frameworks via a <strong>14-crate orchestration system</strong> and lightweight workflow engine — <em>~10 ms cold start vs. 1–3 s industry baseline</em>, runtime overhead reduced &gt;90%.</li>
+  <li>Developed a distributed AI augment engine with <strong>local LLM inference and agentic tool loops</strong>, enabling autonomous task execution without cloud dependency — <em>data-privacy compliance +100%, external API costs $0</em>.</li>
+  <li>Engineered a secure <strong>ISO 8583 payment processing system</strong> with AES-256-GCM encryption and append-only ledger, end-to-end transaction integrity and encrypted vaulting — <em>0 data exposure incidents</em>, full audit traceability.</li>
+</ul>
+</div>
+
+<div class="exp-item">
+<div class="exp-head">
+  <div><span class="exp-role">Senior Systems Engineer</span> &middot; <span class="exp-org">MaxisIQ</span></div>
+  <div class="exp-dates">Sep 2024 – Feb 2026</div>
+</div>
+<div class="exp-lead">
+Engineered and maintained mission-critical cyber infrastructure and automation supporting high-availability operations, focused on secure system orchestration, identity management, and scalable tooling. Aligned Python-based automation with emerging Rust-driven, sovereign AI development models.
+</div>
+<ul class="acc">
+  <li>Developed custom <strong>Python-based system survey and remediation tools</strong>, automating server health checks and service repair across distributed environments — <em>manual intervention −85%, system uptime 99.9%</em>.</li>
+  <li>Automated <strong>SSH and Kerberos authentication infrastructure</strong> with secure provisioning and key rotation workflows — <em>credential incidents −70%, access control hardened across 200+ nodes</em>.</li>
+  <li>Implemented resilient service monitoring and recovery for high-availability mission ops — <em>sub-5-minute incident response</em>, sustained operational readiness.</li>
+  <li>Modernized legacy automation by introducing modular, Rust-aligned design patterns and lightweight service architectures — <em>execution speed 3×, resource consumption −60%</em>.</li>
+</ul>
+</div>
+
+<div class="exp-item">
+<div class="exp-head">
+  <div><span class="exp-role">Senior Software Engineer</span> &middot; <span class="exp-org">Two Six Technologies</span></div>
+  <div class="exp-dates">Sep 2022 – Sep 2024</div>
+</div>
+<div class="exp-lead">
+Designed and delivered secure data integration pipelines and backend tooling for large-scale cyber platforms. Hands-on integrations across the <strong>Joint Cyber Warfighting Architecture (JCWA)</strong>: <strong>JCC2</strong>, <strong>JCAP</strong>, <strong>UDP</strong>.
+</div>
+<ul class="acc">
+  <li>Engineered <strong>YAML-to-SQL data pipelines</strong> to normalize and ingest heterogeneous datasets into structured environments — <em>processing throughput 4×, ingestion errors −65%</em>.</li>
+  <li>Built <strong>regex-driven parsing engines</strong> to extract and standardize unstructured data — <em>data accuracy +80%, real-time processing of 1M+ records / day</em>.</li>
+  <li>Developed <strong>data sanitization and validation tooling</strong> to enforce schema compliance and remove anomalies — <em>100% data integrity</em> across critical workflows.</li>
+  <li>Integrated modular data services into a unified architecture via Rust-aligned backend components — <em>pipeline latency −50%</em>, seamless interoperability across 10+ system interfaces.</li>
+</ul>
+</div>
+
+<div class="exp-item">
+<div class="exp-head">
+  <div><span class="exp-role">Systems Developer · J38 JMOC-E</span> &middot; <span class="exp-org">USCYBERCOM</span></div>
+  <div class="exp-dates">Jun 2020 – Sep 2022</div>
+</div>
+<div class="exp-lead">
+J38 JMOC-E co-dev lead on NDAA-directed offensive cyber operations study. Designed and delivered backend systems, APIs, and deployment pipelines for secure, high-availability environments — emphasizing scalable architecture, data integrity, and automated delivery.
+</div>
+<ul class="acc">
+  <li>Developed and deployed <strong>RESTful APIs</strong> supporting secure data exchange across distributed systems — <em>response latency −45%</em>, integration across 8+ platform services.</li>
+  <li>Designed <strong>CI/CD pipelines</strong> using GitLab and Docker to automate build, test, and deployment — <em>release cycles −60%, 99.8% deployment success</em>.</li>
+  <li>Modeled and optimized relational and semi-structured data systems for high-throughput applications — <em>query performance 3×, 500K+ daily transactions without degradation</em>.</li>
+  <li>Implemented and documented <strong>network protocol interfaces</strong> for reliable system communication and interoperability — <em>transmission errors −70%</em>, standardized integration across 10+ services.</li>
+</ul>
+</div>
+
+<div class="exp-item">
+<div class="exp-head">
+  <div><span class="exp-role">Title 10 Offensive Cyber Operator</span> &middot; <span class="exp-org">ARCYBER 103rd Combat Mission Team</span></div>
+  <div class="exp-dates">Feb 2017 – Jun 2020</div>
+</div>
+<div class="exp-lead">
+Executed offensive cyber operations and developed automation tooling to support mission execution across secure, high-stakes environments — emphasizing rapid data exploitation, system disruption, and operational efficiency.
+</div>
+<ul class="acc">
+  <li>Executed <strong>100+ high-complexity operational cyber missions</strong> across distributed environments requiring precision and real-time decision support — <em>95% mission success rate</em>, sustained operational readiness.</li>
+  <li>Developed <strong>Python automation tooling</strong> to streamline mission support and reduce manual operational overhead — <em>execution time −60%</em>, task reliability across 50+ mission cycles.</li>
+  <li>Built <strong>custom scripting frameworks</strong> for data collection and system interaction — <em>data processing speed 3×</em>, faster decision cycles in time-sensitive environments.</li>
+  <li>Enhanced mission support efficiency through automated system orchestration with modular, reusable components — <em>repetitive task load −70%</em>, operator throughput up across multiple concurrent operations.</li>
+</ul>
+</div>
+
+<div class="exp-item">
+<div class="exp-head">
+  <div><span class="exp-role">Digital Network Exploitation Analyst</span> &middot; <span class="exp-org">National Mission Team</span></div>
+  <div class="exp-dates">Jul 2014 – Feb 2017</div>
+</div>
+<div class="exp-lead">
+Network mapping, traffic analysis, and Intelligence Community reporting in support of National Mission Team objectives.
+</div>
+</div>
+
+</section>
+
+</div>
+
+<!-- ═══ RIGHT COLUMN: Education / Certs / Skills / Receipts ═══ -->
+<div>
+
+<section>
+<h2>Education</h2>
+<div class="cert-line">
+<strong>M.S. Computer Science</strong><br>
+<span class="org">Recursive Academy</span>
+</div>
+<div class="cert-line" style="margin-top:3pt">
+<strong>Offensive Operations Foundation Course</strong><br>
+<span class="org">National Security Agency / USCYBERCOM</span>
+</div>
+<div class="cert-line" style="margin-top:3pt">
+<strong>Joint Cyber Analysis Course (JCAC)</strong><br>
+<span class="org">Corry Station &middot; 2014</span>
+</div>
+</section>
+
+<section>
+<h2>Certifications</h2>
+<div class="cert-line">
+<strong>GIAC Security Essentials (GSEC)</strong><br>
+<span class="org">Global Information Assurance Certification</span>
+</div>
+</section>
+
+<section>
+<h2>Specialized Military Training</h2>
+<ul class="bul">
+<li>Cyber Operations Specialist (<strong>17C</strong>) Course</li>
+<li>Advanced &amp; Basic Leadership Course</li>
+<li>JCAC Corry Station 2014</li>
+</ul>
+</section>
+
+<section>
+<h2>Authorizations</h2>
+<div class="auth">
+<strong>U.S. Citizen</strong> &middot; <strong>U.S. Army Veteran</strong> &middot; <strong>30%</strong> service-connected disabled<br>
+<strong>SDVOSB</strong> &mdash; Final Review (MySBA Certifications)<br>
+<strong>Inactive Top Secret / SCI</strong> &middot; <code>CI Polygraph</code> &middot; reactivation eligible<br>
+<strong>U.S. Army MOS 17C</strong> Cyber Operations<br>
+All personal output released under the <strong>Unlicense</strong> (public domain)
+</div>
+</section>
+
+<section>
+<h2>Technical Competencies</h2>
+<div class="skill-block"><span class="label">Languages</span><span class="vals">Rust, Python, C, C++, Go, Assembly (x86 / ARM), Bash, PowerShell, SQL, JS / TS, YAML, TOML</span></div>
+<div class="skill-block"><span class="label">Rust</span><span class="vals">Tokio, Axum, Hyper, Tonic, Serde, sqlx, Reqwest, Leptos, Dioxus, egui, Candle, Kalosm, MiniJinja, age, rskafka, lapin</span></div>
+<div class="skill-block"><span class="label">Architecture</span><span class="vals">Microservices, Event-Driven, DDD, Hexagonal, REST, gRPC, GraphQL, Protocol Buffers, OpenAPI, Distributed Systems, Mission-Critical</span></div>
+<div class="skill-block"><span class="label">Infra</span><span class="vals">PostgreSQL, SQLite, sled, Redis, Kafka, AMQP, MQTT, Docker, Podman, Kubernetes, Terraform, Cloudflare Workers, AWS (S3, IAM, SigV4, Lambda)</span></div>
+<div class="skill-block"><span class="label">Security</span><span class="vals">Pen testing, OCO, DNE, TDNA, RE, MITRE ATT&amp;CK, Cyber Kill Chain, Zero Trust, Burp, Wireshark, Metasploit, Ghidra, IDA</span></div>
+<div class="skill-block"><span class="label">Crypto</span><span class="vals">AES-256-GCM, ChaCha20-Poly1305, Argon2id, HKDF, Ed25519, X25519, BLAKE3, age, GPG, X.509, TLS / mTLS, Kerberos, OAuth/OIDC, JWT</span></div>
+<div class="skill-block"><span class="label">AI / ML</span><span class="vals">Local LLM inference, Kalosm, Candle, RAG, fastembed, vector embeddings, agentic tool orchestration, multi-agent, Claude API, OpenAI API, function calling</span></div>
+<div class="skill-block"><span class="label">Compliance</span><span class="vals">NIST 800-53, NIST 800-171, CMMC L2, RMF, ATO, FedRAMP, FISMA, STIG, DFARS, FAR, IL5 / IL6, SDVOSB, GovCon</span></div>
+</section>
+
+<div class="receipts">
+<div class="head-row">▸ Verifiable Receipts</div>
+<div class="row"><span>Public Rust repositories</span><span class="v">31</span></div>
+<div class="row"><span>crates.io publications (gotemcoach)</span><span class="v">32</span></div>
+<div class="row"><span>Lines of Rust shipped (net)</span><span class="v">144,272</span></div>
+<div class="row"><span>Engaged engineering hours</span><span class="v amber">257+</span></div>
+<div class="row"><span>Live production domains</span><span class="v">3</span></div>
+<div class="row"><span>License posture</span><span class="v">Unlicense · github.com/cochranblock</span></div>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+  <div>The Cochran Block, LLC &middot; Veteran-Owned &middot; CAGE 1CQ66 &middot; UEI W7X3HAQL9CF9</div>
+  <div class="url">cochranblock.org/resume</div>
+</footer>
+
+<div class="backrefs">
+  <div class="group">
+    <span class="label">▸ Engage</span>
+    <a href="https://cochranblock.org/">Lets Team</a>
+    <span class="sep">·</span>
+    <a href="mailto:mcochran@cochranblock.org">Email</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/book">Book</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/contact">Contact</a>
+  </div>
+  <div class="group">
+    <span class="label">▸ Gov</span>
+    <a href="https://cochranblock.org/govdocs">Gov Docs</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/sbir">SBIR</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/vre">VR&amp;E</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/dcaa">DCAA</a>
+    <span class="sep">·</span>
+    <a href="/assets/cochranblock-capability-statement.pdf">Capability Statement</a>
+  </div>
+  <div class="group">
+    <span class="label">▸ Receipts</span>
+    <a href="https://github.com/cochranblock">GitHub</a>
+    <span class="sep">·</span>
+    <a href="https://crates.io/users/gotemcoach">crates.io</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/openbooks">Open Books</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/source">Source</a>
+    <span class="sep">·</span>
+    <a href="https://cochranblock.org/stats">Stats</a>
+  </div>
+  <div class="group">
+    <span class="label">▸ Doctrine</span>
+    <a href="https://manual.cochranblock.org">Manual + Manifesto</a>
+    <span class="sep">·</span>
+    <a href="https://knox.cochranblock.org">KNOXAI</a>
+    <span class="sep">·</span>
+    <a href="/assets/michael-cochran-resume_may_2026.pdf">Resume PDF</a>
+  </div>
+</div>
+
+</body>
+</html>

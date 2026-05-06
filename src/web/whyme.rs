@@ -170,7 +170,7 @@ footer.foot a{color:var(--muted);text-decoration:underline}
   <a href="mailto:mcochran@cochranblock.org?subject=Hiring%20Inquiry">Email</a>
   <a class="secondary" href="https://github.com/cochranblock">GitHub</a>
   <a class="secondary" href="https://www.linkedin.com/in/cochranblock">LinkedIn</a>
-  <a class="secondary" href="/assets/resume.pdf" download>Resume (PDF)</a>
+  <a class="secondary" href="/assets/michael-cochran-resume_may_2026.pdf" download>Resume (PDF)</a>
 </div>
 
 <footer class="foot">
