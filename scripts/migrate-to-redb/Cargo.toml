@@ -1,0 +1,20 @@
+[package]
+name = "migrate-to-redb"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "migrate-to-redb"
+path = "src/main.rs"
+
+[dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }
+redb = "2"
+bincode = { version = "2", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+
+[profile.release]
+strip = true
+lto = "thin"
+codegen-units = 1

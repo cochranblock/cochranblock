@@ -15,6 +15,7 @@ use std::sync::Arc;
 use uuid::Uuid;
 
 use super::pages::{C7, C8, f62};
+use crate::db::{self, GrantRow};
 use crate::t0;
 
 const INTRO: &str = include_str!("../../content/community_grant_intro.txt");
@@ -153,10 +154,10 @@ pub async fn post_form(
             .into_response();
     }
 
-    let pool = match &s.intake_pool {
-        Some(p) => p.clone(),
+    let db = match &s.intake_db {
+        Some(d) => d.clone(),
         None => {
-            tracing::error!("community grant: pool not available");
+            tracing::error!("community grant: db not available");
             return (
                 StatusCode::SERVICE_UNAVAILABLE,
                 "Service temporarily unavailable. Please try again later.",
@@ -174,26 +175,25 @@ pub async fn post_form(
         .unwrap_or("")
         .to_string();
 
-    if let Err(e) = sqlx::query(
-        r#"
-        INSERT INTO community_grants (id, org_name, ein, contact_name, contact_email, mission, technical_objective, submitted_at, ip_address, user_agent, consent_grant)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
-        "#,
-    )
-    .bind(&id)
-    .bind(org_name)
-    .bind(if ein.is_empty() { None::<&str> } else { Some(ein) })
-    .bind(contact_name)
-    .bind(contact_email)
-    .bind(mission)
-    .bind(technical_objective)
-    .bind(&submitted_at)
-    .bind(&ip)
-    .bind(&ua)
-    .execute(&pool)
-    .await
-    {
-        tracing::error!("community grant insert failed: {}", e);
+    let row = GrantRow {
+        id: id.clone(),
+        org_name: org_name.to_string(),
+        ein: if ein.is_empty() { None } else { Some(ein.to_string()) },
+        contact_name: contact_name.to_string(),
+        contact_email: contact_email.to_string(),
+        mission: mission.to_string(),
+        technical_objective: technical_objective.to_string(),
+        submitted_at: submitted_at.clone(),
+        ip_address: if ip.is_empty() { None } else { Some(ip.clone()) },
+        user_agent: if ua.is_empty() { None } else { Some(ua.clone()) },
+        consent_grant: true,
+    };
+    let row_clone = row.clone();
+    let insert_result = tokio::task::spawn_blocking(move || db::f51(&db, &row_clone))
+        .await
+        .unwrap_or_else(|e| Err(crate::error::t18::E6(format!("join: {}", e))));
+    if let Err(e) = insert_result {
+        tracing::error!("community grant insert failed: {:?}", e);
         return (
             StatusCode::INTERNAL_SERVER_ERROR,
             "Unable to save. Please try again.",

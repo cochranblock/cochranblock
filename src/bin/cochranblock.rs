@@ -103,8 +103,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     // Write our PID
     write_pid();
 
-    let intake_pool = intake::init_pool().await;
-    let app = router::f1(t0 { intake_pool });
+    let intake_db = intake::init_pool().await;
+    let app = router::f1(t0 { intake_db });
 
     #[cfg(feature = "approuter")]
     approuter_client::f116(approuter_client::RegisterConfig {

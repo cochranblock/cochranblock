@@ -3358,19 +3358,19 @@ pub async fn f10(State(_p0): State<Arc<t0>>) -> &'static str {
 
 /// f73 = api_stats. Why: Live metrics for social proof, outreach, and monitoring.
 pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
-    let lead_count: i64 = if let Some(ref pool) = p0.intake_pool {
-        sqlx::query_scalar("SELECT COUNT(*) FROM leads")
-            .fetch_one(pool)
+    let lead_count: i64 = if let Some(ref db) = p0.intake_db {
+        let db_clone = db.clone();
+        tokio::task::spawn_blocking(move || crate::db::f53(&db_clone).unwrap_or(0))
             .await
-            .unwrap_or(0)
+            .unwrap_or(0) as i64
     } else {
         0
     };
-    let grant_count: i64 = if let Some(ref pool) = p0.intake_pool {
-        sqlx::query_scalar("SELECT COUNT(*) FROM community_grants")
-            .fetch_one(pool)
+    let grant_count: i64 = if let Some(ref db) = p0.intake_db {
+        let db_clone = db.clone();
+        tokio::task::spawn_blocking(move || crate::db::f54(&db_clone).unwrap_or(0))
             .await
-            .unwrap_or(0)
+            .unwrap_or(0) as i64
     } else {
         0
     };

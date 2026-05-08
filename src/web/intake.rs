@@ -10,19 +10,21 @@ use axum::http::{HeaderMap, StatusCode};
 use axum::response::{Html, IntoResponse, Redirect};
 use chrono::Utc;
 use serde::Deserialize;
-use sqlx::SqlitePool;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use uuid::Uuid;
 
 use super::pages::{C7, C8, f62};
+use crate::db::{self, GrantRow, KnoxRow, LeadRow};
 use crate::t0;
 
 const TERMS_VERSION: &str = "2026-03";
 const TERMS: &str = include_str!("../../content/intake_terms.txt");
 
-/// init_pool — create data dir, connect SQLite, migrate. Returns None on failure.
-pub async fn init_pool() -> Option<sqlx::SqlitePool> {
+/// init_pool — create data dir, open redb store, run migrations. Returns
+/// None on failure. Name kept for call-site compatibility — the new
+/// backing store is redb (single file, ACID, zero-copy reads).
+pub async fn init_pool() -> Option<crate::db::t9> {
     let data_dir = std::env::var("CB_DATA_DIR")
         .ok()
         .or_else(|| std::env::var("COCHRANBLOCK_DATA_DIR").ok())
@@ -32,93 +34,29 @@ pub async fn init_pool() -> Option<sqlx::SqlitePool> {
                 .and_then(|p| p.into_os_string().into_string().ok())
         })
         .unwrap_or_else(|| "data".into());
-    let dir = std::path::Path::new(&data_dir);
-    if let Err(e) = std::fs::create_dir_all(dir) {
-        tracing::warn!("intake: could not create data dir {}: {}", data_dir, e);
-        return None;
-    }
-    let db_path = dir.join("intake.sqlite");
-    let url = format!("sqlite:{}?mode=rwc", db_path.display());
-    let pool = match sqlx::sqlite::SqlitePool::connect(&url).await {
-        Ok(p) => p,
+
+    // Spawn-blocking — redb opens via mmap and we don't want to stall the
+    // tokio runtime if the file needs to be created/recovered.
+    let dir_clone = data_dir.clone();
+    let db = match tokio::task::spawn_blocking(move || -> Result<crate::db::t9, String> {
+        let db = db::f20(&dir_clone).map_err(|e| format!("init: {:?}", e))?;
+        db::f21(&db).map_err(|e| format!("migrate: {:?}", e))?;
+        Ok(db)
+    })
+    .await
+    {
+        Ok(Ok(d)) => d,
+        Ok(Err(e)) => {
+            tracing::warn!("intake: redb init failed: {}", e);
+            return None;
+        }
         Err(e) => {
-            tracing::warn!("intake: could not connect to sqlite: {}", e);
+            tracing::warn!("intake: redb init join failed: {}", e);
             return None;
         }
     };
-    if let Err(e) = sqlx::query("PRAGMA journal_mode=WAL").execute(&pool).await {
-        tracing::warn!("intake: pragma failed: {}", e);
-    }
-    if let Err(e) = migrate(&pool).await {
-        tracing::warn!("intake: migrate failed: {}", e);
-        return None;
-    }
-    tracing::info!("intake: sqlite ready at {}", db_path.display());
-    Some(pool)
-}
-
-async fn migrate(pool: &SqlitePool) -> Result<(), sqlx::Error> {
-    sqlx::query(
-        r#"
-        CREATE TABLE IF NOT EXISTS leads (
-            id TEXT PRIMARY KEY,
-            deploy_class TEXT,
-            full_name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            company TEXT,
-            message TEXT,
-            submitted_at TEXT NOT NULL,
-            ip_address TEXT,
-            user_agent TEXT,
-            terms_version TEXT NOT NULL,
-            consent_fee INTEGER NOT NULL,
-            consent_hardware INTEGER NOT NULL,
-            consent_terms INTEGER NOT NULL
-        )
-        "#,
-    )
-    .execute(pool)
-    .await?;
-    sqlx::query(
-        r#"
-        CREATE TABLE IF NOT EXISTS community_grants (
-            id TEXT PRIMARY KEY,
-            org_name TEXT NOT NULL,
-            ein TEXT,
-            contact_name TEXT NOT NULL,
-            contact_email TEXT NOT NULL,
-            mission TEXT NOT NULL,
-            technical_objective TEXT NOT NULL,
-            submitted_at TEXT NOT NULL,
-            ip_address TEXT,
-            user_agent TEXT,
-            consent_grant INTEGER NOT NULL
-        )
-        "#,
-    )
-    .execute(pool)
-    .await?;
-    sqlx::query(
-        r#"
-        CREATE TABLE IF NOT EXISTS knoxai_applicants (
-            id TEXT PRIMARY KEY,
-            full_name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            background TEXT NOT NULL,
-            specialty_tags TEXT NOT NULL,
-            clearance TEXT NOT NULL,
-            motivation TEXT NOT NULL,
-            hazmat_answer TEXT NOT NULL,
-            acknowledge_csam INTEGER NOT NULL,
-            submitted_at TEXT NOT NULL,
-            ip_address TEXT,
-            user_agent TEXT
-        )
-        "#,
-    )
-    .execute(pool)
-    .await?;
-    Ok(())
+    tracing::info!("intake: redb ready at {}/cochranblock.redb", data_dir);
+    Some(db)
 }
 
 pub(crate) fn html_escape(s: &str) -> String {
@@ -250,10 +188,10 @@ pub async fn post_form(
             .into_response();
     }
 
-    let pool = match &s.intake_pool {
-        Some(p) => p.clone(),
+    let db = match &s.intake_db {
+        Some(d) => d.clone(),
         None => {
-            tracing::error!("intake pool not available");
+            tracing::error!("intake db not available");
             return (
                 StatusCode::SERVICE_UNAVAILABLE,
                 "Service temporarily unavailable. Please try again later.",
@@ -271,26 +209,27 @@ pub async fn post_form(
         .unwrap_or("")
         .to_string();
 
-    if let Err(e) = sqlx::query(
-        r#"
-        INSERT INTO leads (id, deploy_class, full_name, email, company, message, submitted_at, ip_address, user_agent, terms_version, consent_fee, consent_hardware, consent_terms)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, 1)
-        "#,
-    )
-    .bind(&id)
-    .bind(if deploy_class.is_empty() { None::<&str> } else { Some(deploy_class) })
-    .bind(full_name)
-    .bind(email)
-    .bind(if company.is_empty() { None::<&str> } else { Some(company) })
-    .bind(if message.is_empty() { None::<&str> } else { Some(message) })
-    .bind(&submitted_at)
-    .bind(&ip)
-    .bind(&ua)
-    .bind(TERMS_VERSION)
-    .execute(&pool)
-    .await
-    {
-        tracing::error!("lead insert failed: {}", e);
+    let row = LeadRow {
+        id: id.clone(),
+        deploy_class: if deploy_class.is_empty() { None } else { Some(deploy_class.to_string()) },
+        full_name: full_name.to_string(),
+        email: email.to_string(),
+        company: if company.is_empty() { None } else { Some(company.to_string()) },
+        message: if message.is_empty() { None } else { Some(message.to_string()) },
+        submitted_at: submitted_at.clone(),
+        ip_address: if ip.is_empty() { None } else { Some(ip.clone()) },
+        user_agent: if ua.is_empty() { None } else { Some(ua.clone()) },
+        terms_version: TERMS_VERSION.to_string(),
+        consent_fee: true,
+        consent_hardware: true,
+        consent_terms: true,
+    };
+    let row_for_insert = row.clone();
+    let insert_result = tokio::task::spawn_blocking(move || db::f50(&db, &row_for_insert))
+        .await
+        .unwrap_or_else(|e| Err(crate::error::t18::E6(format!("join: {}", e))));
+    if let Err(e) = insert_result {
+        tracing::error!("lead insert failed: {:?}", e);
         return (
             StatusCode::INTERNAL_SERVER_ERROR,
             "Unable to save. Please try again.",
@@ -523,26 +462,25 @@ pub async fn knox_apply_submit(
     if f.tag_cleared.is_some() { tags.push("cleared"); }
     let tags_str = tags.join(",");
 
-    let ack = if f.acknowledge_csam.is_some() { 1 } else { 0 };
+    let _ack = f.acknowledge_csam.is_some();
 
-    if let Some(pool) = &s.intake_pool {
-        let _ = sqlx::query(
-            "INSERT INTO knoxai_applicants (id, full_name, email, background, specialty_tags, clearance, motivation, hazmat_answer, acknowledge_csam, submitted_at, ip_address, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        )
-        .bind(&id)
-        .bind(&f.full_name)
-        .bind(&f.email)
-        .bind(&f.background)
-        .bind(&tags_str)
-        .bind(&f.clearance)
-        .bind(&f.motivation)
-        .bind(&f.hazmat_answer)
-        .bind(ack)
-        .bind(&submitted_at)
-        .bind(&ip)
-        .bind(&ua)
-        .execute(pool)
-        .await;
+    if let Some(db) = &s.intake_db {
+        let row = KnoxRow {
+            id: id.clone(),
+            full_name: f.full_name.clone(),
+            email: f.email.clone(),
+            background: f.background.clone(),
+            specialty_tags: tags_str.clone(),
+            clearance: f.clearance.clone(),
+            motivation: f.motivation.clone(),
+            hazmat_answer: f.hazmat_answer.clone(),
+            acknowledge_csam: f.acknowledge_csam.is_some(),
+            submitted_at: submitted_at.clone(),
+            ip_address: if ip.is_empty() { None } else { Some(ip.clone()) },
+            user_agent: if ua.is_empty() { None } else { Some(ua.clone()) },
+        };
+        let db_clone = db.clone();
+        let _ = tokio::task::spawn_blocking(move || db::f52(&db_clone, &row)).await;
     }
 
     // Webhook notification

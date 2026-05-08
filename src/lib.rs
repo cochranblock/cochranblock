@@ -15,7 +15,9 @@ pub mod auth;
 pub mod config;
 #[cfg(feature = "admin")]
 pub mod crypto;
-#[cfg(feature = "admin")]
+// db is always available — runtime intake (leads/grants/knox) uses redb in
+// non-admin builds; admin-only functions (admins/sessions/settings/dns_log)
+// are feature-gated inside db/mod.rs.
 pub mod db;
 #[cfg(feature = "admin")]
 pub mod dns;
@@ -40,8 +42,9 @@ pub struct t1 {
     pub ird_value: f64,
 }
 
-/// t0 = AppState. Why: Shared state for router; intake pool for leads.
+/// t0 = AppState. Why: Shared state for router; redb store for intake +
+/// (when admin is on) admins/sessions/settings/dns_log.
 #[derive(Clone)]
 pub struct t0 {
-    pub intake_pool: Option<sqlx::SqlitePool>,
+    pub intake_db: Option<crate::db::t9>,
 }

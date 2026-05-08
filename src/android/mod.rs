@@ -18,8 +18,8 @@ pub extern "C" fn Java_org_cochranblock_cochranblock_MainActivity_startServer(
                 std::env::set_var("BIND", "127.0.0.1");
             }
 
-            let intake_pool = intake::init_pool().await;
-            let app = router::f1(t0 { intake_pool });
+            let intake_db = intake::init_pool().await;
+            let app = router::f1(t0 { intake_db });
             let listener = tokio::net::TcpListener::bind("127.0.0.1:8081")
                 .await
                 .expect("bind 8081");

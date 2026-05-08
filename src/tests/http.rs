@@ -32,7 +32,7 @@ async fn run(p0: &str, p1: impl std::future::Future<Output = Result<(), String>>
 
 async fn server() -> (String, reqwest::Client, TempDir) {
     let v0 = TempDir::new().unwrap();
-    let p0 = t0 { intake_pool: None };
+    let p0 = t0 { intake_db: None };
     let v1 = router::f1(p0);
     let v2 = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
     let v3 = v2.local_addr().unwrap();
