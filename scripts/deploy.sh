@@ -5,13 +5,17 @@
 set -euo pipefail
 
 echo "[0/6] cargo audit gate (per .cargo/audit.toml)..."
-VULN_COUNT=$(ssh lf "cd /home/mcochran/cochranblock && source ~/.cargo/env && git pull && cargo audit 2>&1 | grep -c '^RUSTSEC-' || echo 0")
-if [ "${VULN_COUNT:-0}" -gt 0 ]; then
-  echo "  ABORT: $VULN_COUNT actionable RUSTSEC advisories. Bump deps before deploy."
+# Trust cargo-audit's exit code: 0 = clean (warnings okay), non-zero = unignored
+# vulnerabilities. The previous grep-based gate matched the wrong line prefix
+# and would silently pass actual advisories.
+if ssh lf "cd /home/mcochran/cochranblock && source ~/.cargo/env && git pull > /dev/null && cargo audit > /tmp/cb-audit.log 2>&1"; then
+  echo "  PASS: 0 unignored vulnerabilities"
+else
+  echo "  ABORT: cargo audit found unignored advisories. Bump deps before deploy."
+  ssh lf 'tail -50 /tmp/cb-audit.log'
   echo "  See: ssh lf 'cd /home/mcochran/cochranblock && cargo audit'"
   exit 1
 fi
-echo "  PASS: 0 unignored vulnerabilities"
 
 echo "[1/6] Pull + build on lf..."
 ssh lf "cd /home/mcochran/cochranblock && source ~/.cargo/env && cargo build --release --features approuter 2>&1 | tail -2"
