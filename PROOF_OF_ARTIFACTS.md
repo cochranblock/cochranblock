@@ -31,7 +31,7 @@ flowchart LR
 | Cloud dependencies | Zero |
 | Public repos | 31 (Unlicense / public domain) |
 | crates.io | 32 published crates (kova-engine, exopack, any-gpu, header-writer, +28) |
-| Certification | SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · SDVOSB Final Review (MySBA Certifications) · eMMA SUP1095449 · CSB approved · TS/SCI reactivation eligible · 30% service-connected disabled veteran |
+| Certification | SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · SDVOSB Certified 2026-05-12 (SBA VetCert, expires 2029-05-12) · eMMA SUP1095449 · CSB approved · TS/SCI reactivation eligible · 30% service-connected disabled veteran |
 | Functions | 122 |
 | Types | 18 |
 | Lines of code | 9,680 |

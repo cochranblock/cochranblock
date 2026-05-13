@@ -61,6 +61,26 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-05-13 — SDVOSB Certification Sweep: Site, Org Profile, Capability Statement, Federal Docs
+
+**What:** SBA VetCert issued the Service-Disabled Veteran-Owned Small Business certification on 2026-05-12 (expires 2029-05-12). Swept every consumer-facing surface from "SDVOSB Pending / Final Review / Submitted" to "SDVOSB Certified 2026-05-12 · expires 2029-05-12 (SBA VetCert)". Files touched:
+
+- **Brand badge** — `assets/brand/header-snippet.md` shields.io badge flipped from yellow `SDVOSB%20Pending` (`fbbf24`) to green `SDVOSB%20Certified` (`22c55e`).
+- **Capability statement** — `assets/capability-statement.html` registrations table + sole-source bullet (removed "once approved" conditional).
+- **LET'S TEAM apex** — `assets/lets-team.html` meta description, hero sub, trust-chip strip, registrations table, footer note (eligibility no longer "activates upon SBA Final Review completion"), foot strip.
+- **Resume + Manual + Railgun Rosetta** — `assets/resume.html` Authorizations block, `assets/manual.html` selling-pitch line + footer, `assets/railgun-rosetta.html` footer.
+- **Embedded Rust pages** — `src/web/pages.rs` whyme bio, bid-status table row (`bid-blocked` → `bid-ready`), JSON-LD FAQ "Is CochranBlock veteran-owned?" answer + the separate "Does CochranBlock work with government agencies?" answer (also fixed a separate inaccuracy in that FAQ that claimed SAM.gov was pending — it's been active for months).
+- **Dated procurement records** — `assets/52-days.html` vanity-stat row + founder bio, `assets/amendment-003.html` federal-footprint bullet, `assets/supplement-msu-2026-04.html` proposal-cover credentials block + footer (these are dated documents; updated them with consent since SDVOSB status changed *after* their original publish dates and the documents are still living references).
+- **Proof of artifacts** — `PROOF_OF_ARTIFACTS.md` certification row.
+- **HTTP test assertion** — `src/tests/http.rs` `hero_product_status` flipped from asserting on "Final Review" string to asserting on "SDVOSB" + "Certified" pair.
+- **Org GitHub profile** — `cochranblock/.github` repo `profile/README.md` (the org landing-page README at `github.com/cochranblock`) — both the hero sub-line and the footer attribution line.
+
+**Why:** "Hype don't claim, software is free, application is the art" — the doctrine demands that public claims match underlying status. Yesterday's approval changes the claim from *eligible-pending-paperwork* to *certified-with-set-aside-authority*. The set-aside eligibility (FAR 19.1406 sole-source up to $4M) activates with the certification, so any page that said "once approved" or "activates upon Final Review completion" was now incorrect — not stale-but-defensible, actually wrong. The dated procurement records (52-days, amendment-003, supplement-msu-2026-04) were updated rather than frozen because the *status field within them* is a live reference for evaluators reading current versions, not a historical snapshot.
+
+**Commit:** (this commit)
+
+**AI Role:** AI did the full grep sweep across `assets/`, `src/`, root markdown, found the SDVOSB references (10+ distinct files), flagged a stale SAM.gov FAQ line as a separate-but-related accuracy bug found during the sweep, paused to ask for the certification + expiration dates rather than guessing, paused again before touching dated historical documents to confirm the user wanted them updated rather than frozen, and ran a release build + the target HTTP test to verify nothing regressed (pre-existing test-harness compile failures noted — they pre-date this change). Human directed: doctrine-anchored wording ("tell the truth"), explicit confirmation to update dated docs, decision to add SAM.gov FAQ fix to scope.
+
 ### 2026-05-06 (later) — Native-Details Hamburger Menu + CDP-Driven Rendering Verification (chromiumoxide)
 
 **What:** Closing the mobile-nav gap on the LET'S TEAM root.

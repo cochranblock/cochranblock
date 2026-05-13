@@ -899,7 +899,7 @@ pub async fn f51() -> Vec<t24> {
     v0.push(
         run("hero_product_status", async {
             // Lets-team hero replaces "Product in development / Consulting open"
-            // with the trust strip: SDVOSB Final Review, SAM.gov Active, CAGE,
+            // with the trust strip: SDVOSB Certified, SAM.gov Active, CAGE,
             // UEI, TS/SCI reactivation eligible, Dual-Use Established.
             let v3 = v2
                 .get(format!("{}/", v1))
@@ -920,8 +920,8 @@ pub async fn f51() -> Vec<t24> {
                 "hero must show UEI",
             )?;
             assert_ok(
-                v4.contains("Final Review"),
-                "hero must show calibrated SDVOSB language",
+                v4.contains("SDVOSB") && v4.contains("Certified"),
+                "hero must show SDVOSB certified status",
             )?;
             assert_ok(
                 v4.contains("TS/SCI"),
