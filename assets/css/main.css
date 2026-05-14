@@ -538,6 +538,10 @@ body[data-page="community-grant"]::after {
 .nav-mobile[open] > summary > span:nth-child(3) {
   transform: translateY(-7.5px) rotate(-45deg);
 }
+/* The menu must be hidden when <details> is closed. The user-agent rule
+   `details:not([open]) > :not(summary) { ... }` is overridden by
+   `display: flex` in chromium-headless rendering, so make it explicit. */
+.nav-mobile:not([open]) > .nav-mobile-menu { display: none; }
 .nav-mobile-menu {
   display: flex;
   flex-direction: column;
