@@ -18,6 +18,7 @@ include = [
     "src/**/*",
     "assets/**/*",
     "content/**/*",
+    "build.rs",
     "Cargo.toml",
     "UNLICENSE",
     "README.md",
