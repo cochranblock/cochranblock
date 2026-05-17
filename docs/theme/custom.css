@@ -1,0 +1,69 @@
+/* Cochran Block brand theme — kova palette */
+:root {
+    --sidebar-bg: #0a0a0f;
+    --sidebar-fg: #e2e8f0;
+    --sidebar-non-existant: #64748b;
+    --sidebar-active: #00d4ff;
+    --sidebar-spacer: #14141f;
+    --scrollbar: #14141f;
+    --icons: #00d4ff;
+    --icons-hover: #a855f7;
+    --links: #00d4ff;
+    --inline-code-color: #a855f7;
+    --theme-popup-bg: #14141f;
+    --theme-popup-border: #00d4ff;
+    --theme-hover: #14141f;
+    --quote-bg: #14141f;
+    --quote-border: #00d4ff;
+    --table-border-color: #14b8a6;
+    --table-header-bg: #14141f;
+    --table-alternate-bg: #0d0d18;
+    --searchbar-border-color: #00d4ff;
+    --searchbar-bg: #14141f;
+    --searchbar-fg: #e2e8f0;
+    --searchresults-header-fg: #00d4ff;
+    --searchresults-border-color: #14141f;
+    --searchresults-li-bg: #14141f;
+    --search-mark-bg: #a855f7;
+    --color-scheme: dark;
+}
+
+.sidebar { background: var(--sidebar-bg); }
+.sidebar .sidebar-scrollbox { background: var(--sidebar-bg); }
+
+/* Electric blue accent on active nav item */
+.sidebar a.active { color: #00d4ff !important; }
+.sidebar a:hover { color: #a855f7 !important; }
+
+/* Nav title */
+.sidebar .sidebar-title a {
+    color: #00d4ff;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Content area */
+.content { background: #0d0d18; color: #e2e8f0; }
+.content main { max-width: 900px; }
+
+/* Code blocks */
+pre { background: #14141f !important; border-left: 3px solid #00d4ff; }
+code { color: #a855f7; background: #14141f; }
+
+/* Links */
+a { color: #00d4ff; }
+a:hover { color: #a855f7; }
+
+/* Tables */
+table th { background: #14141f; color: #00d4ff; }
+table tr:nth-child(even) { background: #0d0d18; }
+
+/* Brand footer sub tag */
+sub { color: #64748b; font-size: 0.78em; }
+
+/* Blockquote */
+blockquote { border-left: 4px solid #14b8a6; background: #14141f; }
+
+/* Chapter title */
+h1, h2 { color: #e2e8f0; }
+h3, h4 { color: #00d4ff; }

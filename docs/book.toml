@@ -9,3 +9,6 @@ src = "src"
 git-repository-url = "https://github.com/cochranblock/cochranblock"
 edit-url-template = "https://github.com/cochranblock/cochranblock/edit/main/docs/src/{path}"
 site-url = "/cochranblock/"
+additional-css = ["theme/custom.css"]
+default-theme = "coal"
+preferred-dark-theme = "coal"

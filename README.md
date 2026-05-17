@@ -28,7 +28,9 @@ The cochranblock.org website. Compiles to one binary (~8.9 MB ARM, ~13 MB x86) w
 
 ## Documentation
 
-This README is the entry point. The actual docs live in two source-of-truth files at the root of the repo:
+**[cochranblock.github.io/cochranblock](https://cochranblock.github.io/cochranblock/)** — full mdBook docs (architecture, routes, deploy, features, provenance).
+
+Source-of-truth files at the repo root:
 
 - **[PROOF_OF_ARTIFACTS.md](PROOF_OF_ARTIFACTS.md)** — what exists today, status, source-linked. Build output, route table, named inventions, screenshots across viewports, quick start, dependencies on sibling repos. If you want to know what this project *does*, read this.
 - **[TIMELINE_OF_INVENTION.md](TIMELINE_OF_INVENTION.md)** — dated, commit-level record of what was built, when, and why. If you want to know how this project *got built*, read this.
@@ -36,8 +38,6 @@ This README is the entry point. The actual docs live in two source-of-truth file
 Supporting docs:
 - [BACKLOG.md](BACKLOG.md) — prioritized open work
 - [CONTRIBUTORS.md](CONTRIBUTORS.md) — contributor list
-- [docs/architecture_guide.md](docs/architecture_guide.md) — full architecture reference
-- [docs/TEST_WALKTHROUGH.md](docs/TEST_WALKTHROUGH.md) — test binary walkthrough
 
 ---
 

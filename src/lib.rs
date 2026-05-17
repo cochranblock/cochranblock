@@ -1,7 +1,10 @@
 #![allow(non_camel_case_types, non_snake_case, dead_code, unused_imports)]
 
-//! CochranBlock — Rust-only SaaS. Kova: thiserror, no unwrap in lib, /// doc = Why.
-//! Flattened: core/* → src/ (folder_token_map).
+//! Zero-cloud website in a single Rust binary. 13 MB x86 / 8.9 MB ARM. $10/month infrastructure.
+//!
+//! **[Documentation](https://cochranblock.github.io/cochranblock/)**
+//! — [Repository](https://github.com/cochranblock/cochranblock)
+//! — [cochranblock.org](https://cochranblock.org)
 // All Rights Reserved — The Cochran Block, LLC
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 

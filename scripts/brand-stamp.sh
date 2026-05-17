@@ -104,6 +104,8 @@ while IFS=$'\t' read -r repo title subtitle tag1 tag2 tag3 title_size; do
         done
         if [ -d "${repo_dir}/docs" ]; then
             while IFS= read -r md; do
+                # Skip SUMMARY.md — mdBook parses it for nav; footer HTML breaks the sidebar
+                [ "$(basename "$md")" = "SUMMARY.md" ] && continue
                 stamp_footer_light "$md"
             done < <(find "${repo_dir}/docs" -maxdepth 3 -name "*.md" -type f \
                 -not -path "*/target/*" -not -path "*/node_modules/*")
