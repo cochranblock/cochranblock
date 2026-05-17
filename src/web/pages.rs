@@ -2052,7 +2052,7 @@ pub async fn f13(State(_p0): State<Arc<t0>>) -> Html<String> {
     ))
 }
 
-/// f64 = get_date_slots — weekdays, 8am–5pm EST
+// f64 = get_date_slots — weekdays, 8am–5pm EST
 // /book moved to src/web/booking.rs - calendar + form + SMTP send.
 
 /// f67 = serve_products. Why: Product catalog — Platforms, Partnerships, Internal Tools.
@@ -3046,14 +3046,12 @@ async fn fetch_commit_timestamps(
 fn parse_link_header_next(link: &str) -> Option<String> {
     for part in link.split(',') {
         let part = part.trim();
-        if part.contains(r#"rel="next""#) {
-            if let Some(start) = part.find('<') {
-                if let Some(end) = part.find('>') {
-                    if end > start + 1 {
-                        return Some(part[start + 1..end].to_string());
-                    }
-                }
-            }
+        if part.contains(r#"rel="next""#)
+            && let Some(start) = part.find('<')
+            && let Some(end) = part.find('>')
+            && end > start + 1
+        {
+            return Some(part[start + 1..end].to_string());
         }
     }
     None
@@ -3969,11 +3967,13 @@ Published publicly as a governance transparency artifact under Article XXIII of 
 ///   - Binary SHA256 (hashed once at startup, cached)
 ///   - Process start timestamp (captured at first page load, cached)
 ///   - Hostname (uname)
+///
 /// What we refuse to compute server-side (to keep the proof externally verifiable):
 ///   - Public IP lookup (visitor runs `dig +short direct.cochranblock.org` themselves)
 ///   - traceroute (visitor runs it from their own network)
 ///   - TLS cert issuer (visitor runs `openssl s_client` themselves)
 ///   - whois on IP (visitor runs `whois` themselves)
+///
 /// The page's value is not that we certify these facts — it's that we hand
 /// the visitor a copy-pasteable recipe to certify them independently.
 pub async fn f103(State(_p0): State<Arc<t0>>) -> Html<String> {

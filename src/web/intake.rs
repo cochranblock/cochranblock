@@ -444,7 +444,7 @@ pub async fn knox_apply_submit(
     Form(f): Form<KnoxApplyForm>,
 ) -> impl IntoResponse {
     // Honeypot
-    if f.website.as_deref().unwrap_or("").len() > 0 {
+    if !f.website.as_deref().unwrap_or("").is_empty() {
         return Redirect::temporary("/knox/apply/confirmed?ref=bot").into_response();
     }
 
