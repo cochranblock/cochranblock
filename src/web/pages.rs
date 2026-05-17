@@ -3840,6 +3840,7 @@ pub async fn f66(State(_p0): State<Arc<t0>>) -> Html<String> {
 }
 
 /// f59 = serve_rules — cursor rules view
+#[cfg(feature = "dev")]
 pub async fn f59(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v_rebuild = include_str!("../../.cursor/rules/rebuild-redeploy.mdc");
     let v_token = include_str!("../../.cursor/rules/tokenization.mdc");
