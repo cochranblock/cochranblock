@@ -22,3 +22,4 @@ android/app/build/
 vendor/
 .env.bak
 .cargo/config.toml
+docs/book
