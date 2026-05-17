@@ -65,7 +65,7 @@ while IFS=$'\t' read -r repo title subtitle tag1 tag2 tag3 title_size; do
     # Air-gap safe: ship the 4 brand badges in-repo so the README renders
     # without an outbound HTTP call to img.shields.io.
     mkdir -p "${repo_dir}/assets/brand/badges"
-    cp "${BRAND_DIR}/badges/"*.svg "${repo_dir}/assets/brand/badges/"
+    cp -n "${BRAND_DIR}/badges/"*.svg "${repo_dir}/assets/brand/badges/" 2>/dev/null || true
 
     readme="${repo_dir}/README.md"
     if [ ! -f "$readme" ]; then
