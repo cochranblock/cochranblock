@@ -1,0 +1,11 @@
+[book]
+title = "cochranblock"
+description = "Zero-cloud website in a single Rust binary."
+authors = ["Michael Cochran"]
+language = "en"
+src = "src"
+
+[output.html]
+git-repository-url = "https://github.com/cochranblock/cochranblock"
+edit-url-template = "https://github.com/cochranblock/cochranblock/edit/main/docs/src/{path}"
+site-url = "/cochranblock/"

@@ -22,7 +22,8 @@ flowchart LR
 
 | Metric | Value |
 |--------|-------|
-| Binary size (x86) | 13 MB (release, opt-level='s', LTO, strip) |
+| Version | 1.0.1 |
+| Binary size (x86) | 13 MB (release, opt-level=3, lto=fat, strip) |
 | Binary size (ARM) | 8.9 MB |
 | Infrastructure cost | $10/month |
 | External services | Cloudflare tunnel (free tier) |
@@ -31,16 +32,32 @@ flowchart LR
 | Public repos | 31 (Unlicense / public domain) |
 | crates.io | 33 published crates (kova-engine, exopack, any-gpu, header-writer, +29) |
 | Certification | SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · SDVOSB Certified 2026-05-12 (SBA VetCert, expires 2029-05-12) · eMMA SUP1095449 · CSB approved · TS/SCI reactivation eligible · 30% service-connected disabled veteran |
-| Functions | 122 |
+| Handler functions | 86 |
 | Types | 18 |
-| Lines of code | 9,680 |
+| Lines of code | 14,494 |
 | Direct dependencies | 38 |
-| Routes | 55 (50 production + 5 dev) |
-| Release profile | opt-level='s', lto=true, codegen-units=1, panic='abort', strip=true |
+| Routes | 190 total (including aliases and redirects) |
+| Release profile | opt-level=3, lto=fat, codegen-units=1, panic=abort, strip=true |
 | GPU nodes | lf: RTX 3070 8GB · gd: RTX 3050 Ti 4GB |
 | Performance | TTFB 116ms · First paint 176ms · 72fps · CLS 0.0000 · 131 DOM elements |
 | QA Round 1 | PASS — zero errors, zero warnings, zero debug prints, zero AI slop, all routes 200 |
 | QA Round 2 | PASS — clean build, clippy -D warnings, zero uncommitted changes |
+| QA Round 3 (v1.0.0) | PASS — 8 clippy warnings resolved, zero warnings, clean release build |
+
+## Validation
+
+| Metric | Value |
+|--------|-------|
+| Version | 1.0.1 |
+| Clippy warnings | 0 |
+| cargo audit | PASS — 0 unignored advisories (see `.cargo/audit.toml` for ignored) |
+| Release build | PASS — `cargo build --release -p cochranblock --features approuter` |
+| GitHub releases | v0.1.0 through v1.0.0 (11 releases, all tagged) |
+| Git commits | 283+ |
+| Provenance docs | TIMELINE_OF_INVENTION.md + PROOF_OF_ARTIFACTS.md |
+| Docs site | `docs/` — mdBook source, deployed via GitHub Pages |
+| Planning docs | `planning/` — internal UX research and business planning (formerly `docs/`) |
+| TRIPLE SIMS gate | `cargo run -p cochranblock --bin cochranblock-test --features tests` |
 
 ## Named Inventions & Techniques
 
@@ -217,6 +234,27 @@ Products marked "Coming Soon" on the site depend on other repos:
 | Ronin Sites | rogue-repo, approuter |
 | Pocket Server | approuter, kova |
 | [Ghost Fabric](https://github.com/cochranblock/ghost-fabric) | kova |
+
+## Commit Log
+
+Selected milestone commits. Run `git log --oneline` for the full 283-commit history.
+
+| Hash | Description |
+|------|-------------|
+| `9495ef7b89` | v1.0.0 version bump |
+| `a9ced55d24` | fix: resolve all clippy warnings (8 warnings) |
+| `811831a5d5` | v0.11.0: redb+SDVOSB sweep, bt deploy pipeline, SBA RFIs, brand assets |
+| `67b0930323` | fix: nav-mobile-menu hidden when \<details\> not [open] |
+| `a517534c3f` | v0.10.0: site-wide nav consistency + CHANGELOG |
+| `baa6757b1e` | SDVOSB certified — sweep site, capability statement, federal docs |
+| `aa4e18b72e` | deploy: fix cargo-audit gate (exit code, not regex) |
+| `8f7446e781` | db: consolidate sled+sqlx → redb (single-file ACID, no rsa chain) |
+| `3efef68f66` | deps: clear all Dependabot advisories |
+| `9e7a7e7465` | site: LET'S TEAM apex root + folded manifesto + resume + hamburger |
+| `7947e6bda3` | Unlicense + public domain sweep |
+| `391f5951ff` | feat: openbooks — local git, no GitHub API |
+| `61e783aa98` | add whyme.cochranblock.org subdomain |
+| `fc5388b01f` | site: live receipts — 31 repos, 22 crates, hero counter |
 
 ---
 

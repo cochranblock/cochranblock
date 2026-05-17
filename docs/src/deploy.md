@@ -1,0 +1,38 @@
+# Deploy
+
+## Pipeline
+
+`scripts/deploy.sh` runs the full deploy from bt (build node) to gd (production VPS):
+
+```
+[0/5] cargo audit gate      — 0 unignored advisories required
+[1/5] cargo build --release — builds on bt (12 cores, 46G RAM)
+[2/5] scp binary bt → gd   — ships to /tmp/cochranblock-new, then mv -f to target
+[3/5] hot reload on gd      — nohup restart; new binary kills old via PID lockfile
+[4/5] Cloudflare cache purge — approuter purge-cache across all 10 domains
+[5/5] IndexNow ping         — notifies search engines of updated URLs
+```
+
+## Run It
+
+```bash
+bash scripts/deploy.sh
+```
+
+The script sets `PATH` explicitly to avoid Mac mount paths on the bt Linux node.
+
+## Hot Reload
+
+The binary uses a PID lockfile at startup. On restart, the new process reads the lockfile, sends SIGTERM to the old process, waits, then takes the port. Zero-downtime on clean restarts.
+
+## Build Node (bt)
+
+bt is the IRONHIDE cluster node: 12 cores, 46G RAM, x86_64 Debian. The release build takes ~60 seconds. The binary is compiled locally and shipped to gd — gd never compiles.
+
+## Production Node (gd)
+
+gd is the serving node: ~$10/month VPS with a Cloudflare Tunnel. The tunnel terminates at approuter (:8080) which proxies to cochranblock (:8081).
+
+## Environment
+
+Deploy reads `.env` from the approuter monorepo for Cloudflare credentials. The binary reads its own env vars at startup for redb path, SMTP config, etc.

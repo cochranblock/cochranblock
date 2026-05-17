@@ -1,0 +1,28 @@
+# cochranblock
+
+Zero-cloud website in a single Rust binary. 13 MB on x86, 8.9 MB on ARM. $10/month infrastructure.
+
+```
+cargo build --release -p cochranblock --features approuter
+./target/release/cochranblock   # localhost:8081
+```
+
+## What It Is
+
+cochranblock.org is the production site of The Cochran Block, LLC — an SDVOSB-certified defense tech consultancy. The binary embeds all HTML, CSS, assets, PDFs, and a redb database. There is no cloud, no Docker, no CDN origin server — Cloudflare Tunnel routes traffic directly to a $10/month VPS running the binary.
+
+## Repository Layout
+
+| Path | Purpose |
+|------|---------|
+| `src/web/` | All route handlers, router, middleware |
+| `src/web/pages.rs` | Main handler file (~14K lines, tokenized identifiers) |
+| `src/web/router.rs` | Axum router wiring |
+| `assets/` | HTML files embedded at build time |
+| `content/` | Additional HTML content |
+| `govdocs/` | Government documents and SBA RFI responses |
+| `scripts/` | Deploy, screenshot, brand-stamp scripts |
+| `planning/` | Internal planning and UX research documents |
+| `docs/` | This documentation |
+| `TIMELINE_OF_INVENTION.md` | Dated commit-level human/AI attribution |
+| `PROOF_OF_ARTIFACTS.md` | Build evidence, screenshots, verification commands |

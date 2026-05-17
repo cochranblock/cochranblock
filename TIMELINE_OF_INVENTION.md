@@ -61,6 +61,63 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-05-17 — v1.0.1: docs/ → planning/, mdBook docs site, GitHub Pages, CHANGELOG removed
+
+**What:** First stable release housekeeping.
+- `docs/` renamed to `planning/` — the directory held internal UX research and business planning files, not developer docs. Name now matches content.
+- New `docs/` created as mdBook source (7 pages: Introduction, Quick Start, Architecture, Routes, Code Style, Deploy, Provenance).
+- `.github/workflows/docs.yml` added — builds mdBook on every push to `docs/` and deploys to GitHub Pages.
+- `CHANGELOG.md` deleted — redundant with `TIMELINE_OF_INVENTION.md`. TOI is the canonical commit-level record.
+- `PROOF_OF_ARTIFACTS.md` updated: added `## Validation` and `## Commit Log` sections (required by the provenance-docs spec), updated metrics to v1.0.1.
+- `TIMELINE_OF_INVENTION.md` (this file) — retroactive entries added for v0.10.0, v0.11.0, v1.0.0, and this commit.
+**Why:** Docs should mean developer docs, not internal planning files. The naming gap made the repo confusing to outside readers. CHANGELOG duplicated TOI with worse detail. mdBook on GitHub Pages is the read-the-docs equivalent for a Rust project without adding a cloud dependency.
+**Commit:** (this commit)
+**AI Role:** AI renamed docs/ → planning/, wrote all 7 mdBook pages from existing POA/README content, created the GitHub Actions workflow, deleted CHANGELOG.md, and updated TOI/POA retroactively. Human directed the rename, specified mdBook as the format, confirmed CHANGELOG deletion, and verified all retroactive entries for accuracy.
+**Proof:** `docs/book.toml`, `docs/src/SUMMARY.md`, `.github/workflows/docs.yml`
+
+### 2026-05-17 — v1.0.0: First Stable Release + Clippy Clean
+
+**What:** Bumped `Cargo.toml` to `1.0.0`. Fixed 8 clippy warnings that had accumulated since v0.10.0:
+- `src/web/intake.rs:447` — `len() > 0` → `!is_empty()` on honeypot check
+- `src/web/pages.rs` — dangling `/// f64` doc comment converted to `//`
+- `src/web/pages.rs:3049–3057` — 4-level nested `if` collapsed to a single `&&`-let chain
+- `src/web/pages.rs:3967–3978` — blank `///` lines added to break list continuation in f103 doc comment (3 warnings)
+**Why:** v1.0.0 is the first version named as stable. Zero clippy warnings is the bar. Release build was already clean; clippy caught lint issues the compiler doesn't surface.
+**Commit:** `a9ced55d24` (clippy fix), `9495ef7b89` (version bump)
+**AI Role:** AI identified all 8 warnings via `cargo clippy`, verified each fix was semantically correct (not a suppression), applied fixes. Human directed the "fix the warnings" task and confirmed the fixes were real changes not `#[allow(...)]` bypasses.
+**Proof:** `cargo clippy -p cochranblock --features approuter` — zero warnings
+
+### 2026-05-16 — v0.11.0: redb+SDVOSB Sweep, bt Deploy Pipeline, SBA RFIs, Brand Assets, Simplify Page
+
+**What:** Large multi-theme commit across the full stack.
+- `src/web/pages.rs`: 10MB→13MB binary throughout; sled→redb references updated; SDVOSB final_review→certified (2026-05-12); Unlicense headers; ghost-fabric 19MB→459KB and call-shield 360KB→48KB asset sizes updated; `f105()` nav injection on onboarding/manifesto/amendments; C7 nav refactored to `concat!`; JSON-LD, pulse, stats, arch all updated.
+- `scripts/deploy.sh`: migrated from lf-build to bt-build — local `cargo audit + build` on bt, `scp` direct to gd. No intermediate `lf` step.
+- `web/` (old module tree, already superseded by `src/web/`): deleted — 6 files, ~7,700 lines removed.
+- `govdocs/sba-rfi-2026-08553`, `govdocs/sba-rfi-2026-08554`: SBA RFI full responses + chromium-headless PDF render tool (Rust crate at `render/`).
+- `assets/brand/`: SDVOSB, CAGE, Unlicense, Rust badges; banner SVGs; footer snippets; repos.tsv.
+- `scripts/brand-stamp.sh`: new brand stamping script.
+- `content/simplify.html`: simplify.cochranblock.org page.
+- `screenshots/`: 91 files — unified nav, burger, govdocs, resume, services, lets-team, manual.
+- `.gitignore`: added `.claude/`, `*.bak`, `*.deb`; render/target gitignored.
+- `docs/` (now `planning/`): header-writer sweep across all planning docs.
+**Why:** bt deploy pipeline was the critical operational change — bt has 12 cores and 46G RAM for fast builds; lf was slower and added an unnecessary hop. SBA RFIs had submission deadlines. SDVOSB final-review→certified was already done (2026-05-12) and needed a full site sweep to match. Brand assets were needed for external use (gov profiles, GitHub banners).
+**Commit:** `811831a5d5`
+**AI Role:** AI swept pages.rs for all affected strings, migrated deploy.sh, generated the SBA RFI render tool, ran brand-stamp.sh, captured 91 screenshots, updated all metrics. Human directed each theme (deploy migration, SBA RFI submission deadlines, brand asset needs), verified RFI response accuracy, and confirmed SDVOSB wording.
+**Proof:** Live: https://cochranblock.org/ — 13MB binary, SDVOSB Certified chip in trust strip. `scripts/deploy.sh` — bt-sourced build ships direct to gd.
+
+### 2026-05-14 — v0.10.0: Site-Wide Nav Unification + Mobile Hamburger Fix
+
+**What:** Unified the C7 nav constant site-wide and fixed the mobile hamburger hidden-state bug.
+- `assets/css/main.css`: replaced checkbox-hack nav (`.nav-check`/`.nav-toggle`/`.nav-toggle-bar`) with `.nav-mobile` / `.nav-mobile-menu` block ported from `lets-team.html`. Added CSS variables `--border-strong` and `--amber` to `:root`.
+- `src/web/pages.rs` `C7` constant: swapped checkbox-hack for `<details class="nav-mobile">` three-group drawer (Procurement / Receipts / Site).
+- `fix: nav-mobile-menu hidden when <details> not [open]` (`67b0930323`): CSS rule `.nav-mobile-menu` was missing the `[open]` selector — the drawer was hidden even when open. Added `details.nav-mobile[open] .nav-mobile-menu { display: block; }`.
+- CHANGELOG.md added retroactively (now deleted — TOI is the canonical record).
+- 91 screenshots captured and committed.
+**Why:** Every non-root page was still using the old checkbox-hack hamburger that had "fought chromium-headless rendering at the small viewport" (per the 2026-05-06 TOI entry). The unified nav gives every page the same mobile experience as the apex root. The `[open]` bug made the drawer show nothing when tapped — caught via CDP verification.
+**Commit:** `a517534c3f` (v0.10.0 nav consistency), `67b0930323` (hamburger fix)
+**AI Role:** AI ported the nav block from lets-team.html into C7, applied the `.nav-mobile-menu` CSS fix, captured screenshots. Human caught the `[open]` bug via live testing on a real phone and directed the fix.
+**Proof:** https://cochranblock.org/govdocs — C7 nav renders with working mobile hamburger.
+
 ### 2026-05-13 — SDVOSB Certification Sweep: Site, Org Profile, Capability Statement, Federal Docs
 
 **What:** SBA VetCert issued the Service-Disabled Veteran-Owned Small Business certification on 2026-05-12 (expires 2029-05-12). Swept every consumer-facing surface from "SDVOSB Pending / Final Review / Submitted" to "SDVOSB Certified 2026-05-12 · expires 2029-05-12 (SBA VetCert)". Files touched:
@@ -77,7 +134,8 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 **Why:** "Hype don't claim, software is free, application is the art" — the doctrine demands that public claims match underlying status. Yesterday's approval changes the claim from *eligible-pending-paperwork* to *certified-with-set-aside-authority*. The set-aside eligibility (FAR 19.1406 sole-source up to $4M) activates with the certification, so any page that said "once approved" or "activates upon Final Review completion" was now incorrect — not stale-but-defensible, actually wrong. The dated procurement records (52-days, amendment-003, supplement-msu-2026-04) were updated rather than frozen because the *status field within them* is a live reference for evaluators reading current versions, not a historical snapshot.
 
-**Commit:** (this commit)
+**Commit:** `baa6757b1e`
+**Proof:** https://cochranblock.org/ — SDVOSB Certified 2026-05-12 chip in trust strip. https://cochranblock.org/govdocs — certifications table updated. `src/tests/http.rs` `hero_product_status` asserts on "SDVOSB" + "Certified" pair (was "Final Review").
 
 **AI Role:** AI did the full grep sweep across `assets/`, `src/`, root markdown, found the SDVOSB references (10+ distinct files), flagged a stale SAM.gov FAQ line as a separate-but-related accuracy bug found during the sweep, paused to ask for the certification + expiration dates rather than guessing, paused again before touching dated historical documents to confirm the user wanted them updated rather than frozen, and ran a release build + the target HTTP test to verify nothing regressed (pre-existing test-harness compile failures noted — they pre-date this change). Human directed: doctrine-anchored wording ("tell the truth"), explicit confirmation to update dated docs, decision to add SAM.gov FAQ fix to scope.
 
