@@ -8,8 +8,13 @@
 **/bin/cloudflared.exe
 /data
 
-# Claude Code worktrees
-.claude/worktrees/
+# Claude Code
+.claude/
+!.claude/worktrees/
+
+# Backup and package files
+*.bak
+*.deb
 android/cochranblock-release.jks
 android/app/src/main/jniLibs/
 android/.gradle/

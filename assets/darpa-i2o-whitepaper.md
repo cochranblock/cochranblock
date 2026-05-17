@@ -34,7 +34,7 @@ We have built and deployed a working on-device AI agent system (Kova) that elimi
 All techniques are implemented, tested, and running:
 
 - **Kova:** 314 tests, 96 source files, 16.9M param diffusion model, on-device LLM inference, agentic tool loop. Single binary.
-- **cochranblock.org:** Production multi-domain web platform. 15MB binary, $10/month total infrastructure. 75fps render, 164ms first paint, zero layout shift.
+- **cochranblock.org:** Production multi-domain web platform. 13 MB Rust binary (8.9 MB on ARM), $10/month total infrastructure. 75fps render, 164ms first paint, zero layout shift.
 - **whobelooking:** Federal contract intelligence system. 8 APIs, headless Chrome scraper, 451 opportunities scraped and scored. Single binary.
 - **whyyoulying:** Labor fraud detection. 8 DoDI 5505.02 rules, GAGAS referral export, 67 unit + 12 integration tests. 621KB binary.
 - **31 open-source repositories** publicly auditable at github.com/cochranblock

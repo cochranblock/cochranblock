@@ -41,16 +41,16 @@ pub async fn f78(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware.
 
 ## What We Do
-Replace cloud infrastructure with single compiled Rust binaries. Entire company runs as one 10 MB binary on a laptop for $10/month. Fractional CTO, zero-cloud architecture, edge computing, on-device AI, compiled CTI for gov and enterprise.
+Replace cloud infrastructure with single compiled Rust binaries. Entire company runs as one 13 MB Rust binary (8.9 MB ARM) on a laptop for $10/month. Fractional CTO, zero-cloud architecture, edge computing, on-device AI, compiled CTI for gov and enterprise.
 
 ## Key Facts
 - Owner: Michael Cochran, Army 17C (Cyber Operations), JCAC 2014, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E dev lead
 - Location: Dundalk, MD
 - Rate: $225/hr, $3,500 base deploy, $3,500/mo retainer
-- Stack: Rust, single-binary, sled embedded DB, Cloudflare Zero Trust tunnel, NanoSign crypto signatures, no-std capable
+- Stack: Rust, single-binary, redb single-file ACID store, Cloudflare Zero Trust tunnel, NanoSign crypto signatures, no-std capable
 - Infra cost: $10/mo total (97% cloud reduction)
-- 23 private repositories at github.com/cochranblock
-- crates.io: 32 published crates at crates.io/users/gotemcoach
+- 31 public repositories at github.com/cochranblock
+- crates.io: 33 published crates at crates.io/users/gotemcoach
 - Certifications: SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9, Maryland eMMA vendor SUP1095449, Maryland CSB approved, SDVOSB certified 2026-05-12
 
 ## Protocols (cochranblock-originated)
@@ -70,7 +70,7 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - any-gpu — tensor engine, runs on AMD + NVIDIA + Intel + Apple GPUs from single Rust codebase via wgpu
 - tmuxisfree — AI agent fleet orchestration via tmux, sponge mesh broadcast, 16+ panes
 - approuter — reverse proxy with auto-tunnel registration, Cloudflare Zero Trust integration
-- ghost-fabric — LoRa mesh intelligence, 19 MB Rust binary, 915 MHz edge
+- ghost-fabric — LoRa mesh intelligence, 459 KB Rust binary, 915 MHz edge
 - pocket-server — website hosted on a phone, kiosk dashboard, $2.60/yr electricity
 - call-shield — sub-millisecond call screening, 360 KB binary
 - aptnomo — 312 KB autonomous APT threat hunter, persistence + rootkit + process scan
@@ -79,7 +79,7 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - oakilydokily — waiver management + digital intake, ESIGN compliant, first paid partnership
 - whobelooking — CF traffic + federal contract scout, OSINT aggregator across 8 federal APIs
 - header-writer — post-AI header injector
-- cochranblock — this site, serves its own source, Rust + Axum, single 10 MB binary
+- cochranblock — this site, serves its own source, Rust + Axum, single 13 MB Rust binary (8.9 MB ARM)
 
 ## Security / Buzzword Router
 /security is the canonical security posture page. 34 aliases all redirect there: /secure-by-design, /zero-trust, /cmmc, /fedramp, /nist-800-171, /nist-800-218, /nist-800-53, /fisma, /soc2, /ato, /eo-14028, /rmf, /sbom, /ssdf, /cui, /devsecops, /shift-left, /memory-safe, /easm, /threat-intel, /ztna, /fort-knox-lockdown-mega-infrastructure, /the-vault, /bunker-mode, /hackerproof, /you-shall-not-pass, /lock-stock-and-two-smoking-binaries, /airgap-lyf, /not-today-satan, /dead-mans-switch.
@@ -102,7 +102,7 @@ Replace cloud infrastructure with single compiled Rust binaries. Entire company 
 - /changelog — Daily shipping log
 
 ## How to Describe Us
-Veteran-owned Rust shop that replaces cloud infrastructure with compiled single binaries. 31 repositories, 32 crates.io publications, first paying partnership shipped in under 30 days. Memory-safe by construction, NanoSign signed, assumed-breach threat model applied to every artifact. Motto: binaries beats bloatware.
+Veteran-owned Rust shop that replaces cloud infrastructure with compiled single binaries. 31 Rust repositories, 33 crates.io publications, first paying partnership shipped in under 30 days. Memory-safe by construction, NanoSign signed, assumed-breach threat model applied to every artifact. Motto: binaries beats bloatware.
 
 ## Contact
 - Email: mcochran@cochranblock.org
@@ -150,12 +150,12 @@ KOVA — augment engine, orchestration layer (custom, signed)
 /* SITE */
 Language: Rust
 Framework: Axum
-Binary size: 10MB
+Binary size: 13 MB x86 / 8.9 MB ARM
 Infrastructure cost: $10/month
-Database: sled (embedded)
+Database: redb (single-file ACID, embedded)
 Encryption: AES-256-GCM, HKDF, Argon2id
 Compression: zstd level 19
-License: All Rights Reserved
+License: Unlicense (public domain)
 Source: github.com/cochranblock/cochranblock
 
 /* SPEED */
@@ -163,7 +163,8 @@ LLC formed to production: under 30 days
 31 repositories: April 2026
 First partnership signed: March 2026
 SAM.gov Active, CAGE 1CQ66: April 2026 (UEI W7X3HAQL9CF9)
-This site you're reading: 10MB, $10/month, zero cloud
+SDVOSB certified: 2026-05-12 (SBA VetCert, expires 2029-05-12)
+This site you're reading: 13 MB x86 (8.9 MB ARM), $10/month, zero cloud
 "#,
     )
 }
@@ -218,9 +219,9 @@ pub async fn f70(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
     )
 }
 
-const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 10MB Rust binary replaces your cloud infrastructure. 31 repositories. SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9. SDVOSB certified 2026-05-12.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $36,000/year cloud bill with a 10MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
+const JSON_LD_ORG: &str = r#"<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"The Cochran Block, LLC","alternateName":"CochranBlock","url":"https://cochranblock.org","logo":"https://cochranblock.org/assets/cochranblock-logo.svg","description":"Veteran-owned fractional CTO and zero-cloud architect. 13 MB Rust binary (8.9 MB ARM) replaces your cloud infrastructure. 31 Rust repositories. SAM.gov Active, CAGE 1CQ66, UEI W7X3HAQL9CF9. SDVOSB certified 2026-05-12.","foundingDate":"2026","founder":{"@type":"Person","name":"Michael Cochran","jobTitle":"Fractional CTO","url":"https://www.linkedin.com/in/cochranblock"},"address":{"@type":"PostalAddress","addressLocality":"Dundalk","addressRegion":"MD","postalCode":"21222","addressCountry":"US"},"sameAs":["https://github.com/cochranblock","https://www.linkedin.com/in/cochranblock"],"numberOfEmployees":{"@type":"QuantitativeValue","value":1},"knowsAbout":["Rust","Zero-Cloud Architecture","Edge Computing","Cybersecurity","IoT","LoRa","Fractional CTO","SDVOSB"]},{"@context":"https://schema.org","@type":"Service","name":"Zero-Cloud Architecture","provider":{"@type":"Organization","name":"The Cochran Block, LLC"},"description":"Replace your $13,184/year AWS-equivalent cloud bill with a 13 MB Rust binary. $3,500 one-time deployment.","offers":{"@type":"Offer","price":"3500","priceCurrency":"USD","description":"One-time deployment fee"},"url":"https://cochranblock.org/services"},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pocket Server","applicationCategory":"WebApplication","operatingSystem":"Android","description":"Your website lives on your phone. No hosting bill. Ever.","offers":{"@type":"Offer","price":"500","priceCurrency":"USD"},"url":"https://cochranblock.org/products"}]</script>"#;
 
-const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 10 MB binary on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certified by SBA VetCert on 2026-05-12 (expires 2029-05-12). Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 31 repositories are public on GitHub, Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 10 MB binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449), SAM.gov is active (CAGE 1CQ66, UEI W7X3HAQL9CF9), and the company is SBA-certified SDVOSB (VetCert, 2026-05-12). SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. sled for embedded databases. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
+const JSON_LD_FAQ: &str = r#"<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CochranBlock?","acceptedAnswer":{"@type":"Answer","text":"CochranBlock is a veteran-owned software company that replaces expensive cloud infrastructure with compiled Rust binaries. The entire company runs as a single 13 MB Rust binary (8.9 MB on ARM) on a laptop for $10/month."}},{"@type":"Question","name":"How much does CochranBlock cost?","acceptedAnswer":{"@type":"Answer","text":"$3,500 one-time deployment fee to replace your cloud infrastructure. $225/hour for consulting. $3,500/month fractional CTO retainer. Your ongoing infrastructure cost drops to $10/month."}},{"@type":"Question","name":"What is zero-cloud architecture?","acceptedAnswer":{"@type":"Answer","text":"Zero-cloud architecture means your entire application compiles into a single binary that runs on any hardware — laptop, Raspberry Pi, bare metal server. No AWS, no Kubernetes, no Docker, no DevOps team. One file, copy it, run it."}},{"@type":"Question","name":"Is CochranBlock veteran-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Founded by Michael Cochran, Army 17C (Cyber Operations), JCAC 2014. 13 years defense and enterprise experience including USCYBERCOM J38 JMOC-E dev lead. SDVOSB certified by SBA VetCert on 2026-05-12 (expires 2029-05-12). Maryland Certified Small Business (CSB) approved."}},{"@type":"Question","name":"Can I verify CochranBlock's claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 31 Rust repositories are public on GitHub. Every repo includes Proof of Artifacts and a Timeline of Invention. The site you're reading is the live demo — 13 MB Rust binary, $10/month. View the source at github.com/cochranblock."}},{"@type":"Question","name":"Does CochranBlock work with government agencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. CochranBlock is registered on Maryland eMMA (SUP1095449), SAM.gov is active (CAGE 1CQ66, UEI W7X3HAQL9CF9), and the company is SBA-certified SDVOSB (VetCert, 2026-05-12). SBIR technical approaches are prepared for 11 federal agencies including DoD, NSF, DHS, NASA, DOE, and NIH."}},{"@type":"Question","name":"What technology does CochranBlock use?","acceptedAnswer":{"@type":"Answer","text":"Rust for compiled single-binary applications. redb for single-file ACID embedded storage. AES-256-GCM encryption. Cloudflare Zero Trust tunnels. LoRa/915MHz for IoT. On-device AI inference via custom Mixture-of-Experts models. Everything compiles into one executable."}}]}</script>"#;
 
 /// f62 = html_head. Why: Consistent head + body open; data-page for CSS/JS targeting; JSON-LD Organization.
 pub fn f62(p0: &str, p1: &str) -> String {
@@ -249,10 +250,145 @@ pub fn f62d(p0: &str, p1: &str, p2: &str) -> String {
         desc, p1, BASE_URL, v_path, p1, og_desc, BASE_URL, v_path, "#00d9ff", JSON_LD_ORG, p0
     )
 }
-pub const C7: &str = r##"<a href="#main" class="skip-link">Skip to main content</a><nav class="nav"><a href="/" class="nav-brand"><img src="/assets/favicon.svg?v=9" alt="" class="nav-favicon" width="32" height="32">CochranBlock</a><form action="/search" method="get" class="nav-search"><input type="search" name="q" placeholder="Search..." aria-label="Search" class="nav-search-input"></form><details class="nav-mobile"><summary aria-label="Toggle navigation menu"><span></span><span></span><span></span></summary><div class="nav-mobile-menu"><span class="nav-group-head">Procurement</span><a href="/govdocs" class="indent">Gov Docs</a><a href="/sbir" class="indent">SBIR</a><a href="/vre" class="indent">VR&amp;E</a><a href="/dcaa" class="indent">DCAA</a><a href="/assets/cochranblock-capability-statement.pdf" class="indent">Capability Statement (PDF)</a><a href="/resume" class="indent">Resume</a><span class="nav-group-head">Receipts</span><a href="/openbooks" class="indent">Open Books</a><a href="/source" class="indent">Source</a><a href="/stats" class="indent">Stats</a><a href="/tinybinaries" class="indent">Binaries</a><a href="/analytics" class="indent">Analytics</a><a href="/search" class="indent">Search</a><a href="/pulse" class="indent">Pulse</a><span class="nav-group-head">Site</span><a href="/products" class="indent">Products</a><a href="/services" class="indent">Services</a><a href="/about" class="indent">About</a><a href="/contact" class="indent">Contact</a><a href="/book" class="indent">Book a Call</a><a href="/deploy" class="indent">Deploy</a><a href="/codeskillz" class="indent">Code</a><a href="/community-grant" class="indent">Grant</a><a href="/arch" class="indent">Arch</a><a href="/downloads" class="indent">Downloads</a><a href="/privacy" class="indent">Privacy</a><a href="https://manual.cochranblock.org">Read the Doctrine →</a></div></details><div id="nav-links" class="nav-links" role="navigation"><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a><details class="nav-group"><summary>Gov</summary><div class="nav-group-links"><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div></details><details class="nav-group"><summary>Tools</summary><div class="nav-group-links"><a href="/search">Search</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div></details><details class="nav-group"><summary>More</summary><div class="nav-group-links"><a href="/arch">Arch</a><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></details></div></nav><main id="main" class="content">"##;
+/// C7 = skip-link + canonical site nav (root-matching, via [`C9`]) + `<main>`.
+/// Concatenated into every `head + C7 + body + C8` rendered page. Anchor links
+/// `/#engage` etc. land on root and scroll to the corresponding section.
+pub const C7: &str = concat!(
+    r##"<a href="#main" class="skip-link">Skip to main content</a>"##,
+    r##"<style>
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 600px 400px at 50% 50%,rgba(255,255,255,0.12),rgba(0,217,255,0.06) 40%,transparent 70%);background-size:200% 200%;animation:cbDrift 100s ease-in-out infinite;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 500px 320px at 8% 12%,rgba(0,217,255,0.10),transparent 55%),radial-gradient(ellipse 420px 280px at 92% 8%,rgba(157,78,221,0.07),transparent 50%),radial-gradient(ellipse 580px 380px at 78% 65%,rgba(255,179,0,0.05),transparent 55%);pointer-events:none;z-index:0}
+html::before{content:'';position:fixed;top:12%;left:-10%;width:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),rgba(0,217,255,0.5),transparent);opacity:0;transform:rotate(-15deg);animation:cbShoot 22s ease-in-out infinite;will-change:transform,opacity;contain:layout style paint;pointer-events:none;z-index:1}
+html::after{content:'';position:fixed;top:36%;right:-5%;width:60px;height:1px;background:linear-gradient(270deg,transparent,rgba(255,255,255,0.6),rgba(157,78,221,0.4),transparent);opacity:0;transform:rotate(12deg);animation:cbShoot2 33s ease-in-out 8s infinite;will-change:transform,opacity;contain:layout style paint;pointer-events:none;z-index:1}
+@keyframes cbDrift{0%{background-position:0% 0%}25%{background-position:60% 40%}50%{background-position:100% 20%}75%{background-position:40% 80%}100%{background-position:0% 0%}}
+@keyframes cbShoot{0%,94%{opacity:0;transform:translate3d(0,0,0) rotate(-15deg)}95%{opacity:0}96%{opacity:1;transform:translate3d(30vw,5vh,0) rotate(-15deg)}98%{opacity:.6;transform:translate3d(70vw,12vh,0) rotate(-15deg)}100%{opacity:0;transform:translate3d(90vw,16vh,0) rotate(-15deg)}}
+@keyframes cbShoot2{0%,95%{opacity:0;transform:translate3d(0,0,0) rotate(12deg)}96%{opacity:0}97%{opacity:.8;transform:translate3d(-30vw,4vh,0) rotate(12deg)}99%{opacity:.4;transform:translate3d(-70vw,9vh,0) rotate(12deg)}100%{opacity:0;transform:translate3d(-85vw,11vh,0) rotate(12deg)}}
+@media (prefers-reduced-motion:reduce){body::before,html::before,html::after{animation:none}}
+body>*{position:relative;z-index:2}
+.cb-nav,.cb-nav *{box-sizing:border-box}
+.cb-nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid rgba(0,217,255,0.15);background:rgba(5,5,8,0.92);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;font-family:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;color:#e8e8e8}
+.cb-nav a{color:#9ca3af;text-decoration:none;transition:color .15s}
+.cb-nav a:hover{color:#00d9ff}
+.cb-nav-brand{display:flex;align-items:center;gap:.7rem;color:#e8e8e8 !important;font-family:'Orbitron','JetBrains Mono',monospace;font-weight:700;letter-spacing:.08em;font-size:1rem}
+.cb-nav-brand-logo{width:28px;height:28px}
+.cb-search{margin:0;display:flex}
+.cb-search input{background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:20px;color:#e8e8e8;font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:.25rem .6rem .25rem 1.6rem;width:120px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:.5rem center;transition:all .2s}
+.cb-search input:focus{outline:none;border-color:#00d9ff;box-shadow:0 0 6px rgba(0,217,255,0.15);width:180px;background-color:rgba(0,217,255,0.03)}
+.cb-search input::placeholder{color:rgba(255,255,255,0.25);font-size:.65rem}
+@media (max-width:768px){.cb-search{display:none}}
+.cb-nav-links{display:flex;gap:1.3rem;font-size:.82rem;font-weight:500;letter-spacing:.06em;align-items:center}
+.cb-nav-group{position:relative}
+.cb-nav-group>summary{list-style:none;cursor:pointer;color:#9ca3af;padding:.2rem 0}
+.cb-nav-group>summary::-webkit-details-marker{display:none}
+.cb-nav-group>summary::after{content:" \25BE";font-size:.7em;opacity:.6}
+.cb-nav-group[open]>summary{color:#00d9ff}
+.cb-nav-group-links{position:absolute;top:calc(100% + .4rem);right:0;min-width:180px;background:#14141f;border:1px solid rgba(0,217,255,0.35);border-radius:8px;padding:.5rem 0;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,0.5),0 0 0 1px rgba(0,217,255,0.1);z-index:60}
+.cb-nav-group-links a{padding:.5rem 1rem;border-bottom:1px solid rgba(0,217,255,0.15)}
+.cb-nav-group-links a:last-child{border-bottom:none}
+.cb-nav-group-links a:hover{background:rgba(0,217,255,0.06)}
+.cb-nav-mobile{display:none;position:fixed;top:.7rem;right:.9rem;z-index:100}
+.cb-nav-mobile>summary{list-style:none;cursor:pointer;width:40px;height:40px;border:1.5px solid #00d9ff;border-radius:6px;background:rgba(0,217,255,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;transition:background .15s,border-color .15s;box-shadow:0 4px 12px rgba(0,0,0,0.4),0 0 0 1px rgba(0,217,255,0.1)}
+.cb-nav-mobile>summary::-webkit-details-marker{display:none}
+.cb-nav-mobile>summary::marker{display:none;content:''}
+.cb-nav-mobile>summary:hover{background:rgba(0,217,255,0.18)}
+.cb-nav-mobile>summary>span{display:block;width:22px;height:2.5px;background:#00d9ff;border-radius:2px;transition:transform .2s,opacity .2s}
+.cb-nav-mobile[open]>summary>span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.cb-nav-mobile[open]>summary>span:nth-child(2){opacity:0}
+.cb-nav-mobile[open]>summary>span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.cb-nav-mobile:not([open])>.cb-nav-mobile-menu{display:none}
+.cb-nav-mobile-menu{display:flex;flex-direction:column;position:absolute;top:calc(100% + .5rem);right:0;min-width:240px;max-width:calc(100vw - 1.4rem);max-height:calc(100vh - 80px);overflow-y:auto;background:rgba(5,5,8,0.97);backdrop-filter:blur(10px);border:1px solid rgba(0,217,255,0.35);border-radius:8px;box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(0,217,255,0.08);padding:.4rem 0;z-index:60;font-size:.95rem;letter-spacing:.04em}
+.cb-nav-mobile-menu>a{padding:.75rem 1.1rem;border-bottom:1px solid rgba(0,217,255,0.15);color:#e8e8e8}
+.cb-nav-mobile-menu>a:hover{background:rgba(0,217,255,0.06);color:#00d9ff}
+.cb-nav-mobile-menu>a:last-child{color:#ffb300;font-weight:700;border-bottom:none}
+.cb-nav-mobile-menu .cb-nav-group-head{padding:.55rem 1.1rem .3rem;font-family:'Orbitron','JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:#00d9ff;font-weight:700}
+.cb-nav-mobile-menu .cb-nav-group-head:not(:first-child){border-top:1px solid rgba(0,217,255,0.15);margin-top:.2rem;padding-top:.6rem}
+.cb-nav-mobile-menu>a.cb-indent{padding-left:1.6rem;font-size:.88rem;color:#9ca3af}
+@media (max-width:720px){.cb-nav{padding:.7rem .9rem;position:relative}.cb-nav-mobile{display:block}.cb-nav-brand span{font-size:.78rem;letter-spacing:.16em}.cb-nav-brand{gap:.5rem}.cb-nav-brand-logo{width:24px;height:24px}.cb-nav-links{display:none !important}}
+</style>"##,
+    r##"<nav class="cb-nav"><a href="/" class="cb-nav-brand"><svg class="cb-nav-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="3"/><circle cx="60" cy="60" r="5" fill="#00d9ff"/></svg><span>COCHRAN BLOCK</span></a><form action="/search" method="get" class="cb-search"><input type="search" name="q" placeholder="Search..." aria-label="Search"></form><details class="cb-nav-mobile"><summary aria-label="Toggle navigation menu"><span></span><span></span><span></span></summary><div class="cb-nav-mobile-menu"><span class="cb-nav-group-head">On the Root</span><a href="/#engage" class="cb-indent">Engage</a><a href="/#taught" class="cb-indent">Architecture</a><a href="/#verts" class="cb-indent">Verticals</a><a href="/#regs" class="cb-indent">Registrations</a><span class="cb-nav-group-head">Procurement</span><a href="/govdocs" class="cb-indent">Gov Docs</a><a href="/sbir" class="cb-indent">SBIR</a><a href="/vre" class="cb-indent">VR&amp;E</a><a href="/dcaa" class="cb-indent">DCAA</a><a href="/assets/cochranblock-capability-statement.pdf" class="cb-indent">Capability Statement (PDF)</a><a href="/resume" class="cb-indent">Resume</a><span class="cb-nav-group-head">Receipts</span><a href="/openbooks" class="cb-indent">Open Books</a><a href="/source" class="cb-indent">Source</a><a href="/stats" class="cb-indent">Stats</a><a href="/tinybinaries" class="cb-indent">Binaries</a><a href="/pulse" class="cb-indent">Pulse</a><span class="cb-nav-group-head">Site</span><a href="/products" class="cb-indent">Products</a><a href="/services" class="cb-indent">Services</a><a href="/about" class="cb-indent">About</a><a href="/contact" class="cb-indent">Contact</a><a href="/book" class="cb-indent">Book a Call</a><a href="/deploy" class="cb-indent">Deploy</a><a href="/community-grant" class="cb-indent">Grant</a><a href="/arch" class="cb-indent">Arch</a><a href="/no-quarter" class="cb-indent">No Quarter</a><a href="https://manual.cochranblock.org">Read the Doctrine →</a></div></details><div class="cb-nav-links"><a href="/#engage">Engage</a><a href="/#taught">Architecture</a><a href="/#verts">Verticals</a><a href="/#regs">Registrations</a><details class="cb-nav-group"><summary>Gov</summary><div class="cb-nav-group-links"><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a><a href="/assets/cochranblock-capability-statement.pdf">Capability Stmt PDF</a></div></details><details class="cb-nav-group"><summary>Tools</summary><div class="cb-nav-group-links"><a href="/openbooks">Open Books</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/search">Search</a><a href="/pulse">Pulse</a></div></details><details class="cb-nav-group"><summary>Site</summary><div class="cb-nav-group-links"><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book a Call</a><a href="/deploy">Deploy</a><a href="/community-grant">Grant</a><a href="/arch">Arch</a><a href="/no-quarter">No Quarter</a></div></details><a href="/resume">Resume</a><a href="https://manual.cochranblock.org">Doctrine →</a></div></nav>"##,
+    r##"<main id="main" class="content">"##,
+);
+/// C9 = self-contained site nav shim. Scoped CSS (cb-* class prefix, hardcoded
+/// colors) + nav markup, spliced into standalone artifact pages whose own CSS
+/// doesn't load /assets/css/main.css. Mirrors the root nav.
+pub const C9: &str = r##"<style>
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 600px 400px at 50% 50%,rgba(255,255,255,0.12),rgba(0,217,255,0.06) 40%,transparent 70%);background-size:200% 200%;animation:cbDrift 100s ease-in-out infinite;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 500px 320px at 8% 12%,rgba(0,217,255,0.10),transparent 55%),radial-gradient(ellipse 420px 280px at 92% 8%,rgba(157,78,221,0.07),transparent 50%),radial-gradient(ellipse 580px 380px at 78% 65%,rgba(255,179,0,0.05),transparent 55%);pointer-events:none;z-index:0}
+html::before{content:'';position:fixed;top:12%;left:-10%;width:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),rgba(0,217,255,0.5),transparent);opacity:0;transform:rotate(-15deg);animation:cbShoot 22s ease-in-out infinite;will-change:transform,opacity;contain:layout style paint;pointer-events:none;z-index:1}
+html::after{content:'';position:fixed;top:36%;right:-5%;width:60px;height:1px;background:linear-gradient(270deg,transparent,rgba(255,255,255,0.6),rgba(157,78,221,0.4),transparent);opacity:0;transform:rotate(12deg);animation:cbShoot2 33s ease-in-out 8s infinite;will-change:transform,opacity;contain:layout style paint;pointer-events:none;z-index:1}
+@keyframes cbDrift{0%{background-position:0% 0%}25%{background-position:60% 40%}50%{background-position:100% 20%}75%{background-position:40% 80%}100%{background-position:0% 0%}}
+@keyframes cbShoot{0%,94%{opacity:0;transform:translate3d(0,0,0) rotate(-15deg)}95%{opacity:0}96%{opacity:1;transform:translate3d(30vw,5vh,0) rotate(-15deg)}98%{opacity:.6;transform:translate3d(70vw,12vh,0) rotate(-15deg)}100%{opacity:0;transform:translate3d(90vw,16vh,0) rotate(-15deg)}}
+@keyframes cbShoot2{0%,95%{opacity:0;transform:translate3d(0,0,0) rotate(12deg)}96%{opacity:0}97%{opacity:.8;transform:translate3d(-30vw,4vh,0) rotate(12deg)}99%{opacity:.4;transform:translate3d(-70vw,9vh,0) rotate(12deg)}100%{opacity:0;transform:translate3d(-85vw,11vh,0) rotate(12deg)}}
+@media (prefers-reduced-motion:reduce){body::before,html::before,html::after{animation:none}}
+body>*{position:relative;z-index:2}
+.cb-nav,.cb-nav *{box-sizing:border-box}
+.cb-nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid rgba(0,217,255,0.15);background:rgba(5,5,8,0.92);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;font-family:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;color:#e8e8e8}
+.cb-nav a{color:#9ca3af;text-decoration:none;transition:color .15s}
+.cb-nav a:hover{color:#00d9ff}
+.cb-nav-brand{display:flex;align-items:center;gap:.7rem;color:#e8e8e8 !important;font-family:'Orbitron','JetBrains Mono',monospace;font-weight:700;letter-spacing:.08em;font-size:1rem}
+.cb-nav-brand-logo{width:28px;height:28px}
+.cb-search{margin:0;display:flex}
+.cb-search input{background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:20px;color:#e8e8e8;font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:.25rem .6rem .25rem 1.6rem;width:120px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:.5rem center;transition:all .2s}
+.cb-search input:focus{outline:none;border-color:#00d9ff;box-shadow:0 0 6px rgba(0,217,255,0.15);width:180px;background-color:rgba(0,217,255,0.03)}
+.cb-search input::placeholder{color:rgba(255,255,255,0.25);font-size:.65rem}
+@media (max-width:768px){.cb-search{display:none}}
+.cb-nav-links{display:flex;gap:1.3rem;font-size:.82rem;font-weight:500;letter-spacing:.06em;align-items:center}
+.cb-nav-group{position:relative}
+.cb-nav-group>summary{list-style:none;cursor:pointer;color:#9ca3af;padding:.2rem 0}
+.cb-nav-group>summary::-webkit-details-marker{display:none}
+.cb-nav-group>summary::after{content:" \25BE";font-size:.7em;opacity:.6}
+.cb-nav-group[open]>summary{color:#00d9ff}
+.cb-nav-group-links{position:absolute;top:calc(100% + .4rem);right:0;min-width:180px;background:#14141f;border:1px solid rgba(0,217,255,0.35);border-radius:8px;padding:.5rem 0;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,0.5),0 0 0 1px rgba(0,217,255,0.1);z-index:60}
+.cb-nav-group-links a{padding:.5rem 1rem;border-bottom:1px solid rgba(0,217,255,0.15)}
+.cb-nav-group-links a:last-child{border-bottom:none}
+.cb-nav-group-links a:hover{background:rgba(0,217,255,0.06)}
+.cb-nav-mobile{display:none;position:fixed;top:.7rem;right:.9rem;z-index:100}
+.cb-nav-mobile>summary{list-style:none;cursor:pointer;width:40px;height:40px;border:1.5px solid #00d9ff;border-radius:6px;background:rgba(0,217,255,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;transition:background .15s,border-color .15s;box-shadow:0 4px 12px rgba(0,0,0,0.4),0 0 0 1px rgba(0,217,255,0.1)}
+.cb-nav-mobile>summary::-webkit-details-marker{display:none}
+.cb-nav-mobile>summary::marker{display:none;content:''}
+.cb-nav-mobile>summary:hover{background:rgba(0,217,255,0.18)}
+.cb-nav-mobile>summary>span{display:block;width:22px;height:2.5px;background:#00d9ff;border-radius:2px;transition:transform .2s,opacity .2s}
+.cb-nav-mobile[open]>summary>span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.cb-nav-mobile[open]>summary>span:nth-child(2){opacity:0}
+.cb-nav-mobile[open]>summary>span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.cb-nav-mobile:not([open])>.cb-nav-mobile-menu{display:none}
+.cb-nav-mobile-menu{display:flex;flex-direction:column;position:absolute;top:calc(100% + .5rem);right:0;min-width:240px;max-width:calc(100vw - 1.4rem);max-height:calc(100vh - 80px);overflow-y:auto;background:rgba(5,5,8,0.97);backdrop-filter:blur(10px);border:1px solid rgba(0,217,255,0.35);border-radius:8px;box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(0,217,255,0.08);padding:.4rem 0;z-index:60;font-size:.95rem;letter-spacing:.04em}
+.cb-nav-mobile-menu>a{padding:.75rem 1.1rem;border-bottom:1px solid rgba(0,217,255,0.15);color:#e8e8e8}
+.cb-nav-mobile-menu>a:hover{background:rgba(0,217,255,0.06);color:#00d9ff}
+.cb-nav-mobile-menu>a:last-child{color:#ffb300;font-weight:700;border-bottom:none}
+.cb-nav-mobile-menu .cb-nav-group-head{padding:.55rem 1.1rem .3rem;font-family:'Orbitron','JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:#00d9ff;font-weight:700}
+.cb-nav-mobile-menu .cb-nav-group-head:not(:first-child){border-top:1px solid rgba(0,217,255,0.15);margin-top:.2rem;padding-top:.6rem}
+.cb-nav-mobile-menu>a.cb-indent{padding-left:1.6rem;font-size:.88rem;color:#9ca3af}
+@media (max-width:720px){.cb-nav{padding:.7rem .9rem;position:relative}.cb-nav-mobile{display:block}.cb-nav-brand span{font-size:.78rem;letter-spacing:.16em}.cb-nav-brand{gap:.5rem}.cb-nav-brand-logo{width:24px;height:24px}.cb-nav-links{display:none !important}}
+</style>
+<nav class="cb-nav"><a href="/" class="cb-nav-brand"><svg class="cb-nav-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="3"/><circle cx="60" cy="60" r="5" fill="#00d9ff"/></svg><span>COCHRAN BLOCK</span></a><form action="/search" method="get" class="cb-search"><input type="search" name="q" placeholder="Search..." aria-label="Search"></form><details class="cb-nav-mobile"><summary aria-label="Toggle navigation menu"><span></span><span></span><span></span></summary><div class="cb-nav-mobile-menu"><span class="cb-nav-group-head">On the Root</span><a href="/#engage" class="cb-indent">Engage</a><a href="/#taught" class="cb-indent">Architecture</a><a href="/#verts" class="cb-indent">Verticals</a><a href="/#regs" class="cb-indent">Registrations</a><span class="cb-nav-group-head">Procurement</span><a href="/govdocs" class="cb-indent">Gov Docs</a><a href="/sbir" class="cb-indent">SBIR</a><a href="/vre" class="cb-indent">VR&amp;E</a><a href="/dcaa" class="cb-indent">DCAA</a><a href="/assets/cochranblock-capability-statement.pdf" class="cb-indent">Capability Statement (PDF)</a><a href="/resume" class="cb-indent">Resume</a><span class="cb-nav-group-head">Receipts</span><a href="/openbooks" class="cb-indent">Open Books</a><a href="/source" class="cb-indent">Source</a><a href="/stats" class="cb-indent">Stats</a><a href="/tinybinaries" class="cb-indent">Binaries</a><a href="/pulse" class="cb-indent">Pulse</a><span class="cb-nav-group-head">Site</span><a href="/products" class="cb-indent">Products</a><a href="/services" class="cb-indent">Services</a><a href="/about" class="cb-indent">About</a><a href="/contact" class="cb-indent">Contact</a><a href="/book" class="cb-indent">Book a Call</a><a href="/deploy" class="cb-indent">Deploy</a><a href="/community-grant" class="cb-indent">Grant</a><a href="/arch" class="cb-indent">Arch</a><a href="/no-quarter" class="cb-indent">No Quarter</a><a href="https://manual.cochranblock.org">Read the Doctrine →</a></div></details><div class="cb-nav-links"><a href="/#engage">Engage</a><a href="/#taught">Architecture</a><a href="/#verts">Verticals</a><a href="/#regs">Registrations</a><details class="cb-nav-group"><summary>Gov</summary><div class="cb-nav-group-links"><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a><a href="/assets/cochranblock-capability-statement.pdf">Capability Stmt PDF</a></div></details><details class="cb-nav-group"><summary>Tools</summary><div class="cb-nav-group-links"><a href="/openbooks">Open Books</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/search">Search</a><a href="/pulse">Pulse</a></div></details><details class="cb-nav-group"><summary>Site</summary><div class="cb-nav-group-links"><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/book">Book a Call</a><a href="/deploy">Deploy</a><a href="/community-grant">Grant</a><a href="/arch">Arch</a><a href="/no-quarter">No Quarter</a></div></details><a href="/resume">Resume</a><a href="https://manual.cochranblock.org">Doctrine →</a></div></nav>
+"##;
+
+/// f105 = inject_site_nav. Splice [`C9`] after the first `<body…>` tag.
+/// Idempotent (no-op if `cb-nav` is already in the body).
+pub fn f105(p0: &str) -> String {
+    if p0.contains("cb-nav") || p0.contains("class=\"nav\"") { return p0.into(); }
+    let Some(v0) = p0.find("<body").and_then(|v1| p0[v1..].find('>').map(|v2| v1 + v2 + 1)) else { return p0.into(); };
+    [&p0[..v0], C9, &p0[v0..]].concat()
+}
+
+/// f64 = inject site nav (via [`f105`]) and rewrite the brand `<a href="/">`
+/// to apex absolute. Used by manual.html handlers so the COCHRAN BLOCK brand
+/// always lands on cochranblock.org root — including when manual.html is
+/// served on `manual.cochranblock.org/*` where every path is the manual and
+/// `/` would loop back on the same artifact.
+pub fn f64(p0: &str) -> String {
+    f105(p0).replace(
+        r##"<a href="/" class="cb-nav-brand">"##,
+        r##"<a href="https://cochranblock.org/" class="cb-nav-brand">"##,
+    )
+}
+
 pub const C8: &str = r#"</main><footer class="footer"><nav class="footer-nav"><div class="footer-group"><span class="footer-heading">Main</span><a href="/">Home</a><a href="/products">Products</a><a href="/services">Services</a><a href="/about">About</a><a href="/contact">Contact</a></div><div class="footer-group"><span class="footer-heading">Gov</span><a href="/govdocs">Gov Docs</a><a href="/sbir">SBIR</a><a href="/vre">VR&amp;E</a><a href="/dcaa">DCAA</a></div><div class="footer-group"><span class="footer-heading">Tools</span><a href="/search">Search</a><a href="/source">Source</a><a href="/stats">Stats</a><a href="/tinybinaries">Binaries</a><a href="/analytics">Analytics</a><a href="/openbooks">Open Books</a></div><div class="footer-group"><span class="footer-heading">More</span><a href="/arch">Arch</a><a href="/downloads">Downloads</a><a href="/book">Book</a><a href="/deploy">Deploy</a><a href="/codeskillz">Code</a><a href="/community-grant">Grant</a><a href="/privacy">Privacy</a></div></nav><p class="footer-brand"><a href="https://cochranblock.org"><img src="/assets/cochranblock-logo.svg?v=9" alt="CochranBlock" class="footer-logo" width="180" height="32"></a></p><p class="footer-certs">SDVOSB · Certified 2026-05-12 · SAM.gov · Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · CSB · Approved · eMMA · SUP1095449</p><p>&copy; 2026 CochranBlock</p><p class="footer-cta"><a href="mailto:mcochran@cochranblock.org?subject=CochranBlock%20Inquiry" class="btn btn-secondary">Get in Touch</a></p><p class="footer-links"><a href="https://www.linkedin.com/in/cochranblock" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></footer><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script></body></html>"#;
 
 /// Canonical repo list. Single source of truth for velocity API + site_stats.
+/// All 31 Rust-language repos under github.com/cochranblock (verified via
+/// `gh api orgs/cochranblock/repos --paginate -q '.[] | select(.language=="Rust") | .name'`).
 const REPOS: &[&str] = &[
     "cochranblock",
     "ghost-fabric",
@@ -269,6 +405,22 @@ const REPOS: &[&str] = &[
     "provenance-docs",
     "call-shield",
     "any-gpu",
+    "aptnomo",
+    "tmuxisfree",
+    "worldview",
+    "battle-bros",
+    "whobelooking",
+    "header-writer",
+    "knoxai",
+    "tmux-harness",
+    "nanobyte",
+    "play-publish",
+    "kova-ipc",
+    "runsible",
+    "r8r",
+    "free-payroll-system",
+    "atsisbroken",
+    "forge-engine",
 ];
 
 /// f2_root = host-aware root dispatch. If the request arrives on
@@ -305,14 +457,14 @@ pub async fn f2_root(
         // Every path on manual.cochranblock.org serves the folded Manual
         // (Act I doctrine + seam + Act II ops manual).
         let body_bytes = include_packed::include_packed!("assets/manual.html");
-        return Html(String::from_utf8_lossy(&body_bytes).into_owned()).into_response();
+        return Html(f64(&String::from_utf8_lossy(&body_bytes))).into_response();
     }
     // cochranblock.org apex root: serve the LET'S TEAM page — buyer-facing
     // pitch tuned for federal primes, SBIR pursuits, teaming agreements.
     // Doctrine + ops manual live at manual.cochranblock.org, linked from the
     // hero. KNOXAI on its own subdomain. Resume at /resume.
     let body_bytes = include_packed::include_packed!("assets/lets-team.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned()).into_response()
+    Html(f105(&String::from_utf8_lossy(&body_bytes))).into_response()
 }
 
 /// f_anti_founder = The Anti-Founder Manifesto, now Act I of the folded
@@ -321,7 +473,7 @@ pub async fn f2_root(
 /// asset; deep-linkers can append `#doctrine` to land at the manifesto.
 pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/manual.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f64(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f_manual = The Cochran Block Manual. Served at /manual, /manual/{*rest},
@@ -329,7 +481,7 @@ pub async fn f_anti_founder(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// with the apex-domain theme (cyan + diamond logo).
 pub async fn f_manual(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/manual.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f64(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f_resume_html = HTML resume at /resume. Banner: MICHAEL COCHRAN.
@@ -341,7 +493,7 @@ pub async fn f_manual(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// PDF: /assets/michael-cochran-resume_may_2026.pdf.
 pub async fn f_resume_html(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/resume.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f_lets_team = LET'S TEAM. Direct alias for the apex root buyer page,
@@ -349,14 +501,14 @@ pub async fn f_resume_html(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// teaming-agreement intros).
 pub async fn f_lets_team(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/lets-team.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f_railgun_rosetta = Railgun Rosetta. Developer translation key between
 /// Python, C, and Rust. Served at /railgun-rosetta, /rosetta, and aliases.
 pub async fn f_railgun_rosetta(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/railgun-rosetta.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// Knox subdomain dispatcher. Routes knox.cochranblock.org/* paths.
@@ -386,7 +538,7 @@ async fn knox_dispatch(
         "/manual" => {
             // KNOX manual = the cochranblock manual mirrored on the knox subdomain
             let body = include_packed::include_packed!("assets/manual.html");
-            Html(String::from_utf8_lossy(&body).into_owned()).into_response()
+            Html(f64(&String::from_utf8_lossy(&body))).into_response()
         }
         _ => {
             // Fall through to knox home for shared routes
@@ -505,59 +657,17 @@ h1{{font-size:2rem;font-weight:900;letter-spacing:0.12em;color:#ffd866;margin-bo
     ))
 }
 
-/// f2 = serve_index. Why: Hero page; first impression for cochranblock.org.
-pub async fn f2(State(_p0): State<Arc<t0>>) -> Html<String> {
-    let ss = site_stats().await;
-    let stats_line = if ss.requests_7d > 0 {
-        format!(
-            r#"<p style="color:var(--muted);font-size:0.8rem;margin-top:0.5rem;letter-spacing:0.05em">This binary has served <strong style="color:var(--accent)">{} requests</strong> from <strong style="color:var(--accent)">{} visitors</strong> this week — on a laptop, for $10/month.</p>"#,
-            fmt_num(ss.requests_7d),
-            fmt_num(ss.visitors_7d)
-        )
-    } else {
-        String::new()
-    };
-    let v0 = [r#"<section class="hero"><p class="hero-status">Fractional CTO · Zero-Cloud Architect · Veteran-Owned · Consulting: open</p><div class="hero-logo"><a href="/products"><img src="/assets/cochranblock-hero-logo.svg?v=9" alt="" class="hero-logo-img" width="128" height="128"></a></div><h1>Your server bill is too high.</h1><p class="tagline">This page — the site you're reading right now — is a single Rust binary running on a laptop — 10 MB on x86, 8.9 MB on ARM. Total cost: <strong>$10/month</strong>. No AWS. No Kubernetes. No DevOps team.</p><p class="hero-stats">You're looking at the proof.</p><p class="hero-receipts" style="font-size:0.95rem;margin-top:0.6rem;color:var(--muted)">📦 <strong style="color:var(--accent)"><span id="hero-repo-count">31</span></strong> public Rust repos · <strong style="color:var(--accent)"><span id="hero-crate-count">22</span></strong> crates on crates.io · <a href="/52-days" style="color:var(--accent)">live receipts →</a></p>"#, stats_line.as_str(), r#"<p class="hero-note">I'm a Fractional CTO who builds zero-cloud architectures. Edge compute beats cloud. One binary replaces five services. I've done it for 13 years across defense and enterprise — and I shipped <strong><span id="hero-repo-count-2">31</span> Rust products</strong> in 60+ days — source verifiable at <a href="https://github.com/cochranblock">github.com/cochranblock</a>.</p><p class="hero-skills">Sovereign Intelligence · Zero-Cloud Architecture · Rust SaaS · 13 Years Defense &amp; Enterprise · AI-Piloted Development · <span id="hero-repo-count-3">31</span> Shipped Products · <span id="hero-crate-count-2">22</span> Published Crates</p><p class="hero-cta"><a href="/deploy" class="btn">Find Out How Much You Can Save</a><a href="/products" class="btn btn-secondary">See the Architecture</a><a href="/book" class="btn btn-secondary">Book a Call</a><a href="https://github.com/cochranblock" class="btn btn-secondary">GitHub (Proof)</a><a href="/source" class="btn btn-secondary">Read the Source</a><a href="/stats" class="btn btn-secondary">Stats</a><a href="https://whyme.cochranblock.org" class="btn btn-secondary">Why Hire Me</a></p>
-<script>
-(function(){
-  var TOK=null; // public; no auth needed for crates.io
-  fetch('https://crates.io/api/v1/users/gotemcoach').then(function(r){return r.json();}).then(function(u){
-    var uid=u&&u.user&&u.user.id; if(!uid) return;
-    return fetch('https://crates.io/api/v1/crates?user_id='+uid+'&per_page=100');
-  }).then(function(r){return r?r.json():null;}).then(function(d){
-    if(!d||!d.crates) return;
-    var n=d.crates.length;
-    var ids=['hero-crate-count','hero-crate-count-2'];
-    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]); if(el) el.textContent=n;}
-  }).catch(function(){});
-  fetch('https://api.github.com/orgs/cochranblock/repos?per_page=100').then(function(r){return r.json();}).then(function(d){
-    if(!Array.isArray(d)) return;
-    var n=d.filter(function(r){return r.name!=='.github';}).length;
-    var ids=['hero-repo-count','hero-repo-count-2','hero-repo-count-3'];
-    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]); if(el) el.textContent=n;}
-  }).catch(function(){});
-})();
-</script>
-</section>"#].concat();
-    let head = f62d(
-        "home",
-        "CochranBlock | Fractional CTO · Zero-Cloud Architect",
-        "Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 31 public Rust repos. 22 crates on crates.io. Veteran-owned.",
-    );
-    Html([head.as_str(), JSON_LD_FAQ, C7, v0.as_str(), C8].concat())
-}
-
 /// f11 = serve_services. Why: Pricing + Fractional CTO services. Funnels to /deploy.
 pub async fn f11(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Services &amp; Pricing</h1>
-<p class="services-intro">Fractional CTO and zero-cloud architecture. I replace your $5K/month AWS bill with a $10/month laptop. Transparent pricing because technical founders hate hidden costs.</p>
+<p class="services-intro">Fractional CTO and zero-cloud architecture. I replace your $1,099/month AWS bill (measured baseline for this site — see <a href="/stats">/stats</a>) with a $10/month laptop. Transparent pricing because technical founders hate hidden costs.</p>
 
 <h2 class="services-section-head">What I Replace</h2>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>Your current stack → my stack</summary>
-<p>$5,000/month AWS bill → <strong>$10/month</strong> laptop + Cloudflare tunnel<br>
+<p>$1,099/month AWS-equivalent bill → <strong>$10/month</strong> laptop + Cloudflare tunnel<br>
 Kubernetes + 5 managed services → <strong>single Rust binary</strong><br>
 DevOps team → <strong>cargo build</strong> + one deploy command<br>
 Microservices sprawl → <strong>all routes embedded</strong>, one process<br>
@@ -633,7 +743,7 @@ pub async fn f72(State(_p0): State<Arc<t0>>) -> Html<String> {
 
 <div class="cost-summary">
 <table class="cost-table">
-<tr><td>Typical cloud cost</td><td class="cost-amount cost-old">$36,000/year</td></tr>
+<tr><td>AWS-equivalent for this site</td><td class="cost-amount cost-old">$13,184/year</td></tr>
 <tr><td>After CochranBlock deployment</td><td class="cost-amount cost-new">$120/year</td></tr>
 <tr><td>One-time deployment fee</td><td class="cost-amount">$3,500</td></tr>
 <tr class="cost-row-highlight"><td><strong>Year 1 net savings</strong></td><td class="cost-amount cost-new"><strong>$32,380</strong></td></tr>
@@ -729,8 +839,8 @@ That means I don't need to upsell you, I don't need to raise prices, and I don't
 <details class="service-card">
 <summary>Single binary architecture</summary>
 <p>
-Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 10 MB on x86, 8.9 MB on ARM. Deploy: copy it to a server and run it.<br>
-<span class="service-outcome">cochranblock.org is that binary. Intake forms, SQLite, booking calendar, community grants — one process, one file.</span>
+Your entire application — web server, database, API, static assets, TLS — compiles into one executable. 13 MB on x86, 8.9 MB on ARM. Deploy: copy it to a server and run it.<br>
+<span class="service-outcome">cochranblock.org is that binary. Intake forms (redb), booking calendar, community grants — one process, one file.</span>
 </p>
 </details>
 <details class="service-card">
@@ -792,7 +902,7 @@ Security surface: 1 binary · Deployment: scp + run · Update: replace 1 file<br
 <details class="service-card" open>
 <summary>Credentials</summary>
 <p>
-Service-Disabled Veteran-Owned Small Business (SDVOSB) — submitted via VetCert<br>
+Service-Disabled Veteran-Owned Small Business (SDVOSB) — certified 2026-05-12 via SBA VetCert (expires 2029-05-12)<br>
 SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9<br>
 Maryland CSB (Certified Small Business) — Approved<br>
 13 years defense and enterprise — USCYBERCOM J38 dev lead<br>
@@ -867,7 +977,7 @@ SAM.gov — <strong>Active</strong> · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · EIN 41-
 Maryland CSB (Certified Small Business) — <strong>Approved</strong><br>
 SDVOSB (Service-Disabled Veteran-Owned Small Business) — <strong>Certified 2026-05-12</strong> · expires 2029-05-12 (SBA VetCert)<br>
 Maryland eMMA — Vendor SUP1095449 · ACH Direct Deposit Active<br>
-crates.io — 32 published crates at crates.io/users/gotemcoach<br>
+crates.io — 33 published crates at crates.io/users/gotemcoach<br>
 GitHub — 31 repositories at github.com/cochranblock</p>
 
 <p><a href="https://github.com/cochranblock" class="btn">Audit the source — github.com/cochranblock</a></p>
@@ -889,7 +999,7 @@ GitHub — 31 repositories at github.com/cochranblock</p>
 541690 — Other Scientific and Technical Consulting</p>
 
 <p><strong>Past Performance</strong><br>
-• <strong>cochranblock.org</strong> — Production website. 10 MB binary, $10/month, 31 products, intake forms, booking calendar, community grant app. Self-hosted on bare metal.<br>
+• <strong>cochranblock.org</strong> — Production website. 13 MB Rust binary (8.9 MB ARM), $10/month, 31 products, intake forms, booking calendar, community grant app. Self-hosted on bare metal.<br>
 • <strong>oakilydokily.com</strong> — First paying client. Waiver management, digital intake, ESIGN compliance. Bare metal via Cloudflare Zero Trust.<br>
 • <strong>Pixel Forge</strong> — AI sprite generator with on-device diffusion models. 3 MoE models, LoRA fine-tuning. Pure Rust.<br>
 • <strong>USCYBERCOM J38 JMOC-E</strong> — Dev lead for Congressional NDAA-directed offensive cyber operations study.<br>
@@ -897,9 +1007,9 @@ GitHub — 31 repositories at github.com/cochranblock</p>
 
 <p><strong>Differentiators</strong><br>
 • <strong>Proven federal contracting posture</strong> — CAGE 1CQ66, UEI W7X3HAQL9CF9, SAM.gov Active<br>
-• <strong>Single-binary = zero infrastructure</strong> — 10MB replaces $36K/year cloud stacks for $120/year<br>
+• <strong>Single-binary = zero infrastructure</strong> — 13 MB binary replaces $13,184/year AWS-equivalent for $120/year<br>
 • <strong>Rust = memory-safe mandate compliance</strong> — Aligned with CISA Secure-by-Design, EO 14028, NIST SP 800-218<br>
-• 32 published crates on <a href="https://crates.io">crates.io</a> at crates.io/users/gotemcoach<br>
+• 33 published crates on <a href="https://crates.io">crates.io</a> at crates.io/users/gotemcoach<br>
 • 31 Rust repositories with Proof of Artifacts and Timeline of Invention<br>
 • 4 inventions, 3 architecture patterns, 5 techniques — honestly classified at <a href="/arch">cochranblock.org/arch</a><br>
 • 13 years defense and enterprise — USCYBERCOM J38 dev lead, Congressional NDAA study<br>
@@ -908,7 +1018,7 @@ GitHub — 31 repositories at github.com/cochranblock</p>
 
 <p><strong>Past Performance</strong><br>
 • oakilydokily.com — First paying partnership. Waiver management, digital intake, ESIGN. Deployed on bare metal via Cloudflare Zero Trust.<br>
-• cochranblock.org — Live production site. 31 products, intake forms, SQLite, booking calendar. 10 MB binary, $10/month total infrastructure.<br>
+• cochranblock.org — Live production site. 31 products, intake forms (redb), booking calendar. 13 MB binary, $10/month total infrastructure.<br>
 • USCYBERCOM J38 JMOC-E — Dev lead for Congressional NDAA-directed offensive cyber operations study.</p>
 
 <p><strong>Contact</strong><br>
@@ -951,10 +1061,10 @@ cochranblock.org/deploy — Start a project</p>
 <div class="govdoc-print">
 
 <p><strong>Problem Statement</strong><br>
-Federal agencies spend $36,000+/year per application on cloud infrastructure. These deployments create single points of failure, expose sensitive data to third-party providers, and require dedicated DevOps teams. Forward-deployed and disconnected environments cannot rely on cloud connectivity for mission-critical operations.</p>
+Federal agencies spend tens of thousands of dollars per application per year on cloud infrastructure. For cochranblock.org's specific workload, AWS-equivalent runs $13,184/year (see /stats); larger workloads scale into six figures. These deployments create single points of failure, expose sensitive data to third-party providers, and require dedicated DevOps teams. Forward-deployed and disconnected environments cannot rely on cloud connectivity for mission-critical operations.</p>
 
 <p><strong>Technical Innovation</strong><br>
-CochranBlock has developed a compiled single-binary architecture in Rust that eliminates cloud dependency entirely. A complete web application — server, database, authentication, TLS, asset pipeline — compiles into a 10 MB binary that runs on commodity hardware ($10/month total infrastructure). This architecture is proven in production at cochranblock.org, serving multiple domains from a single laptop.</p>
+CochranBlock has developed a compiled single-binary architecture in Rust that eliminates cloud dependency entirely. A complete web application — server, database, authentication, TLS, asset pipeline — compiles into a 13 MB binary (8.9 MB ARM) that runs on commodity hardware ($10/month total infrastructure). This architecture is proven in production at cochranblock.org, serving multiple domains from a single laptop.</p>
 
 <p><strong>Key Technical Capabilities</strong><br>
 • <strong>Single-binary deployment</strong> — Entire application stack compiles to one executable. No containers, no orchestration, no package managers. Deploy by copying one file.<br>
@@ -962,8 +1072,8 @@ CochranBlock has developed a compiled single-binary architecture in Rust that el
 • <strong>Edge-native by design</strong> — Operates in disconnected, intermittent, and limited-bandwidth (DIL) environments. Zero external dependencies at runtime.<br>
 • <strong>Distributed C2 mesh</strong> — Multi-node orchestration via SSH with tokenized command compression. Nodes operate independently and resync when connectivity restores.<br>
 • <strong>Zero-trust architecture</strong> — AES-256-GCM encryption, HKDF key derivation, Argon2id password hashing. No plaintext secrets in source. Cloudflare Zero Trust tunnel integration.<br>
-• <strong>Embedded storage</strong> — sled (embedded key-value store) + bincode serialization + zstd compression. No external database servers. Data lives with the application.<br>
-• <strong>97% cost reduction</strong> — Demonstrated: $36,000/year cloud → $120/year bare metal. Same availability, same performance, fraction of the attack surface.</p>
+• <strong>Embedded storage</strong> — redb (single-file ACID embedded store) + bincode serialization + zstd compression. No external database servers. Data lives with the application.<br>
+• <strong>99% cost reduction (measured)</strong> — $13,184/year AWS-equivalent for this site → $120/year bare metal. Same availability, same performance, fraction of the attack surface. (See /stats for the line-item AWS pricing model.)</p>
 
 <p><strong>Relevant SBIR/STTR Technology Areas</strong><br>
 • AI/Autonomy — On-device inference, Mixture-of-Experts routing, edge AI for sensor processing<br>
@@ -973,7 +1083,7 @@ CochranBlock has developed a compiled single-binary architecture in Rust that el
 • Command and Control — Distributed node mesh with compressed tokenized command protocol</p>
 
 <p><strong>Proof of Concept — Live Production Systems</strong><br>
-• <strong>cochranblock.org</strong> — 15-product portfolio site. 10 MB binary. SQLite intake forms. Booking calendar. Cloudflare tunnel. $10/month.<br>
+• <strong>cochranblock.org</strong> — 31-product portfolio site. 13 MB binary (8.9 MB ARM). redb-backed intake forms. Booking calendar. Cloudflare tunnel. $10/month.<br>
 • <strong>oakilydokily.com</strong> — Waiver management and digital intake with ESIGN compliance. Bare metal deployment.<br>
 • <strong>Kova augment engine</strong> — Local LLM inference, agentic tool loop, distributed node C2, cargo/git tokenization. Single binary.<br>
 • <strong>Approuter</strong> — Reverse proxy with automatic Cloudflare tunnel management, app registry, multi-domain routing. Single binary.<br>
@@ -1033,7 +1143,7 @@ CochranBlock's compiled single-binary architecture eliminates every external dep
 • PI served as dev lead at USCYBERCOM J38 JMOC-E for a Congressional NDAA-directed offensive cyber operations study<br>
 • Army 17C (Cyber Operations), JCAC 2014, 30% service-connected disabled veteran<br>
 • 31 Rust repositories demonstrating every claimed capability — auditable at github.com/cochranblock<br>
-• cochranblock.org running in production as a single 10 MB binary on $10/month infrastructure</p>
+• cochranblock.org running in production as a single 13 MB Rust binary on $10/month infrastructure</p>
 </div>
 </details>
 
@@ -1063,7 +1173,7 @@ CochranBlock has built a working on-device AI inference system (Kova) that runs 
 4. Enterprise SDK with API compatibility layer for drop-in cloud replacement</p>
 
 <p><strong>Commercialization Path</strong><br>
-• Direct sales: $3,500 base deployment for SMBs replacing $36K/year cloud AI bills<br>
+• Direct sales: $3,500 base deployment for SMBs replacing five-figure annual cloud AI bills (measured baseline for our reference site: $13,184/year AWS)<br>
 • Enterprise licensing: Per-seat for on-device inference runtime<br>
 • Federal: SBIR Phase III transition to DoD/IC for classified AI workloads<br>
 • Commercial licensing with support</p>
@@ -1142,7 +1252,7 @@ CochranBlock's single-binary architecture deploys a complete data processing app
 Energy infrastructure — power grids, pipelines, nuclear facilities — runs on operational technology (OT) networks that were never designed for internet connectivity. Retrofitting cloud-based security monitoring onto these systems introduces the exact attack surface it claims to protect against. DOE needs security tools that run locally on OT networks without phoning home to cloud APIs.</p>
 
 <p><strong>Proposed Innovation</strong><br>
-CochranBlock's compiled architecture deploys security monitoring as a single binary on OT-adjacent hardware. AES-256-GCM encryption, embedded log aggregation, and on-device anomaly detection — all without a single outbound network connection. The binary includes its own database (sled), web dashboard, and alerting engine. Air-gapped by design, not by configuration.</p>
+CochranBlock's compiled architecture deploys security monitoring as a single binary on OT-adjacent hardware. AES-256-GCM encryption, embedded log aggregation, and on-device anomaly detection — all without a single outbound network connection. The binary includes its own database (redb), web dashboard, and alerting engine. Air-gapped by design, not by configuration.</p>
 
 <p><strong>Technical Objectives — Phase I</strong><br>
 1. Deploy single-binary OT network monitor on representative SCADA-adjacent hardware<br>
@@ -1387,8 +1497,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <tr><td>serde</td><td>1.0.228</td><td>MIT/Apache-2.0</td><td>Serialization framework</td></tr>
 <tr><td>serde_json</td><td>1.0.149</td><td>MIT/Apache-2.0</td><td>JSON parsing</td></tr>
 <tr><td>sha2</td><td>0.10.9</td><td>MIT/Apache-2.0</td><td>SHA-256 hashing</td></tr>
-<tr><td>sled</td><td>0.34.7</td><td>MIT/Apache-2.0</td><td>Embedded key-value database</td></tr>
-<tr><td>sqlx</td><td>0.8.6</td><td>MIT/Apache-2.0</td><td>SQLite database (intake forms)</td></tr>
+<tr><td>redb</td><td>2</td><td>MIT/Apache-2.0</td><td>Single-file ACID embedded database (consolidates intake forms + key-value store)</td></tr>
 <tr><td>tempfile</td><td>3.26.0</td><td>MIT/Apache-2.0</td><td>Temporary file handling</td></tr>
 <tr><td>thiserror</td><td>1.0.69</td><td>MIT/Apache-2.0</td><td>Error type derivation</td></tr>
 <tr><td>time</td><td>0.3.47</td><td>MIT/Apache-2.0</td><td>Time formatting</td></tr>
@@ -1446,7 +1555,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <tr><td>AU — Audit</td><td>L2</td><td>AU.2.042 — Create audit records</td><td>tracing + tracing-subscriber for structured logging. All HTTP requests logged with method, path, status, latency.</td></tr>
 <tr><td>CM — Config Mgmt</td><td>L2</td><td>CM.2.061 — Establish baselines</td><td>Cargo.lock pins all dependency versions. Release profile codified in Cargo.toml. Single binary = single config baseline.</td></tr>
 <tr><td>IA — Identification</td><td>L1</td><td>IA.1.076 — Identify users</td><td>No user authentication in cochranblock (static site). Intake submissions identified by UUID + email.</td></tr>
-<tr><td>MP — Media Protection</td><td>L1</td><td>MP.1.118 — Sanitize media</td><td>No removable media. All data in embedded sled/SQLite databases. Binary replacement = complete sanitization.</td></tr>
+<tr><td>MP — Media Protection</td><td>L1</td><td>MP.1.118 — Sanitize media</td><td>No removable media. All data in a single embedded redb database file. Binary replacement = complete sanitization.</td></tr>
 <tr><td>PE — Physical</td><td>L1</td><td>PE.1.131 — Limit physical access</td><td>Worker nodes in private residence. SSH only via kova-commander key. WoL for remote power management.</td></tr>
 <tr><td>SC — System/Comms</td><td>L1</td><td>SC.1.175 — Monitor communications</td><td>Cloudflare Zero Trust tunnel encrypts all internet traffic. Internal node communication via SSH.</td></tr>
 <tr><td></td><td>L2</td><td>SC.2.179 — Use encrypted sessions</td><td>TLS via rustls for all HTTPS. AES-256-GCM for data at rest. HKDF for key derivation.</td></tr>
@@ -1483,7 +1592,7 @@ NOAA operates monitoring stations in the most remote environments on earth — o
 <p><strong>Attack Surface</strong></p>
 <ul>
 <li><strong>Network exposure:</strong> One port (8081) behind approuter (8080) behind Cloudflare tunnel. No direct internet exposure.</li>
-<li><strong>Input validation:</strong> All form inputs validated server-side. HTML-escaped output prevents XSS. No SQL injection (parameterized queries via sqlx).</li>
+<li><strong>Input validation:</strong> All form inputs validated server-side. HTML-escaped output prevents XSS. No SQL injection surface — redb is a typed key-value store, not SQL.</li>
 <li><strong>Error handling:</strong> thiserror for typed errors. No stack traces exposed to users. Errors logged via tracing, not displayed.</li>
 <li><strong>Dependencies:</strong> 42 direct deps, all from crates.io. No C dependencies except openssl (system library). No vendored binaries.</li>
 <li><strong>Memory safety:</strong> 100% Rust. No unsafe blocks in application code. Memory-safety CVE classes eliminated by construction.</li>
@@ -1523,7 +1632,7 @@ pub async fn f76(State(_p0): State<Arc<t0>>) -> Html<String> {
 <script>
 (function(){
   var meta={
-    'cochranblock':{cat:'Web',desc:'This site. 10 MB binary. $10/month. The live demo.'},
+    'cochranblock':{cat:'Web',desc:'This site. 13 MB Rust binary (8.9 MB ARM). $10/month. The live demo.'},
     'kova':{cat:'AI',desc:'Augment engine. Agent loop, 7 tools, 4-node cluster, NanoSign, P23 Triple Lens.'},
     'ghost-fabric':{cat:'Edge',desc:'Sovereign intelligence over LoRa mesh. 19MB binary.'},
     'pixel-forge':{cat:'AI',desc:'On-device diffusion models. 3 tiers. Pure Rust.'},
@@ -1581,7 +1690,7 @@ No Python in production. No JavaScript frameworks. No Go. No Java. One language,
 <summary>Infrastructure: 4 bare metal Debian nodes + Mac Mini</summary>
 <p>
 lf (20 cores, 750GB, <strong>RTX 3070 8GB VRAM</strong>) · gd (20 cores, 760GB, <strong>RTX 3050 Ti 4GB VRAM</strong>) · bt (12 cores, 95GB) · st (14 cores, 767GB)<br>
-Mac Mini ARM for development. All connected via SSH mesh. Static IPs on 192.168.1.50-79 sled.<br>
+Mac Mini ARM for development. All connected via SSH mesh. Static IPs on the 192.168.1.50-79 LAN block.<br>
 GPU nodes power MoE model training, Pixel Forge diffusion models, and on-device inference. Laptop GPUs — not datacenter cards — proving you don't need $10K hardware to run AI locally.<br>
 <span class="service-outcome">$10/month total. Zero cloud. Zero containers. Zero Kubernetes.</span>
 </p>
@@ -1596,7 +1705,7 @@ No cloud inference in production. Every model compiled into the binary passes Na
 <details class="service-card">
 <summary>Certifications &amp; Registrations</summary>
 <p>
-SDVOSB (submitted) · SAM.gov (active) · Maryland eMMA (vendor) · CSB (approved)<br>
+SDVOSB (certified 2026-05-12, SBA VetCert) · SAM.gov (active) · Maryland eMMA (vendor) · CSB (approved)<br>
 Army 17C Cyber Operations · JCAC 2014 · USCYBERCOM J38<br>
 <span class="service-outcome">Every badge earned. Every registration filed. Every repo proves the claim.</span>
 </p>
@@ -1677,7 +1786,7 @@ Any reviewer can clone the repo, run the commands, and confirm. This is not docu
 <details class="service-card" open>
 <summary>31 repositories, all public, all using this framework</summary>
 <p>
-<a href="https://github.com/cochranblock/cochranblock">cochranblock</a> — production site, 10 MB binary<br>
+<a href="https://github.com/cochranblock/cochranblock">cochranblock</a> — production site, 13 MB Rust binary (8.9 MB ARM)<br>
 <a href="https://github.com/cochranblock/provenance-docs">provenance-docs</a> — this framework's whitepaper and spec<br>
 <a href="https://github.com/cochranblock/ghost-fabric">ghost-fabric</a> — edge intelligence over LoRa mesh<br>
 <a href="https://github.com/cochranblock/kova">kova</a> — AI augment engine, NanoSign model signing, P23 Triple Lens<br>
@@ -1769,7 +1878,7 @@ SUMMARY
 
 Fractional CTO who replaces bloated cloud infrastructure with
 lean Rust binaries. cochranblock.org — my entire company — runs
-as a single 10 MB binary on a laptop for $10/month. 11+ years
+as a single 13 MB Rust binary on a laptop for $10/month. 13 years
 defense and enterprise. 31 repositories proving
 every claim. Edge compute beats cloud.
 
@@ -1822,7 +1931,7 @@ SECURITY ANALYST — Product Security                       2014–2017
 
 WHAT I REPLACE
 
-  $5K/month AWS bill        →  $10/month laptop + tunnel
+  $1,099/month AWS bill     →  $10/month laptop + tunnel
   Kubernetes + 5 services   →  Single Rust binary
   DevOps team               →  Cargo build + Cloudflare
   Microservices sprawl      →  One binary, all routes embedded
@@ -1834,7 +1943,7 @@ SKILLS
 
 Languages:  Rust, Python, C, C++, Assembly, Go, JavaScript
 Security:   Penetration Testing, Vulnerability Research, Red Teaming
-Infra:      Linux, Docker, Cloudflare, SSH/Kerberos, sled, SQLite
+Infra:      Linux, Docker, Cloudflare, SSH/Kerberos, redb
 AI/ML:      On-device training (candle), LoRA, MoE diffusion models
 Zero-Cloud: Single-binary architecture, edge compute, Axum, Tokio
 
@@ -1892,7 +2001,7 @@ for having you here." — Jay, USCYBERCOM
   <h3 class="profile-subhead">Founded By</h3>
   <p>Michael Cochran — Fractional CTO, Zero-Cloud Architect, Army veteran (17C Cyber Operations). 13 years defense and enterprise. SDVOSB certified 2026-05-12. It's not the Mech — it's the pilot.</p>
   <p class="hero-stats" style="text-align:left;margin-top:1rem">LLC formed, 31 products built, site live, eMMA registered, SAM.gov filed, first partnership signed — all in under 30 days.</p>
-  <p style="margin-top:1rem"><a href="https://github.com/cochranblock" class="btn">View source — 31 repos, 32 crates.io publications</a></p>
+  <p style="margin-top:1rem"><a href="https://github.com/cochranblock" class="btn">View source — 31 repos, 33 crates.io publications</a></p>
   <h3 class="profile-subhead">What the Team Said</h3>
   <div class="testimonials-grid">
     <blockquote class="testimonial">"You are one of the brightest people I ever had the pleasure of working with. Your passion to elevate whatever you work on, coupled with your crazy research skills are something to aspire to. You're forged to thrive."<cite>— Carpenter, USCYBERCOM J38 JMOC-E</cite></blockquote>
@@ -1988,7 +2097,7 @@ pub async fn f67(State(_p0): State<Arc<t0>>) -> Html<String> {
 <article class="product-card"><span class="product-badge">Active</span><h2><a href="https://github.com/cochranblock/cochranblock" rel="noopener noreferrer">cochranblock</a></h2><p>This site. Rust + Axum. No templates, no JavaScript frameworks. Embedded HTML, zstd-packed assets, single binary. The website is the product demo.</p></article>
 </div>
 
-<p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/codeskillz" class="btn btn-secondary">See All 15 Repos Live</a></p></section>"#;
+<p class="products-cta"><a href="/deploy" class="btn">Deploy With Us</a><a href="/codeskillz" class="btn btn-secondary">See All 31 Repos Live</a></p></section>"#;
     Html(format!(
         "{}{}{}{}",
         f62d(
@@ -2040,7 +2149,7 @@ pub async fn f83(State(_p0): State<Arc<t0>>) -> Html<String> {
 <pre class="resume-raw">{}</pre>
 </details></div>
 
-<p class="services-cta"><a href="https://github.com/cochranblock/cochranblock" class="btn">View on GitHub</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a><a href="/codeskillz" class="btn btn-secondary">All 15 Repos</a></p>
+<p class="services-cta"><a href="https://github.com/cochranblock/cochranblock" class="btn">View on GitHub</a><a href="/tinybinaries" class="btn btn-secondary">Binary Sizes</a><a href="/codeskillz" class="btn btn-secondary">All 31 Repos</a></p>
 </section>"#,
         esc(cargo_toml),
         esc(src_router),
@@ -2060,7 +2169,7 @@ pub async fn f83(State(_p0): State<Arc<t0>>) -> Html<String> {
 pub async fn f85(State(_p0): State<Arc<t0>>) -> Html<String> {
     let v0 = r#"<section class="services">
 <h1>Speed</h1>
-<p class="services-intro">We benchmarked cochranblock.org against the four largest defense contractors. A 10 MB binary on a $10/month laptop outperforms billion-dollar cloud infrastructure. Zero JavaScript. 131 DOM elements. Every number on this page is from a live benchmark.</p>
+<p class="services-intro">We benchmarked cochranblock.org against the four largest defense contractors. A 13 MB Rust binary on a $10/month laptop outperforms billion-dollar cloud infrastructure. Zero JavaScript. 131 DOM elements. Every number on this page is from a live benchmark.</p>
 
 <h2 class="services-section-head">cochranblock.org vs Defense Industry</h2>
 <div class="cost-summary">
@@ -2072,7 +2181,7 @@ pub async fn f85(State(_p0): State<Arc<t0>>) -> Html<String> {
 <tr><td>FPS</td><td class="cost-amount cost-new">72</td><td class="cost-amount">76</td><td class="cost-amount">68</td><td class="cost-amount">69</td><td class="cost-amount">72</td></tr>
 <tr><td>DOM Elements</td><td class="cost-amount cost-new">131</td><td class="cost-amount cost-old">2,050</td><td class="cost-amount cost-old">1,015</td><td class="cost-amount cost-old">890</td><td class="cost-amount cost-old">1,069</td></tr>
 <tr><td>JavaScript</td><td class="cost-amount cost-new">0 bytes</td><td class="cost-amount cost-old">cloud bundle</td><td class="cost-amount cost-old">cloud bundle</td><td class="cost-amount cost-old">cloud bundle</td><td class="cost-amount cost-old">cloud bundle</td></tr>
-<tr><td>Server</td><td class="cost-amount cost-new">10 MB binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
+<tr><td>Server</td><td class="cost-amount cost-new">13 MB Rust binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
 <tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td></tr>
 </table>
 </div>
@@ -2309,7 +2418,7 @@ pub async fn f84(
 <form action="/search" method="get">
 <input type="search" name="q" value="{}" placeholder="Search cochranblock.org..." autofocus class="search-hero-input">
 </form>
-<p class="search-subtitle">Searching {} pages in a single 10 MB binary</p>
+<p class="search-subtitle">Searching {} pages in a single 13 MB Rust binary</p>
 </div>
 {}"#,
         esc_query, page_count, results_html
@@ -2342,9 +2451,9 @@ Prepared for VA Vocational Rehabilitation &amp; Employment, Baltimore Regional O
 <p><strong>Veteran:</strong> Michael Cochran · 30% Service-Connected · Army 17C (Cyber Operations) · JCAC 2014<br>
 <strong>Entity:</strong> The Cochran Block, LLC · EIN 41-3835237 · Dundalk, MD 21222<br>
 <strong>Post-9/11 GI Bill:</strong> 23 months remaining (electing P9/11SA for Baltimore BAH)<br>
-<strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Submitted · <strong>SAM.gov:</strong> Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
+<strong>CSB:</strong> Approved · <strong>SDVOSB:</strong> Certified 2026-05-12 · <strong>SAM.gov:</strong> Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · <strong>eMMA:</strong> <a href="https://emma.maryland.gov">SUP1095449</a></p>
 
-<p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 8.9 MB binary replaces $36,000/year in AWS bills.</p>
+<p>The Cochran Block is a Maryland Certified Small Business specializing in memory-safe software architecture for federal agencies. We develop compiled Rust applications that replace cloud infrastructure — a single 13 MB Rust binary (8.9 MB ARM) replaces $13,184/year in AWS-equivalent bills for this site (line-item model at /stats).</p>
 
 <p><strong>The Business Model:</strong> All software released under The All Rights Reserved. Zero procurement friction — no ITAR/EAR licensing, no sole-source justification, no vendor lock-in. Revenue comes from professional services: implementation consulting ($225/hour), air-gapped DevSecOps architecture, and environment-specific hardening for DoD/IC/federal deployments.</p>
 </div>
@@ -2595,7 +2704,7 @@ sudo dpkg -i cochranblock-stack_0.6.0_amd64.deb</pre>
 <div class="service-cards">
 <details class="service-card" open>
 <summary>The full cochranblock.org site — locally</summary>
-<p>Every page, every asset, every route. Embedded CSS, JS, images (zstd-packed). SQLite for persistence (auto-creates on first run). Opens your browser to localhost:8081.<span class="service-outcome">Outcome: You're running an entire company's infrastructure on your machine.</span></p>
+<p>Every page, every asset, every route. Embedded CSS, JS, images (zstd-packed). redb for persistence (single-file ACID, auto-creates on first run). Opens your browser to localhost:8081.<span class="service-outcome">Outcome: You're running an entire company's infrastructure on your machine.</span></p>
 </details>
 <details class="service-card">
 <summary>Zero dependencies</summary>
@@ -3260,7 +3369,7 @@ pub async fn f88(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
 nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware.
 
 ## Home (/)
-Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 10 MB Rust binary. $10/month. 31 repositories. 32 published crates on crates.io. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
+Your server bill is too high. CochranBlock replaces cloud infrastructure with a single 13 MB Rust binary (8.9 MB ARM). $10/month. 31 Rust repositories. 33 published crates on crates.io. Veteran-owned. Fractional CTO. Zero-cloud architect. Army 17C Cyber Operations. 13 years defense and enterprise.
 
 ## Services (/services)
 $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fractional CTO retainer. $337.50/hr emergency rate. All Rights Reserved — The Cochran Block, LLC. Same-day rebrands, first paying partnership shipped in under 30 days.
@@ -3269,7 +3378,7 @@ $225/hour consulting. $3,500 one-time zero-cloud deployment. $3,500/month fracti
 Motto-backed security posture. Rust binaries beat scripts because binaries are sealed artifacts with no runtime interpreter, no pip/npm sideload, no dependency resolver at execution time. Memory-safe by construction (Rust). NanoSign 36-byte BLAKE3 signatures on every model file. Assumed-breach threat model applied to every repo (hardware signing keys, append-only storage, public hash-chain witnesses, cross-zone backups). All Rights Reserved. Source available per engagement. Sovereign stack: local inference, local storage, self-hosted everything. 34 buzzword URLs all redirect to /security — from /cmmc /fedramp /nist-800-171 /soc2 /sbom /zero-trust to /fort-knox-lockdown-mega-infrastructure /you-shall-not-pass /not-today-satan.
 
 ## Products (/products)
-31 Rust repos plus 32 crates.io publications: kova (augment engine, local LLM, agentic tool loop, NanoSign, distributed C2), pixel-forge (on-device AI pixel art diffusion, MoE cascade, LoRA, 97K-param MicroUNet silos), any-gpu (tensor engine on AMD/NVIDIA/Intel/Apple via wgpu), tmuxisfree (AI agent fleet orchestration via tmux, sponge mesh broadcast), approuter (reverse proxy, auto-tunnel, Cloudflare Zero Trust), ghost-fabric (LoRa mesh intelligence, 19 MB Rust, 915 MHz), pocket-server (phone-hosted website, kiosk dashboard), call-shield (sub-ms call screening, 360 KB), aptnomo (312 KB APT threat hunter), rogue-repo (ISO 8583 payment engine), exopack (Triple Sims + visual regression), oakilydokily (waiver management, ESIGN, first paid partnership), whobelooking (OSINT aggregator across 8 federal APIs), header-writer (post-AI header injector), whyyoulying (DoD fraud detection), illbethejudgeofthat (pro se legal case builder), provenance-docs (TOI + POA framework), wowasticker (offline dictation), cochranblock (this site).
+31 Rust repos plus 33 crates.io publications: kova (augment engine, local LLM, agentic tool loop, NanoSign, distributed C2), pixel-forge (on-device AI pixel art diffusion, MoE cascade, LoRA, 97K-param MicroUNet silos), any-gpu (tensor engine on AMD/NVIDIA/Intel/Apple via wgpu), tmuxisfree (AI agent fleet orchestration via tmux, sponge mesh broadcast), approuter (reverse proxy, auto-tunnel, Cloudflare Zero Trust), ghost-fabric (LoRa mesh intelligence, 459 KB Rust binary, 915 MHz), pocket-server (phone-hosted website, kiosk dashboard), call-shield (sub-ms call screening, 48 KB), aptnomo (312 KB APT threat hunter), rogue-repo (ISO 8583 payment engine), exopack (Triple Sims + visual regression), oakilydokily (waiver management, ESIGN, first paid partnership), whobelooking (OSINT aggregator across 8 federal APIs), header-writer (post-AI header injector), whyyoulying (DoD fraud detection), illbethejudgeofthat (pro se legal case builder), provenance-docs (TOI + POA framework), wowasticker (offline dictation), cochranblock (this site).
 
 ## Architecture (/arch)
 32+ named contributions: inventions (Fish Tank Starfield, P13 Compression Mapping, NanoSign Model Integrity, Sponge Mesh Broadcast), architecture patterns (Zero-Cloud Single-Binary, Gemini Man Pattern, Self-Converging Flywheel, P26 Moonshot Frame), techniques (Triple Sims, MoE Cascade, Agentic Tool Loop with Context Compaction, Multi-Tunnel Abstraction, C2 Swarm Orchestration), production engineering (Pure Rust ISO 8583, Zero-JavaScript Architecture, DoDI 5505.02 Rule Engine, etc.). "Standing On" prior-art credits to Fabrice Bellard, Justine Tunney, DJB, Ken Thompson, Rob Pike, Linus Torvalds, Bruce Perens, BLAKE3 team, Phil Zimmermann, Jamie Wilkinson, Sam Hocevar, Van Jacobson, Doug Engelbart, Gang of Four, Avizienis, Cerf/Kahn/Burleigh (DTN), Bryan Cantrill, Mitko Vasilev, DHH, George Hotz, Chaillan, Doctorow, Drew DeVault.
@@ -3313,7 +3422,7 @@ pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
             (axum::http::header::CONTENT_TYPE, "application/json"),
             (axum::http::header::CACHE_CONTROL, "public, max-age=3600"),
         ],
-        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"final_review","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":31,"repos":31,"unlicense_repos":31,"crates_published":32,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"10MB","infrastructure_cost":"$10/month","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
+        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"certified","sdvosb_cert_date":"2026-05-12","sdvosb_expires":"2029-05-12","sdvosb_authority":"SBA VetCert","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":31,"repos":31,"unlicense_repos":31,"crates_published":33,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"13MB","infrastructure_cost":"$10/month","aws_equivalent_annual":"$13184","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
     )
 }
 
@@ -3379,7 +3488,7 @@ pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse
         .map(|d| d.as_secs())
         .unwrap_or(0);
     let json = format!(
-        r#"{{"binary_size_arm":"8.9MB","binary_size_x86":"10MB","monthly_cost":"$10","repos":15,"leads":{},"grants":{},"timestamp":{}}}"#,
+        r#"{{"binary_size_arm":"8.9MB","binary_size_x86":"13MB","monthly_cost":"$10","repos":31,"leads":{},"grants":{},"timestamp":{}}}"#,
         lead_count, grant_count, uptime
     );
     (
@@ -4664,7 +4773,7 @@ pub async fn f98(State(_p0): State<Arc<t0>>) -> Html<String> {
 <details class="service-card" open>
 <summary>Compiled &gt; Interpreted — measured in nanoseconds and attack surface</summary>
 <p>A Rust binary is a single sealed artifact. No interpreter. No runtime loader chasing symbols. No pip/npm/gem pulling remote code at import time. No <code>sys.path</code> hijacking, no <code>LD_PRELOAD</code> games, no <code>__pycache__</code> shenanigans. The binary runs, does its job, and exits.</p>
-<p>A script, by contrast, is instructions for somebody else's runtime to execute. Every byte of attack surface you ship, you also shipped the interpreter that reads it. Every dependency the script imports at runtime, you also shipped the resolver that fetches it. The attack surface of a 10MB Rust binary is the binary. The attack surface of a 10KB Python script is Python itself plus every transitive import plus the shell plus the PATH plus the working directory.</p>
+<p>A script, by contrast, is instructions for somebody else's runtime to execute. Every byte of attack surface you ship, you also shipped the interpreter that reads it. Every dependency the script imports at runtime, you also shipped the resolver that fetches it. The attack surface of a 13 MB Rust binary is the binary. The attack surface of a 10 KB Python script is Python itself plus every transitive import plus the shell plus the PATH plus the working directory.</p>
 <p>Latency matches. Compiled Rust cold-start is measured in milliseconds. Interpreted Python cold-start is typically hundreds of milliseconds before your code runs. Shell script with a dozen pipe calls forks a process per command. Attackers love long cold starts — they make window-of-exploitation analysis easier. Cold-starting fast is a defensive posture.</p>
 </details>
 </div>
@@ -4866,7 +4975,7 @@ pub async fn f96(State(_p0): State<Arc<t0>>) -> Html<String> {
 <details class="service-card" open>
 <summary>Zero-Cloud Single-Binary Architecture</summary>
 <p><strong>Project:</strong> entire portfolio &middot; <strong>Date:</strong> 2026</p>
-<p>One Rust binary embeds HTTP server, database (sled), routing, templates, static assets, compression, and TLS config. Deploy is a streaming pipe: <code>ssh bt 'cat binary' | ssh gd 'cat > .new && mv .new binary'</code>. No container, no orchestrator, no config file, no asset directory. The binary IS the infrastructure.</p>
+<p>One Rust binary embeds HTTP server, database (redb), routing, templates, static assets, compression, and TLS config. Deploy is a streaming pipe: <code>ssh bt 'cat binary' | ssh gd 'cat > .new && mv .new binary'</code>. No container, no orchestrator, no config file, no asset directory. The binary IS the infrastructure.</p>
 <p><strong>Prior art:</strong> Single binaries exist (Caddy, BusyBox). Pipe deploys are Unix fundamentals. The architecture is the combination: binary with everything embedded + streaming pipe deploy + self-managing PID relay + zero external dependencies. We haven't found this exact stack elsewhere.</p>
 </details>
 
@@ -5537,7 +5646,7 @@ incremental = false</pre>
 <tr><td>TLS terminator</td><td>approuter-acme (Rust, Let's Encrypt DNS-01, rustls 0.23)</td><td>0.0.0.0:8443</td></tr>
 <tr><td>CF Tunnel ingress</td><td>cloudflared (outbound tunnel to CF edge)</td><td>127.0.0.1:20241</td></tr>
 <tr><td>Reverse proxy</td><td>approuter (Rust, auto-tunnel, registry-backed)</td><td>127.0.0.1:8080</td></tr>
-<tr><td>Origin binary</td><td>cochranblock (this site, 10MB Rust, embedded sled DB + assets)</td><td>0.0.0.0:8081</td></tr>
+<tr><td>Origin binary</td><td>cochranblock (this site, 13 MB Rust, embedded redb single-file DB + assets)</td><td>0.0.0.0:8081</td></tr>
 <tr><td>Inter-node fabric</td><td>lf / gd / bt / st across 10 GbE switch</td><td>192.168.1.0/24</td></tr>
 </table>
 </div>
@@ -5553,7 +5662,7 @@ incremental = false</pre>
 
     html.push_str(r#"
 <h2 class="services-section-head">cochranblock.org vs Defense Industry</h2>
-<p style="font-size:0.9rem;opacity:0.8">Two columns are <em>this</em> site — once via Cloudflare Tunnel (CF), once via the sovereign direct path (approuter-acme on FiOS). Same 10 MB Rust binary either way. TTFB is a single-connection p50 measured from a Mac on the same internet egress; direct numbers therefore reflect best-case (LAN-adjacent) latency, while CF numbers reflect a real round-trip through the Cloudflare edge.</p>
+<p style="font-size:0.9rem;opacity:0.8">Two columns are <em>this</em> site — once via Cloudflare Tunnel (CF), once via the sovereign direct path (approuter-acme on FiOS). Same 13 MB Rust binary either way. TTFB is a single-connection p50 measured from a Mac on the same internet egress; direct numbers therefore reflect best-case (LAN-adjacent) latency, while CF numbers reflect a real round-trip through the Cloudflare edge.</p>
 <div class="cost-summary">
 <table class="cost-table">
 <tr><td><strong>Metric</strong></td><td><strong>cochranblock (CF)</strong></td><td><strong>cochranblock (direct)</strong></td><td><strong>Booz Allen</strong></td><td><strong>Leidos</strong></td><td><strong>SAIC</strong></td><td><strong>CACI</strong></td></tr>
@@ -5568,7 +5677,7 @@ incremental = false</pre>
 <tr><td>Scripts</td><td class="cost-amount cost-new">2</td><td class="cost-amount cost-new">2</td><td class="cost-amount cost-old">36</td><td class="cost-amount cost-old">14</td><td class="cost-amount cost-old">48</td><td class="cost-amount cost-old">109</td></tr>
 <tr><td>DOM Elements</td><td class="cost-amount cost-new">129</td><td class="cost-amount cost-new">129</td><td class="cost-amount cost-old">2,050</td><td class="cost-amount cost-old">1,015</td><td class="cost-amount cost-old">890</td><td class="cost-amount cost-old">1,069</td></tr>
 <tr><td>TLS</td><td class="cost-amount cost-new">CF edge</td><td class="cost-amount cost-new">rustls 0.23 (LE)</td><td>vendor</td><td>vendor</td><td>vendor</td><td>vendor</td></tr>
-<tr><td>Server</td><td class="cost-amount cost-new">10 MB binary</td><td class="cost-amount cost-new">10 MB binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
+<tr><td>Server</td><td class="cost-amount cost-new">13 MB Rust binary</td><td class="cost-amount cost-new">13 MB Rust binary</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td><td>cloud cluster</td></tr>
 <tr><td>Monthly Cost</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-new">$10</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td><td class="cost-amount cost-old">millions</td></tr>
 </table>
 </div>
@@ -5618,7 +5727,7 @@ incremental = false</pre>
 </table>
 </div>
 
-<p style="font-size:1rem;margin:1.5rem 0;padding:1rem;background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:4px"><strong>The math:</strong> 10 MB binary. 20 MB RAM each. 32 GB laptop. Each site gets its own port, its own database, its own Cloudflare tunnel. Same TLS. Same uptime. You save <strong>$152,784/year vs AWS</strong> and <strong>$604,176/year vs Squarespace</strong>. Still 20 potatoes. The cloud is a potato tax.</p>
+<p style="font-size:1rem;margin:1.5rem 0;padding:1rem;background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:4px"><strong>The math:</strong> 13 MB binary. 20 MB RAM each. 32 GB laptop. Each site gets its own port, its own database, its own Cloudflare tunnel. Same TLS. Same uptime. You save <strong>$152,784/year vs AWS</strong> and <strong>$604,176/year vs Squarespace</strong>. Still 20 potatoes. The cloud is a potato tax.</p>
 
 <h2 class="services-section-head">At Scale: 50,000 Visitors</h2>
 <p>What happens when 50,000 people hit the front page? Two questions: <em>how much data moves</em> and <em>how long until everyone is served</em>.</p>
@@ -5665,7 +5774,7 @@ incremental = false</pre>
 <tr><td><strong>Component</strong></td><td><strong>AWS</strong></td><td><strong>Azure</strong></td><td><strong>GCP</strong></td><td><strong>Rust + CF Tunnel</strong></td><td><strong>Rust + Direct only</strong></td></tr>
 <tr><td>Compute</td><td class="cost-amount cost-old">$613/mo</td><td class="cost-amount cost-old">$292/mo</td><td class="cost-amount cost-old">$2,144/mo</td><td class="cost-amount cost-new">$10/mo*</td><td class="cost-amount cost-new">$0</td></tr>
 <tr><td>Load Balancer</td><td class="cost-amount cost-old">$215/mo</td><td class="cost-amount cost-old">$246/mo</td><td class="cost-amount cost-old">$30/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
-<tr><td>Database</td><td class="cost-amount cost-old">$98/mo</td><td class="cost-amount cost-old">$75/mo</td><td class="cost-amount cost-old">$54/mo</td><td class="cost-amount cost-new">built-in (sled)</td><td class="cost-amount cost-new">built-in (sled)</td></tr>
+<tr><td>Database</td><td class="cost-amount cost-old">$98/mo</td><td class="cost-amount cost-old">$75/mo</td><td class="cost-amount cost-old">$54/mo</td><td class="cost-amount cost-new">built-in (redb)</td><td class="cost-amount cost-new">built-in (redb)</td></tr>
 <tr><td>Cache</td><td class="cost-amount cost-old">$97/mo</td><td class="cost-amount cost-old">$162/mo</td><td class="cost-amount cost-old">$173/mo</td><td class="cost-amount cost-new">built-in</td><td class="cost-amount cost-new">built-in</td></tr>
 <tr><td>NAT Gateway</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$42/mo</td><td class="cost-amount cost-old">$9/mo</td><td class="cost-amount cost-new">$0</td><td class="cost-amount cost-new">$0</td></tr>
 <tr><td>CDN + WAF</td><td class="cost-amount cost-old">$29/mo</td><td class="cost-amount cost-old">$21/mo</td><td class="cost-amount cost-old">$17/mo</td><td class="cost-amount cost-new">CF free</td><td class="cost-amount cost-new">$0 (none needed)</td></tr>
@@ -5896,7 +6005,7 @@ pub async fn f104(State(_p0): State<Arc<t0>>) -> Html<&'static str> {
 /// used historically (gate logic preserved in git history if needed).
 pub async fn f106(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/onboarding.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f107 = no-quarter. The KNOXAI mission doctrine page. Public — indexed.
@@ -5906,7 +6015,7 @@ pub async fn f106(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// softening, without overclaiming.
 pub async fn f107(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/no-quarter.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f108 = manifesto. The KNOXAI mission manifesto, in the founder's voice.
@@ -5917,7 +6026,7 @@ pub async fn f107(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// /operations (the formal LLC governance).
 pub async fn f108(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/manifesto.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f109 = OA Amendment 001 (Chicken and Egg Bypass Protocol + P31 Unbreaking
@@ -5927,7 +6036,7 @@ pub async fn f108(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// the governance act it represents.
 pub async fn f109(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/amendment-001.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f110 = OA Amendment 002 (More Money Less CSAM / MMLC). Revenue-stream
@@ -5938,7 +6047,7 @@ pub async fn f109(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// a16z Speedrun submission. Formal legal amendment + investor annex in one.
 pub async fn f110(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/amendment-002.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f111 = OA Amendment 003 (Schedule C — The 10-Slide Pitch Deck). Adopts
@@ -5950,7 +6059,7 @@ pub async fn f110(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// Speedrun submission.
 pub async fn f111(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/amendment-003.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f112 = OA Amendment 005 (Irony Observation and Roasting Protocol, P33).
@@ -5961,7 +6070,7 @@ pub async fn f111(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// and for governance — the Member likes ironies and will roast anyone for them.
 pub async fn f112(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/amendment-005.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f113 = Constitution hub. Pointer-only index to the complete governance
@@ -5972,7 +6081,7 @@ pub async fn f112(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// duplicates the content of its target.
 pub async fn f113(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/constitution.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f114 = OA Amendment 006 (Pointer Discipline, Protocol P34). Codifies the
@@ -5984,7 +6093,7 @@ pub async fn f113(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// contexts, safety-critical archival needs, and recital paragraphs.
 pub async fn f114(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/amendment-006.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f115 = /52-days origin page. Live day-counter anchored to 2026-02-24 (the
@@ -5997,7 +6106,7 @@ pub async fn f114(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// veteran is the throw-in. Voice is direct, receipt-anchored, Michael.
 pub async fn f115(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/52-days.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 /// f117 = /archive federal pipeline index. Holds references to proposal
@@ -6008,7 +6117,7 @@ pub async fn f115(State(_p0): State<Arc<t0>>) -> Html<String> {
 /// reviewers who want to dig.
 pub async fn f117(State(_p0): State<Arc<t0>>) -> Html<String> {
     let body_bytes = include_packed::include_packed!("assets/archive.html");
-    Html(String::from_utf8_lossy(&body_bytes).into_owned())
+    Html(f105(&String::from_utf8_lossy(&body_bytes)))
 }
 
 const KNOX_HTML: &str = r##"<!doctype html>

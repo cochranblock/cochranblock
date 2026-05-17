@@ -14,8 +14,7 @@ flowchart LR
     CF --> AR[approuter :8080]
     AR --> CB[cochranblock :8081]
     AR --> OD[oakilydokily :3000]
-    CB --> Sled[(sled DB)]
-    CB --> SQLite[(SQLite)]
+    CB --> Redb[(redb)]
     CB --> Assets[Embedded Assets]
 ```
 
@@ -23,14 +22,14 @@ flowchart LR
 
 | Metric | Value |
 |--------|-------|
-| Binary size (x86) | 9.9MB (release, opt-level='s', LTO, strip) |
-| Binary size (ARM) | 8.4MB |
+| Binary size (x86) | 13 MB (release, opt-level='s', LTO, strip) |
+| Binary size (ARM) | 8.9 MB |
 | Infrastructure cost | $10/month |
 | External services | Cloudflare tunnel (free tier) |
-| Database | Embedded sled + SQLite — no external DB |
+| Database | Embedded redb — single-file ACID, no external DB |
 | Cloud dependencies | Zero |
 | Public repos | 31 (Unlicense / public domain) |
-| crates.io | 32 published crates (kova-engine, exopack, any-gpu, header-writer, +28) |
+| crates.io | 33 published crates (kova-engine, exopack, any-gpu, header-writer, +29) |
 | Certification | SAM.gov Active · CAGE 1CQ66 · UEI W7X3HAQL9CF9 · SDVOSB Certified 2026-05-12 (SBA VetCert, expires 2029-05-12) · eMMA SUP1095449 · CSB approved · TS/SCI reactivation eligible · 30% service-connected disabled veteran |
 | Functions | 122 |
 | Types | 18 |
@@ -96,10 +95,42 @@ flowchart LR
 | **Folded Manual (Act I Doctrine)** | desktop 1280×800 | ![Manual desktop](screenshots/prod-manual-desktop.png) | "THE ANTI-FOUNDER" Orbitron banner at top of folded asset, "M·A·N·I·F·E·S·T·O" subtitle, "PUBLIC DOMAIN · ZERO CLOUD · RECEIPTS ATTACHED" pretag, doctrine creed in cyan-bordered block |
 | Folded Manual | tablet portrait 768×1024 | ![Manual tablet portrait](screenshots/prod-manual-tablet-portrait.png) | Banner wraps to 2 lines; creed visible; "WHAT AN ANTI-FOUNDER IS" section heading at fold |
 | Folded Manual | phone portrait 390×844 | ![Manual phone portrait](screenshots/prod-manual-phone-portrait.png) | Same Act I content scaled for phone; banner THE ANTI-FOUNDER on 2 lines; doctrine creed visible |
-| Govdocs (procurement) | desktop 1280×800 | ![Govdocs desktop](screenshots/prod-govdocs-desktop.png) | Standard C7 nav (Products / Services / About / Contact / ▾Gov / ▾Tools / ▾More); "Government Documents" h1; Capability Statement details; SDVOSB **Final Review (VetCert/SBA)**; 32 crates · 31 repos; cosmic backdrop |
+| Govdocs (procurement) | desktop 1280×800 | ![Govdocs desktop](screenshots/prod-govdocs-desktop.png) | Standard C7 nav (Products / Services / About / Contact / ▾Gov / ▾Tools / ▾More); "Government Documents" h1; Capability Statement details; SDVOSB **Certified 2026-05-12 (SBA VetCert, expires 2029-05-12)**; 33 crates · 31 repos; cosmic backdrop |
 | Services | desktop 1280×800 | ![Services desktop](screenshots/prod-services-desktop.png) | Standard nav; "Services & Pricing"; "What I Replace" comparison block; cosmic backdrop with the orange-tinted services-page ambient gradient (per `body[data-page="services"]::after`); 3-card pricing row at bottom |
 | **Mobile hamburger — closed** | iPhone 390×844 (CDP) | ![Burger closed](screenshots/burger-cdp.png) | Captured via chromiumoxide DevTools Protocol with iOS Safari UA + mobile=true emulation. 40×40 cyan-bordered ☰ button at top-right (x=335.6, y=11.2). Three horizontal bars visible inside. Brand "COCHRAN BLOCK" left-aligned. CDP-verified computed style: `display:block · position:fixed · z-index:100 · visibility:visible · opacity:1`. |
 | **Mobile hamburger — open** | iPhone 390×844 (CDP) | ![Burger open](screenshots/burger-cdp-open.png) | Same viewport after programmatic click on summary. Bars morph into ✕ (cyan X). Drawer expands below with 4-group accordion: ON THIS PAGE (Engage / Architecture / Verticals / Registrations) · PROCUREMENT (Gov Docs / SBIR / VR&E / DCAA / Capability Statement / Resume) · RECEIPTS (Open Books / Source / Stats / Binaries) · SITE. 25 menu items total. Cyan group headings in Orbitron, item links monospace. Backdrop blur preserves cosmic-layer through the drawer. |
+
+### Site-wide nav unification — 2026-05-15
+
+*Single canonical `.cb-nav` (root-derived: COCHRAN BLOCK diamond + search + Engage/Architecture/Verticals/Registrations + Gov/Tools/Site dropdowns + Resume + Doctrine →) is now served on every route. Captured via [`exopack screenshot`](https://github.com/cochranblock/exopack) from the local `bt:8081` build immediately after the change — three different rendering paths, one nav.*
+
+| Rendering path | Route | Artifact | Verified |
+|----------------|-------|----------|----------|
+| `lets-team.html` (apex root, monolithic doc) | `/` | ![Unified nav — root](screenshots/unified-nav-root.png) | Inline `.cb-nav` markup + `<style>` replaces former `.nav`/Rajdhani block; font now JetBrains Mono matching the rest of the site |
+| `head + C7 + body + C8` template (C7-served pages, e.g. `/govdocs`, `/about`, `/sbir`, `/services`) | `/govdocs` | ![Unified nav — govdocs](screenshots/unified-nav-govdocs.png) | C7 const rewritten to skip-link + `.cb-nav` block + `<main>` opener; old `.nav` selectors in `main.css` become dead code |
+| C7-served — SBIR | `/sbir` | ![Unified nav — sbir](screenshots/unified-nav-sbir.png) | Same nav as `/govdocs` and root; user-confirmed reference for visual parity |
+| Standalone artifact + `f105` injector | `/manifesto` | ![Unified nav — manifesto](screenshots/unified-nav-manifesto.png) | `f105(&str)` splices `C9` (self-contained nav + scoped CSS + cosmic starfield) after `<body…>` in each artifact-page handler; idempotent via `cb-nav`/`class="nav"` check |
+| Standalone artifact + `f105` injector | `/constitution` | ![Unified nav — constitution](screenshots/unified-nav-constitution.png) | Artifact-page text colors (amber) preserved; backdrop layer adds cyan/purple/amber ambient gradients |
+| Manual artifact + `f64` wrapper | `/manual` | ![Unified nav — manual](screenshots/unified-nav-manual.png) | `f64 = f105 + brand-href→apex absolute`; brand `<a>` rewritten to `https://cochranblock.org/` so `manual.cochranblock.org/*` doesn't loop back on itself |
+
+Code shape (tokenized per Kova standards, in `src/web/pages.rs`):
+
+- `C9` — site nav shim: `<style>` (cosmic backdrop `cbDrift` + 2 shooting stars `cbShoot`/`cbShoot2` w/ `prefers-reduced-motion` opt-out + `.cb-nav*` scoped CSS, hardcoded colors) + `<nav class="cb-nav">…</nav>`. ~5 KB inline.
+- `C7` — `concat!` of skip-link + same nav block as C9 + `<main id="main" class="content">` opener.
+- `f105(&str) -> String` — 4 lines: idempotency check, find `<body…>`, splice. No allocations on the skip path.
+- `f64(&str) -> String` — wraps `f105`, then one `.replace` rewriting the brand `<a href="/">` to absolute apex.
+
+## Quick Start
+
+```bash
+# Build & run
+cargo build --release -p cochranblock --features approuter
+./target/release/cochranblock          # localhost:8081
+
+# Test (runs unit + integration + HTTP tests 3x — TRIPLE SIMS gate — with
+# screenshot capture via exopack)
+cargo run -p cochranblock --bin cochranblock-test --features tests
+```
 
 ## How to Verify
 
@@ -128,6 +159,64 @@ bash scripts/build-resume-pdf.sh
 ls -lh assets/michael-cochran-resume_may_2026.pdf  # ~290 KB, 2 pages, letter format
 cargo build --release -p cochranblock --features approuter  # re-embed into binary
 ```
+
+## Routes
+
+| Route | What |
+|-------|------|
+| `/` | Home — hero, pitch, live stats, CTAs |
+| `/products` | Product catalog — platforms, partnerships, open source |
+| `/services` | Pricing and service offerings |
+| `/deploy` | Tech intake form (redb-backed) |
+| `/deploy/confirmed` | Submission confirmation |
+| `/book` | Discovery call booking calendar |
+| `/about` | Mission, credentials, testimonials |
+| `/contact` | Email CTA |
+| `/community-grant` | Community grant application form |
+| `/community-grant/confirmed` | Grant submission confirmation |
+| `/downloads` | Resume PDF, logo card |
+| `/codeskillz` | Live velocity tracking for repos |
+| `/stats` | Performance, cloud cost math, live traffic |
+| `/govdocs` | Capability statement, SBIR proposals, bid tracker |
+| `/sbir` | SBIR/provenance documentation |
+| `/provenance` | AI development documentation framework |
+| `/vre` | VR&E Chapter 31 self-employment track |
+| `/tinybinaries` | Binary size comparison across repos |
+| `/source` | Live source code of the running server |
+| `/search` | Site search |
+| `/speed` | Redirects to /stats |
+| `/openbooks` | Open books financial transparency |
+| `/dcaa` | DCAA-ready accounting (alias for /openbooks) |
+| `/analytics` | Site analytics dashboard |
+| `/privacy` | Privacy policy |
+| `/health` | Health check endpoint |
+| `/robots.txt` | Crawler directives |
+| `/sitemap.xml` | Search engine sitemap |
+| `/llms.txt` | AI crawler context |
+| `/llms-full.txt` | Extended AI crawler context |
+| `/humans.txt` | Team, tools, tech stack |
+| `/.well-known/security.txt` | RFC 9116 security contact |
+| `/api/stats` | Repo count stats |
+| `/api/velocity` | GitHub velocity data |
+| `/api/analytics` | Analytics data |
+| `/api/site-stats` | Site statistics |
+| `/api/openbooks` | Open books data |
+| `/api/summary` | Site summary |
+
+## Code Style
+
+Source uses compact identifiers (f2, t0, C7, etc.) per the Token-Optimized Code Representation system. See the [kova compression map](https://github.com/cochranblock/kova) for the canonical mapping.
+
+## Dependencies on Other Repos
+
+Products marked "Coming Soon" on the site depend on other repos:
+
+| Product | Waiting On |
+|---------|-----------|
+| [Rogue Repo](https://github.com/cochranblock/rogue-repo) | rogue-repo, approuter |
+| Ronin Sites | rogue-repo, approuter |
+| Pocket Server | approuter, kova |
+| [Ghost Fabric](https://github.com/cochranblock/ghost-fabric) | kova |
 
 ---
 

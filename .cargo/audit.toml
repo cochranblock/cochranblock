@@ -3,16 +3,29 @@
 # Run:  cargo audit
 
 [advisories]
-ignore = []
+ignore = [
+  # bincode 2.0.1 is unmaintained (RUSTSEC-2025-0141, published 2025-12-16).
+  # Maintenance-status advisory, not a disclosed CVE — no exploit path.
+  # Used only for internal serialization between our own processes; no
+  # untrusted-input deserialization. Replacing it is a tracked cleanup task;
+  # do not block production deploys on it.
+  "RUSTSEC-2025-0141",
+  # lettre 0.11.21 — TLS hostname verification disabled when using the Boring
+  # TLS backend (RUSTSEC-2026-0141). We don't use the Boring backend: lettre
+  # is configured with `default-features = false, features = ["rustls-tls",
+  # "tokio1-rustls-tls"]` in Cargo.toml, so hostname verification is handled
+  # by rustls and the advisory does not apply to our binary.
+  "RUSTSEC-2026-0141",
+]
 
-# Note: as of 2026-05-06 the lockfile is clean — zero unignored RUSTSEC
-# advisories. The previously ignored rsa 0.9.x Marvin Attack
+# Note: the remaining unmaintained-warnings (fxhash, instant, paste,
+# rustls-pemfile) surface as cargo-audit warnings (not vulnerabilities) and
+# don't block the deploy gate. They're left visible so future cleanup can
+# reduce the list.
+#
+# History: the previously ignored rsa 0.9.x Marvin Attack
 # (RUSTSEC-2023-0071) was eliminated by tightening sqlx to
 # `default-features = false, features = ["runtime-tokio-rustls", "sqlite"]`
 # (dropping `macros` + `migrate`, which we don't use — we call
 # `sqlx::query()` and `sqlx::query_scalar()` as functions, not macros).
 # That dropped `sqlx-mysql` — and therefore `rsa` — from the graph entirely.
-#
-# The unmaintained-warnings (bincode, fxhash, instant, paste,
-# rustls-pemfile) are not vulnerabilities; cargo-audit does not fail on
-# them. They're left visible so future cleanup can reduce the list.

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ATS is broken. So is the company that profits from it. atsisbroken — a free, open-source, local-first alternative to simplify.us. Unlicense. No cloud. No premium tier. No data harvesting.">
+<title>simplify.cochranblock.org — atsisbroken</title>
+<style>
+:root {
+  --bg: #000;
+  --bg2: #0a0a0a;
+  --bg3: #141414;
+  --fg: #f5f5f5;
+  --fg2: #bbb;
+  --fg3: #777;
+  --amber: #ffb300;
+  --cyan: #00d9ff;
+  --red: #ef5350;
+  --blood: #b71c1c;
+  --line: rgba(255,255,255,0.08);
+  --line2: rgba(255,255,255,0.18);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'SF Mono','Fira Code','JetBrains Mono',Menlo,Consolas,monospace;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+}
+body { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+.pretag { font-size: 0.72rem; letter-spacing: 0.42em; color: var(--amber); text-transform: uppercase; margin-bottom: 1.2rem; text-align: center; }
+.hero { text-align: center; margin-bottom: 3.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+.hero h1 { font-size: 2.8rem; line-height: 1.1; margin-bottom: 0.8rem; letter-spacing: -0.02em; }
+.hero h1 .strike { color: var(--red); text-decoration: line-through; text-decoration-thickness: 3px; }
+.hero h1 .accent { color: var(--amber); }
+.hero .sub { color: var(--fg2); font-size: 1rem; max-width: 620px; margin: 0 auto; }
+h2 { font-size: 1.1rem; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line); color: var(--amber); letter-spacing: 0.04em; }
+h3 { font-size: 0.95rem; margin-top: 1.6rem; margin-bottom: 0.5rem; color: var(--cyan); }
+p { margin-bottom: 1rem; color: var(--fg); }
+ul, ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+li { margin-bottom: 0.5rem; }
+code { background: var(--bg3); padding: 0.1rem 0.3rem; border-radius: 3px; color: var(--amber); font-size: 0.92em; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; }
+th, td { border: 1px solid var(--line2); padding: 0.55rem 0.7rem; text-align: left; vertical-align: top; }
+th { background: var(--bg2); color: var(--amber); }
+tr:nth-child(even) td { background: var(--bg2); }
+.pull { background: var(--bg2); border-left: 3px solid var(--amber); padding: 1rem 1.2rem; margin: 1.4rem 0; color: var(--fg); font-size: 0.95rem; }
+.danger { border-left-color: var(--red); }
+.win { border-left-color: var(--cyan); }
+a { color: var(--cyan); }
+a:hover { color: var(--amber); }
+.footer { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--line); color: var(--fg3); font-size: 0.82rem; text-align: center; }
+.footer a { color: var(--fg3); }
+.footer a:hover { color: var(--amber); }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.2rem; margin: 1rem 0 1.5rem; font-size: 0.92rem; }
+.kv .k { color: var(--fg3); }
+.kv .v { color: var(--fg); }
+</style>
+</head>
+<body>
+
+<div class="pretag">simplify.cochranblock.org</div>
+
+<div class="hero">
+  <h1>ATS is broken.<br><span class="accent">So is the company that profits from it.</span></h1>
+  <p class="sub">atsisbroken &mdash; a free, open-source, local-first alternative to simplify.us. Unlicense. No cloud. No premium tier. No data harvesting. Forever.</p>
+</div>
+
+<h2>Why simplify.us blew up</h2>
+<p>Before we replace it, we have to understand it. Simplify Jobs (simplify.us / simplify.jobs) went from a 2020 YC seed to <strong>1M+ job seekers</strong> and <strong>100M+ tracked applications</strong> with a team of seven. They executed cleanly. Here's the recipe:</p>
+
+<table>
+  <tr><th>#</th><th>Move</th><th>Why it worked</th></tr>
+  <tr><td>1</td><td><strong>Free forever core product</strong></td><td>Autofill and tracking are free, indefinitely. Removes activation friction. Job seekers are price-elastic and broke.</td></tr>
+  <tr><td>2</td><td><strong>Browser extension distribution</strong></td><td>One install, instant value on every supported job board. The extension <em>is</em> the product surface. No login wall to first value.</td></tr>
+  <tr><td>3</td><td><strong>Coverage of 100+ ATSes</strong></td><td>Workday, Greenhouse, iCIMS, Taleo, Avature, Lever, SmartRecruiters. The pain of filling out the same form for the 50th time only ends if your tool covers <em>every</em> form.</td></tr>
+  <tr><td>4</td><td><strong>Resume upload &rarr; profile auto-built</strong></td><td>One-time onboarding cost. Profile is reused on every application. The cost-curve is an L-shape: high once, then zero.</td></tr>
+  <tr><td>5</td><td><strong>Multi-page autofill that doesn't stop</strong></td><td>Modern Workday applications are 6-12 pages. Autofill that survives across pages is sticky. Users come back the next day.</td></tr>
+  <tr><td>6</td><td><strong>AI for short-answer questions</strong></td><td>"Why do you want to work here?" is the differentiation problem. Auto-generated personalized answers from resume + job description solves it.</td></tr>
+  <tr><td>7</td><td><strong>Two-sided marketplace</strong></td><td>Job seekers free; employers pay to post and promote. Premium tier (Simplify+) for power users. Classic B2B2C.</td></tr>
+  <tr><td>8</td><td><strong>YC + brand-name VCs</strong></td><td>$4.35M raised across YC, Craft Ventures, Soma, Roar, Hyphen, Global Founders Capital. Credibility halo for the employer side and recruiting talent.</td></tr>
+  <tr><td>9</td><td><strong>Pain-point clarity</strong></td><td>"Filling out 50 job applications is awful" is universal. No customer education needed.</td></tr>
+  <tr><td>10</td><td><strong>Team of 7 doing 1M users</strong></td><td>High-leverage product, low ops. Margin discipline lets the free tier survive.</td></tr>
+</table>
+
+<h2>What's fragile about the model</h2>
+
+<div class="pull danger">
+  Free forever depends on continued employer-side revenue. If the employer side flatlines, the free tier shrinks &mdash; or premium-tier walls climb. The next funding round will require monetization expansion. The "free forever" promise is a covenant only as strong as the runway.
+</div>
+
+<ul>
+  <li><strong>Cloud-first by design.</strong> Your resume, work history, salary expectations, and application targets sit on Simplify's servers. Cleared / government / healthcare / finance job seekers can't use it for compliance reasons.</li>
+  <li><strong>Account required.</strong> Sign-up before first value. A signal of where the product is being optimized: data capture.</li>
+  <li><strong>Data is the asset.</strong> 100M tracked applications across 1M users is the most valuable hiring-funnel dataset outside LinkedIn. Worth more to advertisers, recruiters, and acquirers than the SaaS revenue itself.</li>
+  <li><strong>VC-backed runway equation.</strong> Growth requires ever-cheaper acquisition or ever-deeper monetization. The free tier is an acquisition strategy, not a thesis.</li>
+  <li><strong>No moat below the brand.</strong> The technical moat &mdash; form-field detection across 100 ATSes &mdash; is a maintenance treadmill, not a defensible architecture. Anyone with the same maintenance discipline can replicate it.</li>
+  <li><strong>Closed source.</strong> No audit. No fork. No self-host. No way to verify what they do with your resume after upload.</li>
+  <li><strong>Premium tier expansion.</strong> Simplify+ exists. The arrow always points toward more features behind the wall, not fewer. The free tier is the loss leader; the next pricing change moves the line.</li>
+</ul>
+
+<h2>What atsisbroken does differently</h2>
+
+<div class="pull win">
+  <strong>The same product. Without the company.</strong> Open source. Local-first. No account. No upload. No premium tier. Unlicense. Self-host the autofill engine on your laptop or push it through a wasm browser extension. Your resume never leaves your machine unless you tell it to.
+</div>
+
+<table>
+  <tr><th>Axis</th><th>simplify.us</th><th>atsisbroken</th></tr>
+  <tr><td>License</td><td>Closed source, Terms of Service</td><td><strong>Unlicense</strong> &mdash; public domain, fork freely</td></tr>
+  <tr><td>Resume storage</td><td>Cloud (Simplify servers)</td><td>Local file on disk. Never uploaded.</td></tr>
+  <tr><td>Account required</td><td>Yes</td><td>No</td></tr>
+  <tr><td>Premium tier</td><td>Simplify+ (paid)</td><td>None. Forever.</td></tr>
+  <tr><td>Distribution</td><td>Chrome / Firefox extensions</td><td>Browser extension + native binary + CLI. WASM core.</td></tr>
+  <tr><td>AI personalization</td><td>Server-side proprietary</td><td>Bring-your-own-key (Claude / OpenAI / local Ollama). User chooses.</td></tr>
+  <tr><td>Cleared / regulated work</td><td>Cannot use (data residency)</td><td>Local-only mode. Fits cleared/healthcare/finance posture.</td></tr>
+  <tr><td>Data harvesting</td><td>100M applications tracked centrally</td><td>Zero. Every user owns their data on their device.</td></tr>
+  <tr><td>Funding model</td><td>VC-backed, employer-paid, premium tier</td><td>None. Cochran Block. Anti-founder. Federal whistleblower-built.</td></tr>
+  <tr><td>Moat</td><td>Brand and bizdev partnerships</td><td>Open ATS adapter ecosystem. Anyone can ship a parser for a new ATS the day it launches.</td></tr>
+</table>
+
+<h2>The thesis</h2>
+
+<p>simplify.us is a YC-shaped answer to a problem that doesn't need a YC-shaped answer. The product is a thin client over public form-field heuristics, fronted by a marketing site, sold to employers as a recruiting funnel. None of those ingredients require a startup, a Series A path, or 7 employees in San Francisco.</p>
+
+<p>What it requires is one open-source repository and a handful of contributors who decided the entire category should be free.</p>
+
+<p>That's atsisbroken.</p>
+
+<h2>Status</h2>
+
+<div class="kv">
+  <span class="k">Repository:</span><span class="v"><a href="https://github.com/cochranblock/atsisbroken">github.com/cochranblock/atsisbroken</a></span>
+  <span class="k">Crate:</span><span class="v"><code>atsisbroken</code> &mdash; reserved on crates.io</span>
+  <span class="k">License:</span><span class="v">Unlicense</span>
+  <span class="k">Status:</span><span class="v">Scaffold. Specifications are being written; first ATS adapters next.</span>
+  <span class="k">Author:</span><span class="v">Michael Cochran &mdash; Cochran Block, LLC</span>
+</div>
+
+<h2>How to help</h2>
+
+<ul>
+  <li>Open the repository. Read the code. Audit it.</li>
+  <li>Pick an ATS that simplify.us supports (Workday, Greenhouse, iCIMS, Taleo, Avature, Lever, SmartRecruiters) and ship an adapter. Each adapter is a small, self-contained module.</li>
+  <li>If you've been ATS-screened out for being a parent, a veteran, a person with a disability, a federal whistleblower, or anyone else the system filters before a human reads your resume &mdash; this is for you. File issues. Tell us what's broken.</li>
+</ul>
+
+<div class="footer">
+  <p>cochranblock.org &middot; <a href="https://cochranblock.org">apex</a> &middot; <a href="https://github.com/cochranblock/atsisbroken">repo</a> &middot; Unlicense &middot; Anti-founder thesis</p>
+  <p style="margin-top: 0.6rem; color: var(--fg3);">ATS is broken. So is the company that profits from it. We are not.</p>
+</div>
+
+</body>
+</html>
