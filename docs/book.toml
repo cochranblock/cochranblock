@@ -12,3 +12,8 @@ site-url = "/cochranblock/"
 additional-css = ["theme/custom.css"]
 default-theme = "coal"
 preferred-dark-theme = "coal"
+no-section-label = true
+
+[output.html.fold]
+enable = true
+level = 1
