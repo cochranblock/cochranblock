@@ -9,3 +9,5 @@
 - [Deploy](deploy.md)
 - [Contributing](contributing.md)
 - [Provenance](provenance.md)
+  - [Timeline of Invention](timeline-of-invention.md)
+  - [Proof of Artifacts](proof-of-artifacts.md)

@@ -4,8 +4,8 @@ cochranblock uses the [Provenance Docs Framework](https://github.com/cochranbloc
 
 ## Documents
 
-- **[TIMELINE_OF_INVENTION.md](../TIMELINE_OF_INVENTION.md)** — dated, commit-linked record of what was built, when, and why. Every entry has a mandatory `AI Role` field documenting the human/AI boundary.
-- **[PROOF_OF_ARTIFACTS.md](../PROOF_OF_ARTIFACTS.md)** — build metrics, architecture diagrams, screenshots, and verification commands. A reproducibility contract anyone can run.
+- **[Timeline of Invention](timeline-of-invention.md)** — dated, commit-linked record of what was built, when, and why. Every entry has a mandatory `AI Role` field documenting the human/AI boundary.
+- **[Proof of Artifacts](proof-of-artifacts.md)** — build metrics, architecture diagrams, screenshots, and verification commands. A reproducibility contract anyone can run.
 
 ## Why It Exists
 
