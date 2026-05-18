@@ -3,7 +3,7 @@
 
 [package]
 name = "cochranblock"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2024"
 authors = ["Michael Cochran <mcochran@cochranblock.org>"]
 description = "Zero-cloud website in a single Rust binary. 13MB on x86, 8.9MB on ARM. $10/month infrastructure. cargo install and run."
