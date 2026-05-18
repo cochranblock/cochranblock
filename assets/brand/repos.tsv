@@ -6,7 +6,7 @@ call-shield	CALL SHIELD	On-device call screening. No audio leaves the device.	RU
 cochranblock	COCHRANBLOCK	Corporate portfolio site with embedded admin panel. Apex of the network.	RUST	AXUM	ANTI-FOUNDER	88
 exopack	EXOPACK	Browser-isolated visual regression testing. Zero flake. Receipts attached.	RUST	HEADLESS CHROMIUM	CRATES.IO	104
 forge-engine	FORGE ENGINE	2D-first Rust game engine. Desktop + web from one source. Signed PWA games.	RUST	WGPU	SIGNED PWA	100
-for-tanner	R8R	n8n in Rust. One 8MB static binary. 585 nodes registered.	RUST	WORKFLOW	AIR-GAP READY	120
+cochranblock-mail	COCHRANBLOCK MAIL	Sovereign SMTP/IMAP server. One Rust binary, zero cloud, zero SaaS.	RUST	SMTP/IMAP	ZERO CLOUD	80
 free-payroll-system	FREE PAYROLL	Local-first payroll. No SaaS. No per-employee pricing. Forever.	RUST	LOCAL-FIRST	UNLICENSE	100
 ghost-fabric	GHOST FABRIC	Sovereign edge intelligence over sub-GHz LoRa cognitive mesh.	RUST	LORA 915MHZ	EDGE AI	96
 header-writer	HEADER-WRITER	Post-AI source-header injector. Unlicense + contributors. Receipts.	RUST	PROVENANCE	PRE-COMMIT	88
