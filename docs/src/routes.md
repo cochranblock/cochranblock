@@ -42,6 +42,12 @@
 | `/api/velocity` | — | GitHub velocity data (JSON) |
 | `/api/openbooks` | — | Open books data (JSON) |
 
+### Page Previews
+
+![Services page](img/services-desktop.png)
+
+![GovDocs page](img/govdocs-desktop.png)
+
 ## Dev Routes (disabled in release)
 
 | Route | What |

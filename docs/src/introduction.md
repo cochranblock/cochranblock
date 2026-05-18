@@ -7,9 +7,13 @@ cargo build --release -p cochranblock --features approuter
 ./target/release/cochranblock   # localhost:8081
 ```
 
+![Built with Rust](img/built-with-rust.svg) ![SDVOSB Certified](img/sdvosb-certified.svg) ![UNLICENSE](img/license-unlicense.svg) ![CAGE 1CQ66](img/cage-1cq66.svg)
+
 ## What It Is
 
 cochranblock.org is the production site of The Cochran Block, LLC — an SDVOSB-certified defense tech consultancy. The binary embeds all HTML, CSS, assets, PDFs, and a redb database. There is no cloud, no Docker, no CDN origin server — Cloudflare Tunnel routes traffic directly to a $10/month VPS running the binary.
+
+![cochranblock homepage](img/index.png)
 
 ## Repository Layout
 

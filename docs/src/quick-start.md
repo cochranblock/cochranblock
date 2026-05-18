@@ -1,5 +1,13 @@
 # Quick Start
 
+## Prerequisites
+
+| Requirement | Version | Install |
+|------------|---------|---------|
+| Rust (stable) | 1.85+ (edition 2024) | [rustup.rs](https://rustup.rs) |
+| `cargo-audit` | latest | `cargo install cargo-audit` |
+| SSH access to bt/gd | — | Deploy only |
+
 ## Build and Run
 
 ```bash
@@ -9,15 +17,36 @@ cd cochranblock
 
 # Build (requires Rust stable + cargo)
 cargo build --release -p cochranblock --features approuter
+```
 
-# Run locally
-./target/release/cochranblock   # serves localhost:8081
+Expected output:
+```
+   Compiling cochranblock v1.0.2 (...)
+    Finished `release` profile [optimized] target(s) in 58.3s
+```
+
+```bash
+# Run locally (omit --features approuter — opens browser, no server registration)
+cargo build --release -p cochranblock
+./target/release/cochranblock
+```
+
+Expected output:
+```
+  cochranblock v1.0.2
+  Running at http://127.0.0.1:8081
+  Press Ctrl+C to stop
 ```
 
 ## Binary Size
 
 ```bash
-ls -lh target/release/cochranblock   # ~13 MB x86, ~8.9 MB ARM
+ls -lh target/release/cochranblock
+```
+
+Expected output:
+```
+-rwxrwxr-x 1 user user 13M May 17 12:00 target/release/cochranblock
 ```
 
 ## Test Suite
@@ -27,10 +56,36 @@ ls -lh target/release/cochranblock   # ~13 MB x86, ~8.9 MB ARM
 cargo run -p cochranblock --bin cochranblock-test --features tests
 ```
 
+TRIPLE SIMS runs the full HTTP + unit test suite three times back-to-back. All three passes must produce identical results. Expected output:
+```
+=== Unit Tests ===
+PASS  unit/config  2ms
+PASS  unit/routes  1ms
+
+=== HTTP Tests ===
+PASS  GET /        14ms
+PASS  GET /about   11ms
+...
+TRIPLE SIMS pass 1/3 OK (2341ms)
+TRIPLE SIMS pass 2/3 OK (2289ms)
+TRIPLE SIMS pass 3/3 OK (2301ms)
+TRIPLE SIMS: 3/3 passes OK
+```
+
+If any pass fails or results diverge, the exit code is non-zero and deploy is blocked.
+
 ## Supply Chain Audit
 
 ```bash
 cargo audit   # 0 unignored advisories required before deploy
+```
+
+Expected output:
+```
+    Fetching advisory database from `https://github.com/RustSec/advisory-db.git`
+      Loaded 769 security advisories (as of ...)
+    Scanning Cargo.lock for vulnerabilities (119 crate dependencies)
+not found
 ```
 
 ## Without approuter
