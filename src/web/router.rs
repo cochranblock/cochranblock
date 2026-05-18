@@ -10,7 +10,7 @@ use tower_http::{
     compression::CompressionLayer, set_header::SetResponseHeaderLayer, trace::TraceLayer,
 };
 
-use super::{assets, booking, community_grant, intake, n_bench, pages, visits};
+use super::{assets, booking, community_grant, intake, n_bench, pages, subdomain, visits};
 use crate::t0;
 
 /// f1 = app_router. Why: Single router with compression, trace, security headers; state shared via Arc.
@@ -611,5 +611,6 @@ pub fn f1(p0: t0) -> Router {
         .layer(CompressionLayer::new().zstd(true))
         .layer(axum::middleware::from_fn(visits::log_middleware))
         .layer(TraceLayer::new_for_http())
+        .layer(axum::middleware::from_fn(subdomain::layer))
         .with_state(p0)
 }
