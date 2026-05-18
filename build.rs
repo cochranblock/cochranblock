@@ -3,8 +3,34 @@
 
 // Packs assets/ with zstd for smaller binary.
 // Also emits GIT_COMMIT + BUILD_TIMESTAMP for the /sovereignty page.
+// Also counts .rs files, LOC, and #[test] annotations so /api/summary stays current.
 
+use std::path::Path;
 use std::process::Command;
+
+fn count_rust_stats(dir: &Path) -> (usize, usize, usize) {
+    let mut files = 0usize;
+    let mut loc = 0usize;
+    let mut tests = 0usize;
+    if let Ok(entries) = std::fs::read_dir(dir) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.is_dir() {
+                let (f, l, t) = count_rust_stats(&path);
+                files += f;
+                loc += l;
+                tests += t;
+            } else if path.extension().map_or(false, |e| e == "rs") {
+                files += 1;
+                if let Ok(content) = std::fs::read_to_string(&path) {
+                    loc += content.lines().count();
+                    tests += content.matches("#[test]").count();
+                }
+            }
+        }
+    }
+    (files, loc, tests)
+}
 
 fn main() {
     include_packed::Config::new("assets")
@@ -35,6 +61,14 @@ fn main() {
         .map(|d| d.as_secs())
         .unwrap_or(0);
     println!("cargo:rustc-env=BUILD_TIMESTAMP={}", ts);
+
+    // Count .rs files, LOC, and #[test] annotations so /api/summary is always current.
+    let src = std::path::Path::new("src");
+    let (rs_files, rust_loc, test_count) = count_rust_stats(src);
+    println!("cargo:rustc-env=RS_FILES={}", rs_files);
+    println!("cargo:rustc-env=RUST_LOC={}", rust_loc);
+    println!("cargo:rustc-env=TEST_COUNT={}", test_count);
+    println!("cargo:rerun-if-changed=src");
 
     // Rerun if .git/HEAD moves (branch switch or new commit).
     println!("cargo:rerun-if-changed=.git/HEAD");

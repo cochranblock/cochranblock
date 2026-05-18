@@ -3427,13 +3427,18 @@ Email: mcochran@cochranblock.org. Book a call: cochranblock.org/book. GitHub: gi
 
 /// f89 = api_summary. Why: Machine-readable company summary for AI agents.
 pub async fn f89(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoResponse {
+    let body = format!(
+        r#"{{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"certified","sdvosb_cert_date":"2026-05-12","sdvosb_expires":"2029-05-12","sdvosb_authority":"SBA VetCert","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"}},"products":{},"repos":{},"unlicense_repos":{},"crates_published":33,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"13MB","infrastructure_cost":"$10/month","aws_equivalent_annual":"$13184","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":{},"total_rs_files":{},"total_tests":{},"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}}"#,
+        REPOS.len(), REPOS.len(), REPOS.len(),
+        env!("RUST_LOC"), env!("RS_FILES"), env!("TEST_COUNT"),
+    );
     (
         axum::http::StatusCode::OK,
         [
             (axum::http::header::CONTENT_TYPE, "application/json"),
             (axum::http::header::CACHE_CONTROL, "public, max-age=3600"),
         ],
-        r#"{"company":"The Cochran Block, LLC","dba":"CochranBlock","url":"https://cochranblock.org","motto":"nah you ain't gonna hack the hacker, my binaries are faster than your scripts, and binaries beats bloatware","owner":"Michael Cochran","role":"Fractional CTO, Zero-Cloud Architect","background":"Army 17C Cyber Operations, 13 years defense and enterprise, USCYBERCOM J38 JMOC-E","disability":"30% service-connected","ein":"41-3835237","uei":"W7X3HAQL9CF9","emma":"SUP1095449","csb":"approved","sdvosb":"certified","sdvosb_cert_date":"2026-05-12","sdvosb_expires":"2029-05-12","sdvosb_authority":"SBA VetCert","sam_gov":"active","cage":"1CQ66","naics":["541511","541512","541519","541715","518210","541330","541690","541990"],"services":{"consulting":"$225/hr","deployment":"$3500 one-time","retainer":"$3500/mo","emergency":"$337.50/hr"},"products":35,"repos":35,"unlicense_repos":35,"crates_published":33,"crates_io":"https://crates.io/users/gotemcoach","crates":["kova-engine","exopack","any-gpu","header-writer","whobelooking"],"binary_size_arm":"8.9MB","binary_size_x86":"13MB","infrastructure_cost":"$10/month","aws_equivalent_annual":"$13184","location":"Dundalk, MD 21222","contact":"mcochran@cochranblock.org","github":"https://github.com/cochranblock","linkedin":"https://www.linkedin.com/in/cochranblock","book":"https://cochranblock.org/book","deploy":"https://cochranblock.org/deploy","total_rust_loc":143763,"total_rs_files":351,"total_tests":1598,"innovations":["NanoSign","P13 Compression Mapping","Sponge Mesh Broadcast","Fish Tank Starfield"],"protocols":["P26 Moonshot Frame","All Rights Reserved","Gemini Man Pattern","Timeline of Invention","Proof of Artifacts","Triple Sims","Assumed Breach Threat Model"],"key_pages":["/","/services","/products","/security","/arch","/about","/govdocs","/tinybinaries","/stats","/openbooks","/source","/vre","/codeskillz","/MOONSHOT_FRAME.md"]}"#,
+        body,
     )
 }
 
@@ -3499,8 +3504,8 @@ pub async fn f73(State(p0): State<Arc<t0>>) -> impl axum::response::IntoResponse
         .map(|d| d.as_secs())
         .unwrap_or(0);
     let json = format!(
-        r#"{{"binary_size_arm":"8.9MB","binary_size_x86":"13MB","monthly_cost":"$10","repos":31,"leads":{},"grants":{},"timestamp":{}}}"#,
-        lead_count, grant_count, uptime
+        r#"{{"binary_size_arm":"8.9MB","binary_size_x86":"13MB","monthly_cost":"$10","repos":{},"leads":{},"grants":{},"timestamp":{}}}"#,
+        REPOS.len(), lead_count, grant_count, uptime
     );
     (
         axum::http::StatusCode::OK,

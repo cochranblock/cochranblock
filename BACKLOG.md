@@ -6,9 +6,9 @@ Prioritized. Top = most important. Max 20. Tags: `[build]` `[test]` `[docs]` `[f
 
 ---
 
-1. `[fix]` `/analytics` zero-data fallback — when CF_TOKEN is absent or Cloudflare returns nothing, the page renders an empty table (0 requests, 0 visitors). A gov buyer sees a dead site. Add a fallback message: "Live data requires Cloudflare integration — contact us for a demo." One conditional in f90, one test assertion.
-2. `[fix]` `/api/summary` and `/api/stats` stale hardcoded counts — `total_tests`, `total_rust_loc`, `total_rs_files` in f89 and `repos`/`binary_size_arm` in f73 are wrong right now. AI crawlers index these. Build.rs can count tests via `cargo test --list` output and embed the real numbers. The "code IS the resume" claim is violated by the resume itself.
-3. `[fix]` Rate-limit the intake and community-grant POST endpoints — no-auth POST to SQLite with no throttle is a DoS surface. In-process per-IP rate limiter: DashMap<IpAddr, Vec<Instant>>, max 3 submits/hr/IP, 429 with Retry-After header. No new dependency needed. Protects the only mutable data store on the server.
+1. ~~`[fix]` `/analytics` zero-data fallback~~ — **DONE** (fallback + tests already present)
+2. ~~`[fix]` `/api/summary` and `/api/stats` stale hardcoded counts~~ — **DONE** (build.rs counts .rs files/LOC/#[test]; f73 uses REPOS.len(); f89 uses env!() macros)
+3. ~~`[fix]` Rate-limit the intake and community-grant POST endpoints~~ — **DONE** (shared OnceLock rate limiter in web/mod.rs, max 3/hr/IP, 429 + Retry-After; covers /deploy, /knox/apply, /community-grant)
 4. `[build]` CAGE code from DLA — blocks all 11 SBIR submissions and federal contracting. Nothing to do but wait. Check SAM.gov weekly.
 5. `[feature]` `/support` page — SLA tiers, response times, bus-factor answer. Guest analysis: "haven't proven the business claim (trust you for 5 years)."
 6. `[feature]` `/security` page — upgrade `/.well-known/security.txt` link target from `/about` to a dedicated security policy. Disclosure process, crypto inventory, NanoSign reference.

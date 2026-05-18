@@ -127,6 +127,15 @@ pub async fn post_form(
         return (StatusCode::OK, Html(confirmed_html(None))).into_response();
     }
 
+    let ip = client_ip(addr, &headers);
+    if let Err(retry) = super::check_rate_limit(&ip) {
+        let retry_val = axum::http::HeaderValue::from_str(&retry.to_string())
+            .unwrap_or(axum::http::HeaderValue::from_static("3600"));
+        let mut hdrs = axum::http::HeaderMap::new();
+        hdrs.insert(axum::http::header::RETRY_AFTER, retry_val);
+        return (StatusCode::TOO_MANY_REQUESTS, hdrs, "Rate limit exceeded. Try again later.").into_response();
+    }
+
     let org_name = f.org_name.trim();
     let ein = f.ein.trim();
     let contact_name = f.contact_name.trim();
@@ -168,7 +177,6 @@ pub async fn post_form(
 
     let id = Uuid::new_v4().to_string();
     let submitted_at = Utc::now().to_rfc3339();
-    let ip = client_ip(addr, &headers);
     let ua = headers
         .get("user-agent")
         .and_then(|v| v.to_str().ok())
