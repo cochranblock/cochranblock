@@ -26,10 +26,20 @@ pub async fn layer(mut req: Request<axum::body::Body>, next: Next) -> Response {
     let host = host.split(':').next().unwrap_or("").trim();
     let path = req.uri().path().to_string();
 
-    // Inbound via subdomain: products.cochranblock.org/ → rewrite to /products
+    // Inbound via subdomain: products.cochranblock.org/anything → rewrite to /products[/anything]
     if let Some(sub) = host.strip_suffix(".cochranblock.org") {
-        if SUBDOMAINS.contains(&sub) && (path == "/" || path.is_empty()) {
-            let canonical = format!("/{}", sub);
+        if SUBDOMAINS.contains(&sub) {
+            let canonical = if path == "/" || path.is_empty() {
+                format!("/{}", sub)
+            } else if path == format!("/{}", sub) || path.starts_with(&format!("/{}/", sub)) {
+                // Already prefixed — form action="/deploy" POSTed from deploy.cochranblock.org,
+                // or confirmation sub-path after a form redirect (e.g. /deploy/confirmed).
+                path.to_string()
+            } else {
+                // Sub-path without subdomain prefix — prepend it.
+                // e.g. /confirmed on deploy.cochranblock.org → /deploy/confirmed
+                format!("/{}{}", sub, path)
+            };
             let pq_str = req.uri().query()
                 .map(|q| format!("{}?{}", canonical, q))
                 .unwrap_or(canonical);

@@ -43,6 +43,7 @@ flowchart LR
 | QA Round 1 | PASS — zero errors, zero warnings, zero debug prints, zero AI slop, all routes 200 |
 | QA Round 2 | PASS — clean build, clippy -D warnings, zero uncommitted changes |
 | QA Round 3 (v1.0.0) | PASS — 8 clippy warnings resolved, zero warnings, clean release build |
+| QA Round 4 (v1.0.3) | PASS — subdomain sub-path rewrite fixed; security.txt Policy → /security; build.rs Cargo.lock rerun directive added |
 
 ## Validation
 

@@ -61,6 +61,18 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-05-26 — v1.0.3: Subdomain Sub-Path Rewrite, security.txt Fix, build.rs Rerun Directive
+
+**What:** Three targeted fixes surfaced during a gap analysis:
+- `src/web/subdomain.rs` — subdomain middleware previously only rewrote `path == "/"`. Sub-paths like `deploy.cochranblock.org/confirmed` fell through to the router with the wrong path and 404'd. Fixed with a three-way branch: root → `/{sub}`, already-prefixed paths pass through unchanged (covers form `action="/deploy"` POSTed from `deploy.cochranblock.org`), unprefixed sub-paths get `/{sub}` prepended.
+- `src/web/pages.rs` `f79` — `security.txt` `Policy:` field pointed to `https://cochranblock.org/about` instead of the actual security page at `https://cochranblock.org/security`. Fixed; RFC 9116 compliance restored.
+- `build.rs` — missing `cargo:rerun-if-changed=Cargo.lock` directive meant dependency version bumps didn't trigger a `build.rs` re-run. `RS_FILES`/`RUST_LOC`/`TEST_COUNT` stats could go stale without a source-file change. Directive added.
+- `docs/src/architecture.md` — Subdomain Dispatch section described only `f2_root`'s special-subdomain dispatch, not the `subdomain::layer` middleware. Rewrote section to accurately document both layers.
+**Why:** Subdomain routing was silently broken for any interaction beyond the root page — form confirmation pages, any deep-linked subdomain URL. The `security.txt` Policy field is machine-read by federal scanner tooling. The `build.rs` gap meant build stats could lie without anyone noticing.
+**Commit:** (this commit)
+**AI Role:** AI identified all three gaps via systematic code review, implemented all fixes, and updated POA + TOI + architecture docs. Human directed the gap prioritization and review scope.
+**Proof:** `deploy.cochranblock.org/confirmed` → 200; `curl https://cochranblock.org/.well-known/security.txt` → `Policy: https://cochranblock.org/security`.
+
 ### 2026-05-17 — v1.0.1: docs/ → planning/, mdBook docs site, GitHub Pages, CHANGELOG removed
 
 **What:** First stable release housekeeping.

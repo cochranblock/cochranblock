@@ -136,7 +136,7 @@ pub async fn f79(State(_p0): State<Arc<t0>>) -> impl axum::response::IntoRespons
             axum::http::header::CONTENT_TYPE,
             "text/plain; charset=utf-8",
         )],
-        "Contact: mailto:mcochran@cochranblock.org\nExpires: 2027-03-27T00:00:00.000Z\nPreferred-Languages: en\nCanonical: https://cochranblock.org/.well-known/security.txt\nPolicy: https://cochranblock.org/about\n",
+        "Contact: mailto:mcochran@cochranblock.org\nExpires: 2027-03-27T00:00:00.000Z\nPreferred-Languages: en\nCanonical: https://cochranblock.org/.well-known/security.txt\nPolicy: https://cochranblock.org/security\n",
     )
 }
 

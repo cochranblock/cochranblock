@@ -22,7 +22,20 @@ No files are read from disk at runtime except the redb database. The binary is f
 
 ## Subdomain Dispatch
 
-Incoming requests are dispatched by `Host` header in `f2_root`:
+Two-layer routing system for 20 subdomains:
+
+### Layer 1 — Middleware (`subdomain::layer`)
+
+Runs on every request before the router sees it. Bidirectional:
+
+- **Inbound**: `products.cochranblock.org/` → rewrites URI to `/products` and continues to the normal router. Sub-paths are also rewritten: `deploy.cochranblock.org/confirmed` → `/deploy/confirmed`. Paths already prefixed by the subdomain name (e.g. form `action="/deploy"` POSTed from `deploy.cochranblock.org`) pass through unchanged.
+- **Outbound**: `cochranblock.org/products` → 301 redirect to `https://products.cochranblock.org`.
+
+The 19 standard subdomains handled by this middleware: `products`, `services`, `about`, `deploy`, `book`, `security`, `arch`, `stats`, `openbooks`, `govdocs`, `codeskillz`, `tinybinaries`, `search`, `handbook`, `changelog`, `downloads`, `source`, `analytics`, `privacy`.
+
+### Layer 2 — `f2_root` Handler Dispatch
+
+Special subdomains that serve their own standalone assets (not path-rewritten):
 
 | Subdomain | Handler |
 |-----------|---------|
