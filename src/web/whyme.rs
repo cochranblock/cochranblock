@@ -25,7 +25,7 @@ const BODY: &str = r##"<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Why hire Michael Cochran — cochranblock.org</title>
-<meta name="description" content="Tattoo artists don't patent their tattoos. Software is the same kind of craft. 32 public repos, 22 shipping Rust, 1,235 verified cargo-test passes, all public domain. The portfolio is the pitch.">
+<meta name="description" content="Tattoo artists don't patent their tattoos. Software is the same kind of craft. 31 public repos, 33 crates.io publications, all public domain. The portfolio is the pitch.">
 <link rel="canonical" href="https://whyme.cochranblock.org/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <style>
@@ -122,7 +122,7 @@ footer.foot a{color:var(--muted);text-decoration:underline}
 
 <h2><span class="small">Receipts · last 60 days · all verifiable</span>What I've shipped</h2>
 <div class="receipts">
-  <div class="stat"><span class="num" id="wm-repos">32</span><span class="label">public repos in the org</span></div>
+  <div class="stat"><span class="num" id="wm-repos">31</span><span class="label">public repos in the org</span></div>
   <div class="stat"><span class="num">22</span><span class="label">of those ship Rust code</span></div>
   <div class="stat"><span class="num" id="wm-crates">22</span><span class="label">crates on crates.io</span></div>
   <div class="stat"><span class="num">1,290</span><span class="label">commits across the portfolio</span></div>

@@ -144,59 +144,53 @@ pub async fn f51() -> Vec<t24> {
         .await,
     );
     v0.push(
-        run("community_grant_200", async {
+        run("community_grant_redirects_legacy", async {
             let v3 = v2
                 .get(format!("{}/community-grant", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
-            let status = v3.status();
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(status.is_success(), format!("status {}", status))?;
             assert_ok(
-                v4.contains("Community Grant") || v4.contains("$500"),
-                "community grant page missing content",
+                v3.status().as_u16() == 308,
+                format!("/community-grant must 308 → /legacy, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("deploy_confirmed_legacy", async {
+        run("deploy_confirmed_redirects_legacy", async {
             let v3 = v2
                 .get(format!("{}/deploy/confirmed", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
-            let status = v3.status();
             assert_ok(
-                status.is_success(),
-                format!("deploy/confirmed must 200, got {}", status),
+                v3.status().as_u16() == 308,
+                format!("deploy/confirmed must 308 → /legacy, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("community_grant_confirmed_200", async {
+        run("community_grant_confirmed_redirects", async {
             let v3 = v2
                 .get(format!("{}/community-grant/confirmed", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
-            let status = v3.status();
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(status.is_success(), format!("status {}", status))?;
             assert_ok(
-                v4.contains("Application Received") || v4.contains("submitted"),
-                "community grant confirmed missing success message",
+                v3.status().as_u16() == 308,
+                format!("/community-grant/confirmed must 308 → /legacy, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("intake_redirects_to_deploy", async {
+        run("intake_redirects", async {
+            // /intake 308 → /deploy → /legacy (chain of redirects; client sees first hop)
             let v3 = v2
                 .get(format!("{}/intake", v1))
                 .send()
@@ -204,40 +198,23 @@ pub async fn f51() -> Vec<t24> {
                 .map_err(|e| e.to_string())?;
             assert_ok(
                 v3.status().as_u16() == 308,
-                format!("/intake must 308 → /deploy, got {}", v3.status()),
+                format!("/intake must 308, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("community_grant_form_fields", async {
-            let v3 = v2
-                .get(format!("{}/community-grant", v1))
-                .send()
-                .await
-                .map_err(|e| e.to_string())?;
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(
-                v4.contains("name=\"org_name\""),
-                "community grant missing org_name",
-            )?;
-            assert_ok(
-                v4.contains("name=\"mission\""),
-                "community grant missing mission",
-            )?;
-            assert_ok(
-                v4.contains("name=\"technical_objective\""),
-                "community grant missing technical_objective",
-            )?;
-            assert_ok(
-                v4.contains("consent_grant") && v4.contains("$500"),
-                "community grant missing $500 consent",
-            )?;
-            assert_ok(
-                v4.contains("action=\"/community-grant\""),
-                "community grant form missing action",
-            )?;
+        run("community_grant_route_redirects", async {
+            // Grant program archived June 2026 — all paths redirect to /legacy
+            for path in &["/community-grant", "/community-grant/confirmed"] {
+                let v3 = v2.get(format!("{}{}", v1, path)).send().await
+                    .map_err(|e| e.to_string())?;
+                assert_ok(
+                    v3.status().as_u16() == 308,
+                    format!("{} must 308 → /legacy, got {}", path, v3.status()),
+                )?;
+            }
             Ok(())
         })
         .await,
@@ -1172,7 +1149,6 @@ pub async fn f51() -> Vec<t24> {
                 ("/products", "Products"),
                 ("/about", "About"),
                 ("/contact", "Contact"),
-                ("/deploy", "Deploy With"),
                 ("/book", "Schedule"),
             ] {
                 let v3 = v2
@@ -1279,7 +1255,8 @@ pub async fn f51() -> Vec<t24> {
     );
     v0.push(
         run("buttons_footer_links_200", async {
-            for path in ["/", "/products", "/about", "/contact", "/deploy", "/book"] {
+            // /deploy archived (308) — removed from this 200-check list
+            for path in ["/", "/products", "/about", "/contact", "/book"] {
                 let v3 = v2
                     .get(format!("{}{}", v1, path))
                     .send()
@@ -1374,115 +1351,79 @@ pub async fn f51() -> Vec<t24> {
         .await,
     );
     v0.push(
-        run("deploy_200", async {
+        run("deploy_redirects_legacy", async {
+            // /deploy archived June 2026 — intake closed, redirects to /legacy
             let v3 = v2
                 .get(format!("{}/deploy", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
-            let status = v3.status();
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(status.is_success(), format!("deploy status {}", status))?;
-            assert_ok(v4.contains("intake-form"), "deploy missing intake-form")?;
             assert_ok(
-                v4.contains("intake-section"),
-                "deploy missing intake-section",
-            )?;
-            assert_ok(v4.contains("intake-doc"), "deploy missing intake-doc")?;
-            Ok(())
-        })
-        .await,
-    );
-    v0.push(
-        run("deploy_form_fields", async {
-            let v3 = v2
-                .get(format!("{}/deploy", v1))
-                .send()
-                .await
-                .map_err(|e| e.to_string())?;
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(
-                v4.contains("name=\"deploy_class\""),
-                "deploy missing deploy_class field",
-            )?;
-            assert_ok(
-                v4.contains("name=\"full_name\""),
-                "deploy missing full_name field",
-            )?;
-            assert_ok(v4.contains("name=\"email\""), "deploy missing email field")?;
-            assert_ok(
-                v4.contains("name=\"consent_fee\""),
-                "deploy missing consent_fee",
-            )?;
-            assert_ok(
-                v4.contains("name=\"consent_hardware\""),
-                "deploy missing consent_hardware",
-            )?;
-            assert_ok(
-                v4.contains("name=\"consent_terms\""),
-                "deploy missing consent_terms",
-            )?;
-            assert_ok(
-                v4.contains("action=\"/deploy\""),
-                "deploy form missing action",
+                v3.status().as_u16() == 308,
+                format!("/deploy must 308 → /legacy, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("deploy_intake_content", async {
+        run("deploy_all_paths_redirect", async {
+            // All /deploy/* paths archived June 2026
+            for path in &["/deploy", "/deploy/confirmed"] {
+                let v3 = v2.get(format!("{}{}", v1, path)).send().await
+                    .map_err(|e| e.to_string())?;
+                assert_ok(
+                    v3.status().as_u16() == 308,
+                    format!("{} must 308 → /legacy, got {}", path, v3.status()),
+                )?;
+            }
+            Ok(())
+        })
+        .await,
+    );
+    v0.push(
+        run("deploy_intake_archived", async {
+            // /deploy is archived — verifies redirect, not form content
             let v3 = v2
                 .get(format!("{}/deploy", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
             assert_ok(
-                v4.contains("Product"),
-                "deploy missing Product class option",
-            )?;
-            assert_ok(
-                v4.contains("Consulting"),
-                "deploy missing Consulting class option",
-            )?;
-            assert_ok(
-                v4.contains("Partnership"),
-                "deploy missing Partnership class option",
-            )?;
-            assert_ok(v4.contains("$3,500"), "deploy missing base price")?;
-            assert_ok(
-                v4.contains("Cloudflare"),
-                "deploy missing Cloudflare reference",
+                v3.status().as_u16() == 308,
+                format!("/deploy archived, must 308, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("deploy_confirmed_200", async {
+        run("deploy_confirmed_archived", async {
             let v3 = v2
                 .get(format!("{}/deploy/confirmed", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
             assert_ok(
-                v3.status().is_success(),
-                format!("deploy/confirmed must 200, got {}", v3.status()),
+                v3.status().as_u16() == 308,
+                format!("deploy/confirmed must 308, got {}", v3.status()),
             )?;
             Ok(())
         })
         .await,
     );
     v0.push(
-        run("deploy_honeypot", async {
+        run("deploy_archived_not_live", async {
+            // /deploy is archived — must not serve a form (308 redirect)
             let v3 = v2
                 .get(format!("{}/deploy", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(v4.contains("website_url"), "deploy missing honeypot field")?;
+            assert_ok(
+                !v3.status().is_success(),
+                "/deploy must not serve a live form (contracting archived)",
+            )?;
             Ok(())
         })
         .await,

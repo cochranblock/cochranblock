@@ -38,8 +38,8 @@ pub fn f1(p0: t0) -> Router {
     let r0 = Router::new()
         .route("/", get(pages::f2_root))
         .route("/products", get(pages::f67))
-        .route("/deploy", get(intake::get_form).post(intake::post_form))
-        .route("/deploy/confirmed", get(intake::confirmed))
+        .route("/deploy", get(|| async { axum::response::Redirect::permanent("/legacy") }))
+        .route("/deploy/confirmed", get(|| async { axum::response::Redirect::permanent("/legacy") }))
         .route("/about", get(pages::f12))
         .route("/contact", get(pages::f13))
         .route("/book", get(booking::get_form).post(booking::post_form))
@@ -47,11 +47,11 @@ pub fn f1(p0: t0) -> Router {
         .route("/downloads", get(pages::f68))
         .route(
             "/community-grant",
-            get(community_grant::get_form).post(community_grant::post_form),
+            get(|| async { axum::response::Redirect::permanent("/legacy") }),
         )
         .route(
             "/community-grant/confirmed",
-            get(community_grant::confirmed),
+            get(|| async { axum::response::Redirect::permanent("/legacy") }),
         )
         // Redirects for old routes
         .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
@@ -105,9 +105,9 @@ pub fn f1(p0: t0) -> Router {
         .route("/rosetta-stone", get(pages::f_railgun_rosetta))
         // LLC legacy history page — sunset notice + honest record of operational period
         .route("/legacy", get(pages::f_legacy))
-        .route("/history", get(pages::f_legacy))
-        .route("/llc", get(pages::f_legacy))
-        .route("/what-was-built", get(pages::f_legacy))
+        .route("/history", get(|| async { axum::response::Redirect::permanent("/legacy") }))
+        .route("/llc", get(|| async { axum::response::Redirect::permanent("/legacy") }))
+        .route("/what-was-built", get(|| async { axum::response::Redirect::permanent("/legacy") }))
         // Investigations — Kearney revolving-door OSINT report + network viz
         .route("/investigations", get(pages::f_investigations))
         .route("/investigations/", get(pages::f_investigations))
