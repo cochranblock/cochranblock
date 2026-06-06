@@ -61,6 +61,24 @@ This document exists because AI-assisted code has a trust problem. Anyone can ge
 
 -->
 
+### 2026-06-06 — Subdomain Cross-Nav Fix, Mail DNS, Resume Truth, Drop Panther-Defense
+
+**What:** Four independent changes shipped in one commit (`271577fb`):
+
+1. **Subdomain cross-navigation routing fix** — `subdomain.rs` `else` branch was prepending the current subdomain to all unrecognized paths. Nav links like `href="/services"` clicked from `products.cochranblock.org` became `/products/services` → 404. Fixed by passing unrecognized paths straight through to the router. Also added trailing-slash handling on the main-domain → subdomain redirect.
+
+2. **Mail DNS via approuter** — ran `approuter dns setup-mail --domain cochranblock.org`. Three Cloudflare DNS records created atomically: `A mail.cochranblock.org → 173.69.182.131` (DNS-only, not proxied — SMTP can't go through CF tunnel), `MX cochranblock.org → mail.cochranblock.org priority 10`, `TXT v=spf1 a:mail.cochranblock.org ~all`. Infrastructure prerequisite for cochranblock-mail deployment.
+
+3. **Resume truth** — removed fabricated "Recursive Academy M.S. Computer Science" credential. Replaced with actual NSA/USCYBERCOM credentials: CNOQC (Feb 2017), Offensive Operations Foundation Course, JCAC (Corry Station, 2014).
+
+4. **Dropped panther-defense** — removed the `/panther-defense` page, all assets (WASM, sprite frames, background PNGs), the `crates/panther-bg` WASM crate, and all asset routes. Clean cut.
+
+**Why:** The subdomain bug silently broke all cross-section navigation for any user arriving via a subdomain URL. Mail DNS is the prerequisite before cochranblock-mail can go live. The resume credential was a liability — federal buyers run background checks. Panther Defense was cut before it shipped.
+
+**Commit:** `271577fb`
+**AI Role:** AI diagnosed the routing bug by tracing the middleware else-branch, implemented all fixes, ran the approuter DNS CLI, and removed the panther-defense page on human direction. Human made every scope decision — what to cut, what to add, what credentials to show.
+**Proof:** `services.cochranblock.org/deploy` → 200 (was 404); `dig MX cochranblock.org` → `mail.cochranblock.org`; `git log --diff-filter=D --name-only` confirms panther-defense deletion.
+
 ### 2026-05-26 — v1.0.3: Subdomain Sub-Path Rewrite, security.txt Fix, build.rs Rerun Directive
 
 **What:** Three targeted fixes surfaced during a gap analysis:
