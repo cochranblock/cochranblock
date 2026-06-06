@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kearney Network - OSINT Visualization</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0d1117;
+  color: #c9d1d9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+#canvas { position: absolute; top: 0; left: 0; }
+#ui {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 10;
+}
+#header {
+  pointer-events: all;
+  background: rgba(13,17,23,0.92);
+  border-bottom: 1px solid #30363d;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+#header h1 {
+  color: #ff6b6b;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+#header .subtitle {
+  color: #6e7681;
+  font-size: 0.72rem;
+}
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: #8b949e;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+.legend-item:hover { background: rgba(255,255,255,0.05); }
+.legend-dot {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+#info-panel {
+  pointer-events: all;
+  position: absolute;
+  right: 0; top: 0;
+  width: 320px;
+  height: 100vh;
+  background: rgba(13,17,23,0.95);
+  border-left: 1px solid #30363d;
+  padding: 16px;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+  z-index: 20;
+}
+#info-panel.open { transform: translateX(0); }
+#info-panel h2 {
+  color: #ffa657;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+#info-panel .node-type {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  display: inline-block;
+}
+#info-panel .detail-block {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 5px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+#info-panel .detail-block h3 {
+  color: #79c0ff;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+}
+#info-panel .flag {
+  color: #ff6b6b;
+  font-size: 0.74rem;
+  padding: 4px 8px;
+  background: rgba(255,107,107,0.1);
+  border-left: 2px solid #ff6b6b;
+  border-radius: 0 3px 3px 0;
+  margin-bottom: 6px;
+}
+#info-panel .connections h3 {
+  color: #a5d6ff;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+#info-panel .connections ul {
+  list-style: none;
+  padding: 0;
+}
+#info-panel .connections li {
+  font-size: 0.76rem;
+  color: #8b949e;
+  padding: 2px 0;
+  border-bottom: 1px solid #21262d;
+  cursor: pointer;
+  transition: color 0.12s;
+}
+#info-panel .connections li:hover { color: #58a6ff; }
+#close-panel {
+  float: right;
+  background: none;
+  border: none;
+  color: #6e7681;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+#close-panel:hover { color: #c9d1d9; }
+#controls {
+  pointer-events: all;
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ctrl-btn {
+  background: rgba(22,27,34,0.9);
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  width: 32px; height: 32px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+.ctrl-btn:hover { background: #21262d; }
+#search-bar {
+  pointer-events: all;
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(22,27,34,0.92);
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #c9d1d9;
+  font-size: 0.82rem;
+  width: 260px;
+  outline: none;
+}
+#search-bar::placeholder { color: #484f58; }
+#search-bar:focus { border-color: #58a6ff; }
+.tooltip {
+  position: absolute;
+  background: rgba(22,27,34,0.97);
+  border: 1px solid #30363d;
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 0.74rem;
+  color: #c9d1d9;
+  pointer-events: none;
+  z-index: 50;
+  max-width: 220px;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="ui">
+  <div id="header">
+    <h1>KEARNEY NETWORK OSINT</h1>
+    <div class="subtitle">2026-06-02 | UNCLASSIFIED - OPEN SOURCE | click node to expand</div>
+    <div class="legend">
+      <div class="legend-item" data-type="person"><div class="legend-dot" style="background:#ff6b6b"></div>Person</div>
+      <div class="legend-item" data-type="company"><div class="legend-dot" style="background:#ffa657"></div>Company</div>
+      <div class="legend-item" data-type="govt"><div class="legend-dot" style="background:#3fb950"></div>Gov't Post</div>
+      <div class="legend-item" data-type="thinktank"><div class="legend-dot" style="background:#79c0ff"></div>Think Tank</div>
+      <div class="legend-item" data-type="vc"><div class="legend-dot" style="background:#d2a8ff"></div>VC/PE</div>
+      <div class="legend-item" data-type="foreign"><div class="legend-dot" style="background:#ffd700"></div>Foreign Entity</div>
+      <div class="legend-item" data-type="legal"><div class="legend-dot" style="background:#f85149"></div>Legal Flag</div>
+    </div>
+  </div>
+  <input id="search-bar" placeholder="Search nodes..." type="text"/>
+  <div id="controls">
+    <button class="ctrl-btn" id="btn-zoom-in" title="Zoom in">+</button>
+    <button class="ctrl-btn" id="btn-zoom-out" title="Zoom out">-</button>
+    <button class="ctrl-btn" id="btn-reset" title="Reset view">⌂</button>
+    <button class="ctrl-btn" id="btn-freeze" title="Freeze/unfreeze">❄</button>
+  </div>
+  <div id="info-panel">
+    <button id="close-panel">✕</button>
+    <div id="panel-content"></div>
+  </div>
+</div>
+<div class="tooltip" id="tooltip" style="display:none"></div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+
+const NODE_TYPES = {
+  person:    { color: '#ff6b6b', borderColor: '#ff9999', label: 'Person' },
+  company:   { color: '#ffa657', borderColor: '#ffc57e', label: 'Company' },
+  govt:      { color: '#3fb950', borderColor: '#6dd68c', label: 'Gov\'t Post' },
+  thinktank: { color: '#79c0ff', borderColor: '#a5d6ff', label: 'Think Tank' },
+  vc:        { color: '#d2a8ff', borderColor: '#e8ceff', label: 'VC/PE' },
+  foreign:   { color: '#ffd700', borderColor: '#ffe566', label: 'Foreign Entity' },
+  legal:     { color: '#f85149', borderColor: '#ff6b6b', label: 'Legal Flag' },
+};
+
+const EDGE_TYPES = {
+  revolving:  { color: '#ff6b6b', width: 2.5, dash: [], label: 'Revolving Door' },
+  board:      { color: '#ffa657', width: 2, dash: [], label: 'Board Seat' },
+  advisory:   { color: '#79c0ff', width: 1.5, dash: [6,4], label: 'Advisory' },
+  ownership:  { color: '#d2a8ff', width: 2, dash: [], label: 'Ownership/Invest' },
+  employment: { color: '#3fb950', width: 1.8, dash: [], label: 'Employment' },
+  lobbying:   { color: '#ffd700', width: 2, dash: [3,3], label: 'Lobbying' },
+  foreign:    { color: '#ffd700', width: 1.8, dash: [8,4], label: 'Foreign Link' },
+};
+
+const nodes = [
+  // ── CORE HUB ─────────────────────────────────────────────
+  { id: 'kearney', label: 'Kearney\n(AT Kearney)', type: 'company', radius: 26,
+    detail: { title: 'Kearney (fmr. A.T. Kearney)', type: 'Global Management Consulting',
+      facts: ['Rebranded January 2020', 'GSA Schedule GS-00F-399GA active thru 9/14/2027',
+              'SOSSEC OTA Consortium member - prototype awards outside FAR',
+              'SeaPort-e Prime: covers all Navy SYSCOMs',
+              '$159M in DoD contracts 2000-2020; $45M peak 2018'],
+      flags: ['FARA: National Transformations Institute advises Saudi/UAE governments - no registration found',
+              '18 USC 1031 predicate: OTA prototype-to-production conversions bypassing competition'],
+    }},
+  { id: 'cohen_group', label: 'The Cohen\nGroup', type: 'company', radius: 22,
+    detail: { title: 'The Cohen Group', type: 'Defense Advisory / Lobbying',
+      facts: ['Founded Jan 2001 by ex-SecDef William Cohen, weeks after leaving office',
+              'Documented clients: Lockheed, GD, UTC, DynCorp, Sikorsky',
+              '$1.035M lobbying fees 2008 (31 clients)',
+              'Saudi Arabia office opened Sept 12, 2018 - 20 days before Khashoggi murder',
+              'Two of four overseas offices in China'],
+      flags: ['Simultaneous SecDef/SASC author + defense client lobbyists = structural conflict institutionalized',
+              'No FARA registration for Saudi Arabia advisory work'],
+    }},
+
+  // ── PEOPLE ───────────────────────────────────────────────
+  { id: 'cohen', label: 'William\nCohen', type: 'person', radius: 18,
+    detail: { title: 'William S. Cohen', type: 'Person - Founder, The Cohen Group',
+      facts: ['SecDef 1997-2001 under Clinton', 'Maine Senator 18 years, SASC member entire tenure',
+              'Co-authored Goldwater-Nichols Act (1986), Nunn-Cohen (USSOCOM), Clinger-Cohen (IT procurement)',
+              'Founded Cohen Group within weeks of leaving DoD, January 2001'],
+      flags: [],
+    }},
+  { id: 'mattis', label: 'James\nMattis', type: 'person', radius: 18,
+    detail: { title: 'Gen. James Mattis (USMC Ret.)', type: 'Person - SecDef 2017-2019',
+      facts: ['CENTCOM Commander 2010-2013', 'SecDef Jan 2017 - Jan 2019; authored 2018 NDS',
+              'GD board: $900K+ 2013-2017, rejoined Aug 7 2019 (inside 2-yr cooling window)',
+              'Cohen Group Senior Counselor Oct 2019 (9 months post-departure)',
+              '~$1.5M+ GD board compensation since 2019 rejoining'],
+      flags: ['18 USC 207(d): GD board + Cohen Group both inside 2-yr window (expires Jan 2021)',
+              'NDAA §1045 broader coverage: lobbying planning/background research also restricted',
+              'UAE/MBZ advisory omitted from OGE 278e; multiple senators said not informed',
+              'Foreign Affairs column Nov 2020 advocating U.S.-China engagement - did not disclose paid Cohen Group (China offices) role'],
+    }},
+  { id: 'ralston', label: 'Joseph\nRalston', type: 'person', radius: 18,
+    detail: { title: 'Gen. Joseph Ralston (USAF Ret.)', type: 'Person - VCJCS / SACEUR',
+      facts: ['VCJCS 1996-2000, SACEUR 2000-2003', 'Retired March 14, 2003',
+              'Same day: Lockheed board nomination + Cohen Group Vice Chairman',
+              'Registered Senate lobbyist 2006: Lockheed, GD, Pratt & Whitney',
+              'CBS News military analyst (undisclosed lobbying) concurrent'],
+      flags: ['Most fully documented simultaneous conflict: Special Envoy for PKK (State Dept) + Lockheed board + Lockheed lobbyist + ATC advisory - all concurrent 2006-2007',
+              'Oct 25 2006: Turkey F-35 decision 26 days after Ankara visit as PKK envoy',
+              'Pentagon Military Analyst Program (NYT Pulitzer 2008): undisclosed defense industry compensation',
+              'No criminal charges despite documented overlap'],
+    }},
+  { id: 'scaparrotti', label: 'Curtis\nScaparrotti', type: 'person', radius: 17,
+    detail: { title: 'Gen. Curtis Scaparrotti (USA Ret.)', type: 'Person - SACEUR / USFK',
+      facts: ['USFK/CFC Commander 2013-2016 (direct ROK MND relationships)',
+              'SACEUR/EUCOM Commander 2016-2019; ERI $3.4B→$4.8B requests',
+              'Retired May 2, 2019; Cohen Group same year',
+              'Cohen Group: undated $800M Korea aerospace sale to ROK MND',
+              'Cohen Group: undated $4B Central/E. European defense equipment sales'],
+      flags: ['18 USC 207 window: May 2019-May 2021 - Korea $800M and Europe $4B deals both undated',
+              'Deliberate absence of dates on case studies = evidence of 207 awareness',
+              'THAAD recommendation (2014) -> Lockheed/Raytheon product -> joined firm advising Korea defense clients'],
+    }},
+  { id: 'sorenson', label: 'Jeff\nSorenson', type: 'person', radius: 17,
+    detail: { title: 'LTG Jeff Sorenson (USA Ret.)', type: 'Person - Army CIO/G-6',
+      facts: ['Army CIO/G-6 controlled all Army IT acquisition', 'Retired 2010, joined AT Kearney immediately',
+              'Led Public Sector/Defense practice ($45M peak 2018)',
+              'Simultaneous: NSA Advisory Board + AT Kearney defense IT consulting',
+              'Now: Executive Director of Operations, The Cohen Group'],
+      flags: ['NSA Advisory Board while advising firms selling to NSA - structural conflict',
+              'Three-firm revolving door: Army CIO -> AT Kearney -> Cohen Group'],
+    }},
+  { id: 'mckean', label: 'Scott\nMcKean', type: 'person', radius: 16,
+    detail: { title: 'LTG Scott McKean (USA Ret.)', type: 'Person - Army Futures Command',
+      facts: ['Deputy CG Army Futures Command + FCC Director: WROTE Army modernization requirements',
+              'Retired Jan 19, 2024', 'SVP Protopia AI, started Sept 2024 (8 months post)',
+              'Protopia holds $1.25M Air Force SBIR contract'],
+      flags: ['LIVE 18 USC 207: 2-yr cooling window open until Jan 2026',
+              'Requirements-writer -> vendor selling into those exact requirements',
+              'Air Force SBIR contract active during restriction window'],
+    }},
+  { id: 'swan', label: 'Bob Swan', type: 'person', radius: 16,
+    detail: { title: 'Bob Swan', type: 'Person - Kearney Board / ex-Intel CEO',
+      facts: ['CFO: Northrop Space, EDS (Ross Perot defense IT), TRW weapons systems',
+              'Intel CFO 2016, CEO Jan 2019-Feb 2021; acquired Mobileye $15.3B',
+              'Kearney Board July 2023 (inaugural external director)',
+              'a16z Operating Partner: advises Anduril, Shield AI',
+              'Micron Board March 2024 (CHIPS Act recipient)'],
+      flags: ['No public disclosure managing: Kearney board (DoD consulting strategy) + a16z (Anduril/Shield AI compete for same DoD contracts) + Micron (CHIPS Act defense semiconductor)',
+              'Advising Kearney during CHIPS Act Senate negotiations; both Intel and Micron became CHIPS recipients after he had boards at both'],
+    }},
+  { id: 'spiegel', label: 'Eric\nSpiegel', type: 'person', radius: 15,
+    detail: { title: 'Eric Spiegel', type: 'Person - Kearney Board / ex-Booz Allen 24yrs',
+      facts: ['Booz Allen Hamilton 24 years (1986-2010); original BAH board member',
+              'Siemens USA CEO 2010-2016; lobbying $4.22M/yr on NDAA/defense energy',
+              'Kearney board (current); Brighton Park Capital senior advisor'],
+      flags: ['Original BAH board member for 24 years, then moved to Kearney board - competitor intel wall question',
+              'BENS member while on defense-consulting-firm board'],
+    }},
+  { id: 'xoual', label: 'Isabelle\nXoual', type: 'person', radius: 14,
+    detail: { title: 'Isabelle Xoual', type: 'Person - Kearney Board / Lazard MD',
+      facts: ['Lazard MD since 1998, co-leads European Capital Goods (defense/aerospace) M&A',
+              'Kearney Board July 2023 (inaugural, alongside Swan)',
+              '100+ M&A transactions including European defense primes (Thales, Safran, Airbus-adjacent)'],
+      flags: ['17 CFR 240.10b-5: Lazard advises same European defense primes Kearney advises on strategy - MNPI crossover structural conflict - live and undisclosed'],
+    }},
+  { id: 'liu', label: 'Alex Liu', type: 'person', radius: 15,
+    detail: { title: 'Alex Liu', type: 'Person - Kearney Chairman 2018-2024',
+      facts: ['Kearney Managing Partner/Chairman 2018-2024; now Chairman Emeritus',
+              'WEF International Business Council 6 years (120+ global CEOs)',
+              'World Government Summit speaker (Abu Dhabi)',
+              'Under Liu: National Transformations Institute established in Dubai'],
+      flags: ['FARA: NTI Dubai explicitly advises Saudi Vision 2030 and UAE Vision 2021 government ministries - no FARA registration found',
+              'Not time-barred; willful failure up to 5 years (22 USC 618)'],
+    }},
+  { id: 'peterson', label: 'Erik\nPeterson', type: 'person', radius: 14,
+    detail: { title: 'Erik Peterson', type: 'Person - GBPC Director / CSIS',
+      facts: ['Prior: Director of Research, Kissinger Associates',
+              'CSIS Senior Adviser (simultaneous with GBPC role)',
+              'GBPC Director: runs Kearney\'s confidential CEO/gov intelligence forum (Chatham House Rule)',
+              'Adviser: USAID, DoD, DOE, State Dept, Joint Chiefs, NDU'],
+      flags: ['Runs closed-room CEO intelligence forum while CSIS adviser - GBPC research flows through CSIS credibility into policy circles with no public accountability'],
+    }},
+  { id: 'horton', label: 'Terry\nHorton', type: 'person', radius: 13,
+    detail: { title: 'Terry Horton', type: 'Person - Kearney Partner',
+      facts: ['Naval Aviator (ret.)', 'Deloitte -> Accenture -> Kearney Partner',
+              'MIT Fellow International Relations 2014-2015',
+              'Documented as Kearney Partner supporting DASD Infrastructure Modernization and Resilience office'],
+      flags: ['18 USC 207: private consultant embedded in OSD policy office previously held - advance visibility into DoD investment priorities before procurement'],
+    }},
+  { id: 'lane', label: 'Doug\nLane', type: 'person', radius: 14,
+    detail: { title: 'Doug Lane', type: 'Person - Capgemini Gov Solutions CEO',
+      facts: ['PwC -> Booz Allen SVP -> AT Kearney Partner -> Capgemini Gov Solutions CEO 2014-2025',
+              'CGS being divested Feb 2026 after ICE "skip tracing" contract triggered European pressure',
+              'Asset includes Alliant 2 GWAC, DHS contracts, Salesforce integrations, health IT'],
+      flags: ['Next move: watch which PE/strategic acquirer he leads to - will signal who bought classified-capable asset'],
+    }},
+  { id: 'roughead', label: 'Gary\nRoughead', type: 'person', radius: 14,
+    detail: { title: 'ADM Gary Roughead (USN Ret.)', type: 'Person - CNO 2007-2011',
+      facts: ['CNO 2007-2011', 'Northrop board ~1 year post-retirement',
+              '$1.6M+ confirmed Northrop compensation (POGO)',
+              'Also: Theranos board (overlapped Mattis); BGR Group advisory'],
+      flags: ['Northrop builds E-2D Hawkeye, Triton UAS - NAVAIR programs he had acquisition authority over as CNO'],
+    }},
+  { id: 'welsh', label: 'Mark\nWelsh', type: 'person', radius: 14,
+    detail: { title: 'GEN Mark Welsh (USAF Ret.)', type: 'Person - CSAF 2012-2016',
+      facts: ['CSAF 2012-2016', 'Northrop board Dec 2016 (5 months post-retirement)',
+              '$342K-$346K/year compensation (NG DEF 14A)',
+              'CSAF when Northrop won LRS-B contract Oct 2015 (B-21 Raider, ~$200B program)'],
+      flags: ['Board join 14 months after B-21 award, 5 months after retirement - sharpest acquisition-to-board pipeline in USAF dataset'],
+    }},
+  { id: 'goldfein', label: 'David\nGoldfein', type: 'person', radius: 14,
+    detail: { title: 'GEN David Goldfein (USAF Ret.)', type: 'Person - CSAF 2016-2020',
+      facts: ['CSAF 2016-2020', 'Blackstone advisory / Draken board Jan 2021 (90 days post)',
+              'Also: Shield Capital advisory, Anduril advisory, WestExec Principal',
+              'Draken: CAFCAS up to $74.5M Seymour Johnson + $28.2M Kelly Field'],
+      flags: ['18 USC 207(d): Draken board inside 2-yr window (expires Oct 2022) - Draken holds contracts from program active during his CSAF tenure',
+              '90-day retirement-to-Blackstone gap is shortest in this dataset outside Burke conviction'],
+    }},
+  { id: 'rogers_adm', label: 'ADM\nRogers', type: 'person', radius: 15,
+    detail: { title: 'ADM Michael S. Rogers (USN Ret.)', type: 'Person - NSA/USCYBERCOM Director',
+      facts: ['Fleet Cyber/10th Fleet 2011-2014; USCYBERCOM/NSA Director 2014-2018',
+              'Post: Brunswick, Claroty, CyberCube, Team8 VC, Ballistic Ventures, Surefire Cyber, CyberCX',
+              'Team8: Israeli VC founded by Unit 8200 (IDF SIGINT) alumni'],
+      flags: ['NSA Director -> Israeli intelligence-alumni VC = former NSA colleagues publicly objected',
+              'FARA: advising Israeli VC founded by IDF intelligence leadership may trigger registration - no FARA filing found',
+              'Simultaneous advisory at multiple competing cybersecurity firms'],
+    }},
+  { id: 'nakasone', label: 'Paul\nNakasone', type: 'person', radius: 14,
+    detail: { title: 'GEN Paul Nakasone (USA Ret.)', type: 'Person - USCYBERCOM/NSA Director',
+      facts: ['ARCYBER 2016-2018; USCYBERCOM/NSA Director 2018-2024',
+              '2024: OpenAI board, Ballistic Ventures advisory, Accrete AI advisory (all immediate post-NSA)'],
+      flags: ['Full span of US offensive/defensive cyber capability going to AI companies with DoD relationships immediately post-retirement - most significant cyber placement in dataset'],
+    }},
+  { id: 'feinberg', label: 'Steve\nFeinberg', type: 'person', radius: 14,
+    detail: { title: 'Steve Feinberg', type: 'Person - DEPSECDEF / Cerberus Founder',
+      facts: ['Cerberus Capital co-founder; confirmed DEPSECDEF March 17, 2025',
+              'Cerberus holds M1 Support Services ($849.1M DoD obligations) + Stratolaunch (hypersonic testing)',
+              'Retained financial relationship with Cerberus during DEPSECDEF role (per OGE)'],
+      flags: ['18 USC 208: personal financial interest in Cerberus portfolio companies during DoD decisions affecting those companies',
+              'Self-policed recusal - scope not public; Senator Warren raised formal objection to SASC'],
+    }},
+  { id: 'moore_vadm', label: 'VADM\nMoore', type: 'person', radius: 14,
+    detail: { title: 'VADM Thomas Moore (USN Ret.)', type: 'Person - NAVSEA Commander',
+      facts: ['NAVSEA Commander 2016-2020 (signed HII and GD shipbuilding contracts)',
+              'HII VP Nuclear Operations Jan 2021 (7 months post-retirement)',
+              'Now HII SVP Government Relations'],
+      flags: ['Single most direct acquisition-to-company pipeline in Navy dataset: commanded HII contract authority -> inside HII within 7 months',
+              'HII Chairman Donald (certified nuclear ships) + Moore (bought ships) simultaneously embedded at HII'],
+    }},
+
+  // ── COMPANIES ─────────────────────────────────────────────
+  { id: 'lockheed', label: 'Lockheed\nMartin', type: 'company', radius: 20,
+    detail: { title: 'Lockheed Martin', type: 'Defense Prime (NYSE: LMT)',
+      facts: ['#1 defense contractor by revenue (~$65B FY2023)',
+              'F-35, F-22, C-130, THAAD, Javelin (JV w/ RTX), Space systems',
+              'Cohen Group documented client',
+              'Ralston board 2003-2019 (16 years, $6M+ estimated compensation)',
+              'Dunford board: $356-365K/year'],
+      flags: ['Ralston simultaneously Lockheed lobbyist + board + State Dept envoy (2006-2007) - most documented conflict',
+              'Wilson (SecAF) elected to board May 2024; Carlson (NRO Director) joined 2015'],
+    }},
+  { id: 'gd', label: 'General\nDynamics', type: 'company', radius: 19,
+    detail: { title: 'General Dynamics (NYSE: GDC)', type: 'Defense Prime',
+      facts: ['#5 defense contractor (~$15B annual contracts)',
+              'Land systems, submarines (Electric Boat), Bath Iron Works shipbuilding',
+              'Mattis board 2013-2017, rejoined Aug 7 2019 (~$1.5M+ total comp)',
+              'Haney (fmr STRATCOM) board March 2019',
+              'Kearney is Cohen Group client per documented deal flows'],
+      flags: ['Mattis rejoined inside 2-year cooling window (Jan 2019 -> Aug 2019 = 7 months)'],
+    }},
+  { id: 'northrop', label: 'Northrop\nGrumman', type: 'company', radius: 19,
+    detail: { title: 'Northrop Grumman (NYSE: NOC)', type: 'Defense Prime',
+      facts: ['B-21 Raider ($200B program), E-2D Hawkeye, Triton UAS, GBSD',
+              'Welsh board Dec 2016 (5 months post-CSAF): $342-346K/year',
+              'Roughead board: $1.6M+ confirmed total (POGO)',
+              'Fleet: N37NG, N38NG (G550s), N23NG (Sovereign), N99NG (testbed)'],
+      flags: ['Welsh was CSAF when Northrop won LRS-B (Oct 2015); joined board 14 months later'],
+    }},
+  { id: 'rtx', label: 'RTX\n(Raytheon)', type: 'company', radius: 18,
+    detail: { title: 'RTX Corporation / Raytheon (NYSE: RTX)', type: 'Defense Prime',
+      facts: ['AMRAAM, AIM-9X, Patriot, Stinger, JDAM electronics, Javelin JV',
+              'Pawlikowski board (direct post-AFMC command): $338,997/year',
+              'Fleet: N48RT, N46RT (G600s), N67RT (Falcon 2000EX)'],
+      flags: ['Pawlikowski commanded AFMC (managed all RTX missile contracts) -> joined RTX board directly'],
+    }},
+  { id: 'hii', label: 'HII\n(Huntington)', type: 'company', radius: 17,
+    detail: { title: 'Huntington Ingalls Industries (NYSE: HII)', type: 'Defense Prime',
+      facts: ['Only builder of U.S. Navy supercarriers and a major submarine builder',
+              'ADM Donald (Chairman): last role NNP Director (certified HII nuclear ships)',
+              'VADM Moore (SVP Gov Relations): fmr NAVSEA (signed HII shipbuilding contracts)',
+              'Bilden: HII board 2017-2022, then co-founded Shield Capital (L3Harris strategic partner)'],
+      flags: ['Donald + Moore simultaneously embedded at builder of ships they respectively certified and purchased - textbook regulatory capture'],
+    }},
+  { id: 'boeing', label: 'Boeing\n(Defense)', type: 'company', radius: 16,
+    detail: { title: 'Boeing Defense, Space & Security', type: 'Defense Prime',
+      facts: ['F/A-18, P-8, KC-46, CH-47, F-47 NGAD (awarded 2025)',
+              'Richardson (CNO) board Oct 2019 (2 months post-retirement)',
+              'Richardson also: BWX Technologies board (Naval Nuclear Propulsion chain)',
+              'Wilson (SecAF) on board; Watch: Duke Richardson (AFMC, oversaw F-47 award)'],
+      flags: ['Richardson CNO departure to Boeing: 2-month gap inside 2-year cooling window'],
+    }},
+  { id: 'bah', label: 'Booz Allen\nHamilton', type: 'company', radius: 17,
+    detail: { title: 'Booz Allen Hamilton (NYSE: BAH)', type: 'Defense / IC Consulting',
+      facts: ['#1 government IT consulting firm by contract volume',
+              'Spiegel: original BAH board member 24 years before joining Kearney board',
+              'Fogarty (ARCYBER): BAH 6 months post-retirement',
+              'Garciga (Army CIO): BAH 7 DAYS post-resignation (fastest revolving door in dataset)',
+              'Bogdan (F-35 JPO): BAH SVP (arm\'s-length path chosen per public reporting)'],
+      flags: ['Garciga 7-day gap is fastest documented revolving door in entire dataset - no ethics clearance process could have completed in 7 days'],
+    }},
+  { id: 'westexec', label: 'WestExec\nAdvisors', type: 'company', radius: 15,
+    detail: { title: 'WestExec Advisors', type: 'Defense Advisory (private)',
+      facts: ['Co-founded by Michèle Flournoy and Antony Blinken (both became Biden admins)',
+              'Principals: Goldfein (CSAF), Holmes (ACC), Kelly (ACC), VanHerck (NORTHCOM), Hecker (USAFE)',
+              'Clients: undisclosed',
+              'Advises corporate clients on DoD policy, acquisition, market access'],
+      flags: ['Air Force equivalent of Cohen Group: collects CSAF and major combatant commanders - clients never disclosed publicly'],
+    }},
+  { id: 'capgemini', label: 'Capgemini\nGov Solutions', type: 'company', radius: 14,
+    detail: { title: 'Capgemini Government Solutions', type: 'IT Services / Being Divested',
+      facts: ['Lane (AT Kearney -> CGS CEO 2014-2025)',
+              'Being divested by French parent after ICE contract political pressure Feb 2026',
+              'Asset: Alliant 2 GWAC, DHS contracts, Salesforce integrations, health IT'],
+      flags: ['Divestiture buyer will reveal next landing zone for classified-capable federal IT asset'],
+    }},
+  { id: 'protopia', label: 'Protopia\nAI', type: 'company', radius: 12,
+    detail: { title: 'Protopia AI', type: 'AI Startup / DoD Customer',
+      facts: ['Raised $25M (ATX VP, Samsung NEXT, DNX, AWS, BAT VC, Galaxy Interactive)',
+              'McKean: SVP September 2024', '$1.25M Air Force SBIR contract'],
+      flags: ['LIVE legal exposure: McKean directing Air Force business inside his 18 USC 207 restriction window (expires Jan 2026)'],
+    }},
+  { id: 'draken', label: 'Draken\nInternational', type: 'company', radius: 13,
+    detail: { title: 'Draken International', type: 'Adversary Air (CAFCAS)',
+      facts: ['Provides contracted adversary air (red air) training to USAF',
+              'Blackstone acquired Draken 2019',
+              'CAFCAS: up to $74.5M Seymour Johnson AFB; $28.2M Kelly Field',
+              'Goldfein board Jan 2021 (90 days post-CSAF retirement)'],
+      flags: ['Goldfein inside 2-year cooling window when joining board of company holding contracts from program under his CSAF authority'],
+    }},
+
+  // ── VC / PE ───────────────────────────────────────────────
+  { id: 'a16z', label: 'a16z', type: 'vc', radius: 17,
+    detail: { title: 'Andreessen Horowitz (a16z)', type: 'VC - Defense Tech',
+      facts: ['Swan: Operating Partner (advises Anduril, Shield AI)',
+              '"American Dynamism" portfolio: Anduril, Shield AI, etc.',
+              '$115M 2026 midterm political spending: Fairshake ($47.5M crypto PAC), Leading the Future AI ($50M)',
+              'Top U.S. political donor 2026 cycle'],
+      flags: ['Swan sits at: Kearney board + a16z + Micron - three defense-adjacent roles with no public conflict management disclosure'],
+    }},
+  { id: 'shield_cap', label: 'Shield\nCapital', type: 'vc', radius: 14,
+    detail: { title: 'Shield Capital', type: 'Defense VC',
+      facts: ['Fund I: $186M (SEC Form D 2021)', 'Fund II: $161.6M (Form D 2023)',
+              'Bilden (co-founder): fmr HII board 2017-2022',
+              'Raj Shah (co-founder): fmr DIUx Managing Partner 2016-2018',
+              'L3Harris formal strategic partnership March 2022'],
+      flags: ['Bilden left HII board -> immediately co-founded defense VC -> L3Harris strategic partner - HII board access converted to commercial deal flow'],
+    }},
+  { id: 'blackstone', label: 'Blackstone', type: 'vc', radius: 15,
+    detail: { title: 'Blackstone', type: 'PE / Defense Portfolio',
+      facts: ['Acquired Draken International 2019 (holds USAF CAFCAS contracts)',
+              'Goldfein advisory/Draken board Jan 2021',
+              'Raymond (Space Force CSO): Cerberus senior MD (different firm but same PE model)'],
+      flags: ['Draken CAFCAS contracts held by PE firm whose board includes retired CSAF who oversaw the program'],
+    }},
+  { id: 'cerberus', label: 'Cerberus\nCapital', type: 'vc', radius: 15,
+    detail: { title: 'Cerberus Capital Management', type: 'PE / Defense',
+      facts: ['Feinberg co-founder; Feinberg is now DEPSECDEF',
+              'M1 Support Services: $849.1M DoD prime obligations',
+              'Stratolaunch: DoD MACH-TB hypersonic testing (classified contract values)',
+              'DynCorp: historical ownership 2010-2014'],
+      flags: ['Active DoD contracts held by PE fund whose founder is sitting #2 at DoD - 18 USC 208 recusal required; self-policed'],
+    }},
+  { id: 'team8', label: 'Team8\nVC', type: 'vc', radius: 13,
+    detail: { title: 'Team8', type: 'Israeli Cyber VC',
+      facts: ['Founded by IDF Unit 8200 (SIGINT) alumni: Nadav Zafrir (fmr Unit 8200 commander)',
+              'Rogers (NSA/USCYBERCOM): Strategic Advisor since 2018',
+              'Portfolio: Claroty (OT security), Axis Security, Cymulate (breach simulation)'],
+      flags: ['NSA Director -> Israeli intel-alumni VC: FARA issue (no registration found); former NSA officials publicly objected',
+              'NSA collection methodologies/targets as commercial differentiator at Israeli VC'],
+    }},
+  { id: 'ballistic', label: 'Ballistic\nVentures', type: 'vc', radius: 12,
+    detail: { title: 'Ballistic Ventures', type: 'Cybersecurity VC',
+      facts: ['Rogers (NSA/USCYBERCOM) advisory', 'Nakasone advisory (post-NSA 2024)',
+              'Portfolio: Reveal ("tactical AI without cloud, comms, or compromise"), UForce (autonomous defense systems)'],
+      flags: ['Two consecutive NSA Directors in advisory ecosystem; Reveal pitch is direct NSA/CYBERCOM capabilities-gap appeal'],
+    }},
+
+  // ── GOVERNMENT ────────────────────────────────────────────
+  { id: 'afc', label: 'Army Futures\nCommand', type: 'govt', radius: 16,
+    detail: { title: 'Army Futures Command', type: 'DoD - Requirements Writing',
+      facts: ['Writes all Army modernization requirements for the next 20 years',
+              'McKean: Deputy CG + FCC Director (wrote requirements)',
+              'Murray (first CG): joined Vita Inclinata + Capewell within 6 months',
+              'Gallagher (Network CFT Director): CACI SVP immediately'],
+      flags: ['Requirements office = highest-conflict revolving door: you define what the Army buys, then join the company that builds it'],
+    }},
+  { id: 'army_cio', label: 'Army CIO\n/G-6', type: 'govt', radius: 15,
+    detail: { title: 'Army CIO/G-6', type: 'DoD - IT Acquisition Authority',
+      facts: ['Controls all Army IT acquisition spending',
+              '6 consecutive holders went directly to defense IT contractors (2010-2026)',
+              'Sorenson -> AT Kearney (immediate), Garciga -> Booz Allen (7 days)',
+              '100% placement rate into Army IT industry since 2010'],
+      flags: ['Highest-conflict revolving door position in Army - 100% industry placement rate documented'],
+    }},
+  { id: 'navsea', label: 'NAVSEA', type: 'govt', radius: 15,
+    detail: { title: 'NAVSEA', type: 'DoD - Naval Sea Systems Command',
+      facts: ['Manages all Navy shipbuilding: $55B+ annually',
+              'Moore (NAVSEA Commander) -> HII (7 months)',
+              'AT Kearney PS&D: $45M peak 2018, SeaPort-e prime for all Navy SYSCOMs'],
+      flags: ['Moore commanded HII contract authority then joined HII - no documented ethics investigation'],
+    }},
+  { id: 'secdef', label: 'SecDef\nOffice', type: 'govt', radius: 14,
+    detail: { title: 'Office of the Secretary of Defense', type: 'DoD - Top Level',
+      facts: ['Mattis: SecDef 2017-2019 (authored 2018 NDS)',
+              'Horton (Kearney): embedded at DASD Infrastructure Modernization office',
+              'Feinberg: current DEPSECDEF (retained Cerberus financial relationship)'],
+      flags: ['Private consultant embedded in OSD policy office (Horton) = advance visibility into investment priorities before procurement'],
+    }},
+  { id: 'nsa_cybercom', label: 'NSA /\nCYBERCOM', type: 'govt', radius: 15,
+    detail: { title: 'NSA / USCYBERCOM', type: 'Intelligence / Cyber Command',
+      facts: ['Dual-hatted: same officer commands both since 2010',
+              'Rogers: Director 2014-2018 -> Team8, Ballistic Ventures, CyberCube, Claroty (same year retirement)',
+              'Nakasone: Director 2018-2024 -> OpenAI, Ballistic Ventures, Accrete AI (same year retirement)',
+              'Sorenson: NSA Advisory Board while AT Kearney defense IT consulting'],
+      flags: ['Two consecutive NSA/CYBERCOM directors immediately at commercial cyber firms - full span of US offensive cyber capabilities converted to commercial advantage'],
+    }},
+  { id: 'diux', label: 'DIUx /\nDIU', type: 'govt', radius: 12,
+    detail: { title: 'Defense Innovation Unit (fmr DIUx)', type: 'DoD - Silicon Valley Bridge',
+      facts: ['Raj Shah: Managing Partner 2016-2018 (first MP)',
+              'Shah co-founded Shield Capital 2021 with Bilden (fmr HII board)',
+              'DIU connects DoD with Silicon Valley - alumni are the most valuable VC LPs in defense tech'],
+      flags: ['DIU alumni create direct DoD-to-VC pipeline: institutional knowledge of DoD gaps used to position portfolio companies for contracts'],
+    }},
+
+  // ── THINK TANKS ───────────────────────────────────────────
+  { id: 'gbpc', label: 'GBPC\n(Kearney)', type: 'thinktank', radius: 16,
+    detail: { title: 'Global Business Policy Council (GBPC)', type: 'Private Intelligence Forum',
+      facts: ['Kearney\'s confidential CEO/government intelligence service',
+              'Annual retreats: 60-80 leaders, Chatham House Rule (no attribution)',
+              'Known retreat locations: Morocco 2013, Mallorca 2019, Singapore 2022, Cannes 2023, Big Sky MT 2024, Puglia Italy 2025',
+              'GBPC staff: Paul Laudicina (fmr Biden transition team + Biden legislative director), Rudolph Lohmeyer (fmr State Dept Strategic Planning)',
+              'Peterson (CSIS): simultaneously directs GBPC'],
+      flags: ['GBPC research flows through CSIS credibility into policy with no public accountability',
+              'No leaked attendee lists in any OSINT source - Chatham House Rule has held completely'],
+    }},
+  { id: 'csis', label: 'CSIS', type: 'thinktank', radius: 15,
+    detail: { title: 'Center for Strategic & International Studies', type: 'Think Tank (DC)',
+      facts: ['Peterson: Senior Adviser (simultaneous with GBPC Director role)',
+              'Ralston: Non-resident Senior Adviser March 2003-present',
+              'Henry Kissinger advisory; deep DoD/State connections'],
+      flags: ['CSIS credibility used to launder GBPC private intelligence into policy-influencing outputs'],
+    }},
+  { id: 'bens', label: 'BENS', type: 'thinktank', radius: 12,
+    detail: { title: 'Business Executives for National Security (BENS)', type: 'Think Tank',
+      facts: ['Spiegel: confirmed member while on Kearney board',
+              'Schwartz (CSAF): BENS CEO post-retirement',
+              'Conduit between defense industry executives and national security establishment'],
+      flags: ['Kearney board member in BENS = channel from Kearney corporate intelligence to national security policymakers'],
+    }},
+  { id: 'kissinger', label: 'Kissinger\nAssociates', type: 'thinktank', radius: 13,
+    detail: { title: 'Kissinger Associates', type: 'Strategic Advisory (private)',
+      facts: ['Peterson: Director of Research before GBPC/CSIS',
+              'Henry Kissinger founded; specialized in geopolitical advisory for corporations',
+              'Model is the direct template for GBPC: closed-room CEO-government intelligence under Chatham House Rule'],
+      flags: ['Peterson carried the Kissinger Associates closed-room model directly into Kearney GBPC architecture'],
+    }},
+
+  // ── FOREIGN ───────────────────────────────────────────────
+  { id: 'saudi', label: 'Saudi Arabia\n/ Vision 2030', type: 'foreign', radius: 16,
+    detail: { title: 'Saudi Arabia Government / Vision 2030', type: 'Foreign Principal',
+      facts: ['Kearney NTI Dubai advises Saudi government ministries on Vision 2030',
+              'Cohen Group: Saudi office opened Sept 12, 2018',
+              'Ralston: American Turkish Council advisory (Turkey-Saudi alignment interests)',
+              'Mattis: UAE advisory work (Saudi-UAE coalition in Yemen)'],
+      flags: ['No FARA registrations found for Kearney (Liu) or Cohen Group Saudi advisory work - both may constitute acting as agent of foreign principal',
+              'Willful non-registration: up to 5 years (22 USC 618)'],
+    }},
+  { id: 'uae', label: 'UAE\nGovernment', type: 'foreign', radius: 14,
+    detail: { title: 'United Arab Emirates Government', type: 'Foreign Principal',
+      facts: ['Kearney NTI Dubai advises UAE Vision 2021 government ministries',
+              'Mattis: approved as military advisor to MBZ (UAE ruler) 2015-2016 under 37 USC 908',
+              'Mattis then became SecDef overseeing U.S. support to Saudi-UAE Yemen coalition'],
+      flags: ['Mattis UAE advisory not on OGE 278e, not disclosed to multiple senators - confirmed omission per WaPo Feb 2024'],
+    }},
+  { id: 'turkey', label: 'Turkey /\nNATO', type: 'foreign', radius: 13,
+    detail: { title: 'Turkey / NATO Alliance', type: 'Foreign Policy Context',
+      facts: ['Ralston: PKK Special Envoy Sept 2006 - July 2007 while simultaneously Lockheed lobbyist + board',
+              'Oct 2006: F-16 ($2.9B) and F-35 decisions during Ralston envoy period',
+              'Scaparrotti: F-35/S-400 testimony (March 2019) -> DoD suspension April 2019 -> Poland F-35 $4.6B Jan 2020'],
+      flags: ['Turkey aircraft decisions tracked to both Ralston envoy role and Scaparrotti SACEUR period - two different generals, same pattern, different decades'],
+    }},
+  { id: 'israel', label: 'Israel\n(Intel/Team8)', type: 'foreign', radius: 13,
+    detail: { title: 'Israeli Defense Establishment', type: 'Foreign Connection',
+      facts: ['Swan: acquired Mobileye $15.3B under Intel (IDF autonomous vehicle/dual-use tech)',
+              'Rogers: Strategic Advisor at Team8 VC (founded by Unit 8200 / IDF SIGINT alumni)',
+              'Team8 Zafrir: former Unit 8200 commander'],
+      flags: ['NSA Director at Israeli intelligence-alumni VC = potential FARA issue + NSA collection methodology as commercial differentiator'],
+    }},
+
+  // ── LEGAL FLAGS ───────────────────────────────────────────
+  { id: 'flag_207', label: '18 USC 207\nRevolving Door', type: 'legal', radius: 14,
+    detail: { title: '18 USC 207 - Post-Employment Restrictions', type: 'Legal Exposure',
+      facts: ['Prohibits representational communications with former agency for 1-2 years post-departure',
+              '207(c)/(d) "very senior" (O-9+): 2-year window',
+              'McKean: LIVE until Jan 2026 (Protopia/Air Force SBIR)',
+              'Mattis: expired Dec 2020; board join and Cohen Group were inside window while it was open',
+              'Goldfein: Draken board inside Oct 2022 expiry'],
+      flags: ['Criminal statute; self-reported; DoD does not systematically track post-retirement employment against former acquisition authorities'],
+    }},
+  { id: 'flag_fara', label: 'FARA\n22 USC 611', type: 'legal', radius: 13,
+    detail: { title: 'FARA - Foreign Agents Registration Act', type: 'Legal Exposure',
+      facts: ['Requires registration when acting as agent of foreign principal',
+              'Willful failure: up to 5 years (22 USC 618)',
+              'Not time-barred as long as conduct continues',
+              'Kearney/Liu: NTI advising Saudi/UAE governments - no registration',
+              'Rogers: Team8 (Israeli entity) advisory - no registration',
+              'Cohen Group: Saudi office advisory - no registration'],
+      flags: ['Three separate FARA exposure nodes identified; none have registrations in public FARA database'],
+    }},
+];
+
+const links = [
+  // ── KEARNEY CORE ─────────────────────────────────────────
+  { source: 'kearney', target: 'sorenson', type: 'employment', label: 'Led defense practice 2010-2013+' },
+  { source: 'kearney', target: 'horton', type: 'employment', label: 'Partner embedded OSD office' },
+  { source: 'kearney', target: 'liu', type: 'employment', label: 'Chairman 2018-2024' },
+  { source: 'kearney', target: 'peterson', type: 'employment', label: 'GBPC Director' },
+  { source: 'kearney', target: 'lane', type: 'employment', label: 'Partner before CGS' },
+  { source: 'kearney', target: 'swan', type: 'board', label: 'Board July 2023' },
+  { source: 'kearney', target: 'xoual', type: 'board', label: 'Board July 2023' },
+  { source: 'kearney', target: 'spiegel', type: 'board', label: 'Board member' },
+  { source: 'kearney', target: 'gbpc', type: 'employment', label: 'Operates GBPC' },
+  { source: 'kearney', target: 'navsea', type: 'employment', label: '$45M contracts 2018 peak' },
+  { source: 'kearney', target: 'saudi', type: 'foreign', label: 'NTI Dubai; no FARA' },
+  { source: 'kearney', target: 'uae', type: 'foreign', label: 'NTI Dubai; no FARA' },
+  { source: 'kearney', target: 'flag_fara', type: 'legal', label: 'FARA exposure' },
+  { source: 'kearney', target: 'capgemini', type: 'employment', label: 'Lane pipeline' },
+
+  // ── COHEN GROUP CORE ─────────────────────────────────────
+  { source: 'cohen_group', target: 'cohen', type: 'employment', label: 'Founded; CEO' },
+  { source: 'cohen_group', target: 'mattis', type: 'employment', label: 'Senior Counselor Oct 2019' },
+  { source: 'cohen_group', target: 'ralston', type: 'employment', label: 'Vice Chairman 2003-present' },
+  { source: 'cohen_group', target: 'scaparrotti', type: 'employment', label: 'Senior Counselor 2019' },
+  { source: 'cohen_group', target: 'sorenson', type: 'employment', label: 'Exec Dir Operations' },
+  { source: 'cohen_group', target: 'lockheed', type: 'lobbying', label: 'Documented client' },
+  { source: 'cohen_group', target: 'gd', type: 'lobbying', label: 'Documented client' },
+  { source: 'cohen_group', target: 'saudi', type: 'foreign', label: 'Saudi office Sept 2018' },
+
+  // ── KEARNEY -> COHEN GROUP PIPELINE ─────────────────────
+  { source: 'sorenson', target: 'army_cio', type: 'revolving', label: 'Army CIO/G-6 (ret.)' },
+  { source: 'sorenson', target: 'kearney', type: 'revolving', label: 'AT Kearney 2010-2013+' },
+  { source: 'sorenson', target: 'cohen_group', type: 'revolving', label: 'Cohen Group current' },
+  { source: 'sorenson', target: 'nsa_cybercom', type: 'advisory', label: 'NSA Advisory Board (while at AT K)' },
+
+  // ── BOARD CONNECTIONS ─────────────────────────────────────
+  { source: 'mattis', target: 'gd', type: 'board', label: 'Board 2013-17, 2019-present ($1.5M+)' },
+  { source: 'mattis', target: 'secdef', type: 'revolving', label: 'SecDef 2017-2019; authored NDS' },
+  { source: 'ralston', target: 'lockheed', type: 'board', label: 'Board 2003-2019 (16 yrs)' },
+  { source: 'ralston', target: 'lockheed', type: 'lobbying', label: 'Registered Senate lobbyist 2006' },
+  { source: 'ralston', target: 'turkey', type: 'advisory', label: 'PKK Special Envoy 2006-07' },
+  { source: 'ralston', target: 'csis', type: 'advisory', label: 'Non-resident Sr. Adviser' },
+  { source: 'roughead', target: 'northrop', type: 'board', label: 'Board ~1yr post-CNO ($1.6M+)' },
+  { source: 'welsh', target: 'northrop', type: 'board', label: 'Board Dec 2016 ($342-346K/yr)' },
+  { source: 'goldfein', target: 'draken', type: 'board', label: 'Board Jan 2021 (90-day gap)' },
+  { source: 'goldfein', target: 'blackstone', type: 'advisory', label: 'Portfolio advisory' },
+  { source: 'goldfein', target: 'westexec', type: 'employment', label: 'Principal' },
+  { source: 'goldfein', target: 'a16z', type: 'advisory', label: 'Anduril advisory' },
+  { source: 'moore_vadm', target: 'hii', type: 'revolving', label: 'SVP 7 months post-NAVSEA' },
+  { source: 'moore_vadm', target: 'navsea', type: 'revolving', label: 'NAVSEA Commander 2016-2020' },
+  { source: 'nakasone', target: 'nsa_cybercom', type: 'revolving', label: 'Director 2018-2024' },
+  { source: 'nakasone', target: 'ballistic', type: 'advisory', label: 'Advisory 2024 (immediate)' },
+  { source: 'rogers_adm', target: 'nsa_cybercom', type: 'revolving', label: 'Director 2014-2018' },
+  { source: 'rogers_adm', target: 'team8', type: 'advisory', label: 'Strategic Adviser 2018' },
+  { source: 'rogers_adm', target: 'ballistic', type: 'advisory', label: 'Advisory' },
+  { source: 'rogers_adm', target: 'flag_fara', type: 'legal', label: 'Team8 FARA issue' },
+  { source: 'feinberg', target: 'cerberus', type: 'ownership', label: 'Co-founder; retained holdings' },
+  { source: 'feinberg', target: 'secdef', type: 'revolving', label: 'DEPSECDEF March 2025' },
+  { source: 'scaparrotti', target: 'flag_207', type: 'legal', label: 'Korea/Europe deals possibly inside window' },
+  { source: 'mattis', target: 'flag_207', type: 'legal', label: 'GD board + Cohen Group inside 2-yr window' },
+  { source: 'mckean', target: 'flag_207', type: 'legal', label: 'LIVE: window open until Jan 2026' },
+
+  // ── THINK TANK CONNECTIONS ────────────────────────────────
+  { source: 'peterson', target: 'gbpc', type: 'employment', label: 'Director' },
+  { source: 'peterson', target: 'csis', type: 'advisory', label: 'Sr. Adviser (simultaneous)' },
+  { source: 'peterson', target: 'kissinger', type: 'employment', label: 'Prior: Dir. of Research' },
+  { source: 'gbpc', target: 'csis', type: 'advisory', label: 'Research laundered through CSIS credibility' },
+  { source: 'spiegel', target: 'bens', type: 'advisory', label: 'BENS member' },
+  { source: 'spiegel', target: 'bah', type: 'employment', label: 'BAH 24 yrs; original board member' },
+
+  // ── VC NETWORK ────────────────────────────────────────────
+  { source: 'swan', target: 'a16z', type: 'employment', label: 'Operating Partner' },
+  { source: 'swan', target: 'northrop', type: 'employment', label: 'Prior: CFO Northrop Space' },
+  { source: 'a16z', target: 'shield_cap', type: 'advisory', label: 'Parallel defense VC ecosystem' },
+  { source: 'shield_cap', target: 'hii', type: 'board', label: 'Bilden: HII board 2017-2022' },
+  { source: 'shield_cap', target: 'diux', type: 'revolving', label: 'Raj Shah: DIUx Managing Partner' },
+  { source: 'blackstone', target: 'draken', type: 'ownership', label: 'Acquired 2019' },
+  { source: 'cerberus', target: 'feinberg', type: 'ownership', label: 'Co-founded' },
+  { source: 'team8', target: 'israel', type: 'foreign', label: 'Unit 8200 alumni founded' },
+  { source: 'ballistic', target: 'nsa_cybercom', type: 'advisory', label: 'Portfolio targets NSA capability gaps' },
+
+  // ── ARMY PIPELINE ─────────────────────────────────────────
+  { source: 'mckean', target: 'afc', type: 'revolving', label: 'Deputy CG + FCC Director' },
+  { source: 'mckean', target: 'protopia', type: 'revolving', label: 'SVP Sept 2024 (8-month gap)' },
+  { source: 'army_cio', target: 'bah', type: 'revolving', label: 'Garciga: 7-day gap (2026)' },
+  { source: 'afc', target: 'bah', type: 'revolving', label: 'Multiple AFC officers to BAH' },
+
+  // ── NAVY PIPELINE ─────────────────────────────────────────
+  { source: 'navsea', target: 'hii', type: 'revolving', label: 'Moore: 7-month gap' },
+  { source: 'navsea', target: 'gd', type: 'revolving', label: 'GD Electric Boat shipbuilding' },
+
+  // ── AIR FORCE PIPELINE ────────────────────────────────────
+  { source: 'goldfein', target: 'westexec', type: 'employment', label: 'CSAF -> WestExec' },
+  { source: 'rtx', target: 'gd', type: 'advisory', label: 'Parallel prime contractors' },
+
+  // ── FOREIGN ───────────────────────────────────────────────
+  { source: 'mattis', target: 'uae', type: 'advisory', label: 'Advisor to MBZ 2015-16 (undisclosed OGE)' },
+  { source: 'liu', target: 'saudi', type: 'foreign', label: 'NTI: Vision 2030 advisory' },
+  { source: 'liu', target: 'uae', type: 'foreign', label: 'NTI: Vision 2021 advisory' },
+  { source: 'swan', target: 'israel', type: 'advisory', label: 'Intel/Mobileye acquisition ($15.3B)' },
+  { source: 'scaparrotti', target: 'turkey', type: 'advisory', label: 'SACEUR; F-35/S-400 testimony' },
+  { source: 'flag_fara', target: 'saudi', type: 'legal', label: 'NTI advisory = potential FARA trigger' },
+  { source: 'flag_fara', target: 'uae', type: 'legal', label: 'NTI advisory = potential FARA trigger' },
+];
+
+// ─── CANVAS ENGINE ───────────────────────────────────────────────────────────
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+let transform = { x: 0, y: 0, scale: 1 };
+let dragging = null;
+let dragOffset = { x: 0, y: 0 };
+let panning = false;
+let panStart = { x: 0, y: 0 };
+let panOrigin = { x: 0, y: 0 };
+let frozen = false;
+let hoveredNode = null;
+let selectedNode = null;
+let animFrame = null;
+let searchQuery = '';
+let highlightSet = null;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', () => { resize(); draw(); });
+resize();
+
+// ─── LAYOUT ──────────────────────────────────────────────────────────────────
+
+// Assign positions - place them in rough sectors
+const nodeMap = {};
+nodes.forEach(n => nodeMap[n.id] = n);
+
+// Initial placement by type
+const typeSeeds = {
+  company: { cx: W * 0.35, cy: H * 0.45 },
+  person:  { cx: W * 0.5,  cy: H * 0.45 },
+  govt:    { cx: W * 0.65, cy: H * 0.35 },
+  thinktank: { cx: W * 0.25, cy: H * 0.35 },
+  vc:      { cx: W * 0.6,  cy: H * 0.6 },
+  foreign: { cx: W * 0.3,  cy: H * 0.7 },
+  legal:   { cx: W * 0.55, cy: H * 0.75 },
+};
+const typeCounters = {};
+nodes.forEach(n => {
+  const seed = typeSeeds[n.type] || { cx: W*0.5, cy: H*0.5 };
+  const count = typeCounters[n.type] = (typeCounters[n.type] || 0) + 1;
+  const angle = (count * 2.399); // golden angle
+  const r = 80 + count * 28;
+  n.x = seed.cx + Math.cos(angle) * r;
+  n.y = seed.cy + Math.sin(angle) * r;
+  n.vx = 0; n.vy = 0;
+});
+
+// ─── FORCE SIMULATION ────────────────────────────────────────────────────────
+
+const SIM_ALPHA_START = 0.8;
+let alpha = SIM_ALPHA_START;
+
+function simulate() {
+  if (frozen || alpha < 0.001) return;
+  alpha *= 0.985;
+
+  const repulsion = 3200;
+  const linkDist = 160;
+  const linkStrength = 0.12;
+  const centerForce = 0.004;
+  const damping = 0.7;
+
+  // repulsion
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j];
+      let dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      const minDist = a.radius + b.radius + 20;
+      if (dist < minDist * 3) {
+        const force = repulsion / (dist * dist) * alpha;
+        const fx = dx / dist * force, fy = dy / dist * force;
+        a.vx -= fx; a.vy -= fy;
+        b.vx += fx; b.vy += fy;
+      }
+    }
+  }
+
+  // link attraction
+  links.forEach(link => {
+    const src = nodeMap[link.source], tgt = nodeMap[link.target];
+    if (!src || !tgt) return;
+    let dx = tgt.x - src.x, dy = tgt.y - src.y;
+    const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+    const force = (dist - linkDist) * linkStrength * alpha;
+    const fx = dx / dist * force, fy = dy / dist * force;
+    if (!src.pinned) { src.vx += fx; src.vy += fy; }
+    if (!tgt.pinned) { tgt.vx -= fx; tgt.vy -= fy; }
+  });
+
+  // center
+  const cx = W / 2, cy = H / 2;
+  nodes.forEach(n => {
+    if (!n.pinned) {
+      n.vx += (cx - n.x) * centerForce * alpha;
+      n.vy += (cy - n.y) * centerForce * alpha;
+      n.vx *= damping; n.vy *= damping;
+      n.x += n.vx; n.y += n.vy;
+    }
+  });
+}
+
+// ─── DRAW ─────────────────────────────────────────────────────────────────────
+
+function screenToWorld(sx, sy) {
+  return { x: (sx - transform.x) / transform.scale, y: (sy - transform.y) / transform.scale };
+}
+
+function isHighlighted(n) {
+  if (!highlightSet) return true;
+  return highlightSet.has(n.id);
+}
+
+function drawArrow(x1, y1, x2, y2, color, width, dash, srcR, tgtR) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const len = Math.sqrt(dx*dx + dy*dy) || 1;
+  // trim to node edges
+  const x1t = x1 + (dx/len)*srcR, y1t = y1 + (dy/len)*srcR;
+  const x2t = x2 - (dx/len)*(tgtR+8), y2t = y2 - (dy/len)*(tgtR+8);
+
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.setLineDash(dash);
+  ctx.globalAlpha = 0.55;
+  ctx.beginPath();
+  ctx.moveTo(x1t, y1t);
+  ctx.lineTo(x2t, y2t);
+  ctx.stroke();
+  // arrowhead
+  ctx.globalAlpha = 0.7;
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  const angle = Math.atan2(y2t - y1t, x2t - x1t);
+  ctx.moveTo(x2t, y2t);
+  ctx.lineTo(x2t - 9 * Math.cos(angle - 0.4), y2t - 9 * Math.sin(angle - 0.4));
+  ctx.lineTo(x2t - 9 * Math.cos(angle + 0.4), y2t - 9 * Math.sin(angle + 0.4));
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawNode(n) {
+  const type = NODE_TYPES[n.type];
+  const isSelected = selectedNode && selectedNode.id === n.id;
+  const isHovered = hoveredNode && hoveredNode.id === n.id;
+  const hl = isHighlighted(n);
+  const alpha = hl ? 1 : 0.25;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  // glow for selected/hovered
+  if (isSelected || isHovered) {
+    ctx.shadowColor = type.color;
+    ctx.shadowBlur = 22;
+  }
+
+  // circle
+  ctx.beginPath();
+  ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+  const grad = ctx.createRadialGradient(n.x - n.radius*0.3, n.y - n.radius*0.3, 1, n.x, n.y, n.radius);
+  grad.addColorStop(0, type.borderColor + '40');
+  grad.addColorStop(1, type.color + '25');
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.lineWidth = isSelected ? 2.5 : (isHovered ? 2 : 1.5);
+  ctx.strokeStyle = isSelected ? type.borderColor : type.color;
+  ctx.stroke();
+
+  ctx.shadowBlur = 0;
+
+  // label
+  ctx.fillStyle = hl ? '#e6edf3' : '#8b949e';
+  ctx.font = `${Math.max(9, Math.min(12, n.radius * 0.52))}px -apple-system, monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const lines = n.label.split('\n');
+  const lh = 13;
+  lines.forEach((line, i) => {
+    ctx.fillText(line, n.x, n.y + (i - (lines.length - 1) / 2) * lh);
+  });
+
+  ctx.restore();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  ctx.translate(transform.x, transform.y);
+  ctx.scale(transform.scale, transform.scale);
+
+  // edges
+  links.forEach(link => {
+    const src = nodeMap[link.source], tgt = nodeMap[link.target];
+    if (!src || !tgt) return;
+    const et = EDGE_TYPES[link.type] || EDGE_TYPES.advisory;
+    const srcHl = isHighlighted(src), tgtHl = isHighlighted(tgt);
+    const visible = !highlightSet || (srcHl && tgtHl);
+    ctx.globalAlpha = visible ? 1 : 0.08;
+    drawArrow(src.x, src.y, tgt.x, tgt.y, et.color, et.width, et.dash, src.radius, tgt.radius);
+    ctx.globalAlpha = 1;
+  });
+
+  // nodes
+  nodes.forEach(drawNode);
+
+  ctx.restore();
+}
+
+function loop() {
+  simulate();
+  draw();
+  animFrame = requestAnimationFrame(loop);
+}
+loop();
+
+// ─── INTERACTION ─────────────────────────────────────────────────────────────
+
+function getNodeAt(sx, sy) {
+  const w = screenToWorld(sx, sy);
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i];
+    const dx = n.x - w.x, dy = n.y - w.y;
+    if (Math.sqrt(dx*dx + dy*dy) <= n.radius + 4) return n;
+  }
+  return null;
+}
+
+canvas.addEventListener('mousedown', e => {
+  const node = getNodeAt(e.clientX, e.clientY);
+  if (node) {
+    dragging = node;
+    node.pinned = true;
+    const w = screenToWorld(e.clientX, e.clientY);
+    dragOffset.x = node.x - w.x;
+    dragOffset.y = node.y - w.y;
+    alpha = 0.3;
+  } else {
+    panning = true;
+    panStart.x = e.clientX; panStart.y = e.clientY;
+    panOrigin.x = transform.x; panOrigin.y = transform.y;
+  }
+});
+
+canvas.addEventListener('mousemove', e => {
+  if (dragging) {
+    const w = screenToWorld(e.clientX, e.clientY);
+    dragging.x = w.x + dragOffset.x;
+    dragging.y = w.y + dragOffset.y;
+    dragging.vx = 0; dragging.vy = 0;
+  } else if (panning) {
+    transform.x = panOrigin.x + (e.clientX - panStart.x);
+    transform.y = panOrigin.y + (e.clientY - panStart.y);
+  } else {
+    const node = getNodeAt(e.clientX, e.clientY);
+    hoveredNode = node;
+    canvas.style.cursor = node ? 'pointer' : 'grab';
+    // tooltip
+    const tt = document.getElementById('tooltip');
+    if (node) {
+      tt.style.display = 'block';
+      tt.style.left = (e.clientX + 14) + 'px';
+      tt.style.top = (e.clientY - 10) + 'px';
+      const et = NODE_TYPES[node.type];
+      tt.innerHTML = `<strong style="color:${et.color}">${node.label.replace('\n', ' ')}</strong><br>${node.detail.type}`;
+      if (node.detail.flags && node.detail.flags.length) {
+        tt.innerHTML += `<br><span style="color:#ff6b6b;font-size:0.68rem">⚠ ${node.detail.flags.length} flag(s)</span>`;
+      }
+    } else {
+      tt.style.display = 'none';
+    }
+  }
+});
+
+canvas.addEventListener('mouseup', e => {
+  if (dragging) {
+    dragging.pinned = false;
+    dragging = null;
+  }
+  panning = false;
+});
+
+canvas.addEventListener('click', e => {
+  const node = getNodeAt(e.clientX, e.clientY);
+  if (node) {
+    selectNode(node);
+  } else {
+    clearSelection();
+  }
+});
+
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const scaleBy = e.deltaY < 0 ? 1.1 : 0.9;
+  const mx = e.clientX, my = e.clientY;
+  transform.x = mx - (mx - transform.x) * scaleBy;
+  transform.y = my - (my - transform.y) * scaleBy;
+  transform.scale = Math.max(0.15, Math.min(5, transform.scale * scaleBy));
+}, { passive: false });
+
+// ─── SELECTION & PANEL ───────────────────────────────────────────────────────
+
+function selectNode(node) {
+  selectedNode = node;
+  alpha = 0.2;
+  // build highlight set: the node + all directly connected nodes + their edges
+  const set = new Set([node.id]);
+  links.forEach(l => {
+    if (l.source === node.id) set.add(l.target);
+    if (l.target === node.id) set.add(l.source);
+  });
+  highlightSet = set;
+  renderPanel(node);
+}
+
+function clearSelection() {
+  selectedNode = null;
+  highlightSet = null;
+  document.getElementById('info-panel').classList.remove('open');
+}
+
+function renderPanel(node) {
+  const panel = document.getElementById('info-panel');
+  const content = document.getElementById('panel-content');
+  const type = NODE_TYPES[node.type];
+
+  // connected nodes
+  const connected = [];
+  links.forEach(l => {
+    if (l.source === node.id) {
+      const t = nodeMap[l.target];
+      if (t) connected.push({ node: t, edge: l, dir: 'out' });
+    }
+    if (l.target === node.id) {
+      const s = nodeMap[l.source];
+      if (s) connected.push({ node: s, edge: l, dir: 'in' });
+    }
+  });
+
+  let html = `<button id="close-panel" onclick="clearSelection()">✕</button>
+  <h2>${node.detail.title}</h2>
+  <span class="node-type" style="background:${type.color}22;color:${type.color};border:1px solid ${type.color}44">${node.detail.type}</span>`;
+
+  if (node.detail.facts && node.detail.facts.length) {
+    html += `<div class="detail-block"><h3>Key Facts</h3>`;
+    node.detail.facts.forEach(f => { html += `<div style="margin-bottom:4px">• ${f}</div>`; });
+    html += `</div>`;
+  }
+
+  if (node.detail.flags && node.detail.flags.length) {
+    html += `<div class="detail-block" style="border-color:#ff6b6b44"><h3 style="color:#ff6b6b">Legal / Risk Flags</h3>`;
+    node.detail.flags.forEach(f => { html += `<div class="flag">${f}</div>`; });
+    html += `</div>`;
+  }
+
+  if (connected.length) {
+    html += `<div class="connections"><h3>Connected Nodes (${connected.length})</h3><ul>`;
+    connected.sort((a,b) => a.node.label.localeCompare(b.node.label)).forEach(c => {
+      const et = EDGE_TYPES[c.edge.type] || EDGE_TYPES.advisory;
+      const arrow = c.dir === 'out' ? '→' : '←';
+      html += `<li onclick="selectNode(nodeMap['${c.node.id}'])">
+        <span style="color:${et.color}">${arrow}</span>
+        <strong style="color:${NODE_TYPES[c.node.type].color}">${c.node.label.replace('\n',' ')}</strong>
+        <span style="color:#484f58;font-size:0.68rem"> (${c.edge.label})</span>
+      </li>`;
+    });
+    html += `</ul></div>`;
+  }
+
+  content.innerHTML = html;
+  panel.classList.add('open');
+}
+
+// ─── CONTROLS ─────────────────────────────────────────────────────────────────
+
+document.getElementById('btn-zoom-in').onclick = () => {
+  transform.scale = Math.min(5, transform.scale * 1.2);
+  transform.x = W/2 - (W/2 - transform.x) * 1.2;
+  transform.y = H/2 - (H/2 - transform.y) * 1.2;
+};
+document.getElementById('btn-zoom-out').onclick = () => {
+  transform.scale = Math.max(0.15, transform.scale / 1.2);
+  transform.x = W/2 - (W/2 - transform.x) / 1.2;
+  transform.y = H/2 - (H/2 - transform.y) / 1.2;
+};
+document.getElementById('btn-reset').onclick = () => {
+  transform = { x: 0, y: 0, scale: 1 };
+  clearSelection();
+};
+document.getElementById('btn-freeze').onclick = function() {
+  frozen = !frozen;
+  this.style.background = frozen ? '#21262d' : '';
+  this.style.color = frozen ? '#79c0ff' : '';
+};
+
+// ─── SEARCH ───────────────────────────────────────────────────────────────────
+
+document.getElementById('search-bar').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  searchQuery = q;
+  if (!q) {
+    highlightSet = null;
+    selectedNode = null;
+    return;
+  }
+  const matches = nodes.filter(n =>
+    n.label.toLowerCase().includes(q) ||
+    n.detail.title.toLowerCase().includes(q) ||
+    n.detail.type.toLowerCase().includes(q) ||
+    (n.detail.facts || []).some(f => f.toLowerCase().includes(q)) ||
+    (n.detail.flags || []).some(f => f.toLowerCase().includes(q))
+  );
+  if (matches.length === 1) {
+    selectNode(matches[0]);
+  } else if (matches.length > 0) {
+    const set = new Set(matches.map(n => n.id));
+    links.forEach(l => {
+      if (set.has(l.source) && set.has(l.target)) {
+        set.add(l.source); set.add(l.target);
+      }
+    });
+    highlightSet = set;
+    selectedNode = null;
+  }
+});
+
+// legend filter
+document.querySelectorAll('.legend-item').forEach(el => {
+  el.addEventListener('click', function() {
+    const type = this.dataset.type;
+    const typeNodes = nodes.filter(n => n.type === type);
+    if (!typeNodes.length) return;
+    if (typeNodes.every(n => highlightSet && highlightSet.has(n.id))) {
+      highlightSet = null; selectedNode = null;
+    } else {
+      const set = new Set(typeNodes.map(n => n.id));
+      links.forEach(l => { if (set.has(l.source)) set.add(l.target); if (set.has(l.target)) set.add(l.source); });
+      highlightSet = set; selectedNode = null;
+    }
+  });
+});
+
+// ─── TOUCH ────────────────────────────────────────────────────────────────────
+let lastTouchDist = null;
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) lastTouchDist = null;
+  else if (e.touches.length === 1) {
+    const t = e.touches[0];
+    const node = getNodeAt(t.clientX, t.clientY);
+    if (node) { dragging = node; node.pinned = true; const w = screenToWorld(t.clientX, t.clientY); dragOffset.x = node.x - w.x; dragOffset.y = node.y - w.y; alpha = 0.3; }
+    else { panning = true; panStart.x = t.clientX; panStart.y = t.clientY; panOrigin.x = transform.x; panOrigin.y = transform.y; }
+  }
+}, { passive: true });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length === 2) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (lastTouchDist) { const s = dist / lastTouchDist; transform.scale = Math.max(0.15, Math.min(5, transform.scale * s)); }
+    lastTouchDist = dist;
+  } else if (e.touches.length === 1) {
+    const t = e.touches[0];
+    if (dragging) { const w = screenToWorld(t.clientX, t.clientY); dragging.x = w.x + dragOffset.x; dragging.y = w.y + dragOffset.y; dragging.vx = 0; dragging.vy = 0; }
+    else if (panning) { transform.x = panOrigin.x + (t.clientX - panStart.x); transform.y = panOrigin.y + (t.clientY - panStart.y); }
+  }
+}, { passive: false });
+canvas.addEventListener('touchend', () => { if (dragging) { dragging.pinned = false; dragging = null; } panning = false; });
+</script>
+</body>
+</html>

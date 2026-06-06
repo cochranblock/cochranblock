@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Investigations — Michael Cochran · Defense Procurement Fraud &amp; OSINT</title>
+<meta name="description" content="Independent OSINT investigation of the Kearney defense contractor revolving-door network. Three potential criminal violations identified: 18 USC 207, 22 USC 611 (FARA), 17 CFR 240.10b-5.">
+<link rel="canonical" href="https://cochranblock.org/investigations">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050508;
+  --surface: #0d0d14;
+  --surface-alt: #13131e;
+  --text: #e8e8e8;
+  --muted: #9aa0aa;
+  --faint: #555a66;
+  --amber: #ffb300;
+  --amber-dim: rgba(255,179,0,0.12);
+  --amber-border: rgba(255,179,0,0.35);
+  --red: #c0392b;
+  --red-dim: rgba(192,57,43,0.10);
+  --red-border: rgba(192,57,43,0.40);
+  --cyan: #00d9ff;
+  --cyan-dim: rgba(0,217,255,0.08);
+  --cyan-border: rgba(0,217,255,0.22);
+  --green: #27ae60;
+  --green-dim: rgba(39,174,96,0.10);
+  --serif: 'IBM Plex Serif', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  --sans: 'Rajdhani', system-ui, sans-serif;
+  --display: 'Orbitron', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Cosmic ambient — amber-tinted for investigations */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(ellipse 600px 400px at 15% 20%, rgba(255,179,0,0.06), transparent 60%),
+    radial-gradient(ellipse 500px 350px at 85% 75%, rgba(192,57,43,0.05), transparent 55%),
+    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(0,217,255,0.03), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * { position: relative; z-index: 2; }
+
+/* ── Nav (reuse main site nav styles) ── */
+.cb-nav,.cb-nav *{box-sizing:border-box}
+.cb-nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid rgba(0,217,255,0.15);background:rgba(5,5,8,0.94);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50;font-family:var(--mono);color:#e8e8e8}
+.cb-nav a{color:#9ca3af;text-decoration:none;transition:color .15s}
+.cb-nav a:hover{color:#00d9ff}
+.cb-nav-brand{display:flex;align-items:center;gap:.7rem;color:#e8e8e8!important;font-family:var(--display);font-weight:700;letter-spacing:.08em;font-size:.9rem}
+.cb-nav-brand-logo{width:26px;height:26px}
+.cb-nav-links{display:flex;gap:1.3rem;font-size:.82rem;font-weight:500;letter-spacing:.06em;align-items:center}
+.cb-nav-links .active{color:var(--amber);font-weight:600}
+.cb-nav-mobile{display:none;position:fixed;top:.7rem;right:.9rem;z-index:100}
+.cb-nav-mobile>summary{list-style:none;cursor:pointer;width:40px;height:40px;border:1.5px solid #00d9ff;border-radius:6px;background:rgba(0,217,255,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.cb-nav-mobile>summary::-webkit-details-marker{display:none}
+.cb-nav-mobile>summary>span{display:block;width:22px;height:2.5px;background:#00d9ff;border-radius:2px}
+.cb-nav-mobile[open]>summary>span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.cb-nav-mobile[open]>summary>span:nth-child(2){opacity:0}
+.cb-nav-mobile[open]>summary>span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.cb-nav-mobile-menu{display:flex;flex-direction:column;position:absolute;top:calc(100% + .5rem);right:0;min-width:240px;background:rgba(5,5,8,0.97);backdrop-filter:blur(10px);border:1px solid rgba(0,217,255,0.35);border-radius:8px;padding:.4rem 0;z-index:60;font-size:.95rem}
+.cb-nav-mobile-menu>a{padding:.75rem 1.1rem;border-bottom:1px solid rgba(0,217,255,0.12);color:#e8e8e8;text-decoration:none;font-family:var(--mono);font-size:.82rem}
+.cb-nav-mobile-menu>a:hover{color:#00d9ff}
+.cb-nav-mobile-menu>a.active{color:var(--amber)}
+@media(max-width:720px){.cb-nav{padding:.7rem .9rem}.cb-nav-mobile{display:block}.cb-nav-links{display:none!important}}
+
+/* ── Page layout ── */
+.page { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+
+/* ── Status banner ── */
+.status-banner {
+  background: var(--red-dim);
+  border-bottom: 2px solid var(--red-border);
+  padding: .6rem 1.5rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #e88;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+}
+.status-banner .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #c0392b;
+  animation: pulse-red 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid rgba(255,179,0,0.15);
+  margin-bottom: 3rem;
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .30em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 600;
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.hero-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--amber-border);
+  max-width: 120px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: #f5f5f5;
+  margin-bottom: 1.4rem;
+  letter-spacing: -.01em;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--amber);
+}
+.hero-lede {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+.hero-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.2rem;
+  font-family: var(--mono);
+  font-size: .76rem;
+  letter-spacing: .05em;
+  color: var(--muted);
+}
+.hero-stat-row strong { color: var(--amber); }
+
+/* ── Pull quote ── */
+.pull-quote {
+  border-left: 4px solid var(--amber);
+  background: var(--amber-dim);
+  padding: 1.2rem 1.5rem;
+  margin: 2.5rem 0;
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  color: #f0e8d0;
+  line-height: 1.55;
+  font-style: italic;
+}
+.pull-quote cite {
+  display: block;
+  margin-top: .7rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ── Section heads ── */
+.section-head {
+  margin: 3.5rem 0 1.5rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid rgba(255,179,0,0.18);
+}
+.section-head .eyebrow {
+  font-family: var(--mono);
+  font-size: .67rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  letter-spacing: -.01em;
+}
+
+/* ── Methodology strip ── */
+.method-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--amber-border);
+  border: 1px solid var(--amber-border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+.method-step {
+  background: var(--surface);
+  padding: 1.1rem 1.2rem;
+}
+.method-step .num {
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 600;
+  margin-bottom: .4rem;
+}
+.method-step .title {
+  font-family: var(--mono);
+  font-size: .85rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  margin-bottom: .3rem;
+}
+.method-step .desc {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.5;
+  font-family: var(--sans);
+}
+
+/* ── Source chips ── */
+.source-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin: 1rem 0;
+}
+.chip {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  padding: .25rem .65rem;
+  border: 1px solid var(--amber-border);
+  color: var(--amber);
+  border-radius: 3px;
+  background: var(--amber-dim);
+}
+
+/* ── Viz frame ── */
+.viz-frame {
+  border: 1px solid var(--amber-border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  background: #0d1117;
+  position: relative;
+}
+.viz-label {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  padding: .5rem 1rem;
+  background: rgba(255,179,0,0.06);
+  border-bottom: 1px solid var(--amber-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.viz-label a {
+  color: var(--cyan);
+  text-decoration: none;
+  font-size: .65rem;
+}
+.viz-label a:hover { text-decoration: underline; }
+.viz-iframe {
+  width: 100%;
+  height: 520px;
+  border: none;
+  display: block;
+}
+
+/* ── Findings grid ── */
+.findings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.finding {
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 1.2rem 1.3rem;
+}
+.finding.critical { border-color: var(--red-border); background: var(--red-dim); }
+.finding.high { border-color: var(--amber-border); background: var(--amber-dim); }
+.finding.structural { border-color: rgba(0,217,255,0.30); background: var(--cyan-dim); }
+
+.finding .f-tag {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: .6rem;
+}
+.finding.critical .f-tag { color: #e88; }
+.finding.high .f-tag { color: var(--amber); }
+.finding.structural .f-tag { color: var(--cyan); }
+
+.finding h3 {
+  font-family: var(--mono);
+  font-size: .9rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  margin-bottom: .4rem;
+  letter-spacing: .03em;
+}
+.finding .statute {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  margin-bottom: .8rem;
+  letter-spacing: .04em;
+}
+.finding p {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.55;
+  font-family: var(--sans);
+}
+.finding p strong { color: #f0f0f0; }
+.finding .actors {
+  margin-top: .7rem;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+.finding.critical .actors { color: #c88; }
+.finding.high .actors { color: rgba(255,179,0,0.5); }
+.finding.structural .actors { color: rgba(0,217,255,0.4); }
+
+/* ── Key individuals table ── */
+.individuals-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+  margin: 1.2rem 0;
+}
+.individuals-table th {
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 600;
+  text-align: left;
+  padding: .5rem .75rem;
+  border-bottom: 1px solid var(--amber-border);
+}
+.individuals-table td {
+  padding: .6rem .75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: var(--muted);
+  vertical-align: top;
+  font-family: var(--sans);
+  line-height: 1.4;
+}
+.individuals-table td.name {
+  color: #f0f0f0;
+  font-weight: 600;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: .82rem;
+}
+.individuals-table td.status-hi { color: #e88; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; }
+.individuals-table td.status-med { color: var(--amber); font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; }
+.individuals-table td.status-lo { color: var(--muted); font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; }
+.individuals-table tr:last-child td { border-bottom: none; }
+@media(max-width:600px){
+  .individuals-table { font-size: .78rem; }
+  .individuals-table th, .individuals-table td { padding: .45rem .5rem; }
+}
+
+/* ── Plain-language box ── */
+.plain-box {
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--surface-alt);
+  border-radius: 6px;
+  padding: 1.4rem 1.6rem;
+  margin: 1.5rem 0;
+}
+.plain-box .pb-head {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: .9rem;
+}
+.plain-box p {
+  margin-bottom: .9rem;
+  color: var(--muted);
+  font-size: .97rem;
+  line-height: 1.65;
+}
+.plain-box p:last-child { margin-bottom: 0; }
+.plain-box strong { color: #f0f0f0; }
+.plain-box em { color: var(--amber); font-style: italic; }
+
+/* ── Bottom line callout ── */
+.bottom-line {
+  border: 2px solid var(--amber-border);
+  background: var(--amber-dim);
+  border-radius: 8px;
+  padding: 1.5rem 1.8rem;
+  margin: 2rem 0;
+}
+.bottom-line .bl-head {
+  font-family: var(--display);
+  font-size: .8rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+  margin-bottom: .8rem;
+}
+.bottom-line p {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: #f0e8d0;
+  line-height: 1.65;
+  margin-bottom: .7rem;
+}
+.bottom-line p:last-child { margin-bottom: 0; }
+.bottom-line strong { color: #fff; }
+.bottom-line .stat { color: var(--amber); font-weight: 600; }
+
+/* ── Downloads ── */
+.downloads-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin: 1.2rem 0;
+}
+.dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: .6rem 1.1rem;
+  border: 1px solid;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background .15s, color .15s;
+}
+.dl-btn.primary {
+  border-color: var(--amber-border);
+  color: var(--amber);
+  background: var(--amber-dim);
+}
+.dl-btn.primary:hover { background: rgba(255,179,0,0.22); }
+.dl-btn.secondary {
+  border-color: var(--cyan-border);
+  color: var(--cyan);
+  background: var(--cyan-dim);
+}
+.dl-btn.secondary:hover { background: rgba(0,217,255,0.14); }
+.dl-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── Capability bridge ── */
+.capability-bridge {
+  margin: 3rem 0;
+  padding: 2rem;
+  border: 1px solid var(--cyan-border);
+  border-radius: 8px;
+  background: var(--cyan-dim);
+}
+.capability-bridge .cb-head {
+  font-family: var(--display);
+  font-size: .78rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.capability-bridge p {
+  font-size: .97rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: .8rem;
+  font-family: var(--sans);
+}
+.capability-bridge p:last-child { margin-bottom: 0; }
+.capability-bridge strong { color: #f0f0f0; }
+.capability-bridge .series-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: .8rem 0;
+}
+.cap-chip {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  padding: .2rem .6rem;
+  border: 1px solid var(--cyan-border);
+  color: var(--cyan);
+  border-radius: 3px;
+  background: rgba(0,217,255,0.06);
+}
+
+/* ── Footer backref ── */
+.backref {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255,179,0,0.14);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.4rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--faint);
+}
+.backref a { color: var(--cyan); text-decoration: none; }
+.backref a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .hero { padding: 2.5rem 0 2rem; }
+  .hero h1 { font-size: 1.65rem; }
+  .method-strip { grid-template-columns: 1fr; gap: 1px; }
+  .findings-grid { grid-template-columns: 1fr; }
+  .viz-iframe { height: 380px; }
+  .plain-box, .bottom-line { padding: 1rem 1.1rem; }
+  .capability-bridge { padding: 1.2rem 1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Status banner -->
+<div class="status-banner">
+  <span class="dot"></span>
+  ACTIVE INVESTIGATION — OSINT REPORT PUBLISHED 2026-06-03 — REFERRAL-READY
+  <span class="dot"></span>
+</div>
+
+<!-- Nav -->
+<nav class="cb-nav">
+  <a href="/" class="cb-nav-brand">
+    <svg class="cb-nav-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M60 25 L95 60 L60 95 L25 60 Z" fill="none" stroke="#00d9ff" stroke-width="3"/>
+      <circle cx="60" cy="60" r="5" fill="#00d9ff"/>
+    </svg>
+    <span>COCHRAN BLOCK</span>
+  </a>
+  <div class="cb-nav-links">
+    <a href="/investigations" class="active">Investigations</a>
+    <a href="/work">Work</a>
+    <a href="/resume">Resume</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/book">Book a Call</a>
+  </div>
+  <details class="cb-nav-mobile">
+    <summary aria-label="Toggle navigation menu"><span></span><span></span><span></span></summary>
+    <div class="cb-nav-mobile-menu">
+      <a href="/investigations" class="active">Investigations</a>
+      <a href="/work">Work</a>
+      <a href="/resume">Resume</a>
+      <a href="/about">About</a>
+      <a href="/govdocs">Gov Docs</a>
+      <a href="/contact">Contact</a>
+      <a href="/book">Book a Call</a>
+    </div>
+  </details>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">OSINT · PROCUREMENT FRAUD · DEFENSE ACCOUNTABILITY</div>
+  <h1>In May 2025, a four-star admiral was convicted of bribery.<br>
+  He wasn't doing something <em>different</em>.<br>
+  He was doing the same thing — and got caught.</h1>
+  <p class="hero-lede">
+    This is an independent OSINT investigation of the Kearney management consulting network —
+    the revolving door, the closed CEO intelligence forums, the foreign government advisory
+    work with no FARA registration, and the legal exposure that remains prosecutable today.
+    Produced from open-source data in three days.
+  </p>
+  <div class="hero-stat-row">
+    <span><strong>13</strong> individuals profiled</span>
+    <span><strong>3</strong> potential criminal violations</span>
+    <span><strong>5</strong> legal frameworks analyzed</span>
+    <span><strong>81%</strong> of retiring 4-stars go to arms industry</span>
+    <span>Published: <strong>2026-06-03</strong></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PLAIN LANGUAGE ═══════════════════════════ -->
+<div class="plain-box">
+  <div class="pb-head">Plain Language Summary</div>
+  <p>
+    A management consulting firm called Kearney — and a closely connected lobbying shop called
+    The Cohen Group — have built a system where retired U.S. generals and senior defense officials
+    use the relationships they built on the public's dime to make money for private clients.
+    Those clients include defense companies competing for government contracts, and foreign
+    governments the U.S. is supposed to be dealing with at arm's length.
+  </p>
+  <p>
+    <strong>Most of it is legal. Some of it probably isn't.</strong> One person in the
+    broader network already went to prison for doing explicitly what the rest do structurally.
+  </p>
+  <p>
+    Imagine a building inspector who spends 30 years deciding whether construction projects
+    pass code. The day he retires, he goes to work for a construction company — telling them
+    how to pass the inspections he used to run. Federal law says he can't personally call
+    his old colleagues for two years. After that, he's free.
+    <em>Now scale that up to four-star generals and $355 million defense contracts.</em>
+  </p>
+</div>
+
+<!-- ═══════════════════════════ METHODOLOGY ═══════════════════════════ -->
+<div class="section-head">
+  <div class="eyebrow">Methodology</div>
+  <h2>How This Was Built</h2>
+</div>
+
+<div class="method-strip">
+  <div class="method-step">
+    <div class="num">Step 01</div>
+    <div class="title">Data Collection</div>
+    <div class="desc">LinkedIn profiles, FEC campaign finance records, LDA lobbying registrations, USASpending contract data, GAO decisions, POGO brass parachute database.</div>
+  </div>
+  <div class="method-step">
+    <div class="num">Step 02</div>
+    <div class="title">Network Mapping</div>
+    <div class="desc">Entity resolution across all sources. Board seats, advisory roles, think tank affiliations, and foreign advisory relationships mapped to a single graph.</div>
+  </div>
+  <div class="method-step">
+    <div class="num">Step 03</div>
+    <div class="title">Legal Analysis</div>
+    <div class="desc">Each documented relationship mapped against 18 USC 207 cooling-off windows, 22 USC 611 FARA registration requirements, and 17 CFR 240.10b-5 insider trading structure.</div>
+  </div>
+  <div class="method-step">
+    <div class="num">Step 04</div>
+    <div class="title">Referral Framing</div>
+    <div class="desc">Three findings packaged at referral-ready confidence. Two lower-confidence theories noted separately and flagged as requiring non-public documents.</div>
+  </div>
+</div>
+
+<div class="section-head" style="margin-top:2rem">
+  <div class="eyebrow">Data Sources</div>
+  <h2>Open Source</h2>
+</div>
+
+<div class="source-chips">
+  <span class="chip">LinkedIn</span>
+  <span class="chip">FEC.gov</span>
+  <span class="chip">LDA / Senate.gov</span>
+  <span class="chip">USASpending.gov</span>
+  <span class="chip">SAM.gov</span>
+  <span class="chip">GAO Decisions (B-421647)</span>
+  <span class="chip">POGO Contractor Misconduct DB</span>
+  <span class="chip">OpenSecrets</span>
+  <span class="chip">DoD OGE Form 278</span>
+  <span class="chip">18 USC 207 text</span>
+  <span class="chip">22 USC 611–618</span>
+  <span class="chip">17 CFR 240.10b-5</span>
+  <span class="chip">NYT Pentagon Analyst Program (2008)</span>
+  <span class="chip">WaPo Mattis disclosure (Feb 2024)</span>
+  <span class="chip">Quincy Institute (2023)</span>
+  <span class="chip">CSIS donor disclosures</span>
+</div>
+
+<!-- ═══════════════════════════ NETWORK VIZ ═══════════════════════════ -->
+<div class="section-head">
+  <div class="eyebrow">Interactive Visualization</div>
+  <h2>The Network Graph</h2>
+</div>
+
+<p style="color:var(--muted);font-size:.95rem;margin-bottom:1rem;font-family:var(--sans);">
+  Each node is a person or organization. Each edge is a documented relationship — board seat,
+  advisory role, employment, or lobbying contract. Click nodes to explore. Drag to reposition.
+  Colors indicate entity type.
+</p>
+
+<div class="viz-frame">
+  <div class="viz-label">
+    <span>KEARNEY NETWORK — OSINT GRAPH · 13 INDIVIDUALS · 4 FIRMS · 8+ THINK TANKS</span>
+    <a href="/investigations/viz" target="_blank">Open full screen ↗</a>
+  </div>
+  <iframe
+    class="viz-iframe"
+    src="/investigations/viz"
+    title="Kearney Network OSINT Visualization"
+    loading="lazy"
+    sandbox="allow-scripts allow-same-origin"
+  ></iframe>
+</div>
+
+<!-- ═══════════════════════════ FINDINGS ═══════════════════════════ -->
+<div class="section-head">
+  <div class="eyebrow">Findings</div>
+  <h2>Three Referral-Ready Violations</h2>
+</div>
+
+<p style="color:var(--muted);font-size:.95rem;margin-bottom:1.2rem;font-family:var(--sans);">
+  These three legal categories have documented facts, named individuals, and timelines strong
+  enough to support a referral. Two additional theories are noted in the full report but require
+  non-public documents to develop.
+</p>
+
+<div class="findings-grid">
+  <div class="finding critical">
+    <div class="f-tag">⚠ HIGH PRIORITY</div>
+    <h3>Revolving Door</h3>
+    <div class="statute">18 USC 207 — Cooling-Off Restriction</div>
+    <p>Senior officials cannot make representational communications to their former agency on behalf of clients for <strong>one to two years post-retirement</strong>. Multiple actors show documented business activity inside their restriction windows.</p>
+    <div class="actors">Named: McKean, Bassett</div>
+  </div>
+  <div class="finding critical">
+    <div class="f-tag">⚠ HIGH PRIORITY</div>
+    <h3>FARA Non-Registration</h3>
+    <div class="statute">22 USC 611 — Foreign Agents Registration Act</div>
+    <p>Kearney established an institute explicitly advising Saudi and UAE governments. The Cohen Group maintains a Saudi Arabia office opened 20 days before the Khashoggi murder. <strong>No FARA registration filed. Not time-barred. Criminal penalty: up to 5 years.</strong></p>
+    <div class="actors">Named: Kearney/Liu, The Cohen Group</div>
+  </div>
+  <div class="finding structural">
+    <div class="f-tag">▸ STRUCTURAL — LIVE</div>
+    <h3>Insider Trading Structure</h3>
+    <div class="statute">17 CFR 240.10b-5 — Securities Fraud</div>
+    <p>A Kearney board member simultaneously runs European defense M&amp;A coverage at Lazard while advising the same defense primes through her Kearney board role. If material non-public information crosses the boundary, <strong>the violation is active and documented.</strong></p>
+    <div class="actors">Named: Xoual (Lazard/Kearney)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ PULL QUOTE ═══════════════════════════ -->
+<div class="pull-quote">
+  "The Quincy Institute found that 26 of 32 four-star officers who retired between 2018 and 2023
+  went directly to work for the arms industry. <strong>81 percent.</strong> What this report documents
+  is how one node of that system is specifically organized: who the people are, what roles they held,
+  what the financial flows look like, and where the lines between legal and criminal are thin enough to matter."
+  <cite>Kearney Network OSINT Report — Michael Cochran — 2026-06-03</cite>
+</div>
+
+<!-- ═══════════════════════════ KEY INDIVIDUALS ═══════════════════════════ -->
+<div class="section-head">
+  <div class="eyebrow">Key Individuals</div>
+  <h2>Documented Network Members</h2>
+</div>
+
+<table class="individuals-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Prior Government Role</th>
+      <th>Commercial Landing</th>
+      <th>Legal Flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name">Scott McKean</td>
+      <td>LTG, Director Army Futures &amp; Concepts Center</td>
+      <td>SVP, Protopia AI (SBIR contractor) — 8 months post-retirement</td>
+      <td class="status-hi">18 USC 207 — window expired Jan 2026; violations in window prosecutable</td>
+    </tr>
+    <tr>
+      <td class="name">David G. Bassett</td>
+      <td>LTG, Director DCSA ($7T in contracts overseen)</td>
+      <td>Cohen Group Senior Counselor — May 2024</td>
+      <td class="status-hi">18 USC 207 — window expired Jan 2026; violations in window prosecutable</td>
+    </tr>
+    <tr>
+      <td class="name">Curtis Scaparrotti</td>
+      <td>GEN, SACEUR + EUCOM Commander; USFK Commander</td>
+      <td>Cohen Group Senior Counselor — $800M Korea deal, $4B Europe deals (undated)</td>
+      <td class="status-med">18 USC 207 — window May 2021; undated deals may fall inside</td>
+    </tr>
+    <tr>
+      <td class="name">Joseph Ralston</td>
+      <td>GEN, VCJCS + SACEUR; U.S. Special Envoy to counter PKK</td>
+      <td>Cohen Group VC + Lockheed board + registered lobbyist for Lockheed — simultaneously</td>
+      <td class="status-hi">Documented 2006 overlap: PKK Envoy + Lockheed lobbyist. No prosecution.</td>
+    </tr>
+    <tr>
+      <td class="name">James Mattis</td>
+      <td>GEN, SecDef 2017–2019; authored NDS shifting $B to General Dynamics products</td>
+      <td>Cohen Group + General Dynamics board (7 months post-SecDef)</td>
+      <td class="status-med">UAE advisory work omitted from OGE disclosure — confirmed WaPo Feb 2024</td>
+    </tr>
+    <tr>
+      <td class="name">Alex Liu</td>
+      <td>N/A (private sector); Kearney Managing Partner/Chairman 2018–2024</td>
+      <td>Kearney Chairman Emeritus; Dubai Institute advising Saudi/UAE governments</td>
+      <td class="status-hi">FARA — Gulf state advisory; no registration; criminal, not time-barred</td>
+    </tr>
+    <tr>
+      <td class="name">Isabelle Xoual</td>
+      <td>N/A; Lazard MD co-leading European defense M&amp;A</td>
+      <td>Kearney Board (inaugural 2023) + simultaneous Lazard defense advisory</td>
+      <td class="status-med">17 CFR 240.10b-5 — structural conflict; live; no specific transaction confirmed</td>
+    </tr>
+    <tr>
+      <td class="name">Erik Peterson</td>
+      <td>Kissinger Associates (Dir. Research); CSIS SVP; NDU/State/DoD/JCS adviser</td>
+      <td>Kearney GBPC Managing Director + CSIS Senior Adviser simultaneously</td>
+      <td class="status-lo">No primary target; connective tissue — Kissinger opacity, CSIS credibility, GBPC access in one role</td>
+    </tr>
+    <tr>
+      <td class="name">Eric Spiegel</td>
+      <td>Booz Allen Hamilton original board member (24 years); Siemens US CEO</td>
+      <td>Kearney Board; Brighton Park Capital; Dover Corp Chairman</td>
+      <td class="status-lo">BAH-to-Kearney knowledge flow; no disclosure of institutional wall</td>
+    </tr>
+    <tr>
+      <td class="name">Doug Lane</td>
+      <td>N/A; Booz Allen SVP → AT Kearney Partner</td>
+      <td>Capgemini Government Solutions CEO (divesting Feb 2026); watching next landing</td>
+      <td class="status-lo">Sequential revolving door; CGS asset (Alliant 2 GWAC, DHS contracts) likely PE target</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════════════════ COHEN GROUP ═══════════════════════════ -->
+<div class="section-head">
+  <div class="eyebrow">Adjacent Entity</div>
+  <h2>The Cohen Group — Highest-Risk Node</h2>
+</div>
+
+<div class="plain-box">
+  <div class="pb-head">The Cohen Group: What It Is</div>
+  <p>
+    William S. Cohen: 18-year Senate Armed Services Committee member, co-authored Goldwater-Nichols,
+    Nunn-Cohen (USSOCOM), Clinger-Cohen (federal IT procurement). Secretary of Defense 1997–2001.
+    <strong>Founded The Cohen Group within weeks of leaving office.</strong>
+  </p>
+  <p>
+    Current senior counselors include the former SACEUR (Scaparrotti), the former Secretary of Defense
+    (Mattis), and the former VCJCS (Ralston) — who simultaneously served as a registered Senate lobbyist
+    for Lockheed Martin while acting as U.S. Special Envoy to counter the PKK in Turkey, a country
+    that was buying $13 billion in Lockheed aircraft at the same time.
+  </p>
+  <p>
+    <strong>The Saudi Arabia office opened September 12, 2018.</strong> Jamal Khashoggi was murdered
+    October 2, 2018. Every major competitor publicly exited Saudi relationships in the weeks that followed.
+    <em>The Cohen Group did not. The office is still listed as active. No FARA registration has been filed.</em>
+  </p>
+</div>
+
+<!-- ═══════════════════════════ BOTTOM LINE ═══════════════════════════ -->
+<div class="bottom-line">
+  <div class="bl-head">Bottom Line</div>
+  <p>
+    This is not a story about a few bad actors. <span class="stat">81%</span> of four-star officers who
+    retired between 2018 and 2023 went directly to work for the arms industry.
+  </p>
+  <p>
+    The admiral convicted in May 2025 was not doing something different. He was doing the same thing —
+    accepting future employment in exchange for directing government resources to a specific company.
+    The difference is that he made the arrangement <strong>explicit while still in office</strong>, which
+    crossed from "revolving door" into "bribery." Everyone else in this report negotiated the same outcome
+    through the legally approved sequence: serve, retire, wait the minimum, take the job.
+  </p>
+  <p>
+    Three of those arrangements show documented facts, named individuals, and timelines strong enough
+    to support a referral today. They are identified above.
+  </p>
+</div>
+
+<!-- ═══════════════════════════ DOWNLOADS ═══════════════════════════ -->
+<div class="section-head">
+  <div class="eyebrow">Downloads</div>
+  <h2>Full Report</h2>
+</div>
+
+<div class="downloads-row">
+  <a href="/assets/kearney-network-report.pdf" class="dl-btn primary" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Full Report (PDF)
+  </a>
+  <a href="/investigations/viz" class="dl-btn secondary" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Network Visualization
+  </a>
+</div>
+
+<!-- ═══════════════════════════ CAPABILITY BRIDGE ═══════════════════════════ -->
+<div class="capability-bridge">
+  <div class="cb-head">What This Demonstrates</div>
+  <p>
+    This investigation was built from entirely open-source data in three days. The skills that
+    produced it — OSINT collection, entity resolution, legal framework mapping, structured
+    findings documentation — are the same skills that identify fraud in procurement systems,
+    compliance programs, and contracting vehicles.
+  </p>
+  <p>
+    <strong>This is the differentiator:</strong> my hobby builds the tools and my work deploys them.
+    31 public-domain Rust repos. An OSINT investigation that identifies three federal criminal
+    violations. Code that defeats fraud and ships under the Unlicense — so when government uses it,
+    they own it completely. No vendor lock-in. No licensing attorneys. No expiration.
+  </p>
+  <p>
+    I am actively seeking federal employment where code defeats fraud and Unlicense architecture
+    streamlines the mission. Target positions:
+  </p>
+  <div class="series-row">
+    <span class="cap-chip">GS-2210 Cybersecurity</span>
+    <span class="cap-chip">GS-0132 Intelligence</span>
+    <span class="cap-chip">DoD OIG Investigator</span>
+    <span class="cap-chip">USDS Engineer</span>
+    <span class="cap-chip">GAO Analyst</span>
+  </div>
+  <p style="margin-top:.8rem">
+    Army 17C (Cyber Operations). JCAC 2014. USCYBERCOM J38 JMOC-E dev lead. 13 years defense
+    and enterprise. SDVOSB founder. TS/SCI reactivation eligible.
+    <a href="/resume" style="color:var(--cyan);text-decoration:none;font-weight:600"> View resume →</a>
+  </p>
+</div>
+
+<!-- ═══════════════════════════ BACK REF ═══════════════════════════ -->
+<div class="backref">
+  <span>Michael Cochran · cochranblock.org</span>
+  <a href="/">Home</a>
+  <a href="/resume">Resume</a>
+  <a href="/work">Technical Work</a>
+  <a href="/about">About</a>
+  <a href="/govdocs">Gov Docs</a>
+  <a href="/contact">Contact</a>
+  <span>Published 2026-06-03 · OSINT only · All sources open</span>
+</div>
+
+</div><!-- /.page -->
+</body>
+</html>

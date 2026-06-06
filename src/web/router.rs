@@ -55,7 +55,7 @@ pub fn f1(p0: t0) -> Router {
         )
         // Redirects for old routes
         .route("/intake", get(|| async { Redirect::permanent("/deploy") }))
-        .route("/services", get(pages::f11))
+        .route("/services", get(|| async { axum::response::Redirect::permanent("/legacy") }))
         .route("/mathskillz", get(|| async { Redirect::permanent("/stats") }))
         .route("/provenance", get(pages::f74))
         .route("/sbir", get(pages::f74))
@@ -103,6 +103,28 @@ pub fn f1(p0: t0) -> Router {
         .route("/railgun-rosetta", get(pages::f_railgun_rosetta))
         .route("/rosetta", get(pages::f_railgun_rosetta))
         .route("/rosetta-stone", get(pages::f_railgun_rosetta))
+        // LLC legacy history page — sunset notice + honest record of operational period
+        .route("/legacy", get(pages::f_legacy))
+        .route("/history", get(pages::f_legacy))
+        .route("/llc", get(pages::f_legacy))
+        .route("/what-was-built", get(pages::f_legacy))
+        // Investigations — Kearney revolving-door OSINT report + network viz
+        .route("/investigations", get(pages::f_investigations))
+        .route("/investigations/", get(pages::f_investigations))
+        .route("/investigations/viz", get(pages::f_kearney_viz))
+        .route("/kearney", get(|| async { axum::response::Redirect::permanent("/investigations") }))
+        .route("/fraud", get(|| async { axum::response::Redirect::permanent("/investigations") }))
+        .route("/accountability", get(|| async { axum::response::Redirect::permanent("/investigations") }))
+        .route("/revolving-door", get(|| async { axum::response::Redirect::permanent("/investigations") }))
+        .route(
+            "/assets/kearney-network-report.pdf",
+            get(|| async {
+                (
+                    [(axum::http::header::CONTENT_TYPE, "application/pdf")],
+                    include_packed::include_packed!("assets/kearney-network-report.pdf"),
+                )
+            }),
+        )
         // Let's Team page — apex-root buyer page, also reachable directly
         .route("/lets-team", get(pages::f_lets_team))
         .route("/team", get(pages::f_lets_team))
