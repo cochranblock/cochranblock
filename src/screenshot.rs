@@ -75,8 +75,8 @@ pub async fn f53() -> bool {
 
     tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
 
-    let theme = screenshot::theme_cochranblock();
-    let ok = screenshot::capture_project(&v4, "cochranblock", COCHRANBLOCK_PAGES, &theme).await;
+    let theme = screenshot::f78();
+    let ok = screenshot::f79(&v4, "cochranblock", COCHRANBLOCK_PAGES, &theme).await;
     if ok {
         copy_to_repo();
     }

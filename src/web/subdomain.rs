@@ -30,15 +30,17 @@ pub async fn layer(mut req: Request<axum::body::Body>, next: Next) -> Response {
     if let Some(sub) = host.strip_suffix(".cochranblock.org") {
         if SUBDOMAINS.contains(&sub) {
             let canonical = if path == "/" || path.is_empty() {
+                // Root of the subdomain → the section page.
                 format!("/{}", sub)
             } else if path == format!("/{}", sub) || path.starts_with(&format!("/{}/", sub)) {
-                // Already prefixed — form action="/deploy" POSTed from deploy.cochranblock.org,
-                // or confirmation sub-path after a form redirect (e.g. /deploy/confirmed).
+                // Already prefixed (e.g. form action="/deploy" on deploy.cochranblock.org,
+                // or /deploy/confirmed after a server redirect).
                 path.to_string()
             } else {
-                // Sub-path without subdomain prefix — prepend it.
-                // e.g. /confirmed on deploy.cochranblock.org → /deploy/confirmed
-                format!("/{}{}", sub, path)
+                // Any other path on this subdomain (nav links like /services, /about,
+                // /stats, etc.) — route it as-is so the router can serve it directly.
+                // We no longer prepend the current sub to avoid /products/services 404s.
+                path.to_string()
             };
             let pq_str = req.uri().query()
                 .map(|q| format!("{}?{}", canonical, q))
@@ -55,11 +57,15 @@ pub async fn layer(mut req: Request<axum::body::Body>, next: Next) -> Response {
     }
 
     // Direct path on main domain: cochranblock.org/products → 301 products.cochranblock.org
+    // Handles exact match (/products) and trailing slash (/products/).
     if host == "cochranblock.org" || host == "www.cochranblock.org" {
         let sub = path.trim_start_matches('/').split('/').next().unwrap_or("");
-        if !sub.is_empty() && SUBDOMAINS.contains(&sub) && path == format!("/{}", sub) {
-            return Redirect::permanent(&format!("https://{}.cochranblock.org", sub))
-                .into_response();
+        if !sub.is_empty() && SUBDOMAINS.contains(&sub) {
+            let trimmed = path.trim_end_matches('/');
+            if trimmed == format!("/{}", sub) {
+                return Redirect::permanent(&format!("https://{}.cochranblock.org", sub))
+                    .into_response();
+            }
         }
     }
 

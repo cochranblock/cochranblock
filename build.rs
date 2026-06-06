@@ -71,6 +71,7 @@ fn main() {
     println!("cargo:rerun-if-changed=src");
 
     // Rerun if .git/HEAD moves (branch switch or new commit).
+    println!("cargo:rerun-if-changed=assets");
     println!("cargo:rerun-if-changed=Cargo.lock");
     println!("cargo:rerun-if-changed=.git/HEAD");
     println!("cargo:rerun-if-changed=.git/refs/heads");
