@@ -4,7 +4,6 @@
 // All Rights Reserved — The Cochran Block, LLC
 // Contributors: Mattbusel (XFactor), GotEmCoach, KOVA, Claude Opus 4.6, SuperNinja, Composer 1.5, Google Gemini Pro 3
 
-use exopack::screenshot;
 use std::fs;
 use std::path::Path;
 
@@ -20,11 +19,21 @@ const COCHRANBLOCK_PAGES: &[(&str, &str)] = &[
     ("book", "/book"),
     ("deploy", "/deploy"),
     ("deploy-confirmed", "/deploy/confirmed"),
+    ("investigations", "/investigations"),
+    ("investigations-viz", "/investigations/viz"),
+    ("legacy", "/legacy"),
+    ("resume", "/resume"),
+    ("security", "/security"),
+    ("arch", "/arch"),
+    ("govdocs", "/govdocs"),
+    ("stats", "/stats"),
+    ("openbooks", "/openbooks"),
+    ("no-quarter", "/no-quarter"),
 ];
 
 /// Copy screenshots from cache to repo screenshots/ for TRIPLE SIMS docs.
 fn copy_to_repo() {
-    let cache = screenshot::out_dir("cochranblock");
+    let cache = exopack::screenshot::f70("cochranblock");
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("screenshots");
     if let Err(e) = fs::create_dir_all(&repo) {
         eprintln!("screenshot: mkdir {}: {}", repo.display(), e);
@@ -75,8 +84,8 @@ pub async fn f53() -> bool {
 
     tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
 
-    let theme = screenshot::f78();
-    let ok = screenshot::f79(&v4, "cochranblock", COCHRANBLOCK_PAGES, &theme).await;
+    let theme = exopack::screenshot::f78();
+    let ok = exopack::screenshot::f79(&v4, "cochranblock", COCHRANBLOCK_PAGES, &theme).await;
     if ok {
         copy_to_repo();
     }
