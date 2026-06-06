@@ -1591,20 +1591,16 @@ pub async fn f51() -> Vec<t24> {
         .await,
     );
     v0.push(
-        run("vre_200", async {
+        run("vre_redirects_govdocs", async {
+            // /vre archived — now redirects to /govdocs
             let v3 = v2
                 .get(format!("{}/vre", v1))
                 .send()
                 .await
                 .map_err(|e| e.to_string())?;
             assert_ok(
-                v3.status().is_success(),
-                format!("/vre status {}", v3.status()),
-            )?;
-            let v4 = v3.text().await.map_err(|e| e.to_string())?;
-            assert_ok(
-                v4.contains("VR&E") || v4.contains("VA") || v4.contains("veteran"),
-                "/vre missing content",
+                v3.status().as_u16() == 308,
+                format!("/vre must 308 → /govdocs, got {}", v3.status()),
             )?;
             Ok(())
         })
