@@ -10,12 +10,6 @@ ignore = [
   # untrusted-input deserialization. Replacing it is a tracked cleanup task;
   # do not block production deploys on it.
   "RUSTSEC-2025-0141",
-  # lettre 0.11.21 — TLS hostname verification disabled when using the Boring
-  # TLS backend (RUSTSEC-2026-0141). We don't use the Boring backend: lettre
-  # is configured with `default-features = false, features = ["rustls-tls",
-  # "tokio1-rustls-tls"]` in Cargo.toml, so hostname verification is handled
-  # by rustls and the advisory does not apply to our binary.
-  "RUSTSEC-2026-0141",
 ]
 
 # Note: the remaining unmaintained-warnings (fxhash, instant, paste,
